@@ -2,18 +2,45 @@ project:
   type: website
 
 website:
-  title: "DSAN-5000: Project"
-  navbar:
-    left:
-      - href: index.qmd
+  title: "Data Science & Analytics"
+  search: false
+  navbar: 
+    left: 
+      - href: https://mazuckerberg.georgetown.domains/
         text: Home
-      - href: clustering/clustering.qmd
-        text: Clustering
-      - href: eda/eda.ipynb
+      - href: about.qmd
+        text: About me
+
+  sidebar:
+    style: "docked"
+    search: false
+    contents:
+      - href: ""
+        text: Code
+      - href: ""
+        text: Data
+      - href: "1_introduction.qmd"
+        text: Introduction
+      - href: "2_data_gathering.qmd"
+        text: Data Gathering
+      - href: "3_data_cleaning.qmd"
+        text: Data Cleaning
+      - href: "4_data_exploration.qmd"
         text: Data Exploration
+      - href: "5_clustering.qmd"
+        text: Clustering
+      - href: "6_dimensionality_reduction.qmd"
+        text: Dimensionality reduction
+      - href: "7_decision_trees.qmd"
+        text: Decision Trees
+      - href: "8_ARM.qmd"
+        text: ARM
+      - href: "9_conclusions.qmd"
+        text: Conclusions
+
 format:
   html:
-    theme: cosmo
+    theme: minty
     toc: true
 
 
