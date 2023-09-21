@@ -7,8 +7,6 @@ website:
   navbar: 
     left: 
       - href: https://mazuckerberg.georgetown.domains/
-        text: Home
-      - href: about.qmd
         text: About me
 
   sidebar:
