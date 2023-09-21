@@ -13,9 +13,9 @@ website:
     style: "docked"
     search: false
     contents:
-      - href: ""
+      - href: https://github.com/anly501/dsan-5000-project-mazuckerberg-git
         text: Code
-      - href: ""
+      - href: https://github.com/anly501/dsan-5000-project-mazuckerberg-git/tree/main/data
         text: Data
       - href: "1_introduction.qmd"
         text: Introduction
