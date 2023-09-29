@@ -3,7 +3,7 @@ title: ""
 ---
 
 <p align="center">
-  <a href="[URL_HERE](https://analytics.georgetown.edu/?gclid=Cj0KCQjw06-oBhC6ARIsAGuzdw2b8lno5S_FrqNrX38C02mnTq05xgDy5yRhACR6s6sf4_ynWWezrFEaAhezEALw_wcB)">
+  <a href="https://analytics.georgetown.edu/?gclid=Cj0KCQjw06-oBhC6ARIsAGuzdw2b8lno5S_FrqNrX38C02mnTq05xgDy5yRhACR6s6sf4_ynWWezrFEaAhezEALw_wcB">
     <img src="./images/georgetown_logo.png" alt="" width="200">
   </a>
 </p>
@@ -19,15 +19,17 @@ title: ""
 <h3 style="text-align:center;"> Final Project </h3>
 
 <br>
-<br>
 
-<h1 style="text-align:center;"> Title </h1>
+
+<h1 style="text-align:center;">Lithium, Sustainability and Batteries: <br>
+A new Era in Resource Management</h1>
 
 <br>
 
 <h4 style="text-align:center;"> By: Maria Agustina Zuckerberg </h4>
-
-
+<p align="center">
+GU Net ID: maz53
+</p>
 
 
 

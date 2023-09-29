@@ -1,3 +1,72 @@
 ---
 title: "Data Gathering"
+format: html
+engine: knitr
 ---
+```{css, echo = FALSE}
+.justify {
+  text-align: justify
+}
+```
+
+***
+
+<p align="center">
+    <img src="./images/our_world_in_data.png" alt="" width="200">
+</p>
+
+::: {.justify}
+### [Global Lithium Production](https://ourworldindata.org/grapher/lithium-production)
+
+*Dataset that contains Lithium production lithium production in metric tonnes. The information is available from 1995 to 2022 y key lithium-producing countries.* 
+:::
+
+***
+
+<br>
+<p align="center">
+    <img src="./images/fred.png" alt="" width="200">
+</p>
+
+::: {.justify}
+### [Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate](https://fred.stlouisfed.org/series/DEXCHUS)
+#### [QUANTMOD API | R](https://github.com/joshuaulrich/quantmod)
+
+*Considering that the price of lithium is calculated in Yuan currency, and the analysis will be done in US dollars, the Quantmod API is used to obtain the daily exchange rates since 2020.*
+:::
+
+***
+
+<br>
+<p align="center">
+    <img src="./images/news_api.png" alt="" width="200">
+</p>
+
+::: {.justify}
+### Lithium News
+#### [News API | Python](https://newsapi.org/)
+
+**Sources**
+
+*To gather text data from News API, a previous analysis of the available sources was made. The News API has a broad list of news but we keep only the most relevant for the project.*
+
+**News**
+
+*Description*
+:::
+
+***
+
+<br>
+<p align="center">
+    <img src="./images/IBM_developer.png" alt="" width="200">
+</p>
+
+::: {.justify}
+## Lithium News - Sentiment Analysis
+### [IBM Watson API | Python](https://developer.ibm.com/tutorials/use-the-watson-core-nlp-library-to-perform-sentiment-analysis/)
+
+*Description*
+:::
+
+***

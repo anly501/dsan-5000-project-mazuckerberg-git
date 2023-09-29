@@ -1,4 +1,65 @@
 ---
 title: "Introduction"
+format: html
+engine: knitr
+bibliography: ../reference.bib
 ---
+```{css, echo = FALSE}
+.justify {
+  text-align: justify
+}
+```
+### Overview
 
+::: {.justify}
+Growing concern about global warming has led to increased environmental awareness through the responsible use of finite resources in technological innovation. Lithium, the "white gold" of the 20th century, is now emerging as a critical element in enabling sustainable energy solutions. 
+
+It is predicted that 230 million electric cars, buses, vans and heavy trucks will be on the road by 2030. In 2019, the number of registered electric vehicles (EVs) increased from 5.6 million to 7.9 million globally, with significant growth in Europe and the United States.[see @dorn2020lithium, pp. 68] According to the International Energy Agency (IEA), an electric vehicle requires more than six times the mineral inputs of an internal combustion vehicle. According to the IEA, an electric vehicle requires more than six times the mineral inputs of an internal combustion vehicle. But EVs are just one type of product on the list. Lithium carbonate is the main ingredient in lithium-ion batteries found in cell phones, hybrid cars, electric bicycles and even large grid-scale storage batteries, as well as in other industries such as glass and ceramics manufacturing, metallurgy and pharmaceuticals.
+
+The U.S. used to rely on other countries such as Australia or the Lithium Triangle (Argentina, Chile and Bolivia) for lithium supplies. Silver Peak, located in western Nevada, is currently the only lithium production site in the United States.[see. @cnbcLithium]
+
+In the next figure we can observe the distribution of total global lithium production among the main lithium producing countries until 2020:
+:::
+<p align="center">
+  <a href="https://www.visualcapitalist.com/sp/charted-lithium-production-by-country-1995-2020/">
+    <img src="./images/producing_countries.png" alt="" width="600">
+ </a>
+</p>
+
+
+::: {.justify}
+
+The price of lithium has been on the rise as the energy and transportation sectors look to replace fossil fuels. Demand for the resource continues to outstrip supply. Although lithium is not a scarce resource, it's a slow-moving industry; it can take about seven years to get a new mine up and running. These projects are capital intensive and require permits and environmental reviews. 
+
+Analysis of the resource production stages is often limited, as most of the existing scientific literature and news approaches the issue of lithium sustainability from a battery perspective. The role of metals and minerals production can be controversial, as it can be associated with negative environmental and social impacts. Often perceived as negative due to past project impacts on waste management, water scarcity, pollution and others. Some of the damaging effects to the ecosystem include transportation of the product, which requires the development of linear features such as electrical transmission lines, power lines and roads, disturbance of surface waterfowl, and disruption of habitat for terrestrial animals. Other effects of climate change include the nature of precipitation. Temperature is projected to rise steadily due to a decrease in precipitation. 
+
+On the opposite side, lithium is considered a key technological component for reducing air pollution in cities and creating lifestyles with low carbon footprints.  For lithium-exporting countries, especially those in the lithium triangle, this creates economic opportunities and raises expectations for economic growth and improved living conditions for local groups. They have a positive impact on local communities by providing opportunities to improve the quality of life through program that improve access to health, education, business development, infrastructure and employment.[see. @petavratzi2022impacts, pp.687] Employment opportunities play a central role. Although lithium mining is not particularly labor-intensive, some companies offer job training to help the local population become qualified to work in their operations.
+:::
+
+### Goal
+::: {.justify}
+In order to overcome the challenges of lithium mining and reduce its environmental impact, it is important to consider a variety of strategies. These include improving sustainability, reducing the amount of energy and water used in the extraction process, and minimizing the amount of waste generated.
+
+The aim of this project is to analyze the sustainability of lithium mining for battery manufacturing. The main topics of interest that will be addressed are the evolution of lithium production and price analysis, socio-economic impacts and perspective evolution, positive and negative environmental impacts implementing geographic information and strategies to optimize lithium-ion battery production.
+:::
+
+### Questions:
+1. How has the distribution of the total global lithium production among the main lithium producing countries evolved over the past two decades?
+
+2. How does lithium production volume correlate with changes in lithium demand, and can data-driven models help in predicting demand fluctuations?
+
+3. How has public sentiment and opinion evolved regarding the increasing demand for lithium, and can text analysis reveal whether it is viewed positively due to sustainability or negatively due to environmental concerns?
+
+4. To what extent can the use of geographic information (GIS) assist in identifying and mitigating the environmental and social impacts associated with lithium mining and extraction?
+
+5. How have environmental regulations and sustainability initiatives impacted the lithium mining industry, and can data analysis quantify their impact on production?
+
+6. Has the price of lithium limited battery manufacturing growth in the past, and can data analysis reveal price trends and their impact on the industry?
+
+7. What is the historical relationship between lithium prices and battery manufacturing costs, and can data-driven models help identify opportunities for cost optimization?
+
+8. How do government policies and incentives affect lithium production and its role in battery manufacturing?
+
+9. How can data analytics quantify the impact of lithium production on the demand for and prices for other resources?
+
+10. How can machine learning algorithms help predict future trends and challenges in the lithium mining and battery manufacturing industries, to promote sustainable practices and growth?

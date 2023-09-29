@@ -97,11 +97,17 @@ ul.task-list li input[type="checkbox"] {
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
- <span class="menu-text">Code</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="https://github.com/anly501/dsan-5000-project-mazuckerberg-git" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">Data</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="https://github.com/anly501/dsan-5000-project-mazuckerberg-git/tree/main/data" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_introduction.html" class="sidebar-item-text sidebar-link">
@@ -162,7 +168,19 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#global-lithium-production" id="toc-global-lithium-production" class="nav-link active" data-scroll-target="#global-lithium-production">Global Lithium Production</a></li>
+  <li><a href="#chinese-yuan-renminbi-to-u.s.-dollar-spot-exchange-rate" id="toc-chinese-yuan-renminbi-to-u.s.-dollar-spot-exchange-rate" class="nav-link" data-scroll-target="#chinese-yuan-renminbi-to-u.s.-dollar-spot-exchange-rate">Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate</a></li>
+  <li><a href="#lithium-news" id="toc-lithium-news" class="nav-link" data-scroll-target="#lithium-news">Lithium News</a></li>
+  <li><a href="#lithium-news---sentiment-analysis" id="toc-lithium-news---sentiment-analysis" class="nav-link" data-scroll-target="#lithium-news---sentiment-analysis">Lithium News - Sentiment Analysis</a>
+  <ul class="collapse">
+  <li><a href="#ibm-watson-api-python" id="toc-ibm-watson-api-python" class="nav-link" data-scroll-target="#ibm-watson-api-python">IBM Watson API | Python</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -184,6 +202,61 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<div class="cell">
+<style type="text/css">
+.justify {
+  text-align: justify
+}
+</style>
+</div>
+<hr>
+<p align="center">
+<img src="./images/our_world_in_data.png" alt="" width="200">
+</p>
+<section id="global-lithium-production" class="level3 justify">
+<h3 class="anchored" data-anchor-id="global-lithium-production"><a href="https://ourworldindata.org/grapher/lithium-production">Global Lithium Production</a></h3>
+<p><em>Dataset that contains Lithium production lithium production in metric tonnes. The information is available from 1995 to 2022 y key lithium-producing countries.</em></p>
+</section>
+<hr>
+<br>
+<p align="center">
+<img src="./images/fred.png" alt="" width="200">
+</p>
+<section id="chinese-yuan-renminbi-to-u.s.-dollar-spot-exchange-rate" class="level3 justify">
+<h3 class="anchored" data-anchor-id="chinese-yuan-renminbi-to-u.s.-dollar-spot-exchange-rate"><a href="https://fred.stlouisfed.org/series/DEXCHUS">Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate</a></h3>
+<section id="quantmod-api-r" class="level4">
+<h4 class="anchored" data-anchor-id="quantmod-api-r"><a href="https://github.com/joshuaulrich/quantmod">QUANTMOD API | R</a></h4>
+<p><em>Considering that the price of lithium is calculated in Yuan currency, and the analysis will be done in US dollars, the Quantmod API is used to obtain the daily exchange rates since 2020.</em></p>
+</section>
+</section>
+<hr>
+<br>
+<p align="center">
+<img src="./images/news_api.png" alt="" width="200">
+</p>
+<section id="lithium-news" class="level3 justify">
+<h3 class="anchored" data-anchor-id="lithium-news">Lithium News</h3>
+<section id="news-api-python" class="level4">
+<h4 class="anchored" data-anchor-id="news-api-python"><a href="https://newsapi.org/">News API | Python</a></h4>
+<p><strong>Sources</strong></p>
+<p><em>To gather text data from News API, a previous analysis of the available sources was made. The News API has a broad list of news but we keep only the most relevant for the project.</em></p>
+<p><strong>News</strong></p>
+<p><em>Description</em></p>
+</section>
+</section>
+<hr>
+<br>
+<p align="center">
+<img src="./images/IBM_developer.png" alt="" width="200">
+</p>
+<section id="lithium-news---sentiment-analysis" class="level2 justify">
+<h2 class="anchored" data-anchor-id="lithium-news---sentiment-analysis">Lithium News - Sentiment Analysis</h2>
+<section id="ibm-watson-api-python" class="level3">
+<h3 class="anchored" data-anchor-id="ibm-watson-api-python"><a href="https://developer.ibm.com/tutorials/use-the-watson-core-nlp-library-to-perform-sentiment-analysis/">IBM Watson API | Python</a></h3>
+<p><em>Description</em></p>
+</section>
+</section>
+<hr>
 
 
 

@@ -1,0 +1,101 @@
+name,category,ibm_score,ibm_label
+The Verge,technology,-0.5809,negative
+Ars Technica,technology,0.0,neutral
+Business Insider,business,-0.652,negative
+Business Insider,business,0.7899,positive
+Engadget,technology,0.0,neutral
+The Verge,technology,0.0,neutral
+Wired,technology,0.0,neutral
+Ars Technica,technology,-0.8554,negative
+Ars Technica,technology,0.0,neutral
+Ars Technica,technology,-0.9372,negative
+Business Insider,business,-0.4005,negative
+Business Insider,business,0.0,neutral
+Engadget,technology,-0.9416,negative
+Business Insider,business,-0.9432,negative
+Business Insider,business,-0.505,negative
+Business Insider,business,0.8707,positive
+ABC News,general,0.7566,positive
+Vice News,general,-0.5899,negative
+Al Jazeera English,general,0.0,neutral
+Next Big Future,science,-0.2769,negative
+CBS News,general,-0.9115,negative
+CBS News,general,-0.9622,negative
+TechCrunch,technology,0.4807,positive
+CBS News,general,-0.7933,negative
+Al Jazeera English,general,0.8453,positive
+Newsweek,general,0.0,neutral
+CBS News,general,0.4261,positive
+CBS News,general,0.651,positive
+USA Today,general,0.0,neutral
+Next Big Future,science,0.0,neutral
+Breitbart News,general,0.0,neutral
+CNN,general,0.707,positive
+Newsweek,general,-0.78,negative
+The Verge,technology,-0.6034,negative
+CBS News,general,-0.7144,negative
+CBS News,general,-0.6628,negative
+Fortune,business,-0.2943,negative
+New Scientist,science,-0.4151,negative
+Business Insider,business,0.7915,positive
+Newsweek,general,0.7702,positive
+CBS News,general,0.0,neutral
+Newsweek,general,0.0,neutral
+Fortune,business,-0.6093,negative
+ABC News,general,0.8296,positive
+ABC News,general,0.8296,positive
+CNN,general,0.0,neutral
+CNN,general,0.7231,positive
+CNN,general,-0.8808,negative
+ABC News,general,0.0,neutral
+Newsweek,general,-0.8779,negative
+Newsweek,general,0.4255,positive
+Newsweek,general,0.8319,positive
+The American Conservative,general,0.6575,positive
+Fortune,business,-0.3019,negative
+The Verge,technology,0.0,neutral
+Newsweek,general,0.0,neutral
+ABC News,general,0.0,neutral
+Fortune,business,0.7849,positive
+ABC News,general,0.0,neutral
+ABC News,general,-0.3136,negative
+TechRadar,technology,0.0,neutral
+ABC News,general,0.914,positive
+ABC News,general,0.35,positive
+ABC News,general,0.35,positive
+Engadget,technology,-0.6817,negative
+NBC News,general,0.0,neutral
+The Verge,technology,0.6661,positive
+ABC News,general,0.0,neutral
+ABC News,general,-0.961,negative
+ABC News,general,-0.2681,negative
+The Verge,technology,0.7041,positive
+The Verge,technology,0.0,neutral
+Ars Technica,technology,-0.4682,negative
+ABC News,general,-0.2681,negative
+ABC News,general,-0.7256,negative
+The Next Web,technology,0.0,neutral
+ABC News,general,-0.2681,negative
+The Verge,technology,0.389,positive
+Breitbart News,general,-0.6708,negative
+Breitbart News,general,0.0,neutral
+The Next Web,technology,0.0,neutral
+NBC News,general,-0.5969,negative
+Breitbart News,general,-0.8611,negative
+Breitbart News,general,0.0,neutral
+The Verge,technology,-0.5854,negative
+The Next Web,technology,0.0,neutral
+Bloomberg,business,0.427,positive
+Fox News,general,0.0,neutral
+Fox News,general,0.0,neutral
+Fox News,general,0.5258,positive
+Fox News,general,0.0,neutral
+Wired,technology,-0.6046,negative
+Fox News,general,0.0,neutral
+TechCrunch,technology,0.0,neutral
+The Next Web,technology,-0.8467,negative
+TechCrunch,technology,-0.5408,negative
+Fox News,general,0.0,neutral
+Fox News,general,-0.3151,negative
+Reuters,general,0.0,neutral
+Reuters,general,-0.5449,negative

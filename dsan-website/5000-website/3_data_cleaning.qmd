@@ -1,3 +1,27 @@
 ---
 title: "Data Cleaning"
+jupyter: python3
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    code-copy: hover
 ---
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+
+install.packages("reticulate")
+library(reticulate)
+
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+
+
+```
