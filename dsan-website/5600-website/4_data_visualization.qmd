@@ -113,14 +113,25 @@ write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 #| message: false
 #| code-fold: true
 #| code-summary: "Data"
-#| results: 'hide'
 #| warning: false
 
+oil_price <- tq_get("CL=F", get = "stock.prices", from = "2000-01-01", to = "2022-12-31")
 
+oil_price_viz <- oil_price %>%
+    ggplot(aes(x = date, y = adjusted)) +
+    geom_line(color = palette_light()[[1]]) + 
+    scale_y_continuous() +
+    labs(title = "Crude Oil Price", 
+         subtitle = "Continuous Scale", 
+         y = "Adjusted Price", x = "")
+
+ggplotly(oil_price_viz)
+```
+
+```{r}
 
 ```
 
-> Add Visualization
 
 #### Indexes: [Energy Sector](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch), [Transportation](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch) and [Staples](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
 
@@ -150,14 +161,14 @@ stock$IYK.Adjusted <- stock$IYK.Adjusted/stock$IYK.Adjusted[1]
 stock <- data.frame(stock,rownames(stock))
 colnames(stock) <- append(tickers,'Dates')
 
-fig <- plot_ly(stock, type = 'scatter', mode = 'lines')%>%
+indexes_viz <- plot_ly(stock, type = 'scatter', mode = 'lines')%>%
   add_trace(x = ~Dates, y = ~IYE, name = 'Energy Sector')%>%
   add_trace(x = ~Dates, y = ~IYT, name = 'Transportation')%>%
   add_trace(x = ~Dates, y = ~IYK, name = 'Staples')%>%
   layout(title = 'Energy Sector, Transportation and Staples Indexes', legend=list(title=list(text='Indexes')),
-         xaxis = list(rangeslider = list(visible = T)), width = 800, height = 400)
+         xaxis = list(rangeslider = list(visible = T)))
 options(warn = -1)
-fig <- fig %>%
+indexes_viz <- indexes_viz %>%
   layout(
          xaxis = list(zerolinecolor = '#ffff',
                       zerolinewidth = 2,
@@ -168,5 +179,5 @@ fig <- fig %>%
                       title = 'Index'),
          plot_bgcolor='#e5ecf6')
 
-ggplotly(fig)
+ggplotly(indexes_viz)
 ```
