@@ -33,7 +33,7 @@ library(readxl)
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "Global Oil Production - Data"
+#| code-summary: "Data"
 #| results: 'hide'
 #| warning: false
 
@@ -71,7 +71,7 @@ write.csv(df_oil_production, './data/viz_oil-production-by-country.csv', row.nam
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "U.S. Inflation Rate - Data"
+#| code-summary: "Data"
 #| warning: false
  
 # Import dataset
@@ -98,7 +98,7 @@ write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "U.S. Interest Rate - Data"
+#| code-summary: "Data"
 #| results: 'hide'
 #| warning: false
 
@@ -112,7 +112,7 @@ write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "Crude Oil Price - Data"
+#| code-summary: "Data"
 #| results: 'hide'
 #| warning: false
 
@@ -122,14 +122,14 @@ write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 
 > Add Visualization
 
-#### [Energy Sector](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch), [Transportation](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch) and [Staples Indexes](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
+#### Indexes: [Energy Sector](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch), [Transportation](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch) and [Staples](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
 
 
 ```{r}
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "Energy Sector, Transportation and Saples Indexes - Data"
+#| code-summary: "Data"
 #| warning: false
 
 tickers = c("IYE", "IYT", "IYK")
