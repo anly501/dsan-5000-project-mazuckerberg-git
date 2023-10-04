@@ -128,8 +128,37 @@ oil_price_viz <- oil_price %>%
 ggplotly(oil_price_viz)
 ```
 
-```{r}
 
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data"
+#| warning: false
+oil_price <- tq_get("CL=F", get = "stock.prices", from = "2000-01-01", to = "2022-12-31")
+
+oil_price$adjusted <- oil_price$adjusted/oil_price$adjusted[1]
+
+oil_price <- data.frame(oil_price,rownames(oil_price))
+
+oil_price_viz <- plot_ly(oil_price, type = 'scatter', mode = 'lines')%>%
+  add_trace(x = oil_price$date, y = oil_price$adjusted, name = 'Price')%>%
+  layout(title = 'Crude Oil Price',
+         xaxis = list(rangeslider = list(visible = T)))
+options(warn = -1)
+
+oil_price_viz <- oil_price_viz %>%
+  layout(
+         xaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff'),
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title = 'Index'),
+         plot_bgcolor='#e5ecf6')
+
+ggplotly(oil_price_viz)
 ```
 
 
