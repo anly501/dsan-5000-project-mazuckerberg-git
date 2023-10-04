@@ -52,7 +52,7 @@ top_countries <- df_oil_production %>%
 # Keep the top 10 countries with higher oil production for 2022
 top_countries <- top_countries %>% 
     arrange(desc(total_production)) %>%  
-    head(10)
+    head(15)
 
 # Filter dataframe by the top 10 oil producing countries
 df_oil_production <- df_oil_production %>% 
@@ -94,7 +94,23 @@ df_inflation <- df_inflation %>% select('TIME', 'Value')
 write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 ```
 
-> Add Line Visualization
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data"
+#| warning: false
+df_inflation <- df_inflation %>% filter(TIME >= '2000-01-01' & TIME < '2023-01-01') 
+
+plot <- plot_ly(data = df_inflation, x = ~TIME, y = ~Value, type = 'bar') %>%
+  layout(title = 'U.S. Total Inflation by Month',
+         xaxis = list(title = 'Time'),
+         yaxis = list(title = 'Value'),
+         showlegend = FALSE)
+
+# Display the animated chart
+ggplotly(plot)
+```
 
 #### [U.S. Interest Rate](https://data.imf.org/regular.aspx?key=61545855)
 ``` {r}
@@ -164,7 +180,7 @@ interest_viz <- plot_ly(df_interest, x = df_interest$Year, y = df_interest$Value
             textposition = 'outside',
             textangle = 0)
 
-interest_viz <- interest_viz %>% layout(title = "Interest Rates",
+interest_viz <- interest_viz %>% layout(title = "Central Bank Policy Interest Rate by Year",
          xaxis = list(title = "Year"),
          yaxis = list(title = "%"))
 
@@ -177,7 +193,7 @@ ggplotly(interest_viz)
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "Data"
+#| code-summary: "Data Hidden"
 #| warning: false
 
 # oil_price <- tq_get("CL=F", get = "stock.prices", from = "2000-01-01", to = "2022-12-31")
@@ -206,9 +222,18 @@ oil_price$adjusted <- oil_price$adjusted/oil_price$adjusted[1]
 
 oil_price <- data.frame(oil_price,rownames(oil_price))
 
+write.csv(oil_price, './data/viz_oil_price.csv', row.names = FALSE)
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
 oil_price_viz <- plot_ly(oil_price, type = 'scatter', mode = 'lines')%>%
   add_trace(x = oil_price$date, y = oil_price$adjusted, name = 'Price', showlegend = FALSE)%>%
-  layout(title = 'Crude Oil Price',
+  layout(title = 'Crude Oil Price by Day',
          xaxis = list(rangeslider = list(visible = T)))
 options(warn = -1)
 
@@ -255,11 +280,20 @@ stock$IYK.Adjusted <- stock$IYK.Adjusted/stock$IYK.Adjusted[1]
 stock <- data.frame(stock,rownames(stock))
 colnames(stock) <- append(tickers,'Dates')
 
+write.csv(stock, './data/viz_indexes.csv', row.names = FALSE)
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
 indexes_viz <- plot_ly(stock, type = 'scatter', mode = 'lines')%>%
   add_trace(x = ~Dates, y = ~IYE, name = 'Energy Sector')%>%
   add_trace(x = ~Dates, y = ~IYT, name = 'Transportation')%>%
   add_trace(x = ~Dates, y = ~IYK, name = 'Staples')%>%
-  layout(title = 'Energy Sector, Transportation and Staples Indexes', legend=list(title=list(text='Indexes')),
+  layout(title = 'Energy Sector, Transportation and Staples Indexes by Day', legend=list(title=list(text='Indexes')),
          xaxis = list(rangeslider = list(visible = T)))
 options(warn = -1)
 indexes_viz <- indexes_viz %>%
@@ -274,6 +308,4 @@ indexes_viz <- indexes_viz %>%
          plot_bgcolor='#e5ecf6')
 
 ggplotly(indexes_viz)
-
-write.csv(stock, './data/viz_indexes.csv', row.names = FALSE)
 ```
