@@ -1,6 +1,5 @@
 ---
 title: "Data Vizes in TS"
-bibliography: reference.bib
 ---
 
 ## Stock Prices for the Global Healthcare Companies | Stocks

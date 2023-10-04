@@ -1,9 +1,5 @@
 ---
 title: "Data Visualization"
-# format:
-#   html:
-#     embed-resources: true
-jupyter: ir
 ---
 ``` {r}
 #| echo: true
@@ -37,7 +33,7 @@ library(readxl)
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "Global Oil Production - Data Cleaning"
+#| code-summary: "Global Oil Production - Data"
 #| results: 'hide'
 #| warning: false
 
@@ -66,17 +62,16 @@ df_oil_production <- df_oil_production %>%
 write.csv(df_oil_production, './data/viz_oil-production-by-country.csv', row.names = FALSE)
 ```
 
-<!-- ```{=html}
+``` {=html}
 <div class='tableauPlaceholder' id='viz1696390734248' style='position: relative'><noscript><a href='#'><img alt='Oil Production (TWh) Map by Year ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Oi&#47;OilProductionTWhMapbyYear&#47;OilProductionMapAnimation&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='OilProductionTWhMapbyYear&#47;OilProductionMapAnimation' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Oi&#47;OilProductionTWhMapbyYear&#47;OilProductionMapAnimation&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1696390734248');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-``` -->
+```
 
 #### [U.S. Inflation Rate](https://data.oecd.org/price/inflation-cpi.htm)
 ``` {r}
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "U.S. Inflation Rate - Data Cleaning"
-#| results: 'hide'
+#| code-summary: "U.S. Inflation Rate - Data"
 #| warning: false
  
 # Import dataset
@@ -103,11 +98,13 @@ write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "U.S. Interest Rate - Data Cleaning"
+#| code-summary: "U.S. Interest Rate - Data"
 #| results: 'hide'
 #| warning: false
 
 ```
+
+> Add Visualization
 
 #### [Crude Oil Price](https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19)
 
@@ -115,7 +112,7 @@ write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "Crude Oil Price - Data Cleaning"
+#| code-summary: "Crude Oil Price - Data"
 #| results: 'hide'
 #| warning: false
 
@@ -123,15 +120,16 @@ write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 
 ```
 
+> Add Visualization
 
-#### [Energy Sector](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch), [Transportation](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch) and [Staples Index](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
+#### [Energy Sector](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch), [Transportation](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch) and [Staples Indexes](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
 
-``` {r}
+
+```{r}
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: Energy Sector, Transportation and Staples Index - Data Cleaning"
-#| results: 'hide'
+#| code-summary: "Energy Sector, Transportation and Saples Indexes - Data"
 #| warning: false
 
 tickers = c("IYE", "IYT", "IYK")
@@ -157,7 +155,7 @@ fig <- plot_ly(stock, type = 'scatter', mode = 'lines')%>%
   add_trace(x = ~Dates, y = ~IYT, name = 'Transportation')%>%
   add_trace(x = ~Dates, y = ~IYK, name = 'Staples')%>%
   layout(title = 'Energy Sector, Transportation and Staples Indexes', legend=list(title=list(text='Indexes')),
-         xaxis = list(rangeslider = list(visible = T)), width = 1000, height = 500)
+         xaxis = list(rangeslider = list(visible = T)), width = 800, height = 400)
 options(warn = -1)
 fig <- fig %>%
   layout(
@@ -170,6 +168,5 @@ fig <- fig %>%
                       title = 'Index'),
          plot_bgcolor='#e5ecf6')
 
-fig
-
+ggplotly(fig)
 ```

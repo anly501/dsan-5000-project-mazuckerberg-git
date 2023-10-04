@@ -35,7 +35,7 @@ website:
         text: Deep Learning for TS
       - href: "11_Conclusions.qmd"
         text: Conclusions
-      - href: dv.qmd
+      - href: "dv.qmd"
         text: Data Viz Examples
 
 
