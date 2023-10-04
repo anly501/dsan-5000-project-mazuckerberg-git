@@ -1,0 +1,157 @@
+---
+title: "Data Vizes in TS"
+bibliography: reference.bib
+---
+
+## Stock Prices for the Global Healthcare Companies | Stocks
+#### **Tickers:**
+- Johnson & Johnson (JNJ)
+- Eli Lilly And Co (LLY)
+- Novartis AG (NVS)
+- Pfizer Inc. (PFE)
+- Thermo Fisher Scientific Inc (TMO)
+- UnitedHealth Group Inc (UNH)
+```{r echo=FALSE, message=FALSE}
+library(quantmod)
+library(ggplot2)
+library(ggplot2)
+library(plotly)
+
+FS = 12
+
+options("getSymbols.warning4.0"=FALSE)
+options("getSymbols.yahoo.warning"=FALSE)
+
+tickers = c("UNH", "JNJ", "LLY", "NVS", "AZN", "TMO", "PFE", "ABT")
+
+for (i in tickers){
+  getSymbols(i, from = "2018-01-01", to = "2022-12-31")
+}
+
+x <- list(
+  title = "date"
+)
+y <- list(
+  title = "value"
+)
+
+stock <- data.frame(UNH$UNH.Adjusted,
+                    JNJ$JNJ.Adjusted,
+                    LLY$LLY.Adjusted,
+                    NVS$NVS.Adjusted,
+                    AZN$AZN.Adjusted,
+                    TMO$TMO.Adjusted,
+                    PFE$PFE.Adjusted,
+                    ABT$ABT.Adjusted)
+
+
+stock <- data.frame(stock,rownames(stock))
+colnames(stock) <- append(tickers,'Dates')
+
+stock$Dates<-as.Date(stock$Dates,"%Y-%m-%d")
+
+visualization1 <- ggplot(stock, aes(x=Dates)) +
+                      geom_line(aes(y=UNH, colour="UNH"))+
+                      geom_line(aes(y=JNJ, colour="JNJ"))+
+                      geom_line(aes(y=LLY, colour="LLY"))+
+                      geom_line(aes(y=NVS, colour="NVS"))+
+                      geom_line(aes(y=TMO, colour="TMO"))+
+                      geom_line(aes(y=PFE, colour="PFE"))+
+                      labs( subtitle = "From 2018-2022",
+                            x = "Date",
+                            y = "Adjusted Closing Prices")+
+                      theme(panel.background = element_rect(fill = "white", colour = "grey50"),
+                            legend.text = element_text(size = FS),
+                            axis.text.x = element_text(size = FS),
+                            axis.text.y = element_text(size = FS),
+                            axis.title = element_text(size = FS),
+                            plot.title = element_text(size = FS))
+
+ggplotly(visualization1)
+```
+
+<br/>
+*The above visualization shows the stock prices of 6 global healthcare companies. The data shown is from the years 2018 to 2022. It can be observed that the tickers have a very different performance. First of all, it can be seen that TMO, UNH, LLY and  JNJ had an overall positive trend over the last 5 years. In the case of NVS and PFE there are no strong patterns, so it can be said that the time series are stationary. This is due to the scale used on the y-axis. If we zoom in on the last two cases, NVS can be considered irregular because the prices have fluctuated without strong patterns, and PFE although it has a positive trend, it has fluctuated throughout the years.*
+
+
+## Washington DC Precipitation Data | Climate Data
+```{r echo=FALSE, message=FALSE}
+
+FS = 12
+
+library(dplyr)
+library(tidyquant)
+library(plotly)
+
+climate <- read.csv("climate.csv")
+
+climate$DATE <- as.Date(climate$DATE)
+
+visualization2 <- plot_ly(climate, type = 'scatter', mode = 'lines') %>%
+                  add_trace(x = climate$DATE, y = climate$PRCP, name = 'Precipitation', line=list(color='rgb(174, 198, 207)')) %>%
+                  layout(showlegend = T,
+                        title = 'From Jan 2021 - Jan 2022', 
+                        xaxis = list(zerolinecolor = '#ffff',
+                                      zerolinewidth = 2,
+                                      gridcolor = 'ffff',
+                                      title = 'Date',
+                                      tickfont = list(size = FS),
+                                      titlefont = list(size = FS)),
+                        yaxis = list(zerolinecolor = '#ffff',
+                                      zerolinewidth = 2,
+                                      gridcolor = 'ffff',
+                                      title = 'Precipitation',
+                                      tickfont = list(size = FS),
+                                      titlefont = list(size = FS)))
+
+visualization2
+
+```
+
+<br/>
+*The above visualization shows the precipitation data for Washington, DC from January 2021 to January 2022. First, it can be seen that precipitation is very irregular along the year. If we analyze seasonal precipitation, we can observe that during August and September the precipitation increases. If we make a time series graph with information from past years we would be able if we can conclude that seasonality is present. During winter months, there is precipitation still but the values are reduced.*
+
+## Median Consumer Price Index[^1] | Economic Data
+```{r echo=FALSE, message=FALSE}
+
+FS = 12
+
+library(dplyr)
+library(tidyquant)
+library(plotly)
+
+CPI <- read.csv("Median_Consumer_Price_Index.csv")
+
+CPI$DATE <- as.Date(CPI$DATE)
+
+visualization3 <- plot_ly(CPI, type = 'scatter', mode = 'lines') %>%
+                  add_trace(x = CPI$DATE, y = CPI$MEDCPIM158SFRBCLE, name = 'Median Consumer Price Index', line=list(color='rgb(174, 198, 207)')) %>%
+                  layout(showlegend = T,
+                        title = 'From Jan 2013 - Jan 2023', 
+                        xaxis = list(zerolinecolor = '#ffff',
+                                      zerolinewidth = 2,
+                                      gridcolor = 'ffff',
+                                      title = 'Date',
+                                      tickfont = list(size = FS),
+                                      titlefont = list(size = FS)),
+                        yaxis = list(zerolinecolor = '#ffff',
+                                      zerolinewidth = 2,
+                                      gridcolor = 'ffff',
+                                      title = 'Median Consumer Price Index',
+                                      tickfont = list(size = FS),
+                                      titlefont = list(size = FS)))
+
+visualization3
+
+```
+
+<br/>
+*The above visualization shows the median consumer price index data for the last 10 years. No trend was observed between the years 2013 and 2021. The trends are irregular and don't show seasonality. There is a large positive trend in 2021. In review, that increase was the largest percentage change since 1981. Also, 'food at home prices increased 6.5 percent in 2021, the largest over-the-year increase since 2008'[^2]. Towards the end of 2021, the positive trend fades and the time series becomes irregular.*
+
+###### **Reference:**
+[^1]FRED Economic Data - Median Consumer Price Index (https://fred.stlouisfed.org/series/MEDCPIM158SFRBCLE)
+
+::: {#refs}
+:::
+
+[^2] https://www.bls.gov/opub/ted/2022/consumer-price-index-2021-in-review.htm

@@ -1,0 +1,89 @@
+{
+  "index.qmd": {
+    "index.html": "8a3ae05f"
+  },
+  "Data Visualization.qmd": {
+    "Data Visualization.html": "f3955db6"
+  },
+  "about.qmd": {
+    "about.html": "cf3efd5e"
+  },
+  "Data_Visualization.qmd": {
+    "Data_Visualization.html": "e5939e69"
+  },
+  "Data_Sources.qmd": {
+    "Data_Sources.html": "11a9c899"
+  },
+  "Exploratory_Data_Analysis.qmd": {
+    "Exploratory_Data_Analysis.html": "8172bb45"
+  },
+  "dv.qmd": {
+    "dv.html": "ce629ef0"
+  },
+  "Financial_Time_Series_Models.qmd": {
+    "Financial_Time_Series_Models.html": "771c1887"
+  },
+  "ARIMAX_SARIMAX_VAR.qmd": {
+    "ARIMAX_SARIMAX_VAR.html": "547916d4"
+  },
+  "Deep_Learning_TS.qmd": {
+    "Deep_Learning_TS.html": "7ad2e34e"
+  },
+  "Spectral_Analysis_Filtering.qmd": {
+    "Spectral_Analysis_Filtering.html": "63b760d2"
+  },
+  "Conclusions.qmd": {
+    "Conclusions.html": "ec51e963"
+  },
+  "Introduction.qmd": {
+    "Introduction.html": "eb9d0643"
+  },
+  "ARMA_ARIMA_SARIMA.qmd": {
+    "ARMA_ARIMA_SARIMA.html": "4910b1ea"
+  },
+  "test.ipynb": {
+    "test.html": "b0d7c82b"
+  },
+  "Conclusions_copy.qmd": {
+    "Conclusions_copy.html": "22d4a9bb"
+  },
+  "1_about.qmd": {
+    "1_about.html": "40fcb1d8"
+  },
+  "2_introduction.qmd": {
+    "2_introduction.html": "f9c34c20"
+  },
+  "3_data_sources.qmd": {
+    "3_data_sources.html": "22c43b6d"
+  },
+  "2_about.qmd": {
+    "2_about.html": "22d15d23"
+  },
+  "1_introduction.qmd": {
+    "1_introduction.html": "9ea94f97"
+  },
+  "10_Deep_Learning_TS.qmd": {
+    "10_Deep_Learning_TS.html": "ed6ec9e7"
+  },
+  "5_exploratory_data_analysis.qmd": {
+    "5_exploratory_data_analysis.html": "c7515b10"
+  },
+  "8_Spectral_Analysis_Filtering.qmd": {
+    "8_Spectral_Analysis_Filtering.html": "3281d15b"
+  },
+  "9_Financial_Time_Series_Models.qmd": {
+    "9_Financial_Time_Series_Models.html": "2afb47f6"
+  },
+  "7_ARIMAX_SARIMAX_VAR.qmd": {
+    "7_ARIMAX_SARIMAX_VAR.html": "02298816"
+  },
+  "4_data_visualization.qmd": {
+    "4_data_visualization.html": "cbd3ced3"
+  },
+  "11_Conclusions.qmd": {
+    "11_Conclusions.html": "befee09e"
+  },
+  "6_ARMA_ARIMA_SARIMA.qmd": {
+    "6_ARMA_ARIMA_SARIMA.html": "4fffa340"
+  }
+}

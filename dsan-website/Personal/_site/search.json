@@ -1,0 +1,100 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Agustina Zuckerberg",
+    "section": "",
+    "text": "I am a master’s student in the Data Science and Analytics program at the Georgetown University Graduate School of Arts and Sciences.\nIn terms of my previous academic experience, as a recent graduate with a Bachelor’s degree in Data Analytics, I have a strong foundation with data-driven projects involving interdisciplinary datasets, data cleaning and analysis, and final presentations. As an experienced data analyst, my strengths lie in data visualization and storytelling, allowing me to effectively communicate complex findings to both technical and non-technical stakeholders.\nEducation is one of my true passions. In my role as a Teaching Assistant, I had the privilege of supporting Industrial Engineering students and Data Analytics students during their final semester. My main responsibilities included delivering course content in class, tutoring the final projects, and collaboratively evaluating their final presentations and assignments. I like hanging out with friends, working out and music festivals.\nAdditional passions include traveling, hanging out with friends, going to music festivals and enjoying life.\n\n“Be the change you wish to see in the world” - Mahatma Gandhi\n\n\n\n\nMail: maz53@georgetown.edu\nPhone number: +1 (202) 802 5686"
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Agustina Zuckerberg",
+    "section": "",
+    "text": "Siemens Argentina | 2023 - 2025\nInstituto Tecnologico de Buenos Aires | 2018 - 2022\n\n\n\nSkills\nProficiency\n\n\n\n\nR\nAdvanced\n\n\nPython\nAdvanced\n\n\nSQL\nIntermediate"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Agustina Zuckerberg",
+    "section": "",
+    "text": "Georgetown University | 2023 - 2025\nInstituto Tecnologico de Buenos Aires | 2018 - 2022"
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "Agustina Zuckerberg",
+    "section": "",
+    "text": "Mail: maz53@georgetown.edu\nPhone number: +1 (202) 802 5686"
+  },
+  {
+    "objectID": "index.html#math-examples",
+    "href": "index.html#math-examples",
+    "title": "Agustina Zuckerberg",
+    "section": "Math Examples:",
+    "text": "Math Examples:\nThis is my inline-math LaTex equation: \\(x=\\frac{-b \\pm\\sqrt{b^2 - 4ac}}{2a}\\)\nThis is a special method of integration (integration by parts): \\[\\int u d v=u v-\\int v d u\\]"
+  },
+  {
+    "objectID": "index.html#diagram",
+    "href": "index.html#diagram",
+    "title": "Agustina Zuckerberg",
+    "section": "Diagram",
+    "text": "Diagram\n\n\n\n\nflowchart LR\nA[Mental Mood Music Algorithm]\n    A --&gt; AA{Chill}\n        AA --&gt; AAA[Study]\n        AA --&gt; AAB[Relax]\n\n    A --&gt; AB{Electronic}\n        AB --&gt; ABA[Study]\n        AB --&gt; ABB[Workout]\n\n    A --&gt; AC{Reggaeton}\n        AC --&gt; ACA[Party]\n        AC --&gt; ACB[Workout]"
+  },
+  {
+    "objectID": "index.html#citation",
+    "href": "index.html#citation",
+    "title": "Agustina Zuckerberg",
+    "section": "Citation",
+    "text": "Citation\nipsum lorem (see Dalgaard 2008, 27–30)\nipsum lorem (see Murphy 2012, 70–90)"
+  },
+  {
+    "objectID": "index.html#references",
+    "href": "index.html#references",
+    "title": "Agustina Zuckerberg",
+    "section": "References",
+    "text": "References\n\n\nDalgaard, Peter. 2008. Introductory Statistics with r. Springer.\n\n\nMurphy, Kevin P. 2012. Machine Learning: A Probabilistic Perspective. MIT press."
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "Agustina Zuckerberg",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nhttps://en.wikipedia.org/wiki/Mahatma_Gandhi↩︎"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "slides/slides.html",
+    "href": "slides/slides.html",
+    "title": "Presentation",
+    "section": "",
+    "text": "The Marina Bay Sands Hotel - Exterior\n\n\n\n\n\nThe Marina Bay Sands Hotel - Rooftop"
+  },
+  {
+    "objectID": "slides/slides.html#this-is-me",
+    "href": "slides/slides.html#this-is-me",
+    "title": "Presentation",
+    "section": "",
+    "text": "The Marina Bay Sands Hotel - Exterior\n\n\n\n\n\nThe Marina Bay Sands Hotel - Rooftop"
+  },
+  {
+    "objectID": "slides/slides.html#this-is-the-citation",
+    "href": "slides/slides.html#this-is-the-citation",
+    "title": "Presentation",
+    "section": "This is the citation",
+    "text": "This is the citation\nipsum lorem (see Dalgaard 2008, 27–30)\n\n\nDalgaard, Peter. 2008. Introductory Statistics with r. Springer."
+  },
+  {
+    "objectID": "slides/slides.html#this-is-the-plot",
+    "href": "slides/slides.html#this-is-the-plot",
+    "title": "Presentation",
+    "section": "This is the plot",
+    "text": "This is the plot\nReference:\nDSAN Bootcamp - Week 5\n\n\nCode\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\ndf = sns.load_dataset(\"penguins\")\n\nsns.set_theme(style='white', palette=\"Pastel1\")\n\ng = sns.relplot(\ndata = df,\nx = \"bill_length_mm\", \ny = \"flipper_length_mm\",\ncol = \"island\",\nhue = \"species\",\ns=200\n)\n\nFS = 18\n\nfor i in range(0,3):\n    g.axes[0,i].set_xlabel('Penguin bill length (mm)', fontsize=FS)\n    g.axes[0,i].set_ylabel('Penguin flipper length (mm)', fontsize=FS)\n    g.axes[0,i].tick_params(axis = 'both', which = 'major', labelsize=FS)\n\ng.axes[0,0].set_title(\"Torgersen Island\",fontsize=FS)\ng.axes[0,1].set_title(\"Biscoe Island\",fontsize=FS)\ng.axes[0,2].set_title(\"Dream Island\",fontsize=FS)\n\nplt.setp(g._legend.get_texts(), fontsize=FS)\nplt.setp(g._legend.get_title(), fontsize=FS)\n\n\n[None, None]"
+  }
+]

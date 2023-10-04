@@ -1,0 +1,21 @@
+---
+title: "Agustina Zuckerberg"
+bibliography: reference.bib
+---
+# About me
+
+I am a master's student in the Data Science and Analytics program at the Georgetown University Graduate School of Arts and Sciences. 
+
+In terms of my previous academic experience, as a recent graduate with a Bachelor's degree in Data Analytics, I have a strong foundation with data-driven projects involving interdisciplinary datasets, data cleaning and analysis, and final presentations. As an experienced data analyst, my strengths lie in data visualization and storytelling, allowing me to effectively communicate complex findings to both technical and non-technical stakeholders. 
+
+Education is one of my true passions. In my role as a Teaching Assistant, I had the privilege of supporting Industrial Engineering students and Data Analytics students during their final semester. My main responsibilities included delivering course content in class, tutoring the final projects, and collaboratively evaluating their final presentations and assignments. I like hanging out with friends, working out and music festivals.
+
+Additional passions include traveling, hanging out with friends, going to music festivals and enjoying life.
+
+> "Be the change you wish to see in the world" - Mahatma Gandhi
+
+
+## Contact
+- **Mail:** maz53@georgetown.edu
+
+- **Phone number:** +1 (202) 802 5686

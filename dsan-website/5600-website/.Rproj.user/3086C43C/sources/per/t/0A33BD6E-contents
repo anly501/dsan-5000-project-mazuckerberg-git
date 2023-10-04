@@ -1,0 +1,240 @@
+---
+title: "ANLY560 Lab-0/1 Assignment"
+author: "Dr.Purna Gamage"
+date: "2023-01-12"
+output: rmdformats::material
+   
+---
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(lubridate)
+```
+
+
+# Quarto
+
+1. Follow the steps indicated here
+<https://quarto.org/docs/websites/>
+
+2. More themes
+<https://quarto.org/docs/output-formats/html-themes.html>
+
+3. Add your folder to the public html in Georgetown domain and call it within the domain. 
+(watch the lecture recording for more details - also Lab Q4)
+
+#  Lab Question 1
+
+1. First follow above step 1 to open a Quarto Website.
+<https://quarto.org/docs/websites/>
+
+2. Add these tabs as shown in class. (you have to create a `.qmd` file for each page)
+
+  - About You   (You can name this one anyway you wish, All other names below cannot be changed.
+  - Introduction
+  - Data Sources
+  - Data Visualization
+  - Exploratory Data Analysis
+  - ARMA/ARIMA/SARIMA Models
+  - ARIMAX/SARIMAX/VAR 
+  - Spectral Analysis and Filtering(Optional)
+  - Financial Time Series Models (ARCH/GARCH)
+  - Deep Learning for TS
+  - Conclusions
+  
+  b. Use a different theme than mine.
+More themes can be found here.
+<https://quarto.org/docs/output-formats/html-themes.html>
+
+  
+3. Add this text into the Home page.
+
+  
+  a.  Add these text into the Home page and name that page (the title of the page) as "Time Series".
+  
+  
+### What is a Time Series ? 
+
+
+  - Any metric that is measured over regular time intervals makes a Time Series. A time series is a sequence of data points or observations collected or recorded over a period of time at specific, equally spaced intervals. Each data point in a time series is associated with a particular timestamp or time period, making it possible to analyze and study how a particular variable or phenomenon changes over time. Time series data can be found in various domains and can represent a wide range of phenomena, including financial data, economic indicators, weather measurements, stock prices, sales figures, and more.
+
+
+    - Example: Weather data, Stock prices, Industry forecasts, etc are some of the common ones.  
+
+  - The analysis of experimental data that have been observed at different points in time leads to new and unique problems in statistical modeling and inference. 
+
+
+  - The obvious correlation introduced by the sampling of adjacent points in time can severely restrict the applicability of the many conventional statistical methods traditionally dependent on the assumption that these adjacent observations are independent and identically distributed.
+  
+  
+**Key characteristics of time series data include:**
+
+**Temporal Order:** Time series data is ordered chronologically, with each data point representing an observation at a specific point in time. The order of data points is critical for understanding trends and patterns over time.
+
+**Equally Spaced Intervals:** In most cases, time series data is collected at regular intervals, such as hourly, daily, weekly, monthly, or yearly. However, irregularly spaced time series data can also exist.
+
+**Dependency:** Time series data often exhibits temporal dependency, meaning that the value at a given time is influenced by or related to the values at previous times. This dependency can take various forms, including trends, seasonality. This serial correlation is called as autocorrelation.
+
+**Components:** Time series data can typically be decomposed into various components, including:
+
+_Trend:_ The long-term movement or direction in the data.
+_Seasonality:_ Repeating patterns or cycles that occur at fixed intervals.
+_Noise/Irregularity:_ Random fluctuations or variability in the data that cannot be attributed to the trend or seasonality.
+
+**Applications:** Time series data is widely used for various applications, including forecasting future values, identifying patterns and anomalies, understanding underlying trends, and making informed decisions based on historical data.
+
+Analyzing time series data involves techniques like time series decomposition, smoothing, statistical modeling, and forecasting. This class will cover but not be limited to traditional time series modeling including ARIMA, SARIMA, the multivariate Time Series modeling including; ARIMAX, SARIMAX, and VAR models, Financial Time Series modeling including; ARCH, GARCH models, and E-GARCH, M-GARCH..ect, Bayesian structural time series (BSTS) models, Spectral Analysis and Deep Learning Techniques for Time Series. Researchers and analysts use software tools like Python, R, and specialized time series libraries to work with and analyze time series data effectively.
+
+Time series analysis is essential in fields such as finance, economics, epidemiology, environmental science, engineering, and many others, as it provides insights into how variables change over time and allows for the development of predictive models to forecast future trends and outcomes.
+
+#  Lab Question 2
+
+let's insert a new qmd file named as "dv.qmd" (go to `Files` -> `New Files`-> `Quarto Document`) an add the following Data Vizes to that page. Make the title as "Data Vizes in TS".
+
+However please remember to take it down at the end of the semester if you don't need that page on your website.
+
+  1.  Try to reproduce the Data Vizes similar to in Lab0/1 "Data Viz Examples" but with a  
+        a. **different set of stock prices.** (use the `quantmod` package to get stock prices             from yahoo finance <https://finance.yahoo.com/lookup/>)
+        b. Plot the climate data (`climate.csv`) using plotly.
+        <https://plotly.com/r/>
+        c. Get any economic data / macroeconomic indicators and plot using plotly
+            <https://fred.stlouisfed.org/>
+            <https://www.bea.gov/>
+
+
+  3. Make only the plots visible in your webpage. (set `echo=FALSE` in your R code chunck)
+
+  4. Add interpretations to all the plots in the webpage.
+
+So now you will only have the plots and the interpretation in the webpage. You can add titles or can be creative about the page as you want.
+
+
+8. Add this Quarto webpage to your Georgetown domain. **And submit the URL for the Lab 0/1 assignment.**
+
+
+
+#  Lab Question 3:(DO NOT NEED TO SUBMIT)
+
+9. Please watch this recording of professor James demonstrate how to push your website to GU domains from your local laptops.
+
+<https://georgetown.zoom.us/rec/share/Ro6ngoTkXZBdMgsZtnwrmq1FVcbMy-ZZ9J_MpIZklML9nh4ifg1nTzpgqDYrNfTt.QqbrUye536tAw0ut>
+
+![](gu.png)
+
+#  Lab Question 4:(DO NOT NEED TO SUBMIT)
+
+Please Discuss and practic these examples with your group members.
+
+## Example 1: POSIXct
+
+Read more here: <https://www.neonscience.org/resources/learning-hub/tutorials/dc-convert-date-time-posix-r>
+
+`POSIXct` is a date and time format in R that stands for "POSIX Coordinated Time". It is based on the `POSIX` standard, which defines a representation of time as the number of seconds that have elapsed since a specific reference date, known as the `"epoch"`. In R, the epoch is **January 1, 1970, 00:00:00 UTC**.
+
+A `POSIXct` object in R is a numeric value that represents the number of seconds that have elapsed since the epoch, and it is stored as a double-precision floating-point number. It also has a class attribute `"POSIXct"` and a `"POSIXt"` attribute.
+
+```{r}
+# Create a POSIXct object with the current time
+current_time <- Sys.time()
+
+# Print the current time
+print(current_time)
+
+# Output: "2022-11-26 11:31:05 EST"
+
+```
+
+In this example, the `Sys.time()` function is used to get the current time and create a `POSIXct` object. The output is a string representing the current date and time in the local time zone.
+
+You can also create `POSIXct` objects from character strings or numeric values using the `as.POSIXct()` function.
+
+```{r}
+# Convert a character string to a POSIXct object
+date_string <- "2022-01-01 12:00:00"
+date_time_object <- as.POSIXct(date_string, format = "%Y-%m-%d %H:%M:%S", tz = "UTC")
+
+# Print the date and time object
+print(date_time_object)
+
+# Output: "2022-01-01 12:00:00 UTC"
+
+```
+
+In this example, the `as.POSIXct()` function is used to convert a character string **"2022-01-01 12:00:00"** into a `POSIXct` object, specifying the format of the input string and the time zone as UTC.
+
+You can also convert numeric values to `POSIXct` object.
+
+```{r}
+# Convert a numeric value to a POSIXct object
+numeric_value <- 1609459200
+date_time_object <- as.POSIXct(numeric_value, origin = "1970-01-01")
+
+# Print the date and time object
+print(date_time_object)
+
+# Output: "2022-01-01 00:00:00 EST"
+
+```
+
+
+
+Here, the `as.POSIXct()` function is used to convert the numeric value 1609459200 (representing the number of seconds since the epoch) into a `POSIXct` object with an origin of 1970-01-01.
+
+`POSIXct` objects are useful for working with dates and times, as they allow for easy calculations and comparisons, and are widely used in R for time-series analysis.
+
+
+## Example 2: Interpret these graphs
+
+These are Text book examples; in-built datasets.
+
+Identify ts components: trends, sesonality, periodic fluctuations (cyclic) and stationarity. 
+
+```{r}
+library(astsa) 
+
+plot(jj, type="o", ylab="Quarterly Earnings per Share", main = "Johnson & Johnson Quarterly Earnings") 
+```
+
+
+```{r}
+autoplot(AirPassengers, title = 'AirPassengers', xlab = 'Year', ylab = 'Passengers')
+```
+
+```{r}
+plot(globtemp, type="o", ylab="Global Temperature Deviations", main="Global Warming ")
+```
+
+
+```{r}
+autoplot(ustreas) + xlab("Day") + ylab("US treasury bill contracts") 
+```
+
+```{r}
+autoplot(qauselec) + xlab("Year") + ylab("billion kWh") +ggtitle("Quarterly Australian Electricity production")
+
+```
+
+
+
+```{r}
+autoplot(speech, main="Speech Data ") 
+```
+
+more:
+<https://cran.r-project.org/web/packages/ggfortify/vignettes/basics.html>
+
+

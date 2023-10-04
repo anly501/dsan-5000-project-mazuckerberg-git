@@ -1,0 +1,14 @@
+---
+title: "Data Visualization"
+format:
+	html:
+		embed-resources: true
+jupyter: ir
+---
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+
+
+```

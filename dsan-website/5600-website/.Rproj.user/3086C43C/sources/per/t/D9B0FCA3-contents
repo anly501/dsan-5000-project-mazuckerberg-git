@@ -1,0 +1,21 @@
+project:
+  type: website
+
+website:
+  title: "DSAN 5600"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - href: Data Visualization.qmd
+        text: Data Visualization
+
+format:
+  html:
+    theme: simplex
+    css: styles.css
+    toc: true
+
+editor: visual
+

@@ -1,0 +1,13 @@
+---
+title: "test"
+output: html_document
+date: "2023-08-29"
+---
+
+```{r setup, include=FALSE}
+df <- tibble(x=c(1,2,3),y=c(4,5,6))
+
+```
+
+
+

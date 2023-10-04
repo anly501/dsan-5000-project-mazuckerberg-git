@@ -1,0 +1,27 @@
+project:
+  type: website
+
+website:
+  title: "Agustina Zuckerberg"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.ipynb
+      - ./slides/slides.ipynb
+
+  sidebar: 
+    contents: 
+      - href: https://mazuckerberg.georgetown.domains/DSAN_5000/
+        text: DSAN 5000 | Data Science & Analytics
+      - href: https://mazuckerberg.georgetown.domains/DSAN_5600/
+        text: DSAN 5600 | Time Series
+
+format:
+  html:
+    theme: minty
+    toc: true
+
+
+
+
