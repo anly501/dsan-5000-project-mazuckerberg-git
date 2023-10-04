@@ -1,14 +1,175 @@
 ---
 title: "Data Visualization"
-format:
-	html:
-		embed-resources: true
+# format:
+#   html:
+#     embed-resources: true
 jupyter: ir
 ---
 ``` {r}
 #| echo: true
 #| message: false
 #| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
 
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+```
+
+#### [Global Oil Production](https://ourworldindata.org/grapher/oil-production-by-country?time=earliest..1923)
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Global Oil Production - Data Cleaning"
+#| results: 'hide'
+#| warning: false
+
+# Import dataset
+df_oil_production <- read_csv('./data/oil-production-by-country.csv')
+
+# Rename the columns of the dataframe
+names(df_oil_production) <- c('Country', 'Code', 'Year', 'Oil_production_TWh')
+
+# Calculate the total oil production by countries for 2022.
+top_countries <- df_oil_production %>% 
+    filter(Year == 2022 & str_length(Code) == 3) %>% 
+    group_by(Country) %>%
+    summarize(total_production = sum(Oil_production_TWh)) 
+
+# Keep the top 10 countries with higher oil production for 2022
+top_countries <- top_countries %>% 
+    arrange(desc(total_production)) %>%  
+    head(10)
+
+# Filter dataframe by the top 10 oil producing countries
+df_oil_production <- df_oil_production %>% 
+    filter(Country %in% top_countries$Country)
+
+# Save dataframe as a new file
+write.csv(df_oil_production, './data/viz_oil-production-by-country.csv', row.names = FALSE)
+```
+
+<!-- ```{=html}
+<div class='tableauPlaceholder' id='viz1696390734248' style='position: relative'><noscript><a href='#'><img alt='Oil Production (TWh) Map by Year ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Oi&#47;OilProductionTWhMapbyYear&#47;OilProductionMapAnimation&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='OilProductionTWhMapbyYear&#47;OilProductionMapAnimation' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Oi&#47;OilProductionTWhMapbyYear&#47;OilProductionMapAnimation&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1696390734248');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+``` -->
+
+#### [U.S. Inflation Rate](https://data.oecd.org/price/inflation-cpi.htm)
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "U.S. Inflation Rate - Data Cleaning"
+#| results: 'hide'
+#| warning: false
+ 
+# Import dataset
+df_inflation <- read_csv('./data/inflation.csv')
+
+# Filter information to keep United States total inflation rate by moth.
+df_inflation <- df_inflation %>%
+     filter(LOCATION == "USA" & SUBJECT == "TOT" & FREQUENCY == "M" & MEASURE == "IDX2015")
+
+# Format the Time column
+df_inflation$TIME <- paste(df_inflation$TIME, "-01", sep = "")
+
+# Chage data type
+df_inflation$TIME <- as.Date(df_inflation$TIME)
+
+# Save dataframe as a new file
+write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
+```
+
+> Add Line Visualization
+
+#### [U.S. Interest Rate](https://data.imf.org/regular.aspx?key=61545855)
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "U.S. Interest Rate - Data Cleaning"
+#| results: 'hide'
+#| warning: false
+
+```
+
+#### [Crude Oil Price](https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19)
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Crude Oil Price - Data Cleaning"
+#| results: 'hide'
+#| warning: false
+
+
+
+```
+
+
+#### [Energy Sector](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch), [Transportation](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch) and [Staples Index](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: Energy Sector, Transportation and Staples Index - Data Cleaning"
+#| results: 'hide'
+#| warning: false
+
+tickers = c("IYE", "IYT", "IYK")
+
+for (i in tickers){
+    getSymbols(i,
+    from = "2004-01-02",
+    to = "2022-12-31")}
+
+stock <- data.frame(IYE$IYE.Adjusted,
+                    IYT$IYT.Adjusted,
+                    IYK$IYK.Adjusted)
+
+stock$IYE.Adjusted <- stock$IYE.Adjusted/stock$IYE.Adjusted[1]
+stock$IYT.Adjusted <- stock$IYT.Adjusted/stock$IYT.Adjusted[1]
+stock$IYK.Adjusted <- stock$IYK.Adjusted/stock$IYK.Adjusted[1]
+
+stock <- data.frame(stock,rownames(stock))
+colnames(stock) <- append(tickers,'Dates')
+
+fig <- plot_ly(stock, type = 'scatter', mode = 'lines')%>%
+  add_trace(x = ~Dates, y = ~IYE, name = 'Energy Sector')%>%
+  add_trace(x = ~Dates, y = ~IYT, name = 'Transportation')%>%
+  add_trace(x = ~Dates, y = ~IYK, name = 'Staples')%>%
+  layout(title = 'Energy Sector, Transportation and Staples Indexes', legend=list(title=list(text='Indexes')),
+         xaxis = list(rangeslider = list(visible = T)), width = 1000, height = 500)
+options(warn = -1)
+fig <- fig %>%
+  layout(
+         xaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff'),
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title = 'Index'),
+         plot_bgcolor='#e5ecf6')
+
+fig
 
 ```
