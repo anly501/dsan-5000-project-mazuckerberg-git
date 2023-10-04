@@ -87,6 +87,9 @@ df_inflation$TIME <- paste(df_inflation$TIME, "-01", sep = "")
 # Chage data type
 df_inflation$TIME <- as.Date(df_inflation$TIME)
 
+# Select relevant columns
+df_inflation <- df_inflation %>% select('TIME', 'Value')
+
 # Save dataframe as a new file
 write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 ```
@@ -99,9 +102,73 @@ write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 #| message: false
 #| code-fold: true
 #| code-summary: "Data"
-#| results: 'hide'
 #| warning: false
 
+# Import dataset
+df_interest <- read_excel('./data/interest_rates.xlsx', sheet = "Annual", .name_repair = "unique_quiet") 
+
+# Filter information to keep Central Back Policy Rate.
+df_interest <- df_interest %>% filter(Indicator == 'Central Bank Policy Rate')
+
+# Convert dataframe from wide to long
+df_interest <- df_interest %>%
+  gather(key = "Year", value = "Value", -Indicator, -'...2', -'...3', -Scale)
+
+# Select relevant columns
+df_interest <- df_interest %>% select('Year', 'Value')
+
+# Change data type
+df_interest$Value <- round(as.numeric(df_interest$Value), 2)
+
+# Save dataframe as a new file 
+write.csv(df_interest, './data/viz_interest.csv', row.names = FALSE)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
+
+color_2000 <- 'rgba(222,45,38,0.8)'
+color_2001 <- 'rgba(204,204,204,1)'
+color_2002 <- 'rgba(204,204,204,1)'
+color_2003 <- 'rgba(204,204,204,1)'
+color_2004 <- 'rgba(204,204,204,1)'
+color_2005 <- 'rgba(204,204,204,1)'
+color_2006 <- 'rgba(204,204,204,1)'
+color_2007 <- 'rgba(204,204,204,1)'
+color_2008 <- 'rgba(210,238,130,1)'
+color_2009 <- 'rgba(204,204,204,1)'
+color_2010 <- 'rgba(204,204,204,1)'
+color_2011 <- 'rgba(204,204,204,1)'
+color_2012 <- 'rgba(204,204,204,1)'
+color_2013 <- 'rgba(204,204,204,1)'
+color_2014 <- 'rgba(204,204,204,1)'
+color_2015 <- 'rgba(204,204,204,1)'
+color_2016 <- 'rgba(204,204,204,1)'
+color_2017 <- 'rgba(204,204,204,1)'
+color_2018 <- 'rgba(204,204,204,1)'
+color_2019 <- 'rgba(204,204,204,1)'
+color_2020 <- 'rgba(210,238,130,1)'
+color_2021 <- 'rgba(204,204,204,1)'
+
+interest_viz <- plot_ly(df_interest, x = df_interest$Year, y = df_interest$Value, type = 'bar',
+            marker = list(color = c(color_2000, color_2001, color_2002, color_2003, color_2004, 
+                                    color_2005, color_2006, color_2007, color_2008, color_2009,
+                                    color_2010, color_2011, color_2012, color_2013, color_2014, 
+                                    color_2015, color_2016, color_2017, color_2018, color_2019, 
+                                    color_2020, color_2021)),
+            text = df_interest$Value,  
+            textposition = 'outside',
+            textangle = 0)
+
+interest_viz <- interest_viz %>% layout(title = "Interest Rates",
+         xaxis = list(title = "Year"),
+         yaxis = list(title = "%"))
+
+ggplotly(interest_viz)
 ```
 
 > Add Visualization
@@ -142,7 +209,7 @@ oil_price$adjusted <- oil_price$adjusted/oil_price$adjusted[1]
 oil_price <- data.frame(oil_price,rownames(oil_price))
 
 oil_price_viz <- plot_ly(oil_price, type = 'scatter', mode = 'lines')%>%
-  add_trace(x = oil_price$date, y = oil_price$adjusted, name = 'Price')%>%
+  add_trace(x = oil_price$date, y = oil_price$adjusted, name = 'Price', showlegend = FALSE)%>%
   layout(title = 'Crude Oil Price',
          xaxis = list(rangeslider = list(visible = T)))
 options(warn = -1)
@@ -209,4 +276,6 @@ indexes_viz <- indexes_viz %>%
          plot_bgcolor='#e5ecf6')
 
 ggplotly(indexes_viz)
+
+write.csv(stock, './data/viz_indexes.csv', row.names = FALSE)
 ```
