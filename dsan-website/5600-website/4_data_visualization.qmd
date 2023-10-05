@@ -1,6 +1,30 @@
 ---
 title: "Data Visualization"
 ---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding: 15px; 
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 30px 40px 0px 40px; /* top right bottom left */
+}
+```
+
+::: {.justify}
+In the following section, we can see different visualizations based on the gathered information. The sources from which the data was obtained can be found in the [Data Sources](https://mazuckerberg.georgetown.domains/DSAN_5600/3_data_sources.html) section. The collected data was analyzed and data cleaning steps were applied. Above each visualization, the code for the data cleaning and the visualization building steps is available.
+
+:::
+
+Below are the libraries used in this section:
+
 ``` {r}
 #| echo: true
 #| message: false
@@ -28,7 +52,7 @@ library(gridExtra)
 library(readxl)
 ```
 
-#### [Global Oil Production](https://ourworldindata.org/grapher/oil-production-by-country?time=earliest..1923)
+### [Global Oil Production](https://ourworldindata.org/grapher/oil-production-by-country?time=earliest..1923)
 ``` {r}
 #| echo: true
 #| message: false
@@ -66,7 +90,17 @@ write.csv(df_oil_production, './data/viz_oil-production-by-country.csv', row.nam
 <div class='tableauPlaceholder' id='viz1696390734248' style='position: relative'><noscript><a href='#'><img alt='Oil Production (TWh) Map by Year ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Oi&#47;OilProductionTWhMapbyYear&#47;OilProductionMapAnimation&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='OilProductionTWhMapbyYear&#47;OilProductionMapAnimation' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Oi&#47;OilProductionTWhMapbyYear&#47;OilProductionMapAnimation&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1696390734248');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 ```
 
-#### [U.S. Inflation Rate](https://data.oecd.org/price/inflation-cpi.htm)
+::: {.epigrafe}
+The above plot is an animation created using Tableau software. The data in this visualization consists of the top 15 oil-producing countries for the year 2022. As the years progress, the colors of the countries change based on each country's production values. The selected time period is from 2000 to 2022.
+
+Based on the information from the visualization, from the year 2000 to 2011, the countries with less oil production were Kazakhstan and Qatar. On the other hand, the top 2 oil-producing countries were Saudi Arabia and Russia.
+
+From the year 2011 to 2014, the United States had a significant increase in oil-production, making it really close to Saudi Arabia and Russia. By the year 2018, it had a production high above the previously mentioned countries making it the top 1. This situation continued until the year 2022. The rest of the countries remain with lower price values.
+:::
+
+<br>
+
+### [U.S. Inflation Rate](https://data.oecd.org/price/inflation-cpi.htm)
 ``` {r}
 #| echo: true
 #| message: false
@@ -79,7 +113,7 @@ df_inflation <- read_csv('./data/inflation.csv')
 
 # Filter information to keep United States total inflation rate by moth.
 df_inflation <- df_inflation %>%
-     filter(LOCATION == "USA" & SUBJECT == "TOT" & FREQUENCY == "M" & MEASURE == "IDX2015")
+     filter(LOCATION == "USA" & SUBJECT == "TOT" & FREQUENCY == "M" & MEASURE == "AGRWTH")
 
 # Format the Time column
 df_inflation$TIME <- paste(df_inflation$TIME, "-01", sep = "")
@@ -95,24 +129,76 @@ write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 ```
 
 ``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
+
+# # Filter data
+# df_inflation <- df_inflation %>% filter(TIME >= '2000-01-01' & TIME < '2023-01-01') 
+
+# # Create plot
+# viz_inflation <- plot_ly(data = df_inflation, x = ~TIME, y = ~Value, type = 'bar') %>%
+#   layout(title = 'U.S. Inflation Variations by Month',
+#          xaxis = list(title = 'Time'),
+#          yaxis = list(title = 'Value'),
+#          showlegend = FALSE)
+
+# # Show plot
+# ggplotly(viz_inflation)
+```
+
+
+``` {r}
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "Data"
+#| code-summary: "Visualization"
 #| warning: false
+
+# Filter data
 df_inflation <- df_inflation %>% filter(TIME >= '2000-01-01' & TIME < '2023-01-01') 
 
-plot <- plot_ly(data = df_inflation, x = ~TIME, y = ~Value, type = 'bar') %>%
-  layout(title = 'U.S. Total Inflation by Month',
-         xaxis = list(title = 'Time'),
-         yaxis = list(title = 'Value'),
-         showlegend = FALSE)
-
-# Display the animated chart
-ggplotly(plot)
+# Create plot
+viz_inflation <- plot_ly(data = df_inflation, x = ~TIME, y = ~Value, type = 'bar', 
+                marker = list(color = ifelse( grepl("^2000-", df_inflation$TIME) | 
+                                              grepl("^2007-", df_inflation$TIME) | 
+                                              grepl("^2014-", df_inflation$TIME) | 
+                                              grepl("^2022-", df_inflation$TIME), 
+                                              "red", 
+                                      ifelse( grepl("^2015-", df_inflation$TIME) | 
+                                              grepl("^2008-1", df_inflation$TIME)| 
+                                              grepl("^2020-", df_inflation$TIME), 
+                                              "green", 
+                                              "lightblue")))) %>%
+                layout(
+                  title = 'U.S. Inflation Variations by Month',
+                  xaxis = list(title = 'Time'),
+                  yaxis = list(title = 'Value'),
+                  showlegend = FALSE
+                )
+# Show plot
+ggplotly(viz_inflation)
 ```
 
-#### [U.S. Interest Rate](https://data.imf.org/regular.aspx?key=61545855)
+::: {.epigrafe}
+The bar chart above was created using the Plotly package for R. The data in this visualization consists of the monthly percentage change in inflation for the U.S. from the year 2000 to 2022. To enhance clarity, certain bars in the visualization have been highlighted to make the contex explanations below easier to understand.
+
+The Consumer Price Index (CPI), calculated by the Bureau of Labor Statistics, is a widely used measure of inflation. However, the Federal Reserve prefers the Personal Consumption Expenditures (PCE) index because it provides a clearer picture of inflation trends that are less affected by short-term price changes, such as food and energy. The Fed uses monetary policy to manage inflation over the economic cycles.
+
+In 2000, there was a business cycle expansion of 4.1%, mainly due to the Tech Bubble burst. In 2001, inflation was 1.60% YOY, peaking in March due to President Bush's tax cut and hitting a trough in November after the 9/11 attacks.
+
+In 2007, inflation peaked at 4.1% in December in the midst of the banking crisis. In 2008, during the International Financial Crisis, YOY inflation was only 0.1%, coupled with a GDP contraction of -0.1%.
+
+In 2014 and 2015, annual inflation rates of 0.80% and 0.90% respectively accompanied business cycle expansion and GDP growth. The end of the quantitative easing in 2014 and deflation in oil and gas prices in 2015 were key events.
+
+In 2020, the COVID-19 pandemic triggered a global economic shutdown, resulting in a 1.4% inflation rate and a -3.4% GDP growth. In 2021, government recovery efforts led to a 5.9% GDP growth and 7% YOY inflation. The Fed responded by raising interest rates,  leading to a high inflation rate of 6.50%, and business activity contraction in 2022. Russia's invasion of Ukraine had a significant impact on the U.S. and global economies.
+:::
+
+<br>
+
+### [U.S. Interest Rate](https://data.imf.org/regular.aspx?key=61545855)
 ``` {r}
 #| echo: true
 #| message: false
@@ -147,14 +233,15 @@ write.csv(df_interest, './data/viz_interest.csv', row.names = FALSE)
 #| code-summary: "Visualization"
 #| warning: false
 
+# Set color variables for each data point
 color_2000 <- 'rgba(222,45,38,0.8)'
-color_2001 <- 'rgba(204,204,204,1)'
+color_2001 <- 'rgba(210,238,130,1)'
 color_2002 <- 'rgba(204,204,204,1)'
 color_2003 <- 'rgba(204,204,204,1)'
 color_2004 <- 'rgba(204,204,204,1)'
 color_2005 <- 'rgba(204,204,204,1)'
 color_2006 <- 'rgba(204,204,204,1)'
-color_2007 <- 'rgba(204,204,204,1)'
+color_2007 <- 'rgba(222,45,38,0.8)'
 color_2008 <- 'rgba(210,238,130,1)'
 color_2009 <- 'rgba(204,204,204,1)'
 color_2010 <- 'rgba(204,204,204,1)'
@@ -166,10 +253,11 @@ color_2015 <- 'rgba(204,204,204,1)'
 color_2016 <- 'rgba(204,204,204,1)'
 color_2017 <- 'rgba(204,204,204,1)'
 color_2018 <- 'rgba(204,204,204,1)'
-color_2019 <- 'rgba(204,204,204,1)'
+color_2019 <- 'rgba(222,45,38,0.8)'
 color_2020 <- 'rgba(210,238,130,1)'
 color_2021 <- 'rgba(204,204,204,1)'
 
+# Create plot
 interest_viz <- plot_ly(df_interest, x = df_interest$Year, y = df_interest$Value, type = 'bar',
             marker = list(color = c(color_2000, color_2001, color_2002, color_2003, color_2004, 
                                     color_2005, color_2006, color_2007, color_2008, color_2009,
@@ -180,34 +268,16 @@ interest_viz <- plot_ly(df_interest, x = df_interest$Year, y = df_interest$Value
             textposition = 'outside',
             textangle = 0)
 
+# Set de layout of the plot
 interest_viz <- interest_viz %>% layout(title = "Central Bank Policy Interest Rate by Year",
          xaxis = list(title = "Year"),
          yaxis = list(title = "%"))
 
+# Show plot
 ggplotly(interest_viz)
 ```
 
-#### [Crude Oil Price](https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19)
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Data Hidden"
-#| warning: false
-
-# oil_price <- tq_get("CL=F", get = "stock.prices", from = "2000-01-01", to = "2022-12-31")
-
-# oil_price_viz <- oil_price %>%
-#     ggplot(aes(x = date, y = adjusted)) +
-#     geom_line(color = palette_light()[[1]]) + 
-#     scale_y_continuous() +
-#     labs(title = "Crude Oil Price", 
-#          subtitle = "Continuous Scale", 
-#          y = "Adjusted Price", x = "")
-
-# ggplotly(oil_price_viz)
-```
+### [Crude Oil Price](https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19)
 
 
 ```{r}
@@ -216,12 +286,17 @@ ggplotly(interest_viz)
 #| code-fold: true
 #| code-summary: "Data"
 #| warning: false
+
+# Get oil price data from stock market
 oil_price <- tq_get("CL=F", get = "stock.prices", from = "2000-01-01", to = "2022-12-31")
 
+# Calculate adjusted price
 oil_price$adjusted <- oil_price$adjusted/oil_price$adjusted[1]
 
+# Create dataframe
 oil_price <- data.frame(oil_price,rownames(oil_price))
 
+# Save dataframe as a new file 
 write.csv(oil_price, './data/viz_oil_price.csv', row.names = FALSE)
 ```
 
@@ -231,12 +306,15 @@ write.csv(oil_price, './data/viz_oil_price.csv', row.names = FALSE)
 #| code-fold: true
 #| code-summary: "Visualization"
 #| warning: false
+
+# Create plot
 oil_price_viz <- plot_ly(oil_price, type = 'scatter', mode = 'lines')%>%
   add_trace(x = oil_price$date, y = oil_price$adjusted, name = 'Price', showlegend = FALSE)%>%
   layout(title = 'Crude Oil Price by Day',
          xaxis = list(rangeslider = list(visible = T)))
 options(warn = -1)
 
+# Set plot layout
 oil_price_viz <- oil_price_viz %>%
   layout(
          xaxis = list(zerolinecolor = '#ffff',
@@ -248,11 +326,12 @@ oil_price_viz <- oil_price_viz %>%
                       title = 'Index'),
          plot_bgcolor='#e5ecf6')
 
+# Show plot
 ggplotly(oil_price_viz)
 ```
 
 
-#### Indexes: [Energy Sector](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch), [Transportation](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch) and [Staples](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
+### Indexes: [Energy Sector](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch), [Transportation](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch) and [Staples](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
 
 
 ```{r}
@@ -262,24 +341,32 @@ ggplotly(oil_price_viz)
 #| code-summary: "Data"
 #| warning: false
 
+# Set tickers for indexes
 tickers = c("IYE", "IYT", "IYK")
 
+# Get data for each ticker
 for (i in tickers){
     getSymbols(i,
     from = "2004-01-02",
     to = "2022-12-31")}
 
+# Create dataframe with ticker data
 stock <- data.frame(IYE$IYE.Adjusted,
                     IYT$IYT.Adjusted,
                     IYK$IYK.Adjusted)
 
+# Calculate adjusted price for each ticker
 stock$IYE.Adjusted <- stock$IYE.Adjusted/stock$IYE.Adjusted[1]
 stock$IYT.Adjusted <- stock$IYT.Adjusted/stock$IYT.Adjusted[1]
 stock$IYK.Adjusted <- stock$IYK.Adjusted/stock$IYK.Adjusted[1]
 
+# Create dataframe with ticker data
 stock <- data.frame(stock,rownames(stock))
+
+# Rename columns in dataframe
 colnames(stock) <- append(tickers,'Dates')
 
+# Save dataframe as a new file 
 write.csv(stock, './data/viz_indexes.csv', row.names = FALSE)
 ```
 
@@ -289,6 +376,8 @@ write.csv(stock, './data/viz_indexes.csv', row.names = FALSE)
 #| code-fold: true
 #| code-summary: "Visualization"
 #| warning: false
+
+# Create plot
 indexes_viz <- plot_ly(stock, type = 'scatter', mode = 'lines')%>%
   add_trace(x = ~Dates, y = ~IYE, name = 'Energy Sector')%>%
   add_trace(x = ~Dates, y = ~IYT, name = 'Transportation')%>%
@@ -296,6 +385,8 @@ indexes_viz <- plot_ly(stock, type = 'scatter', mode = 'lines')%>%
   layout(title = 'Energy Sector, Transportation and Staples Indexes by Day', legend=list(title=list(text='Indexes')),
          xaxis = list(rangeslider = list(visible = T)))
 options(warn = -1)
+
+# Set plot layout
 indexes_viz <- indexes_viz %>%
   layout(
          xaxis = list(zerolinecolor = '#ffff',
@@ -307,5 +398,6 @@ indexes_viz <- indexes_viz %>%
                       title = 'Index'),
          plot_bgcolor='#e5ecf6')
 
+# Show plot
 ggplotly(indexes_viz)
 ```
