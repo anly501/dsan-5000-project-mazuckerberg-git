@@ -1,44 +1,65 @@
 ---
 title: "Data Sources"
 ---
+<br>
+<p align="center">
+    <img src="./images/our_world_in_data.png" alt="" height="110">
+</p>
 
-### Our World in Data
-#### [Global Oil Production](https://ourworldindata.org/grapher/oil-production-by-country?time=earliest..1923)
+### [Global Oil Production](https://ourworldindata.org/grapher/oil-production-by-country?time=earliest..1923)
 * Oil production by Country and by Year 
 * Inormation from 1900 to 2022. 
 * The unit of analysis is Terawatt-Hour (TWh). 
 * The most relevant information is the top 5 countries with more production over time.
 
+***
 
-### Organisation for Economic Co-operation and Development (OECD)
-#### [U.S. Inflation Rate](https://data.oecd.org/price/inflation-cpi.htm) 
+<p align="center">
+    <img src="./images/OECD.png" alt="" height="70">
+</p>
+
+<p align="center">
+    Organisation for Economic Co-operation and Development
+</p>
+
+### [U.S. Inflation Rate](https://data.oecd.org/price/inflation-cpi.htm) 
 * U.S. Inflation from the Consumer Price Index variations by Month and by Year.
 * Information from 1956 to 2022.
 * The unit of analysis is variations in decimal points.
 
-### International Monetary Fund (IMF)
-#### [U.S. Interest Rate](https://data.imf.org/regular.aspx?key=61545855) 
+***
+
+<p align="center">
+    <img src="./images/IMF.png" alt="" height="130">
+</p>
+
+### [U.S. Interest Rate](https://data.imf.org/regular.aspx?key=61545855) 
 * U.S. Interest Rates by Year.
 * Information from 1994 to 2022
 * The unit of analysis is U.S. Dollars
 
-### Yahoo Finance
-#### [Crude Oil Price](https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19)
+***
+
+<p align="center">
+    <img src="./images/yahoo_finance.png" alt="" height="80">
+</p>
+
+### [Crude Oil Price](https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19)
 * Crude Oil Price by Day, by Month and by Year
 * Information from 2000 to 2022
 * The unit of analysis is the price of the barrel in U.S Dollars
 
-#### [Energy Sector Index](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch)
+### [Energy Sector Index](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch)
 * Energy Sector Index by Day, by Month and by Year
 * Information from 2000 to 2022
 * The unit of analysis is U.S. Dollars
 
-#### [Transportation Index](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch)
+### [Transportation Index](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch)
 * Transportation Sector Index by Day, by Month and by Year
 * Information from 2004 to 2022
 * The unit of analysis is U.S. Dollars
 
-#### [Staples Index](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
+### [Staples Index](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
 * Staples Sector Index by Day, by Month and by Year
 * Information from 2000 to 2022
 * The unit of analysis is U.S. Dollars

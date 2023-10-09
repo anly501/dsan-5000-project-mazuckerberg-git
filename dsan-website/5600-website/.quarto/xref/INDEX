@@ -88,5 +88,20 @@
   },
   "test2.ipynb": {
     "test2.html": "6ceef575"
+  },
+  "1_introduction_v2.qmd": {
+    "1_introduction_v2.html": "4cd9240f"
+  },
+  "5_EDA/5_1_oil_production.qmd": {
+    "5_1_oil_production.html": "7ef857c8"
+  },
+  "5_EDA/5_4_oil_price.qmd": {
+    "5_4_oil_price.html": "62275485"
+  },
+  "5_EDA/5_2_inflation.qmd": {
+    "5_2_inflation.html": "eb1b2d30"
+  },
+  "5_EDA/5_3_interest.qmd": {
+    "5_3_interest.html": "78d6fb9e"
   }
 }

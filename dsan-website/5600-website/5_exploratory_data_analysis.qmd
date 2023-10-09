@@ -1,10 +1,34 @@
 ---
 title: "Exploratory Data Analysis"
-format:
-  html:
-    embed-resources: true
-jupyter: ir
 ---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+### Overview
+
+::: {.justify}
+In this exploratory data analysis (EDA), we examine the time series data sets discussed in the [Data Visualization](https://mazuckerberg.georgetown.domains/DSAN_5600/4_data_visualization.html) section. The goal is to gain insight into the underlying components of the multiple time series. These analyses include trends, seasonality, variations, and periodic fluctuations. In addition, we will evaluate the time series for decomposition to see if it can be identified as multiplicative or additive. We will analyze the data sets using the following time series plots and tools:  Lag plots, autocorrelation function (ACF) and partial autocorrelation function (PACF) analysis, and stationarity checks using the Augmented Dickey-Fuller test. 
+
+:::
+
+Below are the libraries used in this section:
 ``` {r}
 #| echo: true
 #| message: false
@@ -33,246 +57,23 @@ library(readxl)
 library(imputeTS)
 ```
 
-#### [Global Oil Production](https://ourworldindata.org/grapher/oil-production-by-country?time=earliest..1923)
+#### Global Oil Production
+
+::: {.justify}
+The following plot, shows the data for the top 15 oil-producing countries in 2022. The goal is to use a line plot to show the evolution of the global oil market over the last 22 years and identify the dynamic leaders. Throughout this project, our central focus will be on the United States, which has been the leading country in oil production since 2018.
+:::
+
 ``` {=html}
 <div class='tableauPlaceholder' id='viz1696390858276' style='position: relative'><noscript><a href='#'><img alt='Oil Production (TWh) by Year ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Oi&#47;OilProductionTWhbyYear&#47;OilProductionLineAnimation&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='OilProductionTWhbyYear&#47;OilProductionLineAnimation' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Oi&#47;OilProductionTWhbyYear&#47;OilProductionLineAnimation&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1696390858276');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 ```
 
 <br>
 
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Time Series Plot"
-#| warning: false
+> [Exploratory Data Analisis - Global Oil Production](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_1_oil_production.html)
 
-# Import dataset
-df_oil_production <- read_csv('./data/viz_oil-production-by-country.csv')
+#### Crude Oil Price
 
-# Filter information
-df_oil_production <- df_oil_production %>% filter(Country == 'United States' & Year >= 2000)
+> [Exploratory Data Analisis - Crude Oil Price](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_1_oil_price.html)
 
-# Check for missing values
-# is.na(df_oil_production)
 
-# Resize plots
-options(repr.plot.width = 5, repr.plot.height = 4) 
 
-# Create time series
-ts_oil_production<-ts(df_oil_production$Oil_production_TWh,star=decimal_date(as.Date("2000-01-01",format = "%Y-%m-%d")),frequency = 1)
-
-# Create time series plot
-ts_plot_oil_production <- plot(as.ts(ts_oil_production), main = "Oil Production Time Series", xlab = "Years", ylab = "Production")
-
-# Show the customized plot
-ggplotly(ts_plot_oil_production)
-```
-
-> Describe trend
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Lag Plot"
-#| warning: false
-
-# Resize Plots
-options(repr.plot.width = 6, repr.plot.height = 6) 
-
-# Lag Plot
-gglagplot(ts_oil_production, do.lines=FALSE)+ggtitle("Lag Plot for Oil Production")
-```
-
-> Describe Lags
-
-> Describe Decomposing -- No se puede para este grafico
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "ACF and PACF Plot"
-#| warning: false
-
-# Resize plots
-options(repr.plot.width = 6, repr.plot.height = 5) 
-
-# ACF Plot
-acf_oil_production <- ggAcf(ts_oil_production, main="ACF Plot for Oil Production")
-
-# PACF Plot
-pacf_oil_production <- ggPacf(ts_oil_production, main="PACF Plot for Oil Production")
-
-# Arrange Plots
-grid.arrange(acf_oil_production, pacf_oil_production, nrow=2)
-```
-
-> Describe Autocorrelation
-
-> Describe Stationarity
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Augmented Dickey-Fuller Test Code"
-#| warning: false
-
-test_oil_production <- adf.test(ts_oil_production)
-print(test_oil_production)
-```
-
-> Describe Results obtained -- Non stationary
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Detrending and Differencing Code"
-#| warning: false
-
-# Create fit data
-fit_oil_production <- lm(ts_oil_production~time(ts_oil_production), na.action=NULL) 
-
-# ACF Detrended Plot
-acf_2_oil_production <- ggAcf(resid(fit_oil_production), main="ACF Plot for Oil Production Detrended")
-
-# ACF Differenced Plot
-acf_3_oil_production <- ggAcf(diff(ts_oil_production), main="ACF Plot for Oil Production First Differenced")
-
-# Arrange Plots
-grid.arrange(acf_oil_production, acf_2_oil_production, acf_3_oil_production, nrow=3)
-```
-
-> Explain
-
-#### [Crude Oil Price](https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19)
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Time Series Plot"
-#| warning: false
-
-# Import dataset
-df_oil_price <- read_csv('./data/viz_oil_price.csv')
-
-# Select relevant columns
-df_oil_price <- df_oil_price %>% select('date', 'adjusted')
-
-# Create a sequence of dates from start_date to end_date
-start_date <- as.Date(min(df_oil_price$date))  
-end_date <- as.Date(max(df_oil_price$date))    
-
-# Create data range
-date_range <- seq(start_date, end_date, by = "1 day")
-
-# Create a dataset with the date range
-date_dataset <- data.frame(Date = date_range)
-
-# Merge dataframes
-df_oil_price <- merge(df_oil_price, date_dataset, by.x = "date", by.y = "Date", all = TRUE)
-
-# Check for missing values
-# is.na(df_oil_price$adjusted)
-
-# Extract rows with missing values
-df_na_rows <- df_oil_price[which(rowSums(is.na(df_oil_price)) > 0),]
-
-# Extract columns with missing values
-df_na_cols <- df_oil_price[, which(colSums(is.na(df_oil_price)) > 0)]
-
-# Modify data
-imputed_time_series <- na_ma(df_oil_price, k = 4, weighting = "exponential")
-
-# Add modified data
-df_oil_price <- data.frame(imputed_time_series)
-
-# Change data type
-df_oil_price$date <- as.Date(df_oil_price$date,format = "%m/%d/%y")
-
-# Create time series
-ts_oil_price<-ts(df_oil_price$adjusted,star=decimal_date(as.Date("2000-08-23",format = "%Y-%m-%d")),frequency = 365.25)
-
-# Create time series plot
-ts_plot_oil_price <- plot(as.ts(ts_oil_price), main = "Oil Price Time Series", xlab = "Years", ylab = "Price")
-
-# Show the customized plot
-ggplotly(ts_plot_oil_price)
-```
-
-> Describe trend
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Lag Plot"
-#| warning: false
-
-# Lag Plot
-gglagplot(ts_oil_price, do.lines=FALSE)+ggtitle("Lag Plot for Oil Price")
-```
-
-> Describe Lags
-
-> Describe Decomposing -- No aplica, explicar
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "ACF and PACF Plot"
-#| warning: false
-
-# ACF Plot
-acf_oil_price <- ggAcf(ts_oil_price, 50, main="ACF Plot for Oil Price")
-
-# PACF Plot
-pacf_oil_price <-ggPacf(ts_oil_price, 50, main="PACF Plot for Oil Price")
-
-# Arrange Plots
-grid.arrange(acf_oil_price, pacf_oil_price, nrow=2)
-```
-
-> Describe Autocorrelation
-
-> Describe Stationarity
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Augmented Dickey-Fuller Test Code"
-#| warning: false
-
-test_oil_price <- adf.test(ts_oil_price)
-print(test_oil_price)
-```
-
-> Describe Results obtained
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Detrending and Differencing Code"
-#| warning: false
-
-# Create fit data
-fit_oil_price <- lm(ts_oil_price~time(ts_oil_price), na.action=NULL) 
-
-# ACF Detrended Plot
-acf_2_oil_price <- ggAcf(resid(fit_oil_price), 50, main="ACF Plot for Oil Price Detrended")
-
-# ACF Differenced Plot
-acf_3_oil_price <- ggAcf(diff(ts_oil_price), 50, main="ACF Plot for Oil Price First Differenced")
-
-# Arrange Plots
-grid.arrange(acf_oil_price, acf_2_oil_price, acf_3_oil_price, nrow=3)
-```
-
-> Explain

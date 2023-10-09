@@ -1,0 +1,187 @@
+---
+title: "Global Oil Production"
+format: html
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+```
+
+::: {.epigrafe}
+
+In this section, I will explore some key steps in the time series exploratory data analysis of the global oil production dataset. As it was mentioned earlier, the focus will be on U.S. data. For each step, I will provide the code that has been used to create the visualizations and analysis, as well as insightful explanations and thorough analysis, to facilitate a deeper understanding of the dataset.
+:::
+
+::: {.epigrafe}
+
+The plot below shows a table trend between the years 2000 and 2010. Since 2010 we can see a clear upward trend. There is no evidence of seasonality or cyclical patterns for this time series data set. We hypothesize that analysis of this information in the future may lead to a multiplicative pattern.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Time Series Plot Code"
+#| warning: false
+
+# Import dataset
+df_oil_production <- read_csv('../data/viz_oil-production-by-country.csv')
+
+# Filter information
+df_oil_production <- df_oil_production %>% filter(Country == 'United States' & Year >= 2000)
+
+# Check for missing values
+# is.na(df_oil_production)
+
+# Create time series
+ts_oil_production<-ts(df_oil_production$Oil_production_TWh,star=decimal_date(as.Date("2000-01-01",format = "%Y-%m-%d")),frequency = 1)
+
+# Create time series plot
+ggplot(df_oil_production, aes(x = Year, y = Oil_production_TWh)) +
+  geom_line() + # Use geom_line() for a time series plot
+  labs(
+    title = "Time Series Plot for Oil Production",
+    x = "Years",
+    y = "Production"
+  )
+```
+
+::: {.epigrafe}
+Lag plots were then used to plot the time series data. We see some autocorrelation between the points and the first lag, as the lag plot is close to being linear. As the number of lags increases, the pattern in the data fades and becomes more randomized.
+:::
+
+``` {r, fig.width = 9, fig.height = 7}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Lag Plot Code"
+#| warning: false
+
+# Resize Plots
+#options(repr.plot.width = 25, repr.plot.height = 6) 
+
+# Lag Plot
+gglagplot(ts_oil_production, do.lines=FALSE)+ggtitle("Lag Plot for Oil Production")
+```
+
+::: {.epigrafe}
+
+Observing the plot above, we can say that there is no evidence of additive or multiplicative patterns throughout the time series. Therefore, no decomposition methods are applied to this time series.
+
+We plot the ACF to find the autocorrelation of the series with its lagged values. For the first 4 lags, the value of the ACF is higher than the confidence band. This indicates that the autocorrelation is positive. As the number of lags increases, the positive autocorrelation decreases and tends to a stationary pattern.
+
+The PACF is a partial autocorrelation function. We plot the PACF to find the correlation of the residuals with the next lag. There is a high partial autocorrelation in lag 1, indicating a meaningful relationship between the time series and the lag. The following lags fall within the confidence bands, indicating that there is no partial autocorrelation at those lags.
+:::
+
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "ACF and PACF Plot Code"
+#| warning: false
+
+# Resize plots
+options(repr.plot.width = 5, repr.plot.height = 2) 
+
+# ACF Plot
+acf_oil_production <- ggAcf(ts_oil_production, main="ACF Plot for Oil Production")
+
+# PACF Plot
+pacf_oil_production <- ggPacf(ts_oil_production, main="PACF Plot for Oil Production")
+
+# Arrange Plots
+grid.arrange(acf_oil_production, pacf_oil_production, nrow=2)
+```
+
+::: {.epigrafe}
+Below we can observe the results obtained when the Augmented Dickey-Fuller test was applied to the time series. The p-value is equal to 0.5782, which is higher than the 0.05 significance level. Considering the null hypothesis that the time series is not stationary, we cannot reject it, so we need to apply time series detrending and differencing methods to try to make it stationary.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Augmented Dickey-Fuller Test Code"
+#| warning: false
+
+test_oil_production <- adf.test(ts_oil_production)
+print(test_oil_production)
+```
+
+::: {.epigrafe}
+To obtain a stationary time series, we applied the detrending method to the fitted model of the time series and plotted the result in the ACF plot. Next, we also applied the differencing method to the original time series and plotted the result in the ACF plot.
+The ACF plot of the original time series is shown first to compare the different models.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Detrending and Differencing Code"
+#| warning: false
+
+options(repr.plot.width = 6, repr.plot.height = 6) 
+
+# Create fit data
+fit_oil_production <- lm(ts_oil_production~time(ts_oil_production), na.action=NULL) 
+
+# ACF Detrended Plot
+acf_2_oil_production <- ggAcf(resid(fit_oil_production), main="ACF Plot for Oil Production Detrended")
+
+# ACF Differenced Plot
+acf_3_oil_production <- ggAcf(diff(ts_oil_production), main="ACF Plot for Oil Production First Differenced")
+
+# Arrange Plots
+grid.arrange(acf_oil_production, acf_2_oil_production, acf_3_oil_production, nrow=3)
+```
+
+
+::: {.epigrafe}
+The ACF plot for the detrended fitted model clearly shows that some positive autocorrelation remains for lags 1 and 2, as the values are higher than the confidence band. 
+
+On the other hand, the ACF plot for the differenced model clearly shows that there is no autocorrelation left, as all lags are within the confidence band. Therefore, we conclude that when the first differencing method is applied to the time series, it turns out to be stationary.
+:::

@@ -7,7 +7,7 @@ website:
   navbar: 
     left: 
       - href: https://mazuckerberg.georgetown.domains/
-        text: Home
+        text: Home | About me
 
   sidebar:
     style: "docked"
@@ -37,7 +37,6 @@ website:
         text: Conclusions
       - href: "dv.qmd"
         text: Data Viz Examples
-
 
 format:
   html:
