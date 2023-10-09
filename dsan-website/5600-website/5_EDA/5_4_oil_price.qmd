@@ -183,7 +183,7 @@ print(test_oil_price)
 
 ::: {.epigrafe}
 
-Detrending and Differencing
+To make the time series more stationary, we applied the detrending method to the fitted model of the oil price time series and viewed the results in the ACF plot. We also applied the first and second differences to the original time series and plotted the results in two separate ACF plots. The ACF plot of the original time series is shown first to compare the different models.
 :::
 
 ``` {r, fig.width = 8, fig.height = 8}
@@ -211,5 +211,9 @@ grid.arrange(acf_oil_price, acf_2_oil_price, acf_3_oil_price, acf_4_oil_price, n
 
 ::: {.epigrafe}
 
-Conclusion
+The ACF plot for the detrended fitted model clearly shows that the detrending method was not effective because the model is still highly autocorrelated and it's not stationary.
+
+Both the first and second differencing show high autocorrelation in the first lag. The other lag values are very close to zero, but some of them are outside the confidence bands.
+
+Additional steps should be applied to the time series in order to obtain a fully stationary time series.
 :::
