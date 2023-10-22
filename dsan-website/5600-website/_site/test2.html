@@ -83,9 +83,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -233,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="1">
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="26">
 <details>
 <summary>Libraries</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -255,187 +252,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(imputeTS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>-- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
-v dplyr     1.1.3     v readr     2.1.4
-v forcats   1.0.0     v stringr   1.5.0
-v ggplot2   3.4.3     v tibble    3.2.1
-v lubridate 1.9.2     v tidyr     1.3.0
-v purrr     1.0.2     
--- Conflicts ------------------------------------------ tidyverse_conflicts() --
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()
-i Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-Registered S3 method overwritten by 'quantmod':
-  method            from
-  as.zoo.data.frame zoo 
-
-
-Attaching package: 'astsa'
-
-
-The following object is masked from 'package:forecast':
-
-    gas
-
-
-Loading required package: zoo
-
-
-Attaching package: 'zoo'
-
-
-The following objects are masked from 'package:base':
-
-    as.Date, as.Date.numeric
-
-
-
-######################### Warning from 'xts' package ##########################
-#                                                                             #
-# The dplyr lag() function breaks how base R's lag() function is supposed to  #
-# work, which breaks lag(my_xts). Calls to lag(my_xts) that you type or       #
-# source() into this session won't work correctly.                            #
-#                                                                             #
-# Use stats::lag() to make sure you're not using dplyr::lag(), or you can add #
-# conflictRules('dplyr', exclude = 'lag') to your .Rprofile to stop           #
-# dplyr from breaking base R's lag() function.                                #
-#                                                                             #
-# Code in packages is not affected. It's protected by R's namespace mechanism #
-# Set `options(xts.warn_dplyr_breaks_lag = FALSE)` to suppress this warning.  #
-#                                                                             #
-###############################################################################
-
-
-Attaching package: 'xts'
-
-
-The following objects are masked from 'package:dplyr':
-
-    first, last
-
-
--- Attaching packages ---------------------------------------------- fpp2 2.5 --
-
-v fma       2.5     v expsmooth 2.3
-
-
-
-
-Attaching package: 'fpp2'
-
-
-The following object is masked from 'package:astsa':
-
-    oil
-
-
-Loading required package: TTR
-
-Loading required package: PerformanceAnalytics
-
-
-Attaching package: 'PerformanceAnalytics'
-
-
-The following object is masked from 'package:graphics':
-
-    legend
-
-
-
-Attaching package: 'plotly'
-
-
-The following object is masked from 'package:ggplot2':
-
-    last_plot
-
-
-The following object is masked from 'package:stats':
-
-    filter
-
-
-The following object is masked from 'package:graphics':
-
-    layout
-
-
-
-Attaching package: 'gridExtra'
-
-
-The following object is masked from 'package:dplyr':
-
-    combine
-
-
-
-Attaching package: 'imputeTS'
-
-
-The following object is masked from 'package:tseries':
-
-    na.remove
-
-
-The following object is masked from 'package:zoo':
-
-    na.locf
-
-</code></pre>
 </div>
-</div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="21">
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="27">
 <details>
 <summary>Libraries</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bg =</span> <span class="st">"white"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'./data/viz_oil-production-by-country.csv'</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter information</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> df_oil_production <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">'United States'</span> <span class="sc">&amp;</span> Year <span class="sc">&gt;=</span> <span class="dv">2000</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># is.na(df_oil_production)</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>ts_oil_production<span class="ot">&lt;-</span><span class="fu">ts</span>(df_oil_production<span class="sc">$</span>Oil_production_TWh,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2000-01-01"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="dv">1</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series plot</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#ts_plot_oil_production &lt;- plot(as.ts(ts_oil_production), main = "Oil Production Time Series", xlab = "Years", ylab = "Production")</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the customized plot</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#ggplotly(ts_plot_oil_production)</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_oil_production, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Oil_production_TWh)) <span class="sc">+</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="co"># Use geom_line() for a time series plot</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Time Series Plot for Oil Production"</span>,</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Years"</span>,</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Production"</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bg =</span> <span class="st">"white"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'./data/viz_oil-production-by-country.csv'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter information</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> df_oil_production <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">'United States'</span> <span class="sc">&amp;</span> Year <span class="sc">&gt;=</span> <span class="dv">2000</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># is.na(df_oil_production)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>ts_oil_production<span class="ot">&lt;-</span><span class="fu">ts</span>(df_oil_production<span class="sc">$</span>Oil_production_TWh,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2000-01-01"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="dv">1</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series plot</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#ts_plot_oil_production &lt;- plot(as.ts(ts_oil_production), main = "Oil Production Time Series", xlab = "Years", ylab = "Production")</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the customized plot</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#ggplotly(ts_plot_oil_production)</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_oil_production, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Oil_production_TWh)) <span class="sc">+</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="co"># Use geom_line() for a time series plot</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Time Series Plot for Oil Production"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Years"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Production"</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <p><img src="test2_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gglagplot</span>(ts_oil_production, <span class="at">do.lines=</span><span class="cn">FALSE</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Lag Plot for Oil Production"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gglagplot</span>(ts_oil_production, <span class="at">do.lines=</span><span class="cn">FALSE</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Lag Plot for Oil Production"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="test2_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bg =</span> <span class="st">"white"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>acf_oil_production <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(ts_oil_production, <span class="at">main=</span><span class="st">"ACF Plot for Oil Production"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>pacf_oil_production <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(ts_oil_production, <span class="at">main=</span><span class="st">"PACF Plot for Oil Production"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_oil_production, pacf_oil_production, <span class="at">nrow=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bg =</span> <span class="st">"white"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>acf_oil_production <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(ts_oil_production, <span class="at">main=</span><span class="st">"ACF Plot for Oil Production"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>pacf_oil_production <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(ts_oil_production, <span class="at">main=</span><span class="st">"PACF Plot for Oil Production"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_oil_production, pacf_oil_production, <span class="at">nrow=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning message in ggplot2::geom_segment(lineend = "butt", ...):
 "Ignoring unknown parameters: `main`"
@@ -446,9 +312,9 @@ Warning message in ggplot2::geom_segment(lineend = "butt", ...):
 <p><img src="test2_files/figure-html/cell-5-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>test_oil_production <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(ts_oil_production)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(test_oil_production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>test_oil_production <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(ts_oil_production)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(test_oil_production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Augmented Dickey-Fuller Test
@@ -459,20 +325,20 @@ alternative hypothesis: stationary
 </code></pre>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bg =</span> <span class="st">"white"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create fit data</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>fit_oil_production <span class="ot">&lt;-</span> <span class="fu">lm</span>(ts_oil_production<span class="sc">~</span><span class="fu">time</span>(ts_oil_production), <span class="at">na.action=</span><span class="cn">NULL</span>) </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Detrended Plot</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>acf_2_oil_production <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(<span class="fu">resid</span>(fit_oil_production), <span class="at">main=</span><span class="st">"ACF Plot for Oil Production Detrended"</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Differenced Plot</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>acf_3_oil_production <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(<span class="fu">diff</span>(ts_oil_production), <span class="at">main=</span><span class="st">"ACF Plot for Oil Production First Differenced"</span>)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_oil_production, acf_2_oil_production, acf_3_oil_production, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bg =</span> <span class="st">"white"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create fit data</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>fit_oil_production <span class="ot">&lt;-</span> <span class="fu">lm</span>(ts_oil_production<span class="sc">~</span><span class="fu">time</span>(ts_oil_production), <span class="at">na.action=</span><span class="cn">NULL</span>) </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Detrended Plot</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>acf_2_oil_production <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(<span class="fu">resid</span>(fit_oil_production), <span class="at">main=</span><span class="st">"ACF Plot for Oil Production Detrended"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Differenced Plot</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>acf_3_oil_production <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(<span class="fu">diff</span>(ts_oil_production), <span class="at">main=</span><span class="st">"ACF Plot for Oil Production First Differenced"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_oil_production, acf_2_oil_production, acf_3_oil_production, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning message in ggplot2::geom_segment(lineend = "butt", ...):
 "Ignoring unknown parameters: `main`"
@@ -483,91 +349,118 @@ Warning message in ggplot2::geom_segment(lineend = "butt", ...):
 <p><img src="test2_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<section id="u.s.-inflation-rate" class="level4">
-<h4 class="anchored" data-anchor-id="u.s.-inflation-rate"><a href="https://data.oecd.org/price/inflation-cpi.htm">U.S. Inflation Rate</a></h4>
-</section>
-<section id="crude-oil-price" class="level4">
-<h4 class="anchored" data-anchor-id="crude-oil-price"><a href="https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19">Crude Oil Price</a></h4>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="7">
-<details>
-<summary>Libraries</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bg =</span> <span class="st">"white"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'./data/viz_oil_price.csv'</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> df_oil_price <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="st">'date'</span>, <span class="st">'adjusted'</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sequence of dates from start_date to end_date</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">min</span>(df_oil_price<span class="sc">$</span>date))  </span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">max</span>(df_oil_price<span class="sc">$</span>date))    </span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data range</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>date_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(start_date, end_date, <span class="at">by =</span> <span class="st">"1 day"</span>)</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataset with the date range</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>date_dataset <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> date_range)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge dataframes</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_oil_price, date_dataset, <span class="at">by.x =</span> <span class="st">"date"</span>, <span class="at">by.y =</span> <span class="st">"Date"</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co"># is.na(df_oil_price$adjusted)</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract rows with missing values</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>df_na_rows <span class="ot">&lt;-</span> df_oil_price[<span class="fu">which</span>(<span class="fu">rowSums</span>(<span class="fu">is.na</span>(df_oil_price)) <span class="sc">&gt;</span> <span class="dv">0</span>),]</span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract columns with missing values</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>df_na_cols <span class="ot">&lt;-</span> df_oil_price[, <span class="fu">which</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(df_oil_price)) <span class="sc">&gt;</span> <span class="dv">0</span>)]</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify data</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>imputed_time_series <span class="ot">&lt;-</span> <span class="fu">na_ma</span>(df_oil_price, <span class="at">k =</span> <span class="dv">4</span>, <span class="at">weighting =</span> <span class="st">"exponential"</span>)</span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Add modified data</span></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(imputed_time_series)</span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Change data type</span></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>df_oil_price<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_oil_price<span class="sc">$</span>date,<span class="at">format =</span> <span class="st">"%m/%d/%y"</span>)</span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>ts_oil_price<span class="ot">&lt;-</span><span class="fu">ts</span>(df_oil_price<span class="sc">$</span>adjusted,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2000-08-23"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="fl">365.25</span>)</span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series plot</span></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>ts_oil_price <span class="ot">&lt;-</span> <span class="fu">plot</span>(<span class="fu">as.ts</span>(ts_oil_price), <span class="at">main =</span> <span class="st">"Oil Price Time Series"</span>, <span class="at">xlab =</span> <span class="st">"Years"</span>, <span class="at">ylab =</span> <span class="st">"Price"</span>)</span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the customized plot</span></span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(ts_oil_price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-
-
-    
-        <meta charset="utf-8">
-        
-    
-    
-        <div></div>
-    
-
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mas_1_oil_production <span class="ot">&lt;-</span> <span class="fu">ma</span>(ts_oil_production, <span class="at">order =</span> <span class="dv">5</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mas_2_oil_production <span class="ot">&lt;-</span> <span class="fu">ma</span>(ts_oil_production, <span class="at">order =</span> <span class="dv">10</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>mas_3_oil_production <span class="ot">&lt;-</span> <span class="fu">ma</span>(ts_oil_production, <span class="at">order =</span> <span class="dv">15</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(ts_oil_production), <span class="at">y =</span> ts_oil_production, <span class="at">color =</span> <span class="st">"Original"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(mas_1_oil_production), <span class="at">y =</span> mas_1_oil_production, <span class="at">color =</span> <span class="st">"MAS_1"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(mas_2_oil_production), <span class="at">y =</span> mas_2_oil_production, <span class="at">color =</span> <span class="st">"MAS_2"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(mas_3_oil_production), <span class="at">y =</span> mas_3_oil_production, <span class="at">color =</span> <span class="st">"MAS_3"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Oil Production"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"MAS_1"</span> <span class="ot">=</span> <span class="st">"#2ECC71"</span>, <span class="st">"MAS_2"</span> <span class="ot">=</span> <span class="st">"#3498DB"</span>, <span class="st">"MAS_3"</span> <span class="ot">=</span> <span class="st">"#E74C3C"</span>)) <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Oil Production and Moving Average Smoothing"</span>, <span class="at">x =</span> <span class="st">"Years"</span>, <span class="at">y =</span> <span class="st">"Production"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Don't know how to automatically pick scale for object of type &lt;ts&gt;. Defaulting
+to continuous.
+Warning message:
+"Removed 4 rows containing missing values (`geom_line()`)."
+Warning message:
+"Removed 10 rows containing missing values (`geom_line()`)."
+Warning message:
+"Removed 14 rows containing missing values (`geom_line()`)."</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="test2_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#``` {r}</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Lag Plot"</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Lag Plot</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">gglagplot</span>(ts_oil_production, <span class="at">do.lines=</span><span class="cn">FALSE</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Lag Plot for Oil Production"</span>)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(ts_oil_production, <span class="st">'./data/ts_oil_production.csv'</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="u.s.-inflation-rate" class="level4">
+<h4 class="anchored" data-anchor-id="u.s.-inflation-rate"><a href="https://data.oecd.org/price/inflation-cpi.htm">U.S. Inflation Rate</a></h4>
+</section>
+<section id="crude-oil-price" class="level4">
+<h4 class="anchored" data-anchor-id="crude-oil-price"><a href="https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19">Crude Oil Price</a></h4>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="36">
+<details>
+<summary>Libraries</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bg =</span> <span class="st">"white"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'./data/viz_oil_price.csv'</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> df_oil_price <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="st">'date'</span>, <span class="st">'adjusted'</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sequence of dates from start_date to end_date</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">min</span>(df_oil_price<span class="sc">$</span>date))  </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">max</span>(df_oil_price<span class="sc">$</span>date))    </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data range</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>date_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(start_date, end_date, <span class="at">by =</span> <span class="st">"1 day"</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataset with the date range</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>date_dataset <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> date_range)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge dataframes</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_oil_price, date_dataset, <span class="at">by.x =</span> <span class="st">"date"</span>, <span class="at">by.y =</span> <span class="st">"Date"</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co"># is.na(df_oil_price$adjusted)</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract rows with missing values</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>df_na_rows <span class="ot">&lt;-</span> df_oil_price[<span class="fu">which</span>(<span class="fu">rowSums</span>(<span class="fu">is.na</span>(df_oil_price)) <span class="sc">&gt;</span> <span class="dv">0</span>),]</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract columns with missing values</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>df_na_cols <span class="ot">&lt;-</span> df_oil_price[, <span class="fu">which</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(df_oil_price)) <span class="sc">&gt;</span> <span class="dv">0</span>)]</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify data</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>imputed_time_series <span class="ot">&lt;-</span> <span class="fu">na_ma</span>(df_oil_price, <span class="at">k =</span> <span class="dv">4</span>, <span class="at">weighting =</span> <span class="st">"exponential"</span>)</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Add modified data</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(imputed_time_series)</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Change data type</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>df_oil_price<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_oil_price<span class="sc">$</span>date,<span class="at">format =</span> <span class="st">"%m/%d/%y"</span>)</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>ts_oil_price<span class="ot">&lt;-</span><span class="fu">ts</span>(df_oil_price<span class="sc">$</span>adjusted,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2000-08-23"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="fl">365.25</span>)</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series plot</span></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a><span class="co"># ts_oil_price &lt;- plot(as.ts(ts_oil_price), main = "Oil Price Time Series", xlab = "Years", ylab = "Price")</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the customized plot</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplotly(ts_oil_price)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ts_oil_price <span class="ot">&lt;-</span> <span class="fu">ts</span>(ts_oil_price,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2000-08-23"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="fl">365.25</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>date_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2000-08-23"</span>), <span class="at">length.out =</span> <span class="fu">length</span>(ts_oil_price), <span class="at">by =</span> <span class="st">"days"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Moving Average Smoothing - small number</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>mas_1_oil_price <span class="ot">&lt;-</span> <span class="fu">ma</span>(ts_oil_price, <span class="at">order =</span> <span class="dv">30</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>mas_1_oil_price <span class="ot">&lt;-</span> <span class="fu">ts</span>(mas_1_oil_price,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2000-08-23"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="fl">365.25</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Time Series and the Moving Average Smoothing curves</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>mas_1_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>              <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> date_seq, <span class="at">y =</span> <span class="fu">as.ts</span>(ts_oil_price), <span class="at">color =</span> <span class="st">"Original"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>              <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> date_seq, <span class="at">y =</span> <span class="fu">as.ts</span>(mas_1_oil_price), <span class="at">color =</span> <span class="st">"MAS_1"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Oil Price"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"MAS_1"</span> <span class="ot">=</span> <span class="st">"#2ECC71"</span>)) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>              <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Oil Price and 30-Period Moving Average Smoothing"</span>, <span class="at">x =</span> <span class="st">"Years"</span>, <span class="at">y =</span> <span class="st">"Price"</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>mas_1_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Don't know how to automatically pick scale for object of type &lt;ts&gt;. Defaulting
+to continuous.
+Warning message:
+"Removed 30 rows containing missing values (`geom_line()`)."</code></pre>
+</div>
 <div class="cell-output cell-output-display">
-<p><img src="test2_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+<p><img src="test2_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>

@@ -24,7 +24,7 @@ title: "Exploratory Data Analysis"
 ### Overview
 
 ::: {.justify}
-In this exploratory data analysis (EDA), we examine the time series data sets discussed in the [Data Visualization](https://mazuckerberg.georgetown.domains/DSAN_5600/4_data_visualization.html) section. The goal is to gain insight into the underlying components of the multiple time series. These analyses include trends, seasonality, variations, and periodic fluctuations. In addition, we will evaluate the time series for decomposition to see if it can be identified as multiplicative or additive. We will analyze the data sets using the following time series plots and tools:  Lag plots, autocorrelation function (ACF) and partial autocorrelation function (PACF) analysis, and stationarity checks using the Augmented Dickey-Fuller test. 
+In this exploratory data analysis (EDA), we examine the time series data sets discussed in the [Data Visualization](https://mazuckerberg.georgetown.domains/DSAN_5600/4_data_visualization.html) section. The goal is to gain insight into the underlying components of the multiple time series. These analyses include trends, seasonality, variations, and periodic fluctuations. In addition, we will evaluate the time series for decomposition to see if it can be identified as multiplicative or additive. We will analyze the data sets using the following time series plots and tools:  Lag plots, autocorrelation function (ACF) and partial autocorrelation function (PACF) analysis, stationarity checks using the Augmented Dickey-Fuller test, and Moving Average Smoothing for several periods of time. 
 
 :::
 
@@ -57,7 +57,7 @@ library(readxl)
 library(imputeTS)
 ```
 
-#### Global Oil Production
+### Global Oil Production
 
 ::: {.justify}
 The following plot, shows the data for the top 15 oil-producing countries in 2022. The goal is to use a line plot to show the evolution of the global oil market over the last 22 years and identify the dynamic leaders. Throughout this project, our central focus will be on the United States, which has been the leading country in oil production since 2018.
@@ -71,9 +71,14 @@ The following plot, shows the data for the top 15 oil-producing countries in 202
 
 > [Exploratory Data Analisis - Global Oil Production](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_1_oil_production.html)
 
-#### Crude Oil Price
+### Crude Oil Price
 
-> [Exploratory Data Analisis - Crude Oil Price](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_1_oil_price.html)
+::: {.justify}
+
+Price is a key characteristic to analyze in order to understand the behavior of a product in the market. One relevant dataset that has been included is the price of crude oil. An extensive exploratory data analysis of the daily price of crude oil was developed to gain insight into market fluctuations and trends from a time series perspective.
+:::
+
+> [Exploratory Data Analisis - Crude Oil Price](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_2_oil_price.html)
 
 
 

@@ -103,5 +103,17 @@
   },
   "5_EDA/5_3_interest.qmd": {
     "5_3_interest.html": "78d6fb9e"
+  },
+  "5_EDA/5_2_oil_price.qmd": {
+    "5_2_oil_price.html": "c312930f"
+  },
+  "6_ARMA/6_1_oil_production.qmd": {
+    "6_1_oil_production.html": "a4fa35cb"
+  },
+  "6_ARMA/6_2_oil_price.qmd": {
+    "6_2_oil_price.html": "4e4e6b71"
+  },
+  "test_6_ARMA.ipynb": {
+    "test_6_ARMA.html": "e3956542"
   }
 }

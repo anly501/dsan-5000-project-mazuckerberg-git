@@ -213,6 +213,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#global-oil-production" id="toc-global-oil-production" class="nav-link" data-scroll-target="#global-oil-production">Global Oil Production</a></li>
+  <li><a href="#crude-oil-price" id="toc-crude-oil-price" class="nav-link" data-scroll-target="#crude-oil-price">Crude Oil Price</a></li>
   </ul>
 </nav>
     </div>
@@ -260,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="overview" class="level3">
 <h3 class="anchored" data-anchor-id="overview">Overview</h3>
 <div class="justify">
-<p>In this exploratory data analysis (EDA), we examine the time series data sets discussed in the <a href="https://mazuckerberg.georgetown.domains/DSAN_5600/4_data_visualization.html">Data Visualization</a> section. The goal is to gain insight into the underlying components of the multiple time series. These analyses include trends, seasonality, variations, and periodic fluctuations. In addition, we will evaluate the time series for decomposition to see if it can be identified as multiplicative or additive. We will analyze the data sets using the following time series plots and tools: Lag plots, autocorrelation function (ACF) and partial autocorrelation function (PACF) analysis, and stationarity checks using the Augmented Dickey-Fuller test.</p>
+<p>In this exploratory data analysis (EDA), we examine the time series data sets discussed in the <a href="https://mazuckerberg.georgetown.domains/DSAN_5600/4_data_visualization.html">Data Visualization</a> section. The goal is to gain insight into the underlying components of the multiple time series. These analyses include trends, seasonality, variations, and periodic fluctuations. In addition, we will evaluate the time series for decomposition to see if it can be identified as multiplicative or additive. We will analyze the data sets using the following time series plots and tools: Lag plots, autocorrelation function (ACF) and partial autocorrelation function (PACF) analysis, stationarity checks using the Augmented Dickey-Fuller test, and Moving Average Smoothing for several periods of time.</p>
 </div>
 <p>Below are the libraries used in this section:</p>
 <div class="cell">
@@ -286,8 +288,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(imputeTS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="global-oil-production" class="level4">
-<h4 class="anchored" data-anchor-id="global-oil-production">Global Oil Production</h4>
+</section>
+<section id="global-oil-production" class="level3">
+<h3 class="anchored" data-anchor-id="global-oil-production">Global Oil Production</h3>
 <div class="justify">
 <p>The following plot, shows the data for the top 15 oil-producing countries in 2022. The goal is to use a line plot to show the evolution of the global oil market over the last 22 years and identify the dynamic leaders. Throughout this project, our central focus will be on the United States, which has been the leading country in oil production since 2018.</p>
 </div>
@@ -298,14 +301,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_1_oil_production.html">Exploratory Data Analisis - Global Oil Production</a></p>
 </blockquote>
 </section>
-<section id="crude-oil-price" class="level4">
-<h4 class="anchored" data-anchor-id="crude-oil-price">Crude Oil Price</h4>
+<section id="crude-oil-price" class="level3">
+<h3 class="anchored" data-anchor-id="crude-oil-price">Crude Oil Price</h3>
+<div class="justify">
+<p>Price is a key characteristic to analyze in order to understand the behavior of a product in the market. One relevant dataset that has been included is the price of crude oil. An extensive exploratory data analysis of the daily price of crude oil was developed to gain insight into market fluctuations and trends from a time series perspective.</p>
+</div>
 <blockquote class="blockquote">
-<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_1_oil_price.html">Exploratory Data Analisis - Crude Oil Price</a></p>
+<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_2_oil_price.html">Exploratory Data Analisis - Crude Oil Price</a></p>
 </blockquote>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

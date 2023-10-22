@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series - Global Oil Production</title>
+<title>Time Series - U.S. Oil Production</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Global Oil Production</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">U.S. Oil Production</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -215,7 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Global Oil Production</h1>
+<h1 class="title">U.S. Oil Production</h1>
 </div>
 
 
@@ -331,8 +331,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Augmented Dickey-Fuller Test Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>test_oil_production <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(ts_oil_production)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(test_oil_production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Augmented Dickey-Fuller Test calculation</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>test_oil_production <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(ts_oil_production)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(test_oil_production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -370,6 +373,54 @@ alternative hypothesis: stationary</code></pre>
 <div class="epigrafe">
 <p>The ACF plot for the detrended fitted model clearly shows that some positive autocorrelation remains for lags 1 and 2, as the values are higher than the confidence band.</p>
 <p>On the other hand, the ACF plot for the differenced model clearly shows that there is no autocorrelation left, as all lags are within the confidence band. Therefore, we conclude that when the first differencing method is applied to the time series, it turns out to be stationary.</p>
+</div>
+<div class="cell">
+<details>
+<summary>Moving Average smoothing</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List of years</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>date_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2000-01-01"</span>), <span class="at">length.out =</span> <span class="fu">length</span>(ts_oil_production), <span class="at">by =</span> <span class="st">"year"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Moving Average Smoothing - small number</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>mas_1_oil_production <span class="ot">&lt;-</span> <span class="fu">ma</span>(ts_oil_production, <span class="at">order =</span> <span class="dv">2</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Moving Average Smoothing - medium number</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>mas_2_oil_production <span class="ot">&lt;-</span> <span class="fu">ma</span>(ts_oil_production, <span class="at">order =</span> <span class="dv">10</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Moving Average Smoothing - high number</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>mas_3_oil_production <span class="ot">&lt;-</span> <span class="fu">ma</span>(ts_oil_production, <span class="at">order =</span> <span class="dv">20</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Time Series and the Moving Average Smoothing curves</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>mas_1_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>              <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> date_seq, <span class="at">y =</span> ts_oil_production, <span class="at">color =</span> <span class="st">"Original"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>              <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> date_seq, <span class="at">y =</span> mas_1_oil_production, <span class="at">color =</span> <span class="st">"2-Period"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>              <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Oil Price"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"2-Period"</span> <span class="ot">=</span> <span class="st">"#2ECC71"</span>)) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>              <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Oil Price and Moving Average Smoothing"</span>, <span class="at">x =</span> <span class="st">"Years"</span>, <span class="at">y =</span> <span class="st">"Price"</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Time Series and the Moving Average Smoothing curves</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>mas_2_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>              <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> date_seq, <span class="at">y =</span> ts_oil_production, <span class="at">color =</span> <span class="st">"Original"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>              <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> date_seq, <span class="at">y =</span> mas_2_oil_production, <span class="at">color =</span> <span class="st">"10-Period"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>              <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Oil Price"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"10-Period"</span> <span class="ot">=</span> <span class="st">"#3498DB"</span>)) <span class="sc">+</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>              <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Oil Price and Moving Average Smoothing"</span>, <span class="at">x =</span> <span class="st">"Years"</span>, <span class="at">y =</span> <span class="st">"Price"</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Time Series and the Moving Average Smoothing curves</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>mas_3_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>              <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> date_seq, <span class="at">y =</span> ts_oil_production, <span class="at">color =</span> <span class="st">"Original"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>              <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> date_seq, <span class="at">y =</span> mas_3_oil_production, <span class="at">color =</span> <span class="st">"180-Period"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>              <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Oil Price"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"180-Period"</span> <span class="ot">=</span> <span class="st">"#E74C3C"</span>)) <span class="sc">+</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>              <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Oil Price and Moving Average Smoothing"</span>, <span class="at">x =</span> <span class="st">"Years"</span>, <span class="at">y =</span> <span class="st">"Price"</span>) </span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(mas_1_plot, mas_2_plot, mas_3_plot, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="5_1_oil_production_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="epigrafe">
+<p>Moving average smoothing is useful for identifying trends and patterns in time series data. By applying it over different smoothing periods, we can gain insight into how these affect the data.</p>
+<p>In this case, we have applied 3 smoothing periods. The 2-period moving average is a short-term perspective that shows the impact of fluctuations from the previous period. The 10-period moving average is useful for reducing short-term noise and identifying seasonal factors. The 20-period moving average is a long-term perspective used to identify long-term trends and the presence of economic cycles.</p>
+<p>Given the available data, smoothing with the 20-period moving average is not useful for analysis. Smoothing with the 2-period and 10-period moving averages clearly shows an upward trend in the time series, no seasonality, and no economic cycles.</p>
 </div>
 
 

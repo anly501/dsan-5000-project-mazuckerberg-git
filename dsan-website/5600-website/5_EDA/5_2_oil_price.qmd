@@ -177,7 +177,10 @@ The results obtained when the Augmented Dickey-Fuller test is applied to the oil
 #| code-summary: "Augmented Dickey-Fuller Test Code"
 #| warning: false
 
+# Augmented Dickey-Fuller Test calculation
 test_oil_price <- adf.test(ts_oil_price)
+
+# Print results
 print(test_oil_price)
 ```
 
@@ -202,18 +205,72 @@ acf_2_oil_price <- ggAcf(resid(fit_oil_price), 50, main="ACF Plot for Oil Price 
 # ACF Differenced Plot
 acf_3_oil_price <- ggAcf(diff(ts_oil_price), 50, main="ACF Plot for Oil Price First Differenced")
 
-# ACF Differenced Plot
-acf_4_oil_price <- ggAcf(diff(diff(ts_oil_price)), 50, main="ACF Plot for Oil Price Second Differenced")
-
 # Arrange Plots
-grid.arrange(acf_oil_price, acf_2_oil_price, acf_3_oil_price, acf_4_oil_price, nrow=4)
+grid.arrange(acf_oil_price, acf_2_oil_price, acf_3_oil_price, nrow=3)
 ```
 
 ::: {.epigrafe}
 
 The ACF plot for the detrended fitted model clearly shows that the detrending method was not effective because the model is still highly autocorrelated and it's not stationary.
 
-Both the first and second differencing show high autocorrelation in the first lag. The other lag values are very close to zero, but some of them are outside the confidence bands.
-
-Additional steps should be applied to the time series in order to obtain a fully stationary time series.
+The first differencing show high autocorrelation in the first lag. The other lag values are very close to zero, but some of them are outside the confidence bands.
 :::
+
+``` {r, fig.width = 8, fig.height = 8}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Moving Average smoothing"
+#| warning: false
+
+# List of dates
+date_seq <- seq(as.Date("2000-08-23"), length.out = length(ts_oil_price), by = "days")
+
+# Moving Average Smoothing - small number
+mas_1_oil_price <- ma(ts_oil_price, order = 90)
+
+# Moving Average Smoothing - medium number
+mas_2_oil_price <- ma(ts_oil_price, order = 180)
+
+# Moving Average Smoothing - high number
+mas_3_oil_price <- ma(ts_oil_price, order = 365)
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_1_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_oil_price, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_1_oil_price, color = "90-Period"), size = 1) +
+              scale_color_manual(values = c("Oil Price" = "black", "90-Period" = "#2ECC71")) +
+              labs(title = "Oil Price and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_2_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_oil_price, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_2_oil_price, color = "180-Period"), size = 1) +
+              scale_color_manual(values = c("Oil Price" = "black", "180-Period" = "#3498DB")) +
+              labs(title = "Oil Price and Moving Average Smoothing", x = "Years", y = "Price", ) 
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_3_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_oil_price, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_3_oil_price, color = "365-Period"), size = 1) +
+              scale_color_manual(values = c("Oil Price" = "black", "365-Period" = "#E74C3C")) +
+              labs(title = "Oil Price and Moving Average Smoothing", x = "Years", y = "Price") 
+
+# Arrange Plots
+grid.arrange(mas_1_plot, mas_2_plot, mas_3_plot, nrow=3)
+```
+
+
+::: {.epigrafe}
+Applying moving average smoothing to daily oil price data is key to understanding patterns in the oil market.
+In this case, since the information is in daily records, we have applied 90-day (3 months), 180-day (6 months), and 365-day (1 year) moving averages. A 90-day moving average smoothing provides a short to medium term perspective, reduces data volatility and noise, and represents the quarterly timeframe. As seen in the first chart, there is clearly no seasonality. The second plot shows a smoothing of the moving averages over a period of 180 days which helps to analyze the presence of economic shifts. The last graph, provides a long-term perspective by smoothing the moving averages over 365 days. We can see that there is no trend along the years and most of the analysis done in the previous section regarding economic crises, and external factors are still present in the fluctuations.
+:::
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Save ts as a new file
+write.csv(ts_oil_price, '../data/ts_oil_price.csv', row.names = FALSE)
+```

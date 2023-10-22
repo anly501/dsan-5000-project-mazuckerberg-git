@@ -1,3 +1,88 @@
 ---
 title: "ARMA / ARIMA / SARIMA Models"
 ---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+### Overview
+
+::: {.justify}
+In this section, we examine the applicability of AutoRegressive Moving Average (ARMA), AutoRegressive Integrated Moving Average (ARIMA), and Seasonal AutoRegressive Integrated Moving Average (SARIMA) models.
+
+Using the time series obtained in the previous section, [Exploratory Data Analysis](https://mazuckerberg.georgetown.domains/DSAN_5600/5_exploratory_data_analysis.html) section, this section is dedicated to the application of the methods to obtain an appropriate forecasting model for each one. These methods include the Augmented Dickey-Fuller test, the Autocorrelation Function (ACF), and the Partial Autocorrelation Function (PACF), to identify time dependencies and correlations. 
+
+After successfully transforming the data into a stationary time series, we apply time series functions within the R programming environment and other plotting methods to develop the analysis. These include the Arima() function for model fitting, parameter selection based on the stationary time series PACF plots, differencing methods, and ACF plots. Akaike Information Criterion (AIC) minimization, Bayesian Information Criterion (BIC) minimization, and holistic model diagnostics were used to successfully select models.
+
+The selected model is subjected to holistic model diagnostics and residual analysis for further understanding and model validation, which allows to create forecasting on the time series.
+:::
+
+Below are the libraries used in this section:
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+```
+
+### U.S. Oil Production
+
+::: {.justify}
+
+By following the previously mentioned steps in the analysis of the U.S. Oil Production time series dataset, we present the plot below. This plot provides a forecast for the next 10 periods, which correspond to the next 10 years.
+
+To ensure the suitability of the data for analysis, we applied the first difference method, which results in a stationary time series. The forecast shown in the graph is obtained using an ARIMA(2,1,1) model. 
+
+A detailed understanding of the analysis process and the conclusions drawn to produce this forecast can be found below.
+:::
+
+<img src="./images/6_1_oil_production_forecast.png" width=80% height=80%>
+
+> [ARMA / ARIMA / SARIMA Models - Global Oil Production](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_1_oil_production.html)
+
+### Crude Oil Price
+
+::: {.justify}
+
+Add description
+:::
+
+> [ARMA / ARIMA / SARIMA Models - Crude Oil Price](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_2_oil_price.html)
+

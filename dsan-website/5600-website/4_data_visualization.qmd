@@ -21,7 +21,7 @@ title: "Data Visualization"
 }
 ```
 
-# Overview
+### Overview
 
 ::: {.justify}
 In the following section, we can see different visualizations based on the gathered information. The sources from which the data was obtained can be found in the [Data Sources](https://mazuckerberg.georgetown.domains/DSAN_5600/3_data_sources.html) section. The collected data was analyzed and data cleaning steps were applied. Above each visualization, the code for the data cleaning and the visualization building steps is available.
@@ -57,7 +57,7 @@ library(gridExtra)
 library(readxl)
 ```
 
-# [Global Oil Production](https://ourworldindata.org/grapher/oil-production-by-country?time=earliest..1923)
+### [Global Oil Production](https://ourworldindata.org/grapher/oil-production-by-country?time=earliest..1923)
 ``` {r}
 #| echo: true
 #| message: false
@@ -104,7 +104,70 @@ From the year 2011 to 2014, the United States had a significant increase in oil-
 :::
 
 
-# [U.S. Inflation Rate](https://data.oecd.org/price/inflation-cpi.htm)
+### [Crude Oil Price](https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19)
+
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data"
+#| warning: false
+
+# Get oil price data from stock market
+oil_price <- tq_get("CL=F", get = "stock.prices", from = "2000-01-01", to = "2022-12-31")
+
+# Calculate adjusted price
+oil_price$adjusted <- oil_price$adjusted/oil_price$adjusted[1]
+
+# Create dataframe
+oil_price <- data.frame(oil_price,rownames(oil_price))
+
+# Save dataframe as a new file 
+write.csv(oil_price, './data/viz_oil_price.csv', row.names = FALSE)
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
+
+# Create plot
+oil_price_viz <- plot_ly(oil_price, type = 'scatter', mode = 'lines')%>%
+  add_trace(x = oil_price$date, y = oil_price$adjusted, name = 'Price', showlegend = FALSE)%>%
+  layout(title = 'Crude Oil Price by Day',
+         xaxis = list(rangeslider = list(visible = T)))
+options(warn = -1)
+
+# Set plot layout
+oil_price_viz <- oil_price_viz %>%
+  layout(
+         xaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff'),
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title = 'Index'),
+         plot_bgcolor='#e5ecf6')
+
+# Show plot
+ggplotly(oil_price_viz)
+```
+
+::: {.epigrafe}
+From 2003 to 2008, oil prices rose, quadrupling and setting numerous records. The 2007 subprime mortgage crisis, triggered by the collapse of the 2006 U.S. housing bubble, led to a severe global liquidity crisis and subsequent economic events, including the January 2008 stock market crisis, the October 2008 global stock market crisis, the international economic downturn, and the Great Recession.
+
+In 2015, crude oil prices fell due to oversupply relative to global demand, resulting in steadily rising inventories throughout the year.
+
+The COVID-19 pandemic caused a sharp drop in oil prices due to government-imposed shutdowns, stay-at-home orders, and travel restrictions. An unprecedented event occurred on April 20th, 2020, when oil prices turned negative. In March, an oil price war broke out between Russia and Saudi Arabia due to disagreements over production levels.
+
+By the early summer of 2020, oil prices rebounded as nations lifted shutdowns, and OPEC agreed to substantial crude oil production cuts. Major central banks stopped raising interest rates, supporting demand. Towards the end of the year, optimism surrounded the planned launch of several COVID-19 vaccines, supporting the market.
+:::
+
+### [U.S. Inflation Rate](https://data.oecd.org/price/inflation-cpi.htm)
 ``` {r}
 #| echo: true
 #| message: false
@@ -201,7 +264,7 @@ In 2020, the COVID-19 pandemic triggered a global economic shutdown, resulting i
 :::
 
 
-# [U.S. Interest Rate](https://data.imf.org/regular.aspx?key=61545855)
+### [U.S. Interest Rate](https://data.imf.org/regular.aspx?key=61545855)
 ``` {r}
 #| echo: true
 #| message: false
@@ -292,151 +355,4 @@ By the end of 2008, during the Great Recession, rates were reduced to a range of
 Seven years later, the Fed cautiously raised rates as the economy recovered, with the first hike coming in December 2015. Economic concerns from China in early 2016 and falling oil prices led to a year-long pause in rate hikes. In 2019, U.S.-China trade tensions prompted three rate cuts in the second half of the year to support the economy.
 
 In 2020, the COVID-19 pandemic caused massive job losses and an unemployment rate of 14.7%, leading to two emergency rate cuts that returned rates to the 0-0.25% range.
-:::
-
-
-# [Crude Oil Price](https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19)
-
-
-```{r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Data"
-#| warning: false
-
-# Get oil price data from stock market
-oil_price <- tq_get("CL=F", get = "stock.prices", from = "2000-01-01", to = "2022-12-31")
-
-# Calculate adjusted price
-oil_price$adjusted <- oil_price$adjusted/oil_price$adjusted[1]
-
-# Create dataframe
-oil_price <- data.frame(oil_price,rownames(oil_price))
-
-# Save dataframe as a new file 
-write.csv(oil_price, './data/viz_oil_price.csv', row.names = FALSE)
-```
-
-```{r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Visualization"
-#| warning: false
-
-# Create plot
-oil_price_viz <- plot_ly(oil_price, type = 'scatter', mode = 'lines')%>%
-  add_trace(x = oil_price$date, y = oil_price$adjusted, name = 'Price', showlegend = FALSE)%>%
-  layout(title = 'Crude Oil Price by Day',
-         xaxis = list(rangeslider = list(visible = T)))
-options(warn = -1)
-
-# Set plot layout
-oil_price_viz <- oil_price_viz %>%
-  layout(
-         xaxis = list(zerolinecolor = '#ffff',
-                      zerolinewidth = 2,
-                      gridcolor = 'ffff'),
-         yaxis = list(zerolinecolor = '#ffff',
-                      zerolinewidth = 2,
-                      gridcolor = 'ffff',
-                      title = 'Index'),
-         plot_bgcolor='#e5ecf6')
-
-# Show plot
-ggplotly(oil_price_viz)
-```
-
-::: {.epigrafe}
-From 2003 to 2008, oil prices rose, quadrupling and setting numerous records. The 2007 subprime mortgage crisis, triggered by the collapse of the 2006 U.S. housing bubble, led to a severe global liquidity crisis and subsequent economic events, including the January 2008 stock market crisis, the October 2008 global stock market crisis, the international economic downturn, and the Great Recession.
-
-In 2015, crude oil prices fell due to oversupply relative to global demand, resulting in steadily rising inventories throughout the year.
-
-The COVID-19 pandemic caused a sharp drop in oil prices due to government-imposed shutdowns, stay-at-home orders, and travel restrictions. An unprecedented event occurred on April 20th, 2020, when oil prices turned negative. In March, an oil price war broke out between Russia and Saudi Arabia due to disagreements over production levels.
-
-By the early summer of 2020, oil prices rebounded as nations lifted shutdowns, and OPEC agreed to substantial crude oil production cuts. Major central banks stopped raising interest rates, supporting demand. Towards the end of the year, optimism surrounded the planned launch of several COVID-19 vaccines, supporting the market.
-:::
-
-
-# Indexes: [Energy Sector](https://finance.yahoo.com/quote/IYE?p=IYE&.tsrc=fin-srch), [Transportation](https://finance.yahoo.com/quote/IYT?p=IYT&.tsrc=fin-srch) and [Staples](https://finance.yahoo.com/quote/IYK?p=IYK&.tsrc=fin-srch)
-
-
-```{r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Data"
-#| warning: false
-
-# Set tickers for indexes
-tickers = c("IYE", "IYT", "IYK")
-
-# Get data for each ticker
-for (i in tickers){
-    getSymbols(i,
-    from = "2004-01-02",
-    to = "2022-12-31")}
-
-# Create dataframe with ticker data
-stock <- data.frame(IYE$IYE.Adjusted,
-                    IYT$IYT.Adjusted,
-                    IYK$IYK.Adjusted)
-
-# Calculate adjusted price for each ticker
-stock$IYE.Adjusted <- stock$IYE.Adjusted/stock$IYE.Adjusted[1]
-stock$IYT.Adjusted <- stock$IYT.Adjusted/stock$IYT.Adjusted[1]
-stock$IYK.Adjusted <- stock$IYK.Adjusted/stock$IYK.Adjusted[1]
-
-# Create dataframe with ticker data
-stock <- data.frame(stock,rownames(stock))
-
-# Rename columns in dataframe
-colnames(stock) <- append(tickers,'Dates')
-
-# Save dataframe as a new file 
-write.csv(stock, './data/viz_indexes.csv', row.names = FALSE)
-```
-
-```{r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Visualization"
-#| warning: false
-
-# Create plot
-indexes_viz <- plot_ly(stock, type = 'scatter', mode = 'lines')%>%
-  add_trace(x = ~Dates, y = ~IYE, name = 'Energy Sector')%>%
-  add_trace(x = ~Dates, y = ~IYT, name = 'Transportation')%>%
-  add_trace(x = ~Dates, y = ~IYK, name = 'Staples')%>%
-  layout(title = 'Energy Sector, Transportation and Staples Indexes by Day', legend=list(title=list(text='Indexes')),
-         xaxis = list(rangeslider = list(visible = T)))
-options(warn = -1)
-
-# Set plot layout
-indexes_viz <- indexes_viz %>%
-  layout(
-         xaxis = list(zerolinecolor = '#ffff',
-                      zerolinewidth = 2,
-                      gridcolor = 'ffff'),
-         yaxis = list(zerolinecolor = '#ffff',
-                      zerolinewidth = 2,
-                      gridcolor = 'ffff',
-                      title = 'Index'),
-         plot_bgcolor='#e5ecf6')
-
-# Show plot
-ggplotly(indexes_viz)
-```
-
-::: {.epigrafe}
-The U.S. energy sector is closely tied to the price of oil. During the 2008 financial crisis and in the in early 2020s with the onset of the COVID-19 pandemic, both oil prices and the energy sector experienced significant declines. This drop was due to reduced demand for energy in various applications, including manufacturing and transportation, caused by external events affecting production and oil inventories. Meanwhile, the energy sector faced a crisis of its own making in 2014 and 2015, when oil prices plummeted and there was an oversupply of oil relative to demand. While high oil prices can generate significant profits for the energy sector, they also exert inflationary pressure on final product prices in the medium term. This inflation can lead to reduced consumption and thus reduced demand for energy.
-
-In recent decades, the U.S. transportation sector has experienced a series of crises, including health and terrorism-related events, resulting in abrupt shifts in transportation demand. After the 2008-09 financial crisis and global recession, the economic benefits of investing in public transportation became clear. The COVID-19 pandemic brought about widespread disruptions across all forms of transportation, affecting cars, public transport in urban areas, buses, trains, and domestic and international air travel. By the end of March 2020, global road transportation activity was nearly 50% lower than the 2019 average, and commercial flight activity in mid-April 2020 was nearly 75% lower than in 2019.
-
-This dramatic shift in transportation behavior also had a significant impact on the energy sector, leading to a 5% decline in oil consumption in the first quarter of 2020. Given that passenger transport contributes to approximately 40% of final oil demand and 15% of global energy-related carbon emissions, any changes in travel patterns due to crisis-induced shocks have far-reaching global consequences.
-
-The U.S. Staples sector includes companies that produce, distribute, and sell products such as food, beverages, and personal care items. These products are known for their resilience to economic downturns. This sector has been affected in three specific times. First, the global financial crisis in 2008, following the U.S. real estate crash. Second, the COVID-19 pandemic in the early 2020s, which led to global economic paralysis and a decline in international trade. During this period, there was a sharp decline in production, factory closures, and a significant increase in unemployment.
-It's important to highlight the sector's sensitivity to inflation, as reflected in the increased volatility from 2021 to the present day.
 :::

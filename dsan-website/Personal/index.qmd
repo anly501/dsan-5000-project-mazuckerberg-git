@@ -1,6 +1,6 @@
 ---
 title: "Agustina Zuckerberg"
-bibliography: reference.bib
+bibliography: "../reference.bib"
 ---
 # About me
 
@@ -18,4 +18,4 @@ Additional passions include traveling, hanging out with friends, going to music 
 ## Contact
 - **Mail:** maz53@georgetown.edu
 
-- **Phone number:** +1 (202) 802 5686
+<!-- - **Phone number:** +1 (202) 802 5686 -->

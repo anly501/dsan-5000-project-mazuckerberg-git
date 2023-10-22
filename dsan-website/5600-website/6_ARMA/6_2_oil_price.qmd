@@ -1,0 +1,348 @@
+---
+title: "Crude Oil Price"
+format: html
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+```
+
+::: {.epigrafe}
+
+In this section...
+
+:::
+
+::: {.epigrafe}
+
+Import the dataset from the EDA
+
+The plot below shows the ACF plot. 
+
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Plot ACF"
+#| warning: false
+
+# Import dataset
+ts_oil_price <- read_csv('../data/ts_oil_price.csv')
+
+# Create time series
+ts_oil_price<-ts(ts_oil_price$x,star=decimal_date(as.Date("2000-08-23",format = "%Y-%m-%d")),frequency = 365.25)
+
+# Resize plots
+options(repr.plot.width = 5, repr.plot.height = 2) 
+
+# ACF Plot
+acf_oil_price <- ggAcf(ts_oil_price, 100, main="ACF Plot for Oil Production")
+
+acf_oil_price
+```
+
+::: {.epigrafe}
+
+Augmented Dickey Fuller Test 
+
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Augmented Dickey-Fuller Test Code"
+#| warning: false
+
+# Augmented Dickey-Fuller Test calculation
+test_oil_price <- adf.test(ts_oil_price)
+
+# Print results
+print(test_oil_price)
+```
+
+::: {.epigrafe}
+
+Define if its stationary. Compare ACF to Augmented Dickey Fuller Test 
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Differencing Code"
+#| warning: false
+
+options(repr.plot.width = 6, repr.plot.height = 6) 
+
+# ACF Differenced Plot
+acf_diff_oil_price <- ggAcf(diff(ts_oil_price), 100, main="ACF Plot for Oil Production First Differenced")
+
+# Show plot
+acf_diff_oil_price
+```
+
+::: {.epigrafe}
+
+Describe the ACF plot above.
+
+Compare to the Augmented Dickey-Fuller Test below.
+
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Augmented Dickey-Fuller Test Code"
+#| warning: false
+
+# Save differenced time series
+diff_oil_price <- diff(ts_oil_price)
+
+# Augmented Dickey-Fuller Test calculation
+test_diff_oil_price <- adf.test(diff_oil_price)
+
+# Print results
+print(test_diff_oil_price)
+```
+
+::: {.epigrafe}
+
+Keep the differenced ts because its stationary.
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "ACF and PACF Plot Code"
+#| warning: false
+
+# Keep differenced Time Series
+ts_oil_price <- diff_oil_price
+
+# Resize plots
+options(repr.plot.width = 5, repr.plot.height = 2) 
+
+# ACF Plot
+acf_oil_price <- ggAcf(ts_oil_price, 100, main="ACF Plot for Oil Price")
+
+# PACF Plot
+pacf_oil_price <- ggPacf(ts_oil_price, 100, main="PACF Plot for Oil Price")
+
+# Arrange Plots
+grid.arrange(acf_oil_price, pacf_oil_price, nrow=2)
+```
+
+::: {.epigrafe}
+
+Based on the values obtained before, we assess the best p,d,q below
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Parameter Assesing"
+#| warning: false
+
+# Assigned time series to variable used in the algorithm
+xt <- ts_oil_price
+
+# PACF plot parameter selection
+p_value <- 5
+
+# Number of differences
+d_value <- 1
+
+# ACF plot parameter selection
+q_value <- 6
+
+# Initialize variable
+i <- 1
+
+# Initialize variable
+temp <- data.frame()
+
+# Calculate number of rows
+rows <- p_value*d_value*q_value
+
+# 
+ls <- matrix(rep(NA,6*rows),nrow=rows) 
+
+# Parameter testing loop
+for (p in 1:p_value+1)
+{
+  for(q in 1:q_value+1)
+  {
+    for(d in 1:d_value)
+    {
+      
+      #if(p-1+d+q-1<=8) #usual threshold
+      #{
+        
+        model<- Arima(xt,order=c(p-1,d,q-1),include.drift=TRUE) 
+        ls[i,]= c(p-1,d,q-1,model$aic,model$bic,model$aicc)
+        i=i+1
+        #print(i)
+        
+      #}
+      
+    }
+  }
+}
+
+temp <- as.data.frame(ls)
+
+names(temp) <- c("p","d","q","AIC","BIC","AICc")
+
+#temp
+knitr::kable(temp)
+```
+
+::: {.epigrafe}
+
+Model Selection
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Selection"
+#| warning: false
+
+# Check best model with AIC
+temp[which.min(temp$AIC),]
+
+# Check best model with BIC
+temp[which.min(temp$BIC),]
+
+# Check best model with AICc
+temp[which.min(temp$AICc),]
+```
+
+::: {.epigrafe}
+
+Model Diagnostics
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Diagnostics - parameters with best AIC"
+#| warning: false
+
+AIC <- temp[which.min(temp$AIC),]
+
+p1 <- AIC$p
+d1 <- AIC$d
+q1 <- AIC$q
+
+# Model diagnostics for best AIC
+model_output <- capture.output(sarima(xt, p1, d1, q1))
+```
+
+::: {.epigrafe}
+
+Describe model diagnostics
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Diagnostics - parameters with best BIC"
+#| warning: false
+
+BIC <- temp[which.min(temp$BIC),]
+
+p2 <- BIC$p
+d2 <- BIC$d
+q2 <- BIC$q
+
+# Model diagnostics for best BIC
+model_output <- capture.output(sarima(xt, p2, d2, q2))
+```
+
+::: {.epigrafe}
+
+Describe model diagnostics
+
+:::
+
+::: {.epigrafe}
+
+Fit ARIMA model using Arima()
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Fitting"
+#| warning: false
+
+AIC <- Arima(xt,order=c(p1, d1, q1),include.drift = TRUE)
+BIC <- Arima(xt,order=c(p2, d2, q2),include.drift = TRUE)
+
+plot(xt, col="black")
+lines(fitted(BIC),col="blue")
+lines(fitted(AIC), col="green")
+legend(x = "topleft", legend = c("xt", "AIC", "BIC"), col = c("black", "green", "blue"), lty = 1)
+
+```

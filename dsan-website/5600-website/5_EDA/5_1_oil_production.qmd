@@ -1,5 +1,5 @@
 ---
-title: "Global Oil Production"
+title: "U.S. Oil Production"
 format: html
 ---
 ```{css, echo = FALSE}
@@ -148,7 +148,10 @@ Below we can observe the results obtained when the Augmented Dickey-Fuller test 
 #| code-summary: "Augmented Dickey-Fuller Test Code"
 #| warning: false
 
+# Augmented Dickey-Fuller Test calculation
 test_oil_production <- adf.test(ts_oil_production)
+
+# Print results
 print(test_oil_production)
 ```
 
@@ -185,3 +188,66 @@ The ACF plot for the detrended fitted model clearly shows that some positive aut
 
 On the other hand, the ACF plot for the differenced model clearly shows that there is no autocorrelation left, as all lags are within the confidence band. Therefore, we conclude that when the first differencing method is applied to the time series, it turns out to be stationary.
 :::
+
+``` {r, fig.width = 8, fig.height = 8}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Moving Average smoothing"
+#| warning: false
+
+# List of years
+date_seq <- seq(as.Date("2000-01-01"), length.out = length(ts_oil_production), by = "year")
+
+# Moving Average Smoothing - small number
+mas_1_oil_production <- ma(ts_oil_production, order = 2)
+
+# Moving Average Smoothing - medium number
+mas_2_oil_production <- ma(ts_oil_production, order = 10)
+
+# Moving Average Smoothing - high number
+mas_3_oil_production <- ma(ts_oil_production, order = 20)
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_1_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_oil_production, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_1_oil_production, color = "2-Period"), size = 1) +
+              scale_color_manual(values = c("Oil Price" = "black", "2-Period" = "#2ECC71")) +
+              labs(title = "Oil Price and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_2_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_oil_production, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_2_oil_production, color = "10-Period"), size = 1) +
+              scale_color_manual(values = c("Oil Price" = "black", "10-Period" = "#3498DB")) +
+              labs(title = "Oil Price and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_3_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_oil_production, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_3_oil_production, color = "180-Period"), size = 1) +
+              scale_color_manual(values = c("Oil Price" = "black", "180-Period" = "#E74C3C")) +
+              labs(title = "Oil Price and Moving Average Smoothing", x = "Years", y = "Price") 
+
+# Arrange Plots
+grid.arrange(mas_1_plot, mas_2_plot, mas_3_plot, nrow=3)
+```
+
+::: {.epigrafe}
+Moving average smoothing is useful for identifying trends and patterns in time series data. By applying it over different smoothing periods, we can gain insight into how these affect the data.
+
+In this case, we have applied 3 smoothing periods. The 2-period moving average is a short-term perspective that shows the impact of fluctuations from the previous period. The 10-period moving average is useful for reducing short-term noise and identifying seasonal factors. The 20-period moving average is a long-term perspective used to identify long-term trends and the presence of economic cycles. 
+
+Given the available data, smoothing with the 20-period moving average is not useful for analysis. Smoothing with the 2-period and 10-period moving averages clearly shows an upward trend in the time series, no seasonality, and no economic cycles.
+:::
+
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Save ts as a new file
+write.csv(ts_oil_production, '../data/ts_oil_production.csv', row.names = FALSE)
+```
+
