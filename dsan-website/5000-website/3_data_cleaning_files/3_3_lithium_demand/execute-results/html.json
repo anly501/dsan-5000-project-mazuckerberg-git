@@ -1,0 +1,14 @@
+{
+  "hash": "735172bad3304a3792669bb38a29917d",
+  "result": {
+    "markdown": "---\ntitle: \"Global Lithium Demand\"\nformat: html\n---\n\n::: {.cell}\n<style type=\"text/css\">\n.justify {\n    text-align: justify !important;\n    text-indent: 20px; \n}\n\n.epigrafe {\n    text-align: justify !important;\n    text-indent: 20px; \n    border: 1.5px solid #87c8b5; \n    padding-top: 15px;\n    padding-bottom: 5px;\n    padding-right: 15px;\n    padding-left: 15px;\n    font-size: 14px;\n    background-color: #f9f9f9; \n    margin: 20px 0px 30px 0px;\n}\n</style>\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n```{.r .cell-code  code-fold=\"true\" code-summary=\"Data Cleaning Code\"}\ndf_demand <- read_excel(\"../../../data/00-raw-data/global-lithium-demand.xlsx\", sheet=\"Data\")\n\nnames(df_demand) <- c('Year', 'Demand')\n\ndf_demand <- df_demand %>% filter(!is.na(Demand) & Demand != \"\")\n\ndf_demand$Year <- gsub(\"\\\\*\", \"\", df_demand$Year)\n\ndf_demand$Year <- as.integer(df_demand$Year)\n\nhead(df_demand, n = 10)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n# A tibble: 10 × 2\n    Year Demand\n   <int>  <dbl>\n 1  2020    310\n 2  2021    508\n 3  2022    690\n 4  2023    917\n 5  2024   1072\n 6  2025   1257\n 7  2026   1433\n 8  2027   1628\n 9  2028   1861\n10  2029   2130\n```\n:::\n:::\n\n::: {.cell}\n::: {.cell-output .cell-output-stdout}\n```\n      Year          Demand    \n Min.   :2020   Min.   : 310  \n 1st Qu.:2024   1st Qu.:1033  \n Median :2028   Median :1744  \n Mean   :2028   Mean   :1898  \n 3rd Qu.:2031   3rd Qu.:2749  \n Max.   :2035   Max.   :3829  \n```\n:::\n:::\n\n::: {.cell}\n\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

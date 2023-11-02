@@ -1,0 +1,16 @@
+{
+  "hash": "d1c9e4a419637de646fbbcd31c0293b0",
+  "result": {
+    "markdown": "---\ntitle: \"Commodity Price\"\nformat: html\n---\n\n::: {.cell}\n<style type=\"text/css\">\n.justify {\n    text-align: justify !important;\n    text-indent: 20px; \n}\n\n.epigrafe {\n    text-align: justify !important;\n    text-indent: 20px; \n    border: 1.5px solid #87c8b5; \n    padding-top: 15px;\n    padding-bottom: 5px;\n    padding-right: 15px;\n    padding-left: 15px;\n    font-size: 14px;\n    background-color: #f9f9f9; \n    margin: 20px 0px 30px 0px;\n}\n</style>\n:::\n\n::: {.cell}\n\n:::\n\n\n### Uranium Price\n\n\n::: {.cell}\n\n```{.r .cell-code  code-fold=\"true\" code-summary=\"Data Cleaning Code\"}\ndf_commodity_price <- read_excel(\"../../../data/00-raw-data/commodity_price.xlsx\")\n\ndf_commodity_price <- df_commodity_price %>%\n  pivot_longer(cols = -c('...1'), \n               names_to = \"Month_Year\",\n               values_to = \"Price\")\n\ndf_commodity_price <- df_commodity_price %>% filter(!is.na(Price) & Price != \"\")\n\ndf_commodity_price$Month_Year <- as.yearmon(df_commodity_price$Month_Year, format = \"%b %Y\")\n\ndf_commodity_price$Month_Year <- format(df_commodity_price$Month_Year, \"%m-%Y\")\n\ndf_commodity_price$Month_Year <- paste(\"01-\", df_commodity_price$Month_Year, sep = \"\")\n\ndf_commodity_price$Month_Year <- as.Date(df_commodity_price$Month_Year, format = \"%d-%m-%Y\")\n\nnames(df_commodity_price) <- c('Commodity', 'Date', 'Price')\n\ndf_uranium_price <- df_commodity_price %>%\n  filter(Commodity == \"Uranium\")\n\nhead(df_uranium_price, n = 10)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n# A tibble: 10 × 3\n   Commodity Date       Price\n   <chr>     <date>     <dbl>\n 1 Uranium   2012-01-01  52.3\n 2 Uranium   2012-02-01  52.1\n 3 Uranium   2012-03-01  51.3\n 4 Uranium   2012-04-01  51.3\n 5 Uranium   2012-05-01  51.9\n 6 Uranium   2012-06-01  50.8\n 7 Uranium   2012-07-01  50.4\n 8 Uranium   2012-08-01  49.2\n 9 Uranium   2012-09-01  47.7\n10 Uranium   2012-10-01  44.6\n```\n:::\n:::\n\n::: {.cell}\n::: {.cell-output .cell-output-stdout}\n```\n  Commodity              Date                Price      \n Length:132         Min.   :2012-01-01   Min.   :18.57  \n Class :character   1st Qu.:2014-09-23   1st Qu.:25.57  \n Mode  :character   Median :2017-06-16   Median :32.14  \n                    Mean   :2017-06-16   Mean   :32.71  \n                    3rd Qu.:2020-03-08   3rd Qu.:38.26  \n                    Max.   :2022-12-01   Max.   :52.31  \n```\n:::\n:::\n\n\n### Uranium Price",
+    "supporting": [
+      "3_4_commodity_price_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
