@@ -1,76 +1,73 @@
 ---
 title: "Data Cleaning"
-jupyter: python3
-format:
-  html:
-    code-fold: true
-    code-summary: "Show the code"
-    code-copy: hover
 ---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
 
-### Lithium News
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+### Overview
+::: {.justify}
+In this section, we will perform the data cleaning process. In order to improve the quality and accuracy of each dataset collected in the Data Gathering section, we apply several steps.
+:::
+
+Below are the libraries used in this section:
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "R Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+library(zoo)
+```
+
 ```{python}
 #| echo: true
 #| message: false
 #| code-fold: true
+#| code-summary: "Python Libraries"
+#| results: 'hide'
+#| warning: false
 
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from newsapi.newsapi_client import NewsApiClient
 import pandas as pd
-```
 
-```{python}
-#| echo: true
-#| message: false
-#| code-fold: true
-date = date.today()
-date_past = date - relativedelta(months=1)
-
-f = open('auth.k','r', encoding="utf-8")
-ak = f.readlines()
-f.close()
-
-newsapi = NewsApiClient(api_key=ak[0])
-
-sources = newsapi.get_sources()
-
-sources = pd.DataFrame(sources['sources'])
-
-sources = sources[(sources['language'] == 'en') & (sources['country'] == 'us') & ~sources['category'].isin(['sports', 'entertainment', 'health'])]
-
-sources.head(5)
-```
-
-
-
-```{python}
-#| echo: true
-#| message: false
-#| code-fold: true
-df_sources = ', '.join(sources['id'].astype(str))
-
-df_domains = ', '.join(sources['url'].astype(str))
-
-all_articles = newsapi.get_everything(q='lithium',
-                                      sources=str(df_sources),
-                                      domains=str(df_domains),
-                                      from_param=date_past,
-                                      to=date,
-                                      language='en',
-                                      sort_by='relevancy')
-
-df_articles = pd.DataFrame(all_articles['articles'])
-
-df_articles.head(5)
-```
-
-
-### IBM Watson - Sentiment Analysis
-```{python}
-#| echo: true
-#| message: false
-#| code-fold: true
 import json
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
@@ -79,61 +76,55 @@ from ibm_watson.natural_language_understanding_v1 import Features, SentimentOpti
 import os
 ```
 
-```{python}
-#| echo: true
-#| message: false
-#| code-fold: true
-df_content = pd.DataFrame(df_articles, columns=['source', 'content'])
-df_content['source'] = df_content['source'].apply(lambda x: x['id'])
+### Global Lithium Production
 
-authenticator = IAMAuthenticator('_4YE1Qj6PFjke1zYsp7Kapgfu5laaaBE1E_ZUw1IiUPa')
-natural_language_understanding = NaturalLanguageUnderstandingV1(
-    version='2020-08-01',
-    authenticator=authenticator
-)
+::: {.justify}
+The Global Lithium Production dataset was downloaded from the Our World in Data website as a csv file. Very few steps were applied to this dataset due to the quality of the original data.
+:::
 
-natural_language_understanding.set_service_url('https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/8b0909d1-3768-4c54-b80d-b9817610e36d')
+> [Data Cleaning - Global Lithium Production](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_1_lithium_production.html)
 
-#IBM Watson
-i = 0
-ibm_source = []
-ibm_score = []
-ibm_label = []
-for index, row in df_content.iterrows():
-    response = natural_language_understanding.analyze(
-    text=row['content'], language = 'en',
-    features=Features(sentiment=SentimentOptions())).get_result()
+<!-- 
+### Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate
 
-    s = row['source']
-    ibm_source.append(s)
-    x = response['sentiment']['document']['score']
-    x = round(x, 4)
-    ibm_score.append(x)
-    y = response['sentiment']['document']['label']
-    ibm_label.append(y)
-    #print(response['sentiment']['document']['score'])
-    #print(response['sentiment']['document']['label'])
-    #print(json.dumps(response, indent=2))
+::: {.justify}
 
-    i=i+1   
+Add description
+:::
 
-results = {"id": ibm_source, "ibm_score": ibm_score, "ibm_label": ibm_label}
+<br>
 
-results = pd.DataFrame(data = results)
-```
+> [Data Cleaning - Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_2_exchange_rate.html) -->
 
-```{python}
-#| echo: true
-#| message: false
-#| code-fold: true
-date = date.today()
-name = str(date) + '_results.csv'
+### Global Lithium Demand
 
-results.to_csv(name, index=False)
+::: {.justify}
 
-results = results.merge(sources, how='left')
+Add description
+:::
 
-results = pd.DataFrame(results, columns=['name', 'category', 'ibm_score', 'ibm_label'])
+<br>
 
-results.head(5)
-```
+> [Data Cleaning - Global Lithium Demand](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_3_lithium_demand.html)
+
+### Commodity Price
+
+::: {.justify}
+
+Add description
+:::
+
+<br>
+
+> [Data Cleaning - Commodity Price](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_4_commodity_price.html)
+
+### Lithium News
+
+::: {.justify}
+
+Add description
+:::
+
+<br>
+
+> [Data Cleaning - Lithium News](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_5_news_api.html)
