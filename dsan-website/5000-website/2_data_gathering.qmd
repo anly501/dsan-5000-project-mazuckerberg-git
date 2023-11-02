@@ -16,11 +16,16 @@ engine: knitr
 </p>
 
 ::: {.justify}
-### [Global Lithium Production](https://ourworldindata.org/grapher/lithium-production)
+### Global Lithium Production
 
-*Dataset that contains Lithium production lithium production in metric tonnes. The information is available from 1995 to 2022 y key lithium-producing countries.* 
+[**Source**](https://ourworldindata.org/grapher/lithium-production)
+
+The Global Lithium Production dataset was extracted from the Our World in Data website. The Energy Institute Statistical Review of World Energy analyzes data on world energy markets from the previous year, and Our World in Data consolidates data originally derived from the reports produced. The dataset provides information on global lithium production, including data for major producing countries and aggregations at the regional, continental, and global levels. Lithium production is measured in metric tons. The dataset covers the period from 1995 to 2022.
+
+While the dataset includes global data, this analysis will focus specifically on the evolution of lithium production, with a strong emphasis on the U.S. This approach allows for a more in-depth analysis of the growth and fluctuations of this resource, while assessing the impact on the economy.
 :::
 
+<!-- ::: {.justify}
 ***
 
 <br>
@@ -28,11 +33,52 @@ engine: knitr
     <img src="./images/fred.png" alt="" width="200">
 </p>
 
-::: {.justify}
-### [Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate](https://fred.stlouisfed.org/series/DEXCHUS)
-#### [QUANTMOD API | R](https://github.com/joshuaulrich/quantmod)
 
-*Considering that the price of lithium is calculated in Yuan currency, and the analysis will be done in US dollars, the Quantmod API is used to obtain the daily exchange rates since 2020.*
+### Chinese Yuan to U.S. Dollar Spot Exchange Rate
+**Source: **
+[QUANTMOD API | R](https://github.com/joshuaulrich/quantmod)
+
+The Chinese Yuan to U.S. Dollar spot exchange rate dataset is a critical component of the analysis. The lithium price is calculated globally in Chinese Yuan. Since the main focus of the analysis for this project is on the U.S., the information obtained from this dataset allows the original prices to be converted into U.S. dollars.
+
+This currency conversion dataset was obtained from the Quantmod API, with the data originating from FRED economic data. The dataset provides daily exchange rates. The data source provides a wide range of dates for analysis, but the selection of the time period is determined by the information available for the other datasets and analysis variables.
+::: -->
+
+***
+
+<br>
+<p align="center">
+    <img src="./images/statista.png" alt="" width="200">
+</p>
+
+::: {.justify}
+### Global Lithium Demand Projection
+[**Source**](https://www.statista.com/statistics/452025/projected-total-demand-for-lithium-globally/)
+
+A key resource for our analysis is the Global Lithium Demand Projection dataset, which provides insight into the expected global demand for lithium. This data was originally published by the Comisión Chilena del Cobre in June 2023 in the paper "El mercado de litio: Desarrollo reciente y proyecciones al 2035". Statista makes it available by condensing the the information into a dataset.
+
+In recent years, the main source of lithium demand has come from electric vehicles. This is a trend that is expected to continue to grow progressively, so any projection of lithium demand will depend primarily on the growth of this sector. The demand projection methodology developed consists of several key steps. The first step is to obtain projected demand figures for electric vehicles. Second, it focuses on estimating the energy demand for lithium-ion batteries to be used in these vehicles. Third, the amount of lithium required for these batteries is calculated. Finally, this information is aggregated to present the projection of lithium demand specifically for electric vehicles, which is considered to be the most significant in the market. The information source for this analysis is Rho Motion, which was done in 2022.
+
+This information is useful in two ways. On the one hand, it would be interesting to perform the same steps on raw data sets instead of using the analysis already done. On the other hand, this information serves as a key dataset for our assessment of future trends and the application of machine learning models.
+:::
+
+***
+
+<br>
+
+::: {.justify}
+### Commodity Price
+
+* [Uranium](https://data.imf.org/?sk=471dddf8-d8a7-499a-81ba-5b332c01f8b9)
+* Crude Oil
+* Natural Gas
+* Coal
+* Renewable Energy
+* Biofuels
+* Electricity.
+
+The commodity datasets play a key role in the goal of comparing lithium to other energy sources. This initial analysis focuses primarily on price comparisons, with future analyses to include consumption patterns. The commodities included in the analysis are Uranium, Crude Oil, Natural Gas, Coal, Renewables, Biofuels and Electricity, allowing for energy market assessments.
+
+Currently, the dataset includes information related to the price of uranium over time. The data is obtained from the International Monetary Fund (IMF) and is available from January 2012, to December 2022. 
 :::
 
 ***
@@ -44,15 +90,12 @@ engine: knitr
 
 ::: {.justify}
 ### Lithium News
-#### [News API | Python](https://newsapi.org/)
+**Source: **
+[News API | Python](https://newsapi.org/)
 
-**Sources**
+The Lithium News dataset is an essential resource for the project to understand the media perspective on the evolution of the lithium market. The News API allows the collection of text data from news articles related to lithium. This platform aggregates information from a variety of media sources. Given the focus of the project, the text data collection is primarily focused on U.S. media resources that have published articles in English. This approach ensures that the dataset provides relevant insights to address the project's questions.
 
-*To gather text data from News API, a previous analysis of the available sources was made. The News API has a broad list of news but we keep only the most relevant for the project.*
-
-**News**
-
-*Description*
+The date range for the API is variable, depending on the amount of data available at the time the scraping is done. To optimize data collection and maximize the date range for article collection, a special function has been developed to adjust the number of days. This approach allows for the most current and broadest data collection.
 :::
 
 ***
@@ -63,10 +106,15 @@ engine: knitr
 </p>
 
 ::: {.justify}
-## Lithium News - Sentiment Analysis
-### [IBM Watson API | Python](https://developer.ibm.com/tutorials/use-the-watson-core-nlp-library-to-perform-sentiment-analysis/)
+### Lithium News - Sentiment Analysis
+**Source: **
+[IBM Watson API | Python](https://developer.ibm.com/tutorials/use-the-watson-core-nlp-library-to-perform-sentiment-analysis/)
 
-*Description*
+The Sentiment Analysis Dataset for the Lithium News is a crucial step in the analytical process of the project. It enriches the Lithium News dataset collected in the previous section. To improve our understanding of the lithium market perspective, we perform a sentiment analysis on the content of the news articles.
+
+To do this, we will use the IBM Watson API, a tool designed to perform sentiment analysis on text data. The API allows us to process and analyze the text data and provide insights into the sentiment and tone of the articles.
+
+The main objective of this analysis is to understand how the perspective on the lithium market has evolved. By evaluating the results obtained on the media news, we aim to determine whether the news articles have shown a bias towards a more positive or negative perspective. This allows us to identify potential shifts in sentiment that could impact the industry in the future.
 :::
 
 ***
