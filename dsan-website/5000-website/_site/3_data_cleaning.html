@@ -83,9 +83,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -108,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="https://mazuckerberg.georgetown.domains/" rel="" target="">
- <span class="menu-text">About me</span></a>
+ <span class="menu-text">Home | About me</span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
@@ -209,8 +206,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lithium-news" id="toc-lithium-news" class="nav-link active" data-scroll-target="#lithium-news">Lithium News</a></li>
-  <li><a href="#ibm-watson---sentiment-analysis" id="toc-ibm-watson---sentiment-analysis" class="nav-link" data-scroll-target="#ibm-watson---sentiment-analysis">IBM Watson - Sentiment Analysis</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#global-lithium-production" id="toc-global-lithium-production" class="nav-link" data-scroll-target="#global-lithium-production">Global Lithium Production</a></li>
+  <li><a href="#global-lithium-demand" id="toc-global-lithium-demand" class="nav-link" data-scroll-target="#global-lithium-demand">Global Lithium Demand</a></li>
+  <li><a href="#commodity-price" id="toc-commodity-price" class="nav-link" data-scroll-target="#commodity-price">Commodity Price</a></li>
+  <li><a href="#lithium-news" id="toc-lithium-news" class="nav-link" data-scroll-target="#lithium-news">Lithium News</a></li>
   </ul>
 </nav>
     </div>
@@ -234,336 +234,122 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="lithium-news" class="level3">
-<h3 class="anchored" data-anchor-id="lithium-news">Lithium News</h3>
-<div class="cell" data-execution_count="1">
+<div class="cell">
+<style type="text/css">
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+</style>
+</div>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">Overview</h3>
+<div class="justify">
+<p>In this section, we will perform the data cleaning process. In order to improve the quality and accuracy of each dataset collected in the Data Gathering section, we apply several steps.</p>
+</div>
+<p>Below are the libraries used in this section:</p>
+<div class="cell">
 <details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dateutil.relativedelta <span class="im">import</span> relativedelta</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> newsapi.newsapi_client <span class="im">import</span> NewsApiClient</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>R Libraries</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(astsa)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp2)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fma)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TSstudio)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyquant)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="2">
+<div class="cell">
 <details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> date.today()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>date_past <span class="op">=</span> date <span class="op">-</span> relativedelta(months<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'auth.k'</span>,<span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ak <span class="op">=</span> f.readlines()</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>f.close()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>newsapi <span class="op">=</span> NewsApiClient(api_key<span class="op">=</span>ak[<span class="dv">0</span>])</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>sources <span class="op">=</span> newsapi.get_sources()</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>sources <span class="op">=</span> pd.DataFrame(sources[<span class="st">'sources'</span>])</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>sources <span class="op">=</span> sources[(sources[<span class="st">'language'</span>] <span class="op">==</span> <span class="st">'en'</span>) <span class="op">&amp;</span> (sources[<span class="st">'country'</span>] <span class="op">==</span> <span class="st">'us'</span>) <span class="op">&amp;</span> <span class="op">~</span>sources[<span class="st">'category'</span>].isin([<span class="st">'sports'</span>, <span class="st">'entertainment'</span>, <span class="st">'health'</span>])]</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>sources.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>Python Libraries</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dateutil.relativedelta <span class="im">import</span> relativedelta</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> newsapi.newsapi_client <span class="im">import</span> NewsApiClient</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_watson <span class="im">import</span> NaturalLanguageUnderstandingV1</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_cloud_sdk_core.authenticators <span class="im">import</span> IAMAuthenticator</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_watson.natural_language_understanding_v1 <span class="im">import</span> Features, SentimentOptions</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">id</th>
-<th data-quarto-table-cell-role="th">name</th>
-<th data-quarto-table-cell-role="th">description</th>
-<th data-quarto-table-cell-role="th">url</th>
-<th data-quarto-table-cell-role="th">category</th>
-<th data-quarto-table-cell-role="th">language</th>
-<th data-quarto-table-cell-role="th">country</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>abc-news</td>
-<td>ABC News</td>
-<td>Your trusted source for breaking news, analysi...</td>
-<td>https://abcnews.go.com</td>
-<td>general</td>
-<td>en</td>
-<td>us</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>al-jazeera-english</td>
-<td>Al Jazeera English</td>
-<td>News, analysis from the Middle East and worldw...</td>
-<td>http://www.aljazeera.com</td>
-<td>general</td>
-<td>en</td>
-<td>us</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>ars-technica</td>
-<td>Ars Technica</td>
-<td>The PC enthusiast's resource. Power users and ...</td>
-<td>http://arstechnica.com</td>
-<td>technology</td>
-<td>en</td>
-<td>us</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">8</td>
-<td>associated-press</td>
-<td>Associated Press</td>
-<td>The AP delivers in-depth coverage on the inter...</td>
-<td>https://apnews.com/</td>
-<td>general</td>
-<td>en</td>
-<td>us</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
-<td>axios</td>
-<td>Axios</td>
-<td>Axios are a new media company delivering vital...</td>
-<td>https://www.axios.com</td>
-<td>general</td>
-<td>en</td>
-<td>us</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="3">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_sources <span class="op">=</span> <span class="st">', '</span>.join(sources[<span class="st">'id'</span>].astype(<span class="bu">str</span>))</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df_domains <span class="op">=</span> <span class="st">', '</span>.join(sources[<span class="st">'url'</span>].astype(<span class="bu">str</span>))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>all_articles <span class="op">=</span> newsapi.get_everything(q<span class="op">=</span><span class="st">'lithium'</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                      sources<span class="op">=</span><span class="bu">str</span>(df_sources),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                      domains<span class="op">=</span><span class="bu">str</span>(df_domains),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                                      from_param<span class="op">=</span>date_past,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                                      to<span class="op">=</span>date,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                                      language<span class="op">=</span><span class="st">'en'</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                                      sort_by<span class="op">=</span><span class="st">'relevancy'</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>df_articles <span class="op">=</span> pd.DataFrame(all_articles[<span class="st">'articles'</span>])</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>df_articles.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">source</th>
-<th data-quarto-table-cell-role="th">author</th>
-<th data-quarto-table-cell-role="th">title</th>
-<th data-quarto-table-cell-role="th">description</th>
-<th data-quarto-table-cell-role="th">url</th>
-<th data-quarto-table-cell-role="th">urlToImage</th>
-<th data-quarto-table-cell-role="th">publishedAt</th>
-<th data-quarto-table-cell-role="th">content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>{'id': 'the-verge', 'name': 'The Verge'}</td>
-<td>Justine Calma</td>
-<td>The key ingredient to millions of EVs is burie...</td>
-<td>The US holds one of the biggest known lithium ...</td>
-<td>https://www.theverge.com/2023/8/30/23849619/li...</td>
-<td>https://cdn.vox-cdn.com/thumbor/RvD3Z3TeMYZ0R4...</td>
-<td>2023-08-30T19:43:11Z</td>
-<td>The key ingredient to millions of EVs is burie...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>{'id': 'ars-technica', 'name': 'Ars Technica'}</td>
-<td>Jonathan M. Gitlin</td>
-<td>Ford pauses work on $3.5 billion battery facto...</td>
-<td>The site was going to make lithium iron phosph...</td>
-<td>https://arstechnica.com/cars/2023/09/ford-paus...</td>
-<td>https://cdn.arstechnica.net/wp-content/uploads...</td>
-<td>2023-09-25T21:30:53Z</td>
-<td>Enlarge/ Ted Miller, manager of Ford Battery C...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>{'id': 'business-insider', 'name': 'Business I...</td>
-<td>Matthew Fox</td>
-<td>The world's largest deposit of lithium may hav...</td>
-<td>The study suggests that there could be 20 mill...</td>
-<td>https://markets.businessinsider.com/news/commo...</td>
-<td>https://i.insider.com/65006686db12d30019065c55...</td>
-<td>2023-09-12T15:19:36Z</td>
-<td>Hafsteinn Karlsson / Getty Images\r\n&lt;ul&gt;&lt;li&gt;T...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>{'id': 'business-insider', 'name': 'Business I...</td>
-<td>Rebecca Cohen,Jessica Orwig</td>
-<td>Scientists found a massive lithium deposit ins...</td>
-<td>The new findings could translate to more than ...</td>
-<td>https://www.businessinsider.com/massive-lithiu...</td>
-<td>https://i.insider.com/6501f50e992da60019eba736...</td>
-<td>2023-09-14T03:11:54Z</td>
-<td>A general view shows the brine pools of Albema...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>{'id': 'engadget', 'name': 'Engadget'}</td>
-<td>Steve Dent</td>
-<td>Mercedes-Benz concept EV offers rapid charging...</td>
-<td>Mercedes-Benz has unveiled its "close-to-produ...</td>
-<td>https://www.engadget.com/mercedes-benz-concept...</td>
-<td>https://s.yimg.com/ny/api/res/1.2/Tb3MdU6AywSR...</td>
-<td>2023-09-04T07:58:00Z</td>
-<td>Mercedes-Benz has unveiled its "close-to-produ...</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
 </div>
 </section>
-<section id="ibm-watson---sentiment-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="ibm-watson---sentiment-analysis">IBM Watson - Sentiment Analysis</h3>
-<div class="cell" data-execution_count="4">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_watson <span class="im">import</span> NaturalLanguageUnderstandingV1</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_cloud_sdk_core.authenticators <span class="im">import</span> IAMAuthenticator</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_watson.natural_language_understanding_v1 <span class="im">import</span> Features, SentimentOptions</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<section id="global-lithium-production" class="level3">
+<h3 class="anchored" data-anchor-id="global-lithium-production">Global Lithium Production</h3>
+<div class="justify">
+<p>The Global Lithium Production dataset was downloaded from the Our World in Data website as a csv file. Very few steps were applied to this dataset due to the quality of the original data.</p>
 </div>
-<div class="cell" data-execution_count="5">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_content <span class="op">=</span> pd.DataFrame(df_articles, columns<span class="op">=</span>[<span class="st">'source'</span>, <span class="st">'content'</span>])</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_content[<span class="st">'source'</span>] <span class="op">=</span> df_content[<span class="st">'source'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x[<span class="st">'id'</span>])</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>authenticator <span class="op">=</span> IAMAuthenticator(<span class="st">'_4YE1Qj6PFjke1zYsp7Kapgfu5laaaBE1E_ZUw1IiUPa'</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>natural_language_understanding <span class="op">=</span> NaturalLanguageUnderstandingV1(</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    version<span class="op">=</span><span class="st">'2020-08-01'</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    authenticator<span class="op">=</span>authenticator</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>natural_language_understanding.set_service_url(<span class="st">'https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/8b0909d1-3768-4c54-b80d-b9817610e36d'</span>)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#IBM Watson</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ibm_source <span class="op">=</span> []</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>ibm_score <span class="op">=</span> []</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>ibm_label <span class="op">=</span> []</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, row <span class="kw">in</span> df_content.iterrows():</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> natural_language_understanding.analyze(</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    text<span class="op">=</span>row[<span class="st">'content'</span>], language <span class="op">=</span> <span class="st">'en'</span>,</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    features<span class="op">=</span>Features(sentiment<span class="op">=</span>SentimentOptions())).get_result()</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> row[<span class="st">'source'</span>]</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    ibm_source.append(s)</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> response[<span class="st">'sentiment'</span>][<span class="st">'document'</span>][<span class="st">'score'</span>]</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="bu">round</span>(x, <span class="dv">4</span>)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    ibm_score.append(x)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> response[<span class="st">'sentiment'</span>][<span class="st">'document'</span>][<span class="st">'label'</span>]</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    ibm_label.append(y)</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(response['sentiment']['document']['score'])</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(response['sentiment']['document']['label'])</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(json.dumps(response, indent=2))</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    i<span class="op">=</span>i<span class="op">+</span><span class="dv">1</span>   </span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {<span class="st">"id"</span>: ibm_source, <span class="st">"ibm_score"</span>: ibm_score, <span class="st">"ibm_label"</span>: ibm_label}</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell" data-execution_count="6">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> date.today()</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="bu">str</span>(date) <span class="op">+</span> <span class="st">'_results.csv'</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>results.to_csv(name, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> results.merge(sources, how<span class="op">=</span><span class="st">'left'</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame(results, columns<span class="op">=</span>[<span class="st">'name'</span>, <span class="st">'category'</span>, <span class="st">'ibm_score'</span>, <span class="st">'ibm_label'</span>])</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>results.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<div>
+<blockquote class="blockquote">
+<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_1_lithium_production.html">Data Cleaning - Global Lithium Production</a></p>
+</blockquote>
+<!-- 
+### Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate
 
+::: {.justify}
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">name</th>
-<th data-quarto-table-cell-role="th">category</th>
-<th data-quarto-table-cell-role="th">ibm_score</th>
-<th data-quarto-table-cell-role="th">ibm_label</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>The Verge</td>
-<td>technology</td>
-<td>-0.5809</td>
-<td>negative</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Ars Technica</td>
-<td>technology</td>
-<td>0.0000</td>
-<td>neutral</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Business Insider</td>
-<td>business</td>
-<td>-0.6520</td>
-<td>negative</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Business Insider</td>
-<td>business</td>
-<td>0.7899</td>
-<td>positive</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Engadget</td>
-<td>technology</td>
-<td>0.0000</td>
-<td>neutral</td>
-</tr>
-</tbody>
-</table>
+Add description
+:::
 
+<br>
+
+> [Data Cleaning - Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_2_exchange_rate.html) -->
+</section>
+<section id="global-lithium-demand" class="level3">
+<h3 class="anchored" data-anchor-id="global-lithium-demand">Global Lithium Demand</h3>
+<div class="justify">
+<p>Add description</p>
 </div>
+<p><br></p>
+<blockquote class="blockquote">
+<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_3_lithium_demand.html">Data Cleaning - Global Lithium Demand</a></p>
+</blockquote>
+</section>
+<section id="commodity-price" class="level3">
+<h3 class="anchored" data-anchor-id="commodity-price">Commodity Price</h3>
+<div class="justify">
+<p>Add description</p>
 </div>
+<p><br></p>
+<blockquote class="blockquote">
+<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_4_commodity_price.html">Data Cleaning - Commodity Price</a></p>
+</blockquote>
+</section>
+<section id="lithium-news" class="level3">
+<h3 class="anchored" data-anchor-id="lithium-news">Lithium News</h3>
+<div class="justify">
+<p>Add description</p>
 </div>
+<p><br></p>
+<blockquote class="blockquote">
+<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_5_news_api.html">Data Cleaning - Lithium News</a></p>
+</blockquote>
 
 
 </section>

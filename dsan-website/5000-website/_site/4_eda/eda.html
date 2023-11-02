@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Science &amp; Analytics - Data Gathering</title>
+<title>Data Science &amp; Analytics - Data Exploration</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,21 +20,55 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -60,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Data Science &amp; Analytics</span>
     </a>
   </div>
@@ -84,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2_data_gathering.html">Data Gathering</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Data Exploration</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -110,55 +144,55 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../1_introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_data_gathering.html" class="sidebar-item-text sidebar-link active">
+  <a href="../2_data_gathering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Gathering</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_data_cleaning.html" class="sidebar-item-text sidebar-link">
+  <a href="../3_data_cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Cleaning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_data_exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_data_exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Exploration</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./5_clustering.html" class="sidebar-item-text sidebar-link">
+  <a href="../5_clustering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clustering</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./6_dimensionality_reduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../6_dimensionality_reduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dimensionality reduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./7_decision_trees.html" class="sidebar-item-text sidebar-link">
+  <a href="../7_decision_trees.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Decision Trees</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./8_ARM.html" class="sidebar-item-text sidebar-link">
+  <a href="../8_ARM.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ARM</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./9_conclusions.html" class="sidebar-item-text sidebar-link">
+  <a href="../9_conclusions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Conclusions</span></a>
   </div>
 </li>
@@ -172,11 +206,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#global-lithium-production" id="toc-global-lithium-production" class="nav-link active" data-scroll-target="#global-lithium-production">Global Lithium Production</a></li>
-  <li><a href="#global-lithium-demand-projection" id="toc-global-lithium-demand-projection" class="nav-link" data-scroll-target="#global-lithium-demand-projection">Global Lithium Demand Projection</a></li>
-  <li><a href="#commodity-price" id="toc-commodity-price" class="nav-link" data-scroll-target="#commodity-price">Commodity Price</a></li>
-  <li><a href="#lithium-news" id="toc-lithium-news" class="nav-link" data-scroll-target="#lithium-news">Lithium News</a></li>
-  <li><a href="#lithium-news---sentiment-analysis" id="toc-lithium-news---sentiment-analysis" class="nav-link" data-scroll-target="#lithium-news---sentiment-analysis">Lithium News - Sentiment Analysis</a></li>
+  <li><a href="#quick-look-at-the-data" id="toc-quick-look-at-the-data" class="nav-link active" data-scroll-target="#quick-look-at-the-data">Quick look at the data</a></li>
+  <li><a href="#basic-visualization" id="toc-basic-visualization" class="nav-link" data-scroll-target="#basic-visualization">Basic visualization</a></li>
   </ul>
 </nav>
     </div>
@@ -185,7 +216,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Gathering</h1>
+<h1 class="title">Data Exploration</h1>
 </div>
 
 
@@ -200,94 +231,57 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="cell">
-<style type="text/css">
-.justify {
-  text-align: justify
-}
-</style>
+<p>Build out your website tab for exploratory data analysis</p>
+<section id="quick-look-at-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="quick-look-at-the-data">Quick look at the data</h2>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import seaborn</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the default theme</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>, palette<span class="op">=</span><span class="st">"pastel"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load an example dataset</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">"tips"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     total_bill   tip     sex smoker   day    time  size
+0         16.99  1.01  Female     No   Sun  Dinner     2
+1         10.34  1.66    Male     No   Sun  Dinner     3
+2         21.01  3.50    Male     No   Sun  Dinner     3
+3         23.68  3.31    Male     No   Sun  Dinner     2
+4         24.59  3.61  Female     No   Sun  Dinner     4
+..          ...   ...     ...    ...   ...     ...   ...
+239       29.03  5.92    Male     No   Sat  Dinner     3
+240       27.18  2.00  Female    Yes   Sat  Dinner     2
+241       22.67  2.00    Male    Yes   Sat  Dinner     2
+242       17.82  1.75    Male     No   Sat  Dinner     2
+243       18.78  3.00  Female     No  Thur  Dinner     2
+
+[244 rows x 7 columns]</code></pre>
 </div>
-<hr>
-<p align="center">
-<img src="./images/our_world_in_data.png" alt="" width="200">
-</p>
-<section id="global-lithium-production" class="level3 justify">
-<h3 class="anchored" data-anchor-id="global-lithium-production">Global Lithium Production</h3>
-<p><a href="https://ourworldindata.org/grapher/lithium-production"><strong>Source</strong></a></p>
-<p>The Global Lithium Production dataset was extracted from the Our World in Data website. The Energy Institute Statistical Review of World Energy analyzes data on world energy markets from the previous year, and Our World in Data consolidates data originally derived from the reports produced. The dataset provides information on global lithium production, including data for major producing countries and aggregations at the regional, continental, and global levels. Lithium production is measured in metric tons. The dataset covers the period from 1995 to 2022.</p>
-<p>While the dataset includes global data, this analysis will focus specifically on the evolution of lithium production, with a strong emphasis on the U.S. This approach allows for a more in-depth analysis of the growth and fluctuations of this resource, while assessing the impact on the economy.</p>
+</div>
 </section>
-<!-- ::: {.justify}
-***
+<section id="basic-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="basic-visualization">Basic visualization</h2>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a visualization</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sns.relplot(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>tips,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"total_bill"</span>, y<span class="op">=</span><span class="st">"tip"</span>, col<span class="op">=</span><span class="st">"time"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"smoker"</span>, style<span class="op">=</span><span class="st">"smoker"</span>, size<span class="op">=</span><span class="st">"size"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="eda_files/figure-html/cell-3-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
 
-<br>
-<p align="center">
-    <img src="./images/fred.png" alt="" width="200">
-</p>
 
-
-### Chinese Yuan to U.S. Dollar Spot Exchange Rate
-**Source: **
-[QUANTMOD API | R](https://github.com/joshuaulrich/quantmod)
-
-The Chinese Yuan to U.S. Dollar spot exchange rate dataset is a critical component of the analysis. The lithium price is calculated globally in Chinese Yuan. Since the main focus of the analysis for this project is on the U.S., the information obtained from this dataset allows the original prices to be converted into U.S. dollars.
-
-This currency conversion dataset was obtained from the Quantmod API, with the data originating from FRED economic data. The dataset provides daily exchange rates. The data source provides a wide range of dates for analysis, but the selection of the time period is determined by the information available for the other datasets and analysis variables.
-::: -->
-<hr>
-<br>
-<p align="center">
-<img src="./images/statista.png" alt="" width="200">
-</p>
-<section id="global-lithium-demand-projection" class="level3 justify">
-<h3 class="anchored" data-anchor-id="global-lithium-demand-projection">Global Lithium Demand Projection</h3>
-<p><a href="https://www.statista.com/statistics/452025/projected-total-demand-for-lithium-globally/"><strong>Source</strong></a></p>
-<p>A key resource for our analysis is the Global Lithium Demand Projection dataset, which provides insight into the expected global demand for lithium. This data was originally published by the Comisión Chilena del Cobre in June 2023 in the paper “El mercado de litio: Desarrollo reciente y proyecciones al 2035”. Statista makes it available by condensing the the information into a dataset.</p>
-<p>In recent years, the main source of lithium demand has come from electric vehicles. This is a trend that is expected to continue to grow progressively, so any projection of lithium demand will depend primarily on the growth of this sector. The demand projection methodology developed consists of several key steps. The first step is to obtain projected demand figures for electric vehicles. Second, it focuses on estimating the energy demand for lithium-ion batteries to be used in these vehicles. Third, the amount of lithium required for these batteries is calculated. Finally, this information is aggregated to present the projection of lithium demand specifically for electric vehicles, which is considered to be the most significant in the market. The information source for this analysis is Rho Motion, which was done in 2022.</p>
-<p>This information is useful in two ways. On the one hand, it would be interesting to perform the same steps on raw data sets instead of using the analysis already done. On the other hand, this information serves as a key dataset for our assessment of future trends and the application of machine learning models.</p>
 </section>
-<hr>
-<p><br></p>
-<section id="commodity-price" class="level3 justify">
-<h3 class="anchored" data-anchor-id="commodity-price">Commodity Price</h3>
-<ul>
-<li><a href="https://data.imf.org/?sk=471dddf8-d8a7-499a-81ba-5b332c01f8b9">Uranium</a></li>
-<li>Crude Oil</li>
-<li>Natural Gas</li>
-<li>Coal</li>
-<li>Renewable Energy</li>
-<li>Biofuels</li>
-<li>Electricity.</li>
-</ul>
-<p>The commodity datasets play a key role in the goal of comparing lithium to other energy sources. This initial analysis focuses primarily on price comparisons, with future analyses to include consumption patterns. The commodities included in the analysis are Uranium, Crude Oil, Natural Gas, Coal, Renewables, Biofuels and Electricity, allowing for energy market assessments.</p>
-<p>Currently, the dataset includes information related to the price of uranium over time. The data is obtained from the International Monetary Fund (IMF) and is available from January 2012, to December 2022.</p>
-</section>
-<hr>
-<br>
-<p align="center">
-<img src="./images/news_api.png" alt="" width="200">
-</p>
-<section id="lithium-news" class="level3 justify">
-<h3 class="anchored" data-anchor-id="lithium-news">Lithium News</h3>
-<p><strong>Source: </strong> <a href="https://newsapi.org/">News API | Python</a></p>
-<p>The Lithium News dataset is an essential resource for the project to understand the media perspective on the evolution of the lithium market. The News API allows the collection of text data from news articles related to lithium. This platform aggregates information from a variety of media sources. Given the focus of the project, the text data collection is primarily focused on U.S. media resources that have published articles in English. This approach ensures that the dataset provides relevant insights to address the project’s questions.</p>
-<p>The date range for the API is variable, depending on the amount of data available at the time the scraping is done. To optimize data collection and maximize the date range for article collection, a special function has been developed to adjust the number of days. This approach allows for the most current and broadest data collection.</p>
-</section>
-<hr>
-<br>
-<p align="center">
-<img src="./images/IBM_developer.png" alt="" width="200">
-</p>
-<section id="lithium-news---sentiment-analysis" class="level3 justify">
-<h3 class="anchored" data-anchor-id="lithium-news---sentiment-analysis">Lithium News - Sentiment Analysis</h3>
-<p><strong>Source: </strong> <a href="https://developer.ibm.com/tutorials/use-the-watson-core-nlp-library-to-perform-sentiment-analysis/">IBM Watson API | Python</a></p>
-<p>The Sentiment Analysis Dataset for the Lithium News is a crucial step in the analytical process of the project. It enriches the Lithium News dataset collected in the previous section. To improve our understanding of the lithium market perspective, we perform a sentiment analysis on the content of the news articles.</p>
-<p>To do this, we will use the IBM Watson API, a tool designed to perform sentiment analysis on text data. The API allows us to process and analyze the text data and provide insights into the sentiment and tone of the articles.</p>
-<p>The main objective of this analysis is to understand how the perspective on the lithium market has evolved. By evaluating the results obtained on the media news, we aim to determine whether the news articles have shown a bias towards a more positive or negative perspective. This allows us to identify potential shifts in sentiment that could impact the industry in the future.</p>
-</section>
-<hr>
-
-
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
