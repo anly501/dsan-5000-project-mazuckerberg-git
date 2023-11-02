@@ -178,7 +178,7 @@ Before cleaning the dataset, the dataset had ### rows and ### columns:
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-summary: "Data Cleaning Code"
+#| code-summary: "Data Gathering"
 #| warning: false
 
 # Set the start and end dates
@@ -197,10 +197,15 @@ df_gas_price <- as.data.frame(GASREGCOVW)
 df_gas_price <- rownames_to_column(df_gas_price, var = "DATE")
 
 df_gas_price$DATE <- as.Date(df_gas_price$DATE)
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
 
 # Print the first few rows of the data
 head(df_gas_price, n = 10)
-
 ```
 
 ``` {r}
