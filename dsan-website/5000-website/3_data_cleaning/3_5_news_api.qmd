@@ -160,5 +160,7 @@ results.head(10)
 #| message: false
 #| warning: false
 
+results = pd.read_csv('../2023-11-02_results.csv')
+
 results.to_csv('../../../data/01-modified-data/clean_sentiment_analysis.csv', index=False)
 ```
