@@ -7,7 +7,7 @@ website:
   navbar: 
     left: 
       - href: https://mazuckerberg.georgetown.domains/
-        text: About me
+        text: Home | About me
 
   sidebar:
     style: "docked"
