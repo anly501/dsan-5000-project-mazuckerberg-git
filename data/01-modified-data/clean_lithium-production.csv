@@ -1,0 +1,225 @@
+"Entity","Code","Year","Lithium.production...kt"
+"Argentina","ARG",1995,8
+"Argentina","ARG",1996,8
+"Argentina","ARG",1997,8
+"Argentina","ARG",1998,1130
+"Argentina","ARG",1999,200
+"Argentina","ARG",2000,200
+"Argentina","ARG",2001,200
+"Argentina","ARG",2002,946
+"Argentina","ARG",2003,960
+"Argentina","ARG",2004,1970
+"Argentina","ARG",2005,1980
+"Argentina","ARG",2006,2900
+"Argentina","ARG",2007,3000
+"Argentina","ARG",2008,3170
+"Argentina","ARG",2009,2220
+"Argentina","ARG",2010,2950
+"Argentina","ARG",2011,2950
+"Argentina","ARG",2012,2700
+"Argentina","ARG",2013,2500
+"Argentina","ARG",2014,3200
+"Argentina","ARG",2015,3600
+"Argentina","ARG",2016,5800
+"Argentina","ARG",2017,5700
+"Argentina","ARG",2018,6400
+"Argentina","ARG",2019,6300
+"Argentina","ARG",2020,5900
+"Argentina","ARG",2021,5966.9123
+"Argentina","ARG",2022,6377.9364
+"Australia","AUS",1995,2233.4814
+"Australia","AUS",1996,3882.1356
+"Australia","AUS",1997,1576.6063
+"Australia","AUS",1998,1179.9951
+"Australia","AUS",1999,1505.7013
+"Australia","AUS",2000,1825.6938
+"Australia","AUS",2001,2225.789
+"Australia","AUS",2002,2204.2165
+"Australia","AUS",2003,3500
+"Australia","AUS",2004,3301.4052
+"Australia","AUS",2005,4839.465
+"Australia","AUS",2006,6190.2847
+"Australia","AUS",2007,6836.29
+"Australia","AUS",2008,6676.0015
+"Australia","AUS",2009,5504.1165
+"Australia","AUS",2010,8465.379
+"Australia","AUS",2011,11700
+"Australia","AUS",2012,12700
+"Australia","AUS",2013,10117.35
+"Australia","AUS",2014,12374.94
+"Australia","AUS",2015,11928.996
+"Australia","AUS",2016,14000
+"Australia","AUS",2017,21300
+"Australia","AUS",2018,57000
+"Australia","AUS",2019,45000
+"Australia","AUS",2020,39700
+"Australia","AUS",2021,55300
+"Australia","AUS",2022,61000
+"Brazil","BRA",1995,32
+"Brazil","BRA",1996,32
+"Brazil","BRA",1997,32
+"Brazil","BRA",1998,32
+"Brazil","BRA",1999,32
+"Brazil","BRA",2000,30
+"Brazil","BRA",2001,220
+"Brazil","BRA",2002,224
+"Brazil","BRA",2003,240
+"Brazil","BRA",2004,242
+"Brazil","BRA",2005,242
+"Brazil","BRA",2006,242
+"Brazil","BRA",2007,180
+"Brazil","BRA",2008,160
+"Brazil","BRA",2009,160
+"Brazil","BRA",2010,160
+"Brazil","BRA",2011,320
+"Brazil","BRA",2012,150
+"Brazil","BRA",2013,400
+"Brazil","BRA",2014,160
+"Brazil","BRA",2015,147.69797
+"Brazil","BRA",2016,224.93218
+"Brazil","BRA",2017,269.46384
+"Brazil","BRA",2018,1047.5034
+"Brazil","BRA",2019,2171.6533
+"Brazil","BRA",2020,1420
+"Brazil","BRA",2021,1700
+"Brazil","BRA",2022,2200
+"Chile","CHL",1995,2000
+"Chile","CHL",1996,2663.6677
+"Chile","CHL",1997,4554.5335
+"Chile","CHL",1998,5462.649
+"Chile","CHL",1999,5705.1554
+"Chile","CHL",2000,6737.877
+"Chile","CHL",2001,5883.362
+"Chile","CHL",2002,6620.0967
+"Chile","CHL",2003,7827.0125
+"Chile","CHL",2004,8340.689
+"Chile","CHL",2005,8205.998
+"Chile","CHL",2006,8877.119
+"Chile","CHL",2007,10320.197
+"Chile","CHL",2008,9818.884
+"Chile","CHL",2009,5117.53
+"Chile","CHL",2010,8879.805
+"Chile","CHL",2011,11890.828
+"Chile","CHL",2012,12325.488
+"Chile","CHL",2013,10505.053
+"Chile","CHL",2014,10834.172
+"Chile","CHL",2015,9809.592
+"Chile","CHL",2016,13595.976
+"Chile","CHL",2017,14233.599
+"Chile","CHL",2018,16974.504
+"Chile","CHL",2019,19241.287
+"Chile","CHL",2020,21630.358
+"Chile","CHL",2021,28242
+"Chile","CHL",2022,38920.61
+"China","CHN",1995,320
+"China","CHN",1996,2800
+"China","CHN",1997,2900
+"China","CHN",1998,3000
+"China","CHN",1999,2300
+"China","CHN",2000,2400
+"China","CHN",2001,2400
+"China","CHN",2002,2400
+"China","CHN",2003,2500
+"China","CHN",2004,2630
+"China","CHN",2005,2820
+"China","CHN",2006,2820
+"China","CHN",2007,3010
+"China","CHN",2008,3290
+"China","CHN",2009,3760
+"China","CHN",2010,3950
+"China","CHN",2011,4140
+"China","CHN",2012,4500
+"China","CHN",2013,4700
+"China","CHN",2014,2300
+"China","CHN",2015,2000
+"China","CHN",2016,2300
+"China","CHN",2017,6800
+"China","CHN",2018,7100
+"China","CHN",2019,10800
+"China","CHN",2020,13300
+"China","CHN",2021,14000
+"China","CHN",2022,19000
+"Portugal","PRT",1995,160
+"Portugal","PRT",1996,160
+"Portugal","PRT",1997,180
+"Portugal","PRT",1998,160
+"Portugal","PRT",1999,222.93
+"Portugal","PRT",2000,140.28
+"Portugal","PRT",2001,173.565
+"Portugal","PRT",2002,244.875
+"Portugal","PRT",2003,369.09
+"Portugal","PRT",2004,430.44
+"Portugal","PRT",2005,392.775
+"Portugal","PRT",2006,427.45933
+"Portugal","PRT",2007,521.32004
+"Portugal","PRT",2008,523.31656
+"Portugal","PRT",2009,560.384
+"Portugal","PRT",2010,601.635
+"Portugal","PRT",2011,563.0118
+"Portugal","PRT",2012,310.47
+"Portugal","PRT",2013,299.1018
+"Portugal","PRT",2014,261.885
+"Portugal","PRT",2015,256.79928
+"Portugal","PRT",2016,386.37
+"Portugal","PRT",2017,761.1492
+"Portugal","PRT",2018,1152.2738
+"Portugal","PRT",2019,898.67806
+"Portugal","PRT",2020,347.775
+"Portugal","PRT",2021,900
+"Portugal","PRT",2022,600
+"United States","USA",1995,3500
+"United States","USA",1996,4000
+"United States","USA",1997,4000
+"United States","USA",1998,1500
+"United States","USA",1999,1500
+"United States","USA",2000,1500
+"United States","USA",2001,1500
+"United States","USA",2002,1500
+"United States","USA",2003,1500
+"United States","USA",2004,1500
+"United States","USA",2005,1500
+"United States","USA",2006,1500
+"United States","USA",2007,1500
+"United States","USA",2008,1500
+"United States","USA",2009,1500
+"United States","USA",2010,1000
+"United States","USA",2011,1000
+"United States","USA",2012,1000
+"United States","USA",2013,870
+"United States","USA",2014,900
+"United States","USA",2015,900
+"United States","USA",2016,900
+"United States","USA",2017,900
+"United States","USA",2018,900
+"United States","USA",2019,900
+"United States","USA",2020,900
+"United States","USA",2021,939.234
+"United States","USA",2022,939.234
+"Zimbabwe","ZWE",1995,520
+"Zimbabwe","ZWE",1996,500
+"Zimbabwe","ZWE",1997,700
+"Zimbabwe","ZWE",1998,1000
+"Zimbabwe","ZWE",1999,700
+"Zimbabwe","ZWE",2000,740
+"Zimbabwe","ZWE",2001,700
+"Zimbabwe","ZWE",2002,640
+"Zimbabwe","ZWE",2003,480
+"Zimbabwe","ZWE",2004,240
+"Zimbabwe","ZWE",2005,260
+"Zimbabwe","ZWE",2006,600
+"Zimbabwe","ZWE",2007,300
+"Zimbabwe","ZWE",2008,500
+"Zimbabwe","ZWE",2009,400
+"Zimbabwe","ZWE",2010,470
+"Zimbabwe","ZWE",2011,470
+"Zimbabwe","ZWE",2012,1060
+"Zimbabwe","ZWE",2013,1000
+"Zimbabwe","ZWE",2014,900
+"Zimbabwe","ZWE",2015,900
+"Zimbabwe","ZWE",2016,1000
+"Zimbabwe","ZWE",2017,800
+"Zimbabwe","ZWE",2018,1600
+"Zimbabwe","ZWE",2019,1200
+"Zimbabwe","ZWE",2020,417
+"Zimbabwe","ZWE",2021,710
+"Zimbabwe","ZWE",2022,800
