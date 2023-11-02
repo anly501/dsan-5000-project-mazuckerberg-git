@@ -1,0 +1,6 @@
+id,ibm_score,ibm_label
+abc-news,0.5378,positive
+newsweek,-0.7768,negative
+abc-news,0.5378,positive
+reuters,0.0,neutral
+reuters,0.0,neutral
