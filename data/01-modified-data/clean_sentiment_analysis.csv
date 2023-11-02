@@ -1,0 +1,35 @@
+name,category,ibm_score,ibm_label,date
+Wired,technology,-0.5961,negative,2023-10-27
+The Verge,technology,-0.8783,negative,2023-10-27
+Ars Technica,technology,0.2886,positive,2023-10-31
+Business Insider,business,0.6452,positive,2023-10-22
+The Next Web,technology,0.6209,positive,2023-10-24
+The Next Web,technology,0.908,positive,2023-10-23
+Engadget,technology,0.0,neutral,2023-10-22
+Business Insider,business,0.6035,positive,2023-10-29
+CBS News,general,-0.629,negative,2023-10-23
+Next Big Future,science,0.0,neutral,2023-10-25
+New Scientist,science,0.6051,positive,2023-10-31
+Fortune,business,0.0,neutral,2023-10-31
+New Scientist,science,0.8984,positive,2023-10-24
+Newsweek,general,-0.952,negative,2023-10-23
+ABC News,general,0.0,neutral,2023-10-31
+Fortune,business,-0.6701,negative,2023-10-31
+ABC News,general,0.6487,positive,2023-11-01
+ABC News,general,0.6301,positive,2023-10-29
+New Scientist,science,0.0,neutral,2023-10-30
+Newsweek,general,0.448,positive,2023-10-30
+ABC News,general,0.0,neutral,2023-10-31
+ABC News,general,0.5985,positive,2023-10-25
+ABC News,general,0.5985,positive,2023-10-25
+ABC News,general,0.6487,positive,2023-11-01
+ABC News,general,0.6301,positive,2023-10-29
+ABC News,general,0.5985,positive,2023-10-25
+Ars Technica,technology,-0.7175,negative,2023-10-25
+Breitbart News,general,0.3935,positive,2023-10-31
+Breitbart News,general,0.0,neutral,2023-10-23
+TechRadar,technology,-0.5295,negative,2023-10-30
+Breitbart News,general,0.3316,positive,2023-10-27
+Engadget,technology,-0.6099,negative,2023-11-01
+Reuters,general,-0.3458,negative,2023-10-24
+USA Today,general,-0.6586,negative,2023-10-26
