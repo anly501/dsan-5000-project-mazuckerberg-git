@@ -84,6 +84,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -252,11 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 </div>
 <div class="epigrafe">
-<p>In this section…</p>
-</div>
-<div class="epigrafe">
-<p>Import the dataset from the EDA</p>
-<p>The plot below shows the ACF plot.</p>
+<p>The first step to begin the analysis was to import the dataset containing the time series data for the daily U.S. Oil Production. To evaluate the stationarity of the time series, we started with an Autocorrelation Function (ACF) plot. Within this plot, we observe a high positive autocorrelation for the early lags, which gradually decreases as the lags increase. This behavior indicates a tendency towards stationarity within the time series. To further this analysis, we apply the Augmented Dickey-Fuller test.</p>
 </div>
 <div class="cell">
 <details>
@@ -280,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="epigrafe">
-<p>Augmented Dickey Fuller Test</p>
+<p>The results of the Augmented Dickey-Fuller test are shown below. The p-value obtained exceeds the specified significance level of 0.05. This result emphasizes that the time series for oil production has non-stationary characteristics.</p>
 </div>
 <div class="cell">
 <details>
@@ -638,6 +636,10 @@ Training set 44.22819 311.837 228.7439 86.84948 130.467 0.7211202 -0.1040119</co
 </div>
 <div class="epigrafe">
 <p>Model Equation with Latex</p>
+<p><span class="math display">\[\begin{align}
+x_t &amp;= \Phi x_{t-1} + w_t + \Theta w_{t-1} \\
+x_t &amp;= 0.1832 x_{t-1} - 0.6324 x_{t-2} + w_t - 0.4982 w_{t-1}
+\end{align}\]</span></p>
 </div>
 <div class="cell">
 <details>

@@ -52,15 +52,8 @@ library(imputeTS)
 
 ::: {.epigrafe}
 
-In this section...
-
-:::
-
-::: {.epigrafe}
-
-Import the dataset from the EDA
-
-The plot below shows the ACF plot. 
+The first step to begin the analysis was to import the dataset containing the time series data for the daily U.S. Oil Production. 
+To evaluate the stationarity of the time series, we started with an Autocorrelation Function (ACF) plot. Within this plot, we observe a high positive autocorrelation for the early lags, which gradually decreases as the lags increase. This behavior indicates a tendency towards stationarity within the time series. To further this analysis, we apply the Augmented Dickey-Fuller test.
 
 :::
 
@@ -88,7 +81,7 @@ acf_oil_production
 
 ::: {.epigrafe}
 
-Augmented Dickey Fuller Test 
+The results of the Augmented Dickey-Fuller test are shown below. The p-value obtained exceeds the specified significance level of 0.05. This result emphasizes that the time series for oil production has non-stationary characteristics.
 
 :::
 
@@ -342,6 +335,10 @@ summary(fit)
 
 Model Equation with Latex
 
+\begin{align}
+x_t &= \Phi x_{t-1} + w_t + \Theta w_{t-1} \\
+x_t &= 0.1832 x_{t-1} - 0.6324 x_{t-2} + w_t - 0.4982 w_{t-1}
+\end{align}
 :::
 
 ``` {r}
