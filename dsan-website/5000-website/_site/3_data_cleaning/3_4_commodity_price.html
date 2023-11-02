@@ -207,7 +207,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#uranium-price" id="toc-uranium-price" class="nav-link active" data-scroll-target="#uranium-price">Uranium Price</a></li>
-  <li><a href="#uranium-price-1" id="toc-uranium-price-1" class="nav-link" data-scroll-target="#uranium-price-1">Uranium Price</a></li>
+  <li><a href="#natural-gas-price" id="toc-natural-gas-price" class="nav-link" data-scroll-target="#natural-gas-price">Natural Gas Price</a></li>
+  <li><a href="#resources-price" id="toc-resources-price" class="nav-link" data-scroll-target="#resources-price">Resources Price</a></li>
   </ul>
 </nav>
     </div>
@@ -254,36 +255,87 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="uranium-price" class="level3">
 <h3 class="anchored" data-anchor-id="uranium-price">Uranium Price</h3>
+<div class="epigrafe">
+<p>Before cleaning the dataset, the dataset had ### rows and # columns:</p>
+<ul>
+<li><h3 id="section" class="anchored"></h3></li>
+<li><h3 id="section-1" class="anchored"></h3></li>
+<li><h3 id="section-2" class="anchored"></h3></li>
+<li><h3 id="section-3" class="anchored"></h3></li>
+</ul>
+</div>
+<div class="cell">
+<details>
+<summary>Data Gathering</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read csv file</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../../data/00-raw-data/commodity_price.xlsx"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Original dataset</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_commodity_price, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 265
+   ...1      `Jan 2012` ...3  `Feb 2012` ...5  `Mar 2012` ...7  `Apr 2012` ...9 
+   &lt;chr&gt;          &lt;dbl&gt; &lt;lgl&gt;      &lt;dbl&gt; &lt;lgl&gt;      &lt;dbl&gt; &lt;lgl&gt;      &lt;dbl&gt; &lt;lgl&gt;
+ 1 Australi…     123.   NA        125.   NA        114.   NA        110.   NA   
+ 2 South Af…     106.   NA        105.   NA        103.   NA        101.   NA   
+ 3 Indonesi…      17.5  NA         16.7  NA         18.4  NA         19.6  NA   
+ 4 Netherla…      12.3  NA         12.2  NA         12.5  NA         12.6  NA   
+ 5 US, dome…       2.68 NA          2.50 NA          2.16 NA          1.95 NA   
+ 6 Dubai         109.   NA        117.   NA        123.   NA        117.   NA   
+ 7 U.K. Bre…     111.   NA        119.   NA        125.   NA        120.   NA   
+ 8 West Tex…     100.   NA        102.   NA        106.   NA        103.   NA   
+ 9 Agricult…      NA    NA         NA    NA         NA    NA         NA    NA   
+10 Cotton        101.   NA        101.   NA         99.5  NA        100.   NA   
+# ℹ 256 more variables: `May 2012` &lt;dbl&gt;, ...11 &lt;lgl&gt;, `Jun 2012` &lt;dbl&gt;,
+#   ...13 &lt;lgl&gt;, `Jul 2012` &lt;dbl&gt;, ...15 &lt;lgl&gt;, `Aug 2012` &lt;dbl&gt;, ...17 &lt;lgl&gt;,
+#   `Sep 2012` &lt;dbl&gt;, ...19 &lt;lgl&gt;, `Oct 2012` &lt;dbl&gt;, ...21 &lt;lgl&gt;,
+#   `Nov 2012` &lt;dbl&gt;, ...23 &lt;lgl&gt;, `Dec 2012` &lt;dbl&gt;, ...25 &lt;lgl&gt;,
+#   `Jan 2013` &lt;dbl&gt;, ...27 &lt;lgl&gt;, `Feb 2013` &lt;dbl&gt;, ...29 &lt;lgl&gt;,
+#   `Mar 2013` &lt;dbl&gt;, ...31 &lt;lgl&gt;, `Apr 2013` &lt;dbl&gt;, ...33 &lt;lgl&gt;,
+#   `May 2013` &lt;dbl&gt;, ...35 &lt;lgl&gt;, `Jun 2013` &lt;dbl&gt;, ...37 &lt;lgl&gt;, …</code></pre>
+</div>
+</div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  85 265</code></pre>
+</div>
+</div>
+<div class="epigrafe">
+<p>Data Cleaning Description.</p>
+</div>
 <div class="cell">
 <details>
 <summary>Data Cleaning Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../../data/00-raw-data/commodity_price.xlsx"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(<span class="st">'...1'</span>), </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Month_Year"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Price"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Price) <span class="sc">&amp;</span> Price <span class="sc">!=</span> <span class="st">""</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">as.yearmon</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">format =</span> <span class="st">"%b %Y"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">format</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="st">"%m-%Y"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"01-"</span>, df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">sep =</span> <span class="st">""</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">format =</span> <span class="st">"%d-%m-%Y"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_commodity_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Commodity'</span>, <span class="st">'Date'</span>, <span class="st">'Price'</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>df_uranium_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Commodity <span class="sc">==</span> <span class="st">"Uranium"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_uranium_price, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../../data/00-raw-data/commodity_price.xlsx"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(<span class="st">'...1'</span>), </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Month_Year"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Price"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Price) <span class="sc">&amp;</span> Price <span class="sc">!=</span> <span class="st">""</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">as.yearmon</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">format =</span> <span class="st">"%b %Y"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">format</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="st">"%m-%Y"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"01-"</span>, df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">format =</span> <span class="st">"%d-%m-%Y"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_commodity_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Commodity'</span>, <span class="st">'DATE'</span>, <span class="st">'Price'</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>df_uranium_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Commodity <span class="sc">==</span> <span class="st">"Uranium"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+</div>
+<p><strong>Cleaned Data:</strong></p>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
-   Commodity Date       Price
+   Commodity DATE       Price
    &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt;
  1 Uranium   2012-01-01  52.3
  2 Uranium   2012-02-01  52.1
@@ -297,9 +349,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 10 Uranium   2012-10-01  44.6</code></pre>
 </div>
 </div>
+<p><strong>Summary:</strong></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>  Commodity              Date                Price      
+<pre><code>  Commodity              DATE                Price      
  Length:132         Min.   :2012-01-01   Min.   :18.57  
  Class :character   1st Qu.:2014-09-23   1st Qu.:25.57  
  Mode  :character   Median :2017-06-16   Median :32.14  
@@ -308,9 +361,203 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                     Max.   :2022-12-01   Max.   :52.31  </code></pre>
 </div>
 </div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 132   3</code></pre>
+</div>
+</div>
 </section>
-<section id="uranium-price-1" class="level3">
-<h3 class="anchored" data-anchor-id="uranium-price-1">Uranium Price</h3>
+<section id="natural-gas-price" class="level3">
+<h3 class="anchored" data-anchor-id="natural-gas-price">Natural Gas Price</h3>
+<div class="epigrafe">
+<p>Before cleaning the dataset, the dataset had ### rows and ### columns:</p>
+<ul>
+<li><h3 id="section-4" class="anchored"></h3></li>
+<li><h3 id="section-5" class="anchored"></h3></li>
+</ul>
+</div>
+<div class="cell">
+<details>
+<summary>Data Gathering</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the start and end dates</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="st">"2000-01-01"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="st">"2022-12-31"</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the symbol for Gas Price to USD exchange rate</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>symbol <span class="ot">&lt;-</span> <span class="st">"GASREGCOVW"</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use getSymbols() to fetch the data</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(symbol, <span class="at">from =</span> start_date, <span class="at">to =</span> end_date, <span class="at">src =</span> <span class="st">"FRED"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "GASREGCOVW"</code></pre>
+</div>
+<details>
+<summary>Data Gathering</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the data as a data frame</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(GASREGCOVW)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> <span class="fu">rownames_to_column</span>(df_gas_price, <span class="at">var =</span> <span class="st">"DATE"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df_gas_price<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_gas_price<span class="sc">$</span>DATE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>         DATE GASREGCOVW
+1  2000-01-03      1.260
+2  2000-01-10      1.252
+3  2000-01-17      1.268
+4  2000-01-24      1.307
+5  2000-01-31      1.307
+6  2000-02-07      1.319
+7  2000-02-14      1.350
+8  2000-02-21      1.400
+9  2000-02-28      1.413
+10 2000-03-06      1.490</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>      DATE              GASREGCOVW   
+ Min.   :2000-01-03   Min.   :1.042  
+ 1st Qu.:2005-10-01   1st Qu.:1.933  
+ Median :2011-06-30   Median :2.479  
+ Mean   :2011-06-30   Mean   :2.510  
+ 3rd Qu.:2017-03-28   3rd Qu.:3.078  
+ Max.   :2022-12-26   Max.   :4.844  </code></pre>
+</div>
+</div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1200    2</code></pre>
+</div>
+</div>
+<div class="epigrafe">
+<p>Data Cleaning Description.</p>
+</div>
+<div class="cell">
+<details>
+<summary>Data Cleaning</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate the Date by terms</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">year</span>(DATE)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Month =</span> <span class="fu">month</span>(DATE)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Day =</span> <span class="fu">day</span>(DATE))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Year, Month) <span class="sc">%&gt;%</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Day <span class="sc">==</span> <span class="fu">min</span>(Day)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(GASREGCOVW, Year, Month, Day)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">DATE =</span> <span class="fu">paste</span>(Year, Month, <span class="st">'01'</span>, <span class="at">sep =</span> <span class="st">"-"</span>))</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>df_gas_price<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_gas_price<span class="sc">$</span>DATE)</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(GASREGCOVW, DATE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>Cleaned Data:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   GASREGCOVW DATE      
+        &lt;dbl&gt; &lt;date&gt;    
+ 1       1.26 2000-01-01
+ 2       1.32 2000-02-01
+ 3       1.49 2000-03-01
+ 4       1.48 2000-04-01
+ 5       1.39 2000-05-01
+ 6       1.54 2000-06-01
+ 7       1.61 2000-07-01
+ 8       1.44 2000-08-01
+ 9       1.50 2000-09-01
+10       1.50 2000-10-01</code></pre>
+</div>
+</div>
+<p><strong>Summary:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   GASREGCOVW         DATE           
+ Min.   :1.084   Min.   :2000-01-01  
+ 1st Qu.:1.919   1st Qu.:2005-09-23  
+ Median :2.485   Median :2011-06-16  
+ Mean   :2.510   Mean   :2011-06-16  
+ 3rd Qu.:3.089   3rd Qu.:2017-03-08  
+ Max.   :4.702   Max.   :2022-12-01  </code></pre>
+</div>
+</div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 276   2</code></pre>
+</div>
+</div>
+</section>
+<section id="resources-price" class="level3">
+<h3 class="anchored" data-anchor-id="resources-price">Resources Price</h3>
+<div class="epigrafe">
+<p>Data Cleaning Description.</p>
+</div>
+<div class="cell">
+<details>
+<summary>Data Cleaning</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_uranium_price <span class="ot">&lt;-</span> df_uranium_price <span class="sc">%&gt;%</span> <span class="fu">select</span>(DATE, Price)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_uranium_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'Uranium'</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_gas_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Natural Gas'</span>, <span class="st">'DATE'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>df_resource_price <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_uranium_price, df_gas_price, <span class="at">by.x =</span> <span class="st">'DATE'</span>, <span class="at">by.y =</span> <span class="st">'DATE'</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>Cleaned Data:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>         DATE Uranium Natural Gas
+1  2000-01-01      NA       1.260
+2  2000-02-01      NA       1.319
+3  2000-03-01      NA       1.490
+4  2000-04-01      NA       1.478
+5  2000-05-01      NA       1.386
+6  2000-06-01      NA       1.535
+7  2000-07-01      NA       1.606
+8  2000-08-01      NA       1.437
+9  2000-09-01      NA       1.502
+10 2000-10-01      NA       1.498</code></pre>
+</div>
+</div>
+<p><strong>Summary:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>      DATE               Uranium       Natural Gas   
+ Min.   :2000-01-01   Min.   :18.57   Min.   :1.084  
+ 1st Qu.:2005-09-23   1st Qu.:25.57   1st Qu.:1.919  
+ Median :2011-06-16   Median :32.14   Median :2.485  
+ Mean   :2011-06-16   Mean   :32.71   Mean   :2.510  
+ 3rd Qu.:2017-03-08   3rd Qu.:38.26   3rd Qu.:3.089  
+ Max.   :2022-12-01   Max.   :52.31   Max.   :4.702  
+                      NA's   :144                    </code></pre>
+</div>
+</div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 276   3</code></pre>
+</div>
+</div>
 
 
 </section>

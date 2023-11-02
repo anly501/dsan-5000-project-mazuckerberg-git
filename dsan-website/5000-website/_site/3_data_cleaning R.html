@@ -240,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-results="hide">
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-results="hide" data-execution_count="43">
 <details>
 <summary>Libraries</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -265,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="global-lithium-production" class="level2">
 <h2 class="anchored" data-anchor-id="global-lithium-production">Global Lithium Production</h2>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_production <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../../data/00-raw-data/lithium-production.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df_production <span class="ot">&lt;-</span> df_production <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">nchar</span>(Code) <span class="sc">==</span> <span class="dv">3</span>)</span>
@@ -273,84 +273,248 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_production, <span class="at">n =</span> <span class="dv">10</span>)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df_production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>A data.frame: 10 × 4</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">Entity</th>
+<th data-quarto-table-cell-role="th" scope="col">Code</th>
+<th data-quarto-table-cell-role="th" scope="col">Year</th>
+<th data-quarto-table-cell-role="th" scope="col">Lithium.production...kt</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">1</td>
+<td>Argentina</td>
+<td>ARG</td>
+<td>1995</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">2</td>
+<td>Argentina</td>
+<td>ARG</td>
+<td>1996</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">3</td>
+<td>Argentina</td>
+<td>ARG</td>
+<td>1997</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">4</td>
+<td>Argentina</td>
+<td>ARG</td>
+<td>1998</td>
+<td>1130</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">5</td>
+<td>Argentina</td>
+<td>ARG</td>
+<td>1999</td>
+<td>200</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">6</td>
+<td>Argentina</td>
+<td>ARG</td>
+<td>2000</td>
+<td>200</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">7</td>
+<td>Argentina</td>
+<td>ARG</td>
+<td>2001</td>
+<td>200</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">8</td>
+<td>Argentina</td>
+<td>ARG</td>
+<td>2002</td>
+<td>946</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">9</td>
+<td>Argentina</td>
+<td>ARG</td>
+<td>2003</td>
+<td>960</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">10</td>
+<td>Argentina</td>
+<td>ARG</td>
+<td>2004</td>
+<td>1970</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>    Entity              Code                Year      Lithium.production...kt
+ Length:224         Length:224         Min.   :1995   Min.   :    8          
+ Class :character   Class :character   1st Qu.:2002   1st Qu.:  495          
+ Mode  :character   Mode  :character   Median :2008   Median : 1500          
+                                       Mean   :2008   Mean   : 4591          
+                                       3rd Qu.:2015   3rd Qu.: 4735          
+                                       Max.   :2022   Max.   :61000          </code></pre>
+</div>
 </div>
 </section>
 <section id="chinese-yuan-renminbi-to-u.s.-dollar-spot-exchange-rate" class="level2">
 <h2 class="anchored" data-anchor-id="chinese-yuan-renminbi-to-u.s.-dollar-spot-exchange-rate">Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate</h2>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="45">
 <details>
 <summary>Libraries</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the start and end dates</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="st">"2010-01-01"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="st">"2022-12-31"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the symbol for CNY to USD exchange rate</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>symbol <span class="ot">&lt;-</span> <span class="st">"DEXCHUS"</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use getSymbols() to fetch the data</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(symbol, <span class="at">from =</span> start_date, <span class="at">to =</span> end_date, <span class="at">src =</span> <span class="st">"FRED"</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the data as a data frame</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>df_exchange_rate <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DEXCHUS)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>df_exchange_rate <span class="ot">&lt;-</span> <span class="fu">rownames_to_column</span>(df_exchange_rate, <span class="at">var =</span> <span class="st">"DATE"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>df_exchange_rate<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_exchange_rate<span class="sc">$</span>DATE)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first few rows of the data</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_exchange_rate)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df_exchange_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the start and end dates</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="st">"2010-01-01"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="st">"2022-12-31"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the symbol for CNY to USD exchange rate</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>symbol <span class="ot">&lt;-</span> <span class="st">"DEXCHUS"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use getSymbols() to fetch the data</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(symbol, <span class="at">from =</span> start_date, <span class="at">to =</span> end_date, <span class="at">src =</span> <span class="st">"FRED"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the data as a data frame</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>df_exchange_rate <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DEXCHUS)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>df_exchange_rate <span class="ot">&lt;-</span> <span class="fu">rownames_to_column</span>(df_exchange_rate, <span class="at">var =</span> <span class="st">"DATE"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>df_exchange_rate<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_exchange_rate<span class="sc">$</span>DATE)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first few rows of the data</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_exchange_rate)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df_exchange_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-display">
+'DEXCHUS'
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>A data.frame: 6 × 2</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">DATE</th>
+<th data-quarto-table-cell-role="th" scope="col">DEXCHUS</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;date&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">1</td>
+<td>2010-01-01</td>
+<td>NA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">2</td>
+<td>2010-01-04</td>
+<td>6.8273</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">3</td>
+<td>2010-01-05</td>
+<td>6.8258</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">4</td>
+<td>2010-01-06</td>
+<td>6.8272</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">5</td>
+<td>2010-01-07</td>
+<td>6.8280</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">6</td>
+<td>2010-01-08</td>
+<td>6.8274</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>      DATE               DEXCHUS     
+ Min.   :2010-01-01   Min.   :6.040  
+ 1st Qu.:2013-04-02   1st Qu.:6.309  
+ Median :2016-07-01   Median :6.504  
+ Mean   :2016-07-01   Mean   :6.548  
+ 3rd Qu.:2019-10-01   3rd Qu.:6.805  
+ Max.   :2022-12-30   Max.   :7.305  
+                      NA's   :140    </code></pre>
+</div>
 </div>
 </section>
 <section id="global-lithium-demand" class="level2">
 <h2 class="anchored" data-anchor-id="global-lithium-demand">Global Lithium Demand</h2>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"./data/00-raw-data/lithium_price.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#df &lt;- read_excel("./data/00-raw-data/lithium_price.xlsx")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="commodity-price" class="level2">
 <h2 class="anchored" data-anchor-id="commodity-price">Commodity Price</h2>
 <section id="uranium" class="level3">
 <h3 class="anchored" data-anchor-id="uranium">Uranium</h3>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="47">
 <details>
 <summary>Data Cleaning Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../data/00-raw-data/commodity_price.xlsx"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(<span class="st">'...1'</span>), </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Month_Year"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Price"</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Price) <span class="sc">&amp;</span> Price <span class="sc">!=</span> <span class="st">""</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">as.yearmon</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">format =</span> <span class="st">"%b %Y"</span>)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">format</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="st">"%m-%Y"</span>)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"01-"</span>, df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">sep =</span> <span class="st">""</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">format =</span> <span class="st">"%d-%m-%Y"</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_commodity_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Commodity'</span>, <span class="st">'Date'</span>, <span class="st">'Price'</span>)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>df_uranium_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Commodity <span class="sc">==</span> <span class="st">"Uranium"</span>)</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#df_uranium_price &lt;- head(df_uranium_price, n = 10)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../data/00-raw-data/commodity_price.xlsx"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(<span class="st">'...1'</span>), </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Month_Year"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Price"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Price) <span class="sc">&amp;</span> Price <span class="sc">!=</span> <span class="st">""</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">as.yearmon</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">format =</span> <span class="st">"%b %Y"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">format</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="st">"%m-%Y"</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"01-"</span>, df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>df_commodity_price<span class="sc">$</span>Month_Year <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_commodity_price<span class="sc">$</span>Month_Year, <span class="at">format =</span> <span class="st">"%d-%m-%Y"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_commodity_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Commodity'</span>, <span class="st">'DATE'</span>, <span class="st">'Price'</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>df_uranium_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Commodity <span class="sc">==</span> <span class="st">"Uranium"</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#df_uranium_price &lt;- head(df_uranium_price, n = 10)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_uranium_price</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_uranium_price,<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>A tibble: 132 × 3</caption>
+<caption>A tibble: 20 × 3</caption>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th" scope="col">Commodity</th>
-<th data-quarto-table-cell-role="th" scope="col">Date</th>
+<th data-quarto-table-cell-role="th" scope="col">DATE</th>
 <th data-quarto-table-cell-role="th" scope="col">Price</th>
 </tr>
 <tr class="odd">
@@ -460,211 +624,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2013-08-01</td>
 <td>34.99416</td>
 </tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2013-09-01</td>
-<td>34.45329</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2013-10-01</td>
-<td>34.84850</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2013-11-01</td>
-<td>35.59200</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2013-12-01</td>
-<td>34.59330</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2014-01-01</td>
-<td>35.21499</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2014-02-01</td>
-<td>35.54674</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2014-03-01</td>
-<td>34.70286</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2014-04-01</td>
-<td>32.74457</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2014-05-01</td>
-<td>28.53986</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2014-06-01</td>
-<td>28.22546</td>
-</tr>
-<tr class="odd">
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2020-07-01</td>
-<td>32.36087</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2020-08-01</td>
-<td>31.37619</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2020-09-01</td>
-<td>29.98182</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2020-10-01</td>
-<td>29.63636</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2020-11-01</td>
-<td>29.48571</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2020-12-01</td>
-<td>29.77391</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2021-01-01</td>
-<td>29.85714</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2021-02-01</td>
-<td>28.66250</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2021-03-01</td>
-<td>28.33478</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2021-04-01</td>
-<td>29.75227</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2021-05-01</td>
-<td>30.25714</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2021-06-01</td>
-<td>32.14211</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2021-07-01</td>
-<td>32.33864</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2021-08-01</td>
-<td>32.14773</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2021-09-01</td>
-<td>45.07812</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2021-10-01</td>
-<td>38.47619</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2021-11-01</td>
-<td>31.09958</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2021-12-01</td>
-<td>36.12930</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2022-01-01</td>
-<td>36.87292</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2022-02-01</td>
-<td>35.83191</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2022-03-01</td>
-<td>45.51470</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2022-04-01</td>
-<td>48.70473</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2022-05-01</td>
-<td>40.89163</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2022-06-01</td>
-<td>40.33152</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2022-07-01</td>
-<td>38.93916</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2022-08-01</td>
-<td>39.80231</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2022-09-01</td>
-<td>40.95039</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2022-10-01</td>
-<td>41.30360</td>
-</tr>
-<tr class="even">
-<td>Uranium</td>
-<td>2022-11-01</td>
-<td>40.95406</td>
-</tr>
-<tr class="odd">
-<td>Uranium</td>
-<td>2022-12-01</td>
-<td>39.17824</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -672,286 +631,266 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="natural-gas" class="level3">
 <h3 class="anchored" data-anchor-id="natural-gas">Natural Gas</h3>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the start and end dates</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="st">"2000-01-01"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="st">"2022-12-31"</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the symbol for Gas Price to USD exchange rate</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>symbol <span class="ot">&lt;-</span> <span class="st">"GASREGCOVW"</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use getSymbols() to fetch the data</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(symbol, <span class="at">from =</span> start_date, <span class="at">to =</span> end_date, <span class="at">src =</span> <span class="st">"FRED"</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the data as a data frame</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(GASREGCOVW)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> <span class="fu">rownames_to_column</span>(df_gas_price, <span class="at">var =</span> <span class="st">"DATE"</span>)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>df_gas_price<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_gas_price<span class="sc">$</span>DATE)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first few rows of the data</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>df_gas_price</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the start and end dates</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="st">"2012-01-01"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="st">"2022-12-31"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the symbol for Gas Price to USD exchange rate</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>symbol <span class="ot">&lt;-</span> <span class="st">"GASREGCOVW"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use getSymbols() to fetch the data</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(symbol, <span class="at">from =</span> start_date, <span class="at">to =</span> end_date, <span class="at">src =</span> <span class="st">"FRED"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the data as a data frame</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(GASREGCOVW)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> <span class="fu">rownames_to_column</span>(df_gas_price, <span class="at">var =</span> <span class="st">"DATE"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>df_gas_price<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_gas_price<span class="sc">$</span>DATE)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first few rows of the data</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_gas_price, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 'GASREGCOVW'
 </div>
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>A data.frame: 1200 × 2</caption>
+<caption>A data.frame: 10 × 2</caption>
 <thead>
 <tr class="header">
+<th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th" scope="col">DATE</th>
 <th data-quarto-table-cell-role="th" scope="col">GASREGCOVW</th>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th" scope="col">&lt;date&gt;</th>
 <th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>2000-01-03</td>
-<td>1.260</td>
+<td data-quarto-table-cell-role="th" scope="row">1</td>
+<td>2012-01-02</td>
+<td>3.254</td>
 </tr>
 <tr class="even">
-<td>2000-01-10</td>
-<td>1.252</td>
+<td data-quarto-table-cell-role="th" scope="row">2</td>
+<td>2012-01-09</td>
+<td>3.333</td>
 </tr>
 <tr class="odd">
-<td>2000-01-17</td>
-<td>1.268</td>
+<td data-quarto-table-cell-role="th" scope="row">3</td>
+<td>2012-01-16</td>
+<td>3.342</td>
 </tr>
 <tr class="even">
-<td>2000-01-24</td>
-<td>1.307</td>
+<td data-quarto-table-cell-role="th" scope="row">4</td>
+<td>2012-01-23</td>
+<td>3.333</td>
 </tr>
 <tr class="odd">
-<td>2000-01-31</td>
-<td>1.307</td>
+<td data-quarto-table-cell-role="th" scope="row">5</td>
+<td>2012-01-30</td>
+<td>3.386</td>
 </tr>
 <tr class="even">
-<td>2000-02-07</td>
-<td>1.319</td>
+<td data-quarto-table-cell-role="th" scope="row">6</td>
+<td>2012-02-06</td>
+<td>3.436</td>
 </tr>
 <tr class="odd">
-<td>2000-02-14</td>
-<td>1.350</td>
+<td data-quarto-table-cell-role="th" scope="row">7</td>
+<td>2012-02-13</td>
+<td>3.466</td>
 </tr>
 <tr class="even">
-<td>2000-02-21</td>
-<td>1.400</td>
+<td data-quarto-table-cell-role="th" scope="row">8</td>
+<td>2012-02-20</td>
+<td>3.523</td>
 </tr>
 <tr class="odd">
-<td>2000-02-28</td>
-<td>1.413</td>
+<td data-quarto-table-cell-role="th" scope="row">9</td>
+<td>2012-02-27</td>
+<td>3.641</td>
 </tr>
 <tr class="even">
-<td>2000-03-06</td>
-<td>1.490</td>
+<td data-quarto-table-cell-role="th" scope="row">10</td>
+<td>2012-03-05</td>
+<td>3.717</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">year</span>(DATE)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Month =</span> <span class="fu">month</span>(DATE)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Day =</span> <span class="fu">day</span>(DATE))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Year, Month) <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Day <span class="sc">==</span> <span class="fu">min</span>(Day)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(GASREGCOVW, Year, Month, Day)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">DATE =</span> <span class="fu">paste</span>(Year, Month, <span class="st">'01'</span>, <span class="at">sep =</span> <span class="st">"-"</span>))</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>df_gas_price<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_gas_price<span class="sc">$</span>DATE)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(GASREGCOVW, DATE)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_gas_price, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>A tibble: 10 × 2</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">GASREGCOVW</th>
+<th data-quarto-table-cell-role="th" scope="col">DATE</th>
 </tr>
 <tr class="odd">
-<td>2000-03-13</td>
-<td>1.511</td>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;date&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3.254</td>
+<td>2012-01-01</td>
 </tr>
 <tr class="even">
-<td>2000-03-20</td>
-<td>1.508</td>
+<td>3.436</td>
+<td>2012-02-01</td>
 </tr>
 <tr class="odd">
-<td>2000-03-27</td>
-<td>1.484</td>
+<td>3.717</td>
+<td>2012-03-01</td>
 </tr>
 <tr class="even">
-<td>2000-04-03</td>
-<td>1.478</td>
+<td>3.874</td>
+<td>2012-04-01</td>
 </tr>
 <tr class="odd">
-<td>2000-04-10</td>
-<td>1.447</td>
+<td>3.718</td>
+<td>2012-05-01</td>
 </tr>
 <tr class="even">
-<td>2000-04-17</td>
-<td>1.415</td>
+<td>3.518</td>
+<td>2012-06-01</td>
 </tr>
 <tr class="odd">
-<td>2000-04-24</td>
-<td>1.406</td>
+<td>3.291</td>
+<td>2012-07-01</td>
 </tr>
 <tr class="even">
-<td>2000-05-01</td>
-<td>1.386</td>
+<td>3.606</td>
+<td>2012-08-01</td>
 </tr>
 <tr class="odd">
-<td>2000-05-08</td>
-<td>1.427</td>
+<td>3.797</td>
+<td>2012-09-01</td>
 </tr>
 <tr class="even">
-<td>2000-05-15</td>
-<td>1.466</td>
+<td>3.750</td>
+<td>2012-10-01</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_uranium_price <span class="ot">&lt;-</span> df_uranium_price <span class="sc">%&gt;%</span> <span class="fu">select</span>(DATE, Price)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_uranium_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'Uranium'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_gas_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Natural Gas'</span>, <span class="st">'DATE'</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>df_resource_price <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_uranium_price, df_gas_price, <span class="at">by.x =</span> <span class="st">'DATE'</span>, <span class="at">by.y =</span> <span class="st">'DATE'</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_resource_price, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>A data.frame: 10 × 3</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">DATE</th>
+<th data-quarto-table-cell-role="th" scope="col">Uranium</th>
+<th data-quarto-table-cell-role="th" scope="col">Natural Gas</th>
 </tr>
 <tr class="odd">
-<td>2000-05-22</td>
-<td>1.494</td>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;date&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">1</td>
+<td>2012-01-01</td>
+<td>52.31250</td>
+<td>3.254</td>
 </tr>
 <tr class="even">
-<td>2000-05-29</td>
-<td>1.509</td>
+<td data-quarto-table-cell-role="th" scope="row">2</td>
+<td>2012-02-01</td>
+<td>52.05556</td>
+<td>3.436</td>
 </tr>
 <tr class="odd">
-<td>2000-06-05</td>
-<td>1.535</td>
+<td data-quarto-table-cell-role="th" scope="row">3</td>
+<td>2012-03-01</td>
+<td>51.28889</td>
+<td>3.717</td>
 </tr>
 <tr class="even">
-<td>2000-06-12</td>
-<td>1.607</td>
+<td data-quarto-table-cell-role="th" scope="row">4</td>
+<td>2012-04-01</td>
+<td>51.30000</td>
+<td>3.874</td>
 </tr>
 <tr class="odd">
-<td>2000-06-19</td>
-<td>1.664</td>
+<td data-quarto-table-cell-role="th" scope="row">5</td>
+<td>2012-05-01</td>
+<td>51.88889</td>
+<td>3.718</td>
 </tr>
 <tr class="even">
-<td>2000-06-26</td>
-<td>1.641</td>
+<td data-quarto-table-cell-role="th" scope="row">6</td>
+<td>2012-06-01</td>
+<td>50.83333</td>
+<td>3.518</td>
 </tr>
 <tr class="odd">
-<td>2000-07-03</td>
-<td>1.606</td>
+<td data-quarto-table-cell-role="th" scope="row">7</td>
+<td>2012-07-01</td>
+<td>50.35556</td>
+<td>3.291</td>
 </tr>
 <tr class="even">
-<td>2000-07-10</td>
-<td>1.571</td>
-</tr>
-<tr class="odd">
-<td>2000-07-17</td>
-<td>1.521</td>
-</tr>
-<tr class="even">
-<td>2000-07-24</td>
-<td>1.499</td>
-</tr>
-<tr class="odd">
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="even">
-<td>2022-06-06</td>
-<td>4.702</td>
-</tr>
-<tr class="odd">
-<td>2022-06-13</td>
-<td>4.844</td>
-</tr>
-<tr class="even">
-<td>2022-06-20</td>
-<td>4.798</td>
-</tr>
-<tr class="odd">
-<td>2022-06-27</td>
-<td>4.710</td>
-</tr>
-<tr class="even">
-<td>2022-07-04</td>
-<td>4.619</td>
-</tr>
-<tr class="odd">
-<td>2022-07-11</td>
-<td>4.501</td>
-</tr>
-<tr class="even">
-<td>2022-07-18</td>
-<td>4.350</td>
-</tr>
-<tr class="odd">
-<td>2022-07-25</td>
-<td>4.183</td>
-</tr>
-<tr class="even">
-<td>2022-08-01</td>
-<td>4.034</td>
-</tr>
-<tr class="odd">
-<td>2022-08-08</td>
-<td>3.879</td>
-</tr>
-<tr class="even">
-<td>2022-08-15</td>
-<td>3.780</td>
-</tr>
-<tr class="odd">
-<td>2022-08-22</td>
-<td>3.724</td>
-</tr>
-<tr class="even">
-<td>2022-08-29</td>
-<td>3.691</td>
-</tr>
-<tr class="odd">
-<td>2022-09-05</td>
-<td>3.617</td>
-</tr>
-<tr class="even">
-<td>2022-09-12</td>
-<td>3.551</td>
-</tr>
-<tr class="odd">
-<td>2022-09-19</td>
-<td>3.513</td>
-</tr>
-<tr class="even">
-<td>2022-09-26</td>
-<td>3.569</td>
-</tr>
-<tr class="odd">
-<td>2022-10-03</td>
-<td>3.592</td>
-</tr>
-<tr class="even">
-<td>2022-10-10</td>
-<td>3.723</td>
-</tr>
-<tr class="odd">
-<td>2022-10-17</td>
-<td>3.692</td>
-</tr>
-<tr class="even">
-<td>2022-10-24</td>
-<td>3.609</td>
-</tr>
-<tr class="odd">
-<td>2022-10-31</td>
-<td>3.570</td>
-</tr>
-<tr class="even">
-<td>2022-11-07</td>
-<td>3.628</td>
-</tr>
-<tr class="odd">
-<td>2022-11-14</td>
+<td data-quarto-table-cell-role="th" scope="row">8</td>
+<td>2012-08-01</td>
+<td>49.25000</td>
 <td>3.606</td>
 </tr>
-<tr class="even">
-<td>2022-11-21</td>
-<td>3.498</td>
-</tr>
 <tr class="odd">
-<td>2022-11-28</td>
-<td>3.389</td>
+<td data-quarto-table-cell-role="th" scope="row">9</td>
+<td>2012-09-01</td>
+<td>47.72500</td>
+<td>3.797</td>
 </tr>
 <tr class="even">
-<td>2022-12-05</td>
-<td>3.260</td>
-</tr>
-<tr class="odd">
-<td>2022-12-12</td>
-<td>3.109</td>
-</tr>
-<tr class="even">
-<td>2022-12-19</td>
-<td>2.994</td>
-</tr>
-<tr class="odd">
-<td>2022-12-26</td>
-<td>2.971</td>
+<td data-quarto-table-cell-role="th" scope="row">10</td>
+<td>2012-10-01</td>
+<td>44.61111</td>
+<td>3.750</td>
 </tr>
 </tbody>
 </table>
