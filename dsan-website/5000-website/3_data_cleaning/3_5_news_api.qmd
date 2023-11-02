@@ -1,0 +1,148 @@
+---
+title: "Lithium News"
+format: html
+---
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+
+from datetime import date
+from dateutil.relativedelta import relativedelta
+from newsapi.newsapi_client import NewsApiClient
+import pandas as pd
+
+import json
+from ibm_watson import NaturalLanguageUnderstandingV1
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
+
+import os
+```
+
+### News API
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Code"
+
+date = date.today()
+date_past = date - relativedelta(days=12)
+
+f = open('../auth.k','r', encoding="utf-8")
+ak = f.readlines()
+f.close()
+
+newsapi = NewsApiClient(api_key=ak[0])
+
+sources = newsapi.get_sources()
+
+sources = pd.DataFrame(sources['sources'])
+
+sources = sources[(sources['language'] == 'en') & (sources['country'] == 'us') & ~sources['category'].isin(['sports', 'entertainment', 'health'])]
+
+sources.head(10)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Code"
+
+df_sources = ', '.join(sources['id'].astype(str))
+
+df_domains = ', '.join(sources['url'].astype(str))
+
+all_articles = newsapi.get_everything(q='lithium',
+                                      sources=str(df_sources),
+                                      domains=str(df_domains),
+                                      from_param=date_past,
+                                      to=date,
+                                      language='en',
+                                      sort_by='relevancy')
+
+df_articles = pd.DataFrame(all_articles['articles'])
+
+df_articles.head(10)
+```
+
+***
+
+### IBM Watson - Sentiment Analysis
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Code"
+
+df_content = pd.DataFrame(df_articles, columns=['source', 'content', 'publishedAt'])
+df_content['source'] = df_content['source'].apply(lambda x: x['id'])
+
+authenticator = IAMAuthenticator('_4YE1Qj6PFjke1zYsp7Kapgfu5laaaBE1E_ZUw1IiUPa')
+natural_language_understanding = NaturalLanguageUnderstandingV1(
+    version='2020-08-01',
+    authenticator=authenticator
+)
+
+natural_language_understanding.set_service_url('https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/8b0909d1-3768-4c54-b80d-b9817610e36d')
+
+#IBM Watson
+i = 0
+ibm_source = []
+ibm_date = []
+ibm_score = []
+ibm_label = []
+for index, row in df_content.iterrows():
+    response = natural_language_understanding.analyze(
+    text=row['content'], language = 'en',
+    features=Features(sentiment=SentimentOptions())).get_result()
+
+    s = row['source']
+    ibm_source.append(s)
+    d = row['publishedAt']
+    ibm_date.append(d)
+    x = response['sentiment']['document']['score']
+    x = round(x, 4)
+    ibm_score.append(x)
+    y = response['sentiment']['document']['label']
+    ibm_label.append(y)
+    # print(response['sentiment']['document']['score'])
+    # print(response['sentiment']['document']['label'])
+    # print(json.dumps(response, indent=2))
+
+    i=i+1   
+
+results = {"id": ibm_source, "ibm_date": ibm_date, "ibm_score": ibm_score, "ibm_label": ibm_label}
+
+results = pd.DataFrame(data = results)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Code"
+
+
+date = date.today()
+name = '../' + str(date) + '_results.csv'
+
+results.to_csv(name, index=False)
+
+results = results.merge(sources, how='left')
+
+results = pd.DataFrame(results, columns=['name', 'category', 'ibm_score', 'ibm_label', 'ibm_date'])
+
+results = results.rename(columns={'ibm_date': 'date'})
+
+results['date'] = pd.to_datetime(results['date'])
+
+results['date'] = results['date'].dt.date
+
+results.head(10)
+```

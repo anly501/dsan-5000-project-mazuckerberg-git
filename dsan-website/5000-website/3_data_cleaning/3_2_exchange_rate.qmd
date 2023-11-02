@@ -1,0 +1,98 @@
+---
+title: "Gas Price"
+format: html
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+```
+
+### QUANTMOD API | R
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data Cleaning Code"
+#| warning: false
+
+# Set the start and end dates
+start_date <- "2000-01-01"
+end_date <- "2022-12-31"
+
+# Define the symbol for Gas Price to USD exchange rate
+symbol <- "GASREGCOVW"
+
+# Use getSymbols() to fetch the data
+getSymbols(symbol, from = start_date, to = end_date, src = "FRED")
+
+# Access the data as a data frame
+df_exchange_rate <- as.data.frame(GASREGCOVW)
+
+df_exchange_rate <- rownames_to_column(df_exchange_rate, var = "DATE")
+
+df_exchange_rate$DATE <- as.Date(df_exchange_rate$DATE)
+
+# Print the first few rows of the data
+head(df_exchange_rate, n = 10)
+```
+
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+summary(df_exchange_rate)
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Save dataframe as a new file
+#write.csv(df_exchange_rate, '../../../data/01-modified-data/clean_exchange_rate.csv', row.names = FALSE)
+```

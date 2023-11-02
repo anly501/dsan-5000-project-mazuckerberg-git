@@ -1,0 +1,90 @@
+---
+title: "Global Lithium Demand"
+format: html
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data Cleaning Code"
+#| warning: false
+
+df_demand <- read_excel("../../../data/00-raw-data/global-lithium-demand.xlsx", sheet="Data")
+
+names(df_demand) <- c('Year', 'Demand')
+
+df_demand <- df_demand %>% filter(!is.na(Demand) & Demand != "")
+
+df_demand$Year <- gsub("\\*", "", df_demand$Year)
+
+df_demand$Year <- as.integer(df_demand$Year)
+
+head(df_demand, n = 10)
+```
+
+
+``` {r}
+#| echo: false
+#| code-summary: "Data Summary"
+#| warning: false
+
+sum <- summary(df_demand)
+
+sum
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Save dataframe as a new file
+write.csv(df_demand, '../../../data/01-modified-data/clean_lithium-demand.csv', row.names = FALSE)
+```

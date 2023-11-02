@@ -1,0 +1,144 @@
+---
+title: "Global Lithium Production"
+format: html
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+```
+
+::: {.epigrafe}
+Before cleaning the dataset, the dataset had 532 rows and 4 columns:
+
+- Entity that represents the region/country of the information
+
+- Code of the Entity
+
+- Year the information was collected 
+
+- Lithium production measured in tons.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data Gathering"
+#| warning: false
+
+# Read csv file
+df_production <- read.csv("../../../data/00-raw-data/lithium-production.csv")
+
+# Original dataset
+head(df_production, n = 10)
+```
+
+**Dimensions:**
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Dataset dimensions
+dim(df_production)
+```
+
+::: {.epigrafe}
+The data cleansing step performed on this dataset was to filter the rows to remove the nan from the Code column. This allows us to keep only the lithium production records for the countries in the dataset, removing the global and regional totals. In the next section we will plot the information and compare lithium production between countries over time.
+
+The cleaned dataset has 224 rows and 4 columns. The available information was collected from 1995 to 2022. 
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data Cleaning"
+#| warning: false
+
+# Filter Code Column 
+df_production <- df_production %>% filter(nchar(Code) == 3)
+```
+
+**Cleaned Data:**
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Cleaned dataset
+head(df_production, n = 10)
+```
+
+**Summary:**
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+summary(df_production)
+```
+
+**Dimensions:**
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+dim(df_production)
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Save dataframe as a new file
+write.csv(df_production, '../../../data/01-modified-data/clean_lithium-production.csv', row.names = FALSE)
+```
