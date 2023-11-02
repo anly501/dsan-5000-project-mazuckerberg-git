@@ -71,6 +71,14 @@ df_articles = pd.DataFrame(all_articles['articles'])
 df_articles.head(10)
 ```
 
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+
+df_articles.to_csv('../../../data/01-modified-data/clean_articles.csv', index=False)
+```
+
 ***
 
 ### IBM Watson - Sentiment Analysis
@@ -128,8 +136,8 @@ results = pd.DataFrame(data = results)
 #| code-fold: true
 #| code-summary: "Code"
 
-
 date = date.today()
+
 name = '../' + str(date) + '_results.csv'
 
 results.to_csv(name, index=False)
@@ -145,4 +153,12 @@ results['date'] = pd.to_datetime(results['date'])
 results['date'] = results['date'].dt.date
 
 results.head(10)
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+
+results.to_csv('../../../data/01-modified-data/clean_sentiment_analysis.csv', index=False)
 ```
