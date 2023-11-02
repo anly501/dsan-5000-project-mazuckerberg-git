@@ -9,6 +9,8 @@ website:
         text: Home
       - about.ipynb
       - ./slides/slides.ipynb
+      - href: "https://mazuckerberg.georgetown.domains/Webpage-CV-Maria%20Agustina%20Zuckerberg.pdf"
+        text: Resume
 
   sidebar: 
     contents: 
