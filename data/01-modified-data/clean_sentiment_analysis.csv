@@ -1,35 +1,86 @@
-id,ibm_date,ibm_score,ibm_label
-wired,2023-10-27T11:00:00Z,-0.5961,negative
-the-verge,2023-10-27T00:16:44Z,-0.8783,negative
-ars-technica,2023-10-31T11:00:53Z,0.2886,positive
-business-insider,2023-10-22T09:43:12Z,0.6452,positive
-the-next-web,2023-10-24T04:03:53Z,0.6209,positive
-the-next-web,2023-10-23T04:00:52Z,0.908,positive
-engadget,2023-10-22T14:30:46Z,0.0,neutral
-business-insider,2023-10-29T12:19:01Z,0.6035,positive
-cbs-news,2023-10-23T19:46:00Z,-0.629,negative
-next-big-future,2023-10-25T15:47:05Z,0.0,neutral
-new-scientist,2023-10-31T15:00:23Z,0.6051,positive
-fortune,2023-10-31T20:37:05Z,0.0,neutral
-new-scientist,2023-10-24T11:54:42Z,0.8984,positive
-newsweek,2023-10-23T20:49:19Z,-0.952,negative
-abc-news,2023-10-31T13:42:59Z,0.0,neutral
-fortune,2023-10-31T11:15:22Z,-0.6701,negative
-abc-news,2023-11-01T06:22:34Z,0.6487,positive
-abc-news,2023-10-29T08:06:27Z,0.6301,positive
-new-scientist,2023-10-30T19:00:25Z,0.0,neutral
-newsweek,2023-10-30T16:13:19Z,0.448,positive
-abc-news,2023-10-31T13:42:54Z,0.0,neutral
-abc-news,2023-10-25T03:51:22Z,0.5985,positive
-abc-news,2023-10-25T03:50:32Z,0.5985,positive
-abc-news,2023-11-01T06:22:38Z,0.6487,positive
-abc-news,2023-10-29T08:22:22Z,0.6301,positive
-abc-news,2023-10-25T03:50:36Z,0.5985,positive
-ars-technica,2023-10-25T15:25:55Z,-0.7175,negative
-breitbart-news,2023-10-31T18:55:02Z,0.3935,positive
-breitbart-news,2023-10-23T22:15:07Z,0.0,neutral
-techradar,2023-10-30T13:00:29Z,-0.5295,negative
-breitbart-news,2023-10-27T22:28:20Z,0.3316,positive
-engadget,2023-11-01T04:57:10Z,-0.6099,negative
-reuters,2023-10-24T10:40:38Z,-0.3458,negative
-usa-today,2023-10-26T11:35:39Z,-0.6586,negative
+name,category,ibm_score,ibm_label,date,ibm_content
+Wired,technology,-0.5961,negative,2023-10-27,"In lithium-ion batteries, thats no longer the case. Modern batteries are capable of reading their state no matter their level of charge, and when your device isnt in use the strain on the battery is … [+3255 chars]"
+The Verge,technology,-0.8783,negative,2023-10-27,"Ford hits the brakes on $12 billion in EV spending because EVs are too expensive
+Ford hits the brakes on $12 billion in EV spending because EVs are too expensive
+ / The car company says it isnt bac… [+2216 chars]"
+Ars Technica,technology,0.2886,positive,2023-10-31,"Enlarge/ GreenPower has given its class-D electric school bus a big battery bump.
+39 with 
+On Tuesday morning, the West Virginia-based GreenPower Motor Company debuted its latest electric vehicle. … [+4366 chars]"
+Business Insider,business,0.6452,positive,2023-10-22,"Wuling Hongguang Mini EVs on display at the Shanghai auto expo.VCG/VCG via Getty Images
+<ul>
+<li>China has led the world in production and sales of electric vehicles, helped by government subsidies.… [+6141 chars]"
+The Next Web,technology,0.6209,positive,2023-10-24,"In a big boost to sustainable mobility, 130 million EVs are expected to hit Europes streets by 2035, reaching about half of the total vehicles on the continent. However, this also translates to 130 m… [+3822 chars]"
+The Next Web,technology,0.908,positive,2023-10-23,"Norwegian tech company AutoStore today unveiled the latest version of its warehouse storage and retrieval robot, as it seeks to boost the efficiency of its automated fulfilment system. 
+Dubbed the R… [+3374 chars]"
+Business Insider,business,-0.676,negative,2023-10-18,"When something enters Earth's atmosphere, it's typically in a fiery blaze.solarseven/Getty Images
+<ul>
+<li>Scientists have discovered evidence of various pollutant metals in Earth's stratosphere.</l… [+1984 chars]"
+Engadget,technology,0.0,neutral,2023-10-22,Space isn't hard only on account of the rocket science. The task of taking a NASA mission from development and funding through construction and launch all before we even use the thing for science can… [+11147 chars]
+Business Insider,business,0.6035,positive,2023-10-29,"The National Spherical Torus Experiment-Upgrade (NSTX-U) at the Princeton Plasma Physics Laboratory.Elle Starkman, PPPL
+<ul>
+<li>It's been almost 90 years since scientists made the first fusion reac… [+8038 chars]"
+Time,general,0.0,neutral,2023-10-19,"In her new book, The Woman in Me, Britney Spears details the extent of her family's attempts to control her life and her considerable estate through a conservatorship for 13 years. She suggests that … [+3975 chars]"
+Time,general,0.0,neutral,2023-10-19,"The rocky relationship between Britney Spears and her younger sister, Jamie Lynn Spears, has long been documented in the press. In January 2022, Britney sent Jamie Lynn a cease and desist letter, ask… [+5806 chars]"
+Ars Technica,technology,0.8393,positive,2023-10-16,"Enlarge/ The back of the 2019 iPad Air.
+13 with 
+Whether you're shopping for a new laptop or you're looking to build your own PC, we found some great savings for you with some post-Prime Day sales.… [+12394 chars]"
+CBS News,general,-0.629,negative,2023-10-23,"Riders of Toos Elite 60-volt electric scooters are being urged to find another means of travel immediately, after the deaths of two people in a fire caused by the product.
+The urgent warning to stop… [+1457 chars]"
+Next Big Future,science,0.0,neutral,2023-10-25,Brian Wang is a Futurist Thought Leader and a popular Science blogger with 1 million readers per month. His blog Nextbigfuture.com is ranked #1 Science News Blog. It covers many disruptive technology… [+593 chars]
+New Scientist,science,0.6051,positive,2023-10-31,"Passive cooling could be more efficient using a device containing a salty water solution
+daniiD/Shutterstock
+Computers could see their performance jump by one third through an inexpensive cooling s… [+2046 chars]"
+CBS News,general,-0.7609,negative,2023-10-17,"As e-scooters, hoverboards and e-bikes increase in popularity, emergency rooms are seeing a surge in injuries — fractures, contusions, burns and cuts — related to the products, continuing a multiyear… [+1968 chars]"
+Fortune,business,-0.8252,negative,2023-10-19,"With the growing popularity of disposable e-cigarettes, communities across the U.S. are confronting a new vaping problem: how to safely get rid of millions of small, battery-powered devices that are … [+7951 chars]"
+Fortune,business,0.0,neutral,2023-10-31,"Toyota will invest an additional $8 billion in the hybrid and electric vehicle battery factory its constructing in North Carolina, more than doubling its prior investments and expected number of new … [+3679 chars]"
+New Scientist,science,0.8984,positive,2023-10-24,"Solid-state batteries could be lighter and more powerful than current batteries
+Phonlamai Photo/Shutterstock
+Toyota says it has made a breakthrough that will allow “game-changing” solid-state batte… [+3641 chars]"
+TechRadar,technology,0.0,neutral,2023-10-16,"Mercedes-Benz launched the series production version of its eActros 600 battery-electric long-haul truck last week, signifying its intent to assist in phasing out diesel counterparts in the coming ye… [+3861 chars]"
+CBS News,general,0.651,positive,2023-10-17,"Remote Retriever via CBS Deals
+This week on ""CBS Mornings,"" lifestyle expert Elizabeth Werner discussed deals on items that might make your life easier -- all at exclusive discounts. Discover this w… [+1904 chars]"
+Newsweek,general,-0.952,negative,2023-10-23,"U.S. consumers are being strongly warned against using a brand of electric scooters after reports found that a malfunctioning battery caused a fire earlier this year that killed two people, including… [+2738 chars]"
+ABC News,general,0.0,neutral,2023-10-31,"RALEIGH, N.C. -- Toyota will invest an additional $8 billion in the hybrid and electric vehicle battery factory it's constructing in North Carolina, more than doubling its prior investments and expec… [+3480 chars]"
+Fortune,business,-0.6701,negative,2023-10-31,"Since Russian President Vladimir Putin invaded Ukraine, most of the attention has focused on Russias imagined security dangers on its western border, the threat of Ukraines democratic success as a mo… [+5789 chars]"
+Breitbart News,general,0.6588,positive,2023-10-16,"The Taliban jihadist regime in Afghanistan sent its Industry and Commerce Minister Nooruddin Azizi to Beijing on Monday to attend this week’s “Belt and Road Forum,” a celebration of ten years of Chin… [+6220 chars]"
+Breitbart News,general,0.0,neutral,2023-10-19,"Haji Nooruddin Azizi, the acting commerce minister for the Taliban regime, announced on Thursday that the terrorist organization plans to formally join Chinas Belt and Road Initiative (BRI) and will … [+4762 chars]"
+ABC News,general,0.6487,positive,2023-11-01,"TOKYO -- Toyotas July-September profit jumped nearly threefold from a year ago as vehicle sales grew around the world and a cheap yen boosted the Japanese automakers overseas earnings.
+Toyota Motor … [+2983 chars]"
+ABC News,general,-0.8907,negative,2023-10-19,"WASHINGTON -- With the growing popularity of disposable e-cigarettes, communities across the U.S. are confronting a new vaping problem: how to safely get rid of millions of small, battery-powered dev… [+8104 chars]"
+ABC News,general,0.6301,positive,2023-10-29,TOKYO -- Trade and economy officials from the Group of Seven wealthy democracies strengthened their pledge Sunday to work together to ensure smooth supply chains for essentials like energy and food d… [+3548 chars]
+New Scientist,science,0.0,neutral,2023-10-30,"The Athel tamarisk has ingenious ways of surviving in a dry climate
+Shutterstock / Wirestock Creators
+An evergreen desert shrub common in the Middle East excretes salt crystals onto its leaves that… [+2510 chars]"
+Newsweek,general,0.448,positive,2023-10-30,"Around the world, entrepreneurs are trying to turn green tech ideas into viable businesses. Many are working with technology that has been proven to work, but is too expensive for widespread use. The… [+11350 chars]"
+ABC News,general,0.0,neutral,2023-10-31,"RALEIGH, N.C. -- Toyota will invest an additional $8 billion in the hybrid and electric vehicle battery factory it's constructing in North Carolina, more than doubling its prior investments and expec… [+3480 chars]"
+ABC News,general,0.5985,positive,2023-10-25,"TOKYO -- TOKYO (AP) We love battery EVs.
+Takero Kato, the executive in charge of electric vehicles at Toyota, said that not once, but twice, to emphasize what he considers the message at this years … [+5263 chars]"
+ABC News,general,-0.8907,negative,2023-10-19,"WASHINGTON -- With the growing popularity of disposable e-cigarettes, communities across the U.S. are confronting a new vaping problem: how to safely get rid of millions of small, battery-powered dev… [+8105 chars]"
+ABC News,general,0.5985,positive,2023-10-25,"TOKYO -- TOKYO (AP) We love battery EVs.
+Takero Kato, the executive in charge of electric vehicles at Toyota, said that not once, but twice, to emphasize what he considers the message at this years … [+5263 chars]"
+ABC News,general,0.6487,positive,2023-11-01,"TOKYO -- Toyotas July-September profit jumped nearly threefold from a year ago as vehicle sales grew around the world and a cheap yen boosted the Japanese automakers overseas earnings.
+Toyota Motor … [+2983 chars]"
+ABC News,general,0.6301,positive,2023-10-29,TOKYO -- Trade and economy officials from the Group of Seven wealthy democracies strengthened their pledge Sunday to work together to ensure smooth supply chains for essentials like energy and food d… [+3548 chars]
+Time,general,-0.3817,negative,2023-10-20,"Britney Spears knows what it means to be deprived of adulthood. As told in her highly anticipated memoir, The Woman in Me, hers is a tale of rapid maturity followed by arrested development, freedom f… [+11066 chars]"
+ABC News,general,0.5985,positive,2023-10-25,"TOKYO -- TOKYO (AP) We love battery EVs.
+Takero Kato, the executive in charge of electric vehicles at Toyota, said that not once, but twice, to emphasize what he considers the message at this years … [+5263 chars]"
+ABC News,general,0.0,neutral,2023-10-17,"BEIJING -- China is hosting its third international forum centered around President Xi Jinpings signature policy, the Belt and Road Initiative, which over the past 10 years has built infrastructure a… [+5446 chars]"
+Breitbart News,general,0.0,neutral,2023-10-17,"Chiles far-left President Gabriel Boric met with his Chinese counterpart, genocidal dictator Xi Jinping, on Tuesday, pledging to defend Beijing’s false claims over Taiwan and seeking support for his … [+5595 chars]"
+Ars Technica,technology,-0.7175,negative,2023-10-25,"Enlarge/ A GM Ultium battery pack. 
+75 with 
+Bad news for fans of cheaper electric vehicles: The planned collaboration between Honda and General Motors on a range of cheaper EVs has been canceled. … [+3548 chars]"
+Breitbart News,general,0.3935,positive,2023-10-31,"After investing billions to adhere to President Joe Biden’s green energy agenda, General Motors (GM) is backtracking on all fronts when it comes to Electric Vehicles (EVs).
+As GM was the last of the… [+3230 chars]"
+Breitbart News,general,0.0,neutral,2023-10-23,"Nearly 7,000 auto workers at Stellantis’ Sterling Heights Assembly Plant in Sterling Heights, Michigan, have joined the United Auto Workers (UAW) strike — a major blow for the automaker as the plant … [+2519 chars]"
+Fox News,general,-0.8252,negative,2023-10-19,"With the growing popularity of disposable e-cigarettes, communities across the U.S. are confronting a new vaping problem: how to safely get rid of millions of small, battery-powered devices that are … [+7914 chars]"
+TechRadar,technology,-0.5295,negative,2023-10-30,"Yeedi Cube: One-minute review
+The Yeedi Cube comes among a litany of combo robot vacuums capable of both vacuuming and mopping. In that regard, it’s one of many. What sets it apart then is the fact … [+15208 chars]"
+NBC News,general,-0.5513,negative,2023-10-20,"Britney Spears is shedding new light onto what her life was like during her 13-year court-ordered conservatorship.
+In her upcoming memoir, The Woman In Me, obtained early by TheNew York Times, which… [+3213 chars]"
+Breitbart News,general,0.3316,positive,2023-10-27,"After investing billions into a green energy agenda mimicking President Joe Biden’s federal rules, American automakers are quickly learning that Americans are not buying electric vehicles (EVs) at th… [+5334 chars]"
+Fox News,general,0.0,neutral,2023-10-18,"In yet another attempt to regulate the car market and phase out internal combustion engines (ICE), another agency has proposed a rule with lofty ambitions of increasing fleet-wide Corporate Average F… [+4942 chars]"
+Engadget,technology,-0.6099,negative,2023-11-01,"Your EV may go a long way between charges, but can it carry dozens of passengers? GreenPower can boast both of those things with its latest electric school bus called ""Mega Beast,"" it announced in a … [+1575 chars]"
+Reuters,general,-0.3458,negative,2023-10-24,"DETROIT, Oct 24 (Reuters) - General Motors (GM.N) on Tuesday withdrew its 2023 profit outlook, blaming the rising costs of United Auto Workers strikes, but the automaker's shares rose on better-than-… [+5638 chars]"
+TechCrunch,technology,0.0,neutral,2023-10-15,Ten billion. That’s how many commercially procurable molecules are available today. Start looking at them in groups of five the typical combination used to make electrolyte materials in batteries and… [+4802 chars]
+USA Today,general,-0.6586,negative,2023-10-26,"More than a dozen states now have near-total abortion bans following the overturning of Roe v. Wade, with limited medical exceptions meant to protect the patients health or life.
+But among those sta… [+12492 chars]"
