@@ -1,6 +1,6 @@
 ---
 title: "Agustina Zuckerberg"
-bibliography: "../reference.bib"
+bibliography: "reference.bib"
 ---
 # About me
 
