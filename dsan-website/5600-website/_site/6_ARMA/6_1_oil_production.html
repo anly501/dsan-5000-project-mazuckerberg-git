@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series - U.S. Oil Production</title>
+<title>Time Series - U.S. Oil Production by Year</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">U.S. Oil Production</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">U.S. Oil Production by Year</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -217,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">U.S. Oil Production</h1>
+<h1 class="title">U.S. Oil Production by Year</h1>
 </div>
 
 
@@ -254,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 </div>
 <div class="epigrafe">
-<p>The first step to begin the analysis was to import the dataset containing the time series data for the daily U.S. Oil Production. To evaluate the stationarity of the time series, we started with an Autocorrelation Function (ACF) plot. Within this plot, we observe a high positive autocorrelation for the early lags, which gradually decreases as the lags increase. This behavior indicates a tendency towards stationarity within the time series. To further this analysis, we apply the Augmented Dickey-Fuller test.</p>
+<p>The first step to begin the analysis was to import the dataset containing the time series data for the daily U.S. Oil Production by Year. To evaluate the stationarity of the time series, we started with an Autocorrelation Function (ACF) plot. Within this plot, we observe a high positive autocorrelation for the early lags, which gradually decreases as the lags increase. This behavior indicates a tendency towards stationarity within the time series. To further this analysis, we apply the Augmented Dickey-Fuller test.</p>
 </div>
 <div class="cell">
 <details>
@@ -347,20 +347,17 @@ alternative hypothesis: stationary</code></pre>
 <div class="cell">
 <details>
 <summary>ACF and PACF Plot Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep differenced Time Series</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ts_oil_production <span class="ot">&lt;-</span> diff_oil_production</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resize plots</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">5</span>, <span class="at">repr.plot.height =</span> <span class="dv">2</span>) </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Resize plots</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">5</span>, <span class="at">repr.plot.height =</span> <span class="dv">2</span>) </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Plot</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>acf_oil_production <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(diff_oil_production, <span class="at">main=</span><span class="st">"ACF Plot for Oil Production"</span>)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Plot</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>acf_oil_production <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(ts_oil_production, <span class="at">main=</span><span class="st">"ACF Plot for Oil Production"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF Plot</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>pacf_oil_production <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(diff_oil_production, <span class="at">main=</span><span class="st">"PACF Plot for Oil Production"</span>)</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF Plot</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>pacf_oil_production <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(ts_oil_production, <span class="at">main=</span><span class="st">"PACF Plot for Oil Production"</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_oil_production, pacf_oil_production, <span class="at">nrow=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_oil_production, pacf_oil_production, <span class="at">nrow=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="6_1_oil_production_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="768"></p>
@@ -442,97 +439,97 @@ alternative hypothesis: stationary</code></pre>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">317.8510</td>
-<td style="text-align: right;">322.0291</td>
-<td style="text-align: right;">320.3510</td>
+<td style="text-align: right;">327.4823</td>
+<td style="text-align: right;">331.8465</td>
+<td style="text-align: right;">329.8353</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">315.6034</td>
-<td style="text-align: right;">320.8260</td>
-<td style="text-align: right;">319.6034</td>
+<td style="text-align: right;">329.3594</td>
+<td style="text-align: right;">334.8146</td>
+<td style="text-align: right;">333.1094</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">316.3897</td>
-<td style="text-align: right;">322.6568</td>
-<td style="text-align: right;">322.3897</td>
+<td style="text-align: right;">330.9947</td>
+<td style="text-align: right;">337.5410</td>
+<td style="text-align: right;">336.5947</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">317.8762</td>
-<td style="text-align: right;">325.1879</td>
-<td style="text-align: right;">326.4916</td>
+<td style="text-align: right;">327.3037</td>
+<td style="text-align: right;">334.9410</td>
+<td style="text-align: right;">335.3037</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">312.3736</td>
-<td style="text-align: right;">317.5962</td>
-<td style="text-align: right;">316.3736</td>
+<td style="text-align: right;">328.6853</td>
+<td style="text-align: right;">334.1405</td>
+<td style="text-align: right;">332.4353</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">314.2722</td>
-<td style="text-align: right;">320.5394</td>
-<td style="text-align: right;">320.2722</td>
+<td style="text-align: right;">329.1421</td>
+<td style="text-align: right;">335.6883</td>
+<td style="text-align: right;">334.7421</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">315.4608</td>
-<td style="text-align: right;">322.7724</td>
-<td style="text-align: right;">324.0762</td>
+<td style="text-align: right;">331.1105</td>
+<td style="text-align: right;">338.7478</td>
+<td style="text-align: right;">339.1105</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">315.8170</td>
-<td style="text-align: right;">324.1732</td>
-<td style="text-align: right;">327.8170</td>
+<td style="text-align: right;">328.2992</td>
+<td style="text-align: right;">337.0276</td>
+<td style="text-align: right;">339.3762</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">313.4332</td>
-<td style="text-align: right;">319.7004</td>
-<td style="text-align: right;">319.4332</td>
+<td style="text-align: right;">327.5145</td>
+<td style="text-align: right;">334.0608</td>
+<td style="text-align: right;">333.1145</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">314.5112</td>
-<td style="text-align: right;">321.8229</td>
-<td style="text-align: right;">323.1266</td>
+<td style="text-align: right;">327.2772</td>
+<td style="text-align: right;">334.9145</td>
+<td style="text-align: right;">335.2772</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">317.5901</td>
-<td style="text-align: right;">325.9462</td>
-<td style="text-align: right;">329.5901</td>
+<td style="text-align: right;">328.2648</td>
+<td style="text-align: right;">336.9932</td>
+<td style="text-align: right;">339.3417</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">318.3887</td>
-<td style="text-align: right;">327.7894</td>
-<td style="text-align: right;">334.7524</td>
+<td style="text-align: right;">329.4140</td>
+<td style="text-align: right;">339.2333</td>
+<td style="text-align: right;">344.4140</td>
 </tr>
 </tbody>
 </table>
@@ -548,8 +545,8 @@ alternative hypothesis: stationary</code></pre>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>  p d q      AIC      BIC     AICc
-5 2 1 1 312.3736 317.5962 316.3736</code></pre>
+<pre><code>   p d q      AIC      BIC     AICc
+10 3 1 2 327.2772 334.9145 335.2772</code></pre>
 </div>
 <details>
 <summary>Model Selection</summary>
@@ -558,7 +555,7 @@ alternative hypothesis: stationary</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  p d q      AIC      BIC     AICc
-5 2 1 1 312.3736 317.5962 316.3736</code></pre>
+1 1 1 1 327.4823 331.8465 329.8353</code></pre>
 </div>
 <details>
 <summary>Model Selection</summary>
@@ -567,7 +564,7 @@ alternative hypothesis: stationary</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  p d q      AIC      BIC     AICc
-5 2 1 1 312.3736 317.5962 316.3736</code></pre>
+1 1 1 1 327.4823 331.8465 329.8353</code></pre>
 </div>
 </div>
 <div class="epigrafe">
@@ -589,6 +586,9 @@ alternative hypothesis: stationary</code></pre>
 <p><img src="6_1_oil_production_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+<blockquote class="blockquote">
+<p>add p=1, d=1 and q=1.</p>
+</blockquote>
 <div class="epigrafe">
 <p>Describe model diagnostics</p>
 </div>
@@ -619,19 +619,19 @@ alternative hypothesis: stationary</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Series: xt 
-ARIMA(2,1,1) 
+ARIMA(3,1,2) 
 
 Coefficients:
-         ar1      ar2      ma1
-      0.1832  -0.6324  -0.4982
-s.e.  0.2034   0.1577   0.2241
+         ar1      ar2     ar3      ma1     ma2
+      1.4628  -1.3321  0.7526  -1.0909  0.6932
+s.e.  0.2068   0.2393  0.1328   0.3293  0.3316
 
-sigma^2 = 118852:  log likelihood = -151.6
-AIC=311.2   AICc=313.7   BIC=315.38
+sigma^2 = 106113:  log likelihood = -157.12
+AIC=326.24   AICc=331.84   BIC=332.79
 
 Training set error measures:
-                   ME    RMSE      MAE      MPE    MAPE      MASE       ACF1
-Training set 44.22819 311.837 228.7439 86.84948 130.467 0.7211202 -0.1040119</code></pre>
+                   ME     RMSE      MAE      MPE     MAPE      MASE       ACF1
+Training set 71.28682 280.0563 199.3722 1.428747 3.507179 0.6004373 0.01382935</code></pre>
 </div>
 </div>
 <div class="epigrafe">
@@ -648,14 +648,14 @@ x_t &amp;= 0.1832 x_{t-1} - 0.6324 x_{t-2} + w_t - 0.4982 w_{t-1}
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Series: xt 
-ARIMA(0,0,1) with non-zero mean 
+ARIMA(0,1,1) with drift 
 
 Coefficients:
-         ma1      mean
-      0.6807  212.5751
+         ma1     drift
+      0.6807  212.5749
 s.e.  0.1831  120.1296
 
-sigma^2 = 127686:  log likelihood = -159.81
+sigma^2 = 127687:  log likelihood = -159.81
 AIC=325.62   AICc=326.95   BIC=328.89</code></pre>
 </div>
 </div>
@@ -670,17 +670,17 @@ AIC=325.62   AICc=326.95   BIC=328.89</code></pre>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>forecast_fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>     Point Forecast      Lo 80    Hi 80     Lo 95     Hi 95
-2023       488.7604   46.94716 930.5737 -186.9347 1164.4555
-2024       172.7976 -362.73199 708.3272 -646.2242  991.8194
-2025       131.2397 -404.29460 666.7740 -687.7893  950.2688
-2026       323.4342 -212.93329 859.8017 -496.8691 1143.7375
-2027       384.9329 -198.11226 967.9780 -506.7577 1276.6235
-2028       274.6614 -357.64088 906.9637 -692.3615 1241.6843
-2029       215.5643 -428.39347 859.5221 -769.2841 1200.4127
-2030       274.4690 -375.65196 924.5900 -719.8052 1268.7433
-2031       322.6349 -347.10591 992.3758 -701.6453 1346.9151
-2032       294.2106 -403.25572 991.6769 -772.4721 1360.8932</code></pre>
+<pre><code>     Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+2023       9586.042 9168.533 10003.55 8947.517 10224.57
+2024       9944.927 9236.112 10653.74 8860.888 11028.97
+2025       9853.433 8966.488 10740.38 8496.967 11209.90
+2026       9808.604 8747.461 10869.75 8185.725 11431.48
+2027      10134.982 8791.217 11478.75 8079.871 12190.09
+2028      10603.274 8877.630 12328.92 7964.129 13242.42
+2029      10819.802 8731.905 12907.70 7626.639 14012.97
+2030      10758.365 8375.189 13141.54 7113.612 14403.12
+2031      10732.479 8072.587 13392.37 6664.525 14800.43
+2032      10939.401 7963.992 13914.81 6388.905 15489.90</code></pre>
 </div>
 </div>
 <div class="cell">

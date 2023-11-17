@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series - Crude Oil Price</title>
+<title>Time Series - Crude Oil Price by Month</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,6 +84,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -118,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Crude Oil Price</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Crude Oil Price by Month</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -215,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Crude Oil Price</h1>
+<h1 class="title">Crude Oil Price by Month</h1>
 </div>
 
 
@@ -262,16 +264,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Plot ACF</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ts_oil_price <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'../data/ts_oil_price.csv'</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ts_oil_price <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'../data/ts_oil_price_monthly.csv'</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ts_oil_price<span class="ot">&lt;-</span><span class="fu">ts</span>(ts_oil_price<span class="sc">$</span>x,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2000-08-23"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="fl">365.25</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ts_oil_price<span class="ot">&lt;-</span><span class="fu">ts</span>(ts_oil_price<span class="sc">$</span>x,,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2000-08-31"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="dv">12</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Resize plots</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">5</span>, <span class="at">repr.plot.height =</span> <span class="dv">2</span>) </span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Plot</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>acf_oil_price <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(ts_oil_price, <span class="dv">100</span>, <span class="at">main=</span><span class="st">"ACF Plot for Oil Production"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>acf_oil_price <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(ts_oil_price, <span class="at">main=</span><span class="st">"ACF Plot for Oil Production"</span>)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>acf_oil_price</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -296,7 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     Augmented Dickey-Fuller Test
 
 data:  ts_oil_price
-Dickey-Fuller = -2.3618, Lag order = 20, p-value = 0.4251
+Dickey-Fuller = -2.3977, Lag order = 6, p-value = 0.4084
 alternative hypothesis: stationary</code></pre>
 </div>
 </div>
@@ -309,7 +311,7 @@ alternative hypothesis: stationary</code></pre>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">6</span>, <span class="at">repr.plot.height =</span> <span class="dv">6</span>) </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Differenced Plot</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>acf_diff_oil_price <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(<span class="fu">diff</span>(ts_oil_price), <span class="dv">100</span>, <span class="at">main=</span><span class="st">"ACF Plot for Oil Production First Differenced"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>acf_diff_oil_price <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(<span class="fu">diff</span>(ts_oil_price), <span class="at">main=</span><span class="st">"ACF Plot for Oil Production First Differenced"</span>)</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Show plot</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>acf_diff_oil_price</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -339,7 +341,7 @@ alternative hypothesis: stationary</code></pre>
     Augmented Dickey-Fuller Test
 
 data:  diff_oil_price
-Dickey-Fuller = -18.439, Lag order = 20, p-value = 0.01
+Dickey-Fuller = -7.1212, Lag order = 6, p-value = 0.01
 alternative hypothesis: stationary</code></pre>
 </div>
 </div>
@@ -349,20 +351,17 @@ alternative hypothesis: stationary</code></pre>
 <div class="cell">
 <details>
 <summary>ACF and PACF Plot Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep differenced Time Series</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ts_oil_price <span class="ot">&lt;-</span> diff_oil_price</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resize plots</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">5</span>, <span class="at">repr.plot.height =</span> <span class="dv">2</span>) </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Resize plots</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">5</span>, <span class="at">repr.plot.height =</span> <span class="dv">2</span>) </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Plot</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>acf_oil_price <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(diff_oil_price, <span class="dv">100</span>, <span class="at">main=</span><span class="st">"ACF Plot for Oil Price"</span>)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Plot</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>acf_oil_price <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(ts_oil_price, <span class="dv">100</span>, <span class="at">main=</span><span class="st">"ACF Plot for Oil Price"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF Plot</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>pacf_oil_price <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(diff_oil_price, <span class="dv">100</span>, <span class="at">main=</span><span class="st">"PACF Plot for Oil Price"</span>)</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF Plot</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>pacf_oil_price <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(ts_oil_price, <span class="dv">100</span>, <span class="at">main=</span><span class="st">"PACF Plot for Oil Price"</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_oil_price, pacf_oil_price, <span class="at">nrow=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_oil_price, pacf_oil_price, <span class="at">nrow=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="6_2_oil_price_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
@@ -444,241 +443,241 @@ alternative hypothesis: stationary</code></pre>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">-28255.98</td>
-<td style="text-align: right;">-28227.95</td>
-<td style="text-align: right;">-28255.97</td>
+<td style="text-align: right;">-103.53271</td>
+<td style="text-align: right;">-89.16876</td>
+<td style="text-align: right;">-103.38061</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">-28259.84</td>
-<td style="text-align: right;">-28224.80</td>
-<td style="text-align: right;">-28259.83</td>
+<td style="text-align: right;">-101.53513</td>
+<td style="text-align: right;">-83.58020</td>
+<td style="text-align: right;">-101.30612</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">-28257.84</td>
-<td style="text-align: right;">-28215.80</td>
-<td style="text-align: right;">-28257.83</td>
+<td style="text-align: right;">-99.61755</td>
+<td style="text-align: right;">-78.07163</td>
+<td style="text-align: right;">-99.29571</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">-28259.06</td>
-<td style="text-align: right;">-28210.01</td>
-<td style="text-align: right;">-28259.05</td>
+<td style="text-align: right;">-102.76543</td>
+<td style="text-align: right;">-77.62852</td>
+<td style="text-align: right;">-102.33466</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">-28260.77</td>
-<td style="text-align: right;">-28204.71</td>
-<td style="text-align: right;">-28260.75</td>
+<td style="text-align: right;">-102.37028</td>
+<td style="text-align: right;">-73.64239</td>
+<td style="text-align: right;">-101.81430</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">-28258.51</td>
-<td style="text-align: right;">-28195.44</td>
-<td style="text-align: right;">-28258.49</td>
+<td style="text-align: right;">-100.37805</td>
+<td style="text-align: right;">-68.05917</td>
+<td style="text-align: right;">-99.68038</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">-28261.35</td>
-<td style="text-align: right;">-28226.32</td>
-<td style="text-align: right;">-28261.35</td>
+<td style="text-align: right;">-101.53237</td>
+<td style="text-align: right;">-83.57744</td>
+<td style="text-align: right;">-101.30337</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">-28260.26</td>
-<td style="text-align: right;">-28218.21</td>
-<td style="text-align: right;">-28260.25</td>
+<td style="text-align: right;">-99.53435</td>
+<td style="text-align: right;">-77.98842</td>
+<td style="text-align: right;">-99.21251</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">-28259.41</td>
-<td style="text-align: right;">-28210.36</td>
-<td style="text-align: right;">-28259.40</td>
+<td style="text-align: right;">-107.12332</td>
+<td style="text-align: right;">-81.98642</td>
+<td style="text-align: right;">-106.69256</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">-28272.84</td>
-<td style="text-align: right;">-28216.78</td>
-<td style="text-align: right;">-28272.82</td>
+<td style="text-align: right;">-105.45152</td>
+<td style="text-align: right;">-76.72362</td>
+<td style="text-align: right;">-104.89553</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">-28275.05</td>
-<td style="text-align: right;">-28211.99</td>
-<td style="text-align: right;">-28275.03</td>
+<td style="text-align: right;">-100.38438</td>
+<td style="text-align: right;">-68.06550</td>
+<td style="text-align: right;">-99.68671</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">-28257.34</td>
-<td style="text-align: right;">-28187.27</td>
-<td style="text-align: right;">-28257.31</td>
+<td style="text-align: right;">-98.37179</td>
+<td style="text-align: right;">-62.46192</td>
+<td style="text-align: right;">-97.51576</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">-28261.11</td>
-<td style="text-align: right;">-28219.07</td>
-<td style="text-align: right;">-28261.10</td>
+<td style="text-align: right;">-101.29015</td>
+<td style="text-align: right;">-79.74422</td>
+<td style="text-align: right;">-100.96831</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">-28258.42</td>
-<td style="text-align: right;">-28209.37</td>
-<td style="text-align: right;">-28258.41</td>
+<td style="text-align: right;">-101.15402</td>
+<td style="text-align: right;">-76.01712</td>
+<td style="text-align: right;">-100.72326</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">-28273.45</td>
-<td style="text-align: right;">-28217.39</td>
-<td style="text-align: right;">-28273.43</td>
+<td style="text-align: right;">-105.37080</td>
+<td style="text-align: right;">-76.64290</td>
+<td style="text-align: right;">-104.81481</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">-28256.33</td>
-<td style="text-align: right;">-28193.26</td>
-<td style="text-align: right;">-28256.30</td>
+<td style="text-align: right;">-101.53855</td>
+<td style="text-align: right;">-69.21967</td>
+<td style="text-align: right;">-100.84088</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">-28254.50</td>
-<td style="text-align: right;">-28184.43</td>
-<td style="text-align: right;">-28254.47</td>
+<td style="text-align: right;">-98.43894</td>
+<td style="text-align: right;">-62.52907</td>
+<td style="text-align: right;">-97.58291</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">-28256.19</td>
-<td style="text-align: right;">-28179.11</td>
-<td style="text-align: right;">-28256.16</td>
+<td style="text-align: right;">-96.45739</td>
+<td style="text-align: right;">-56.95653</td>
+<td style="text-align: right;">-95.42614</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">-28259.91</td>
-<td style="text-align: right;">-28210.86</td>
-<td style="text-align: right;">-28259.90</td>
+<td style="text-align: right;">-103.50725</td>
+<td style="text-align: right;">-78.37034</td>
+<td style="text-align: right;">-103.07648</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">-28258.45</td>
-<td style="text-align: right;">-28202.40</td>
-<td style="text-align: right;">-28258.44</td>
+<td style="text-align: right;">-101.53545</td>
+<td style="text-align: right;">-72.80756</td>
+<td style="text-align: right;">-100.97947</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">-28256.24</td>
-<td style="text-align: right;">-28193.17</td>
-<td style="text-align: right;">-28256.22</td>
+<td style="text-align: right;">-105.26589</td>
+<td style="text-align: right;">-72.94701</td>
+<td style="text-align: right;">-104.56822</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">-28260.11</td>
-<td style="text-align: right;">-28190.03</td>
-<td style="text-align: right;">-28260.08</td>
+<td style="text-align: right;">-100.76278</td>
+<td style="text-align: right;">-64.85291</td>
+<td style="text-align: right;">-99.90675</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">-28257.83</td>
-<td style="text-align: right;">-28180.74</td>
-<td style="text-align: right;">-28257.79</td>
+<td style="text-align: right;">-98.78945</td>
+<td style="text-align: right;">-59.28859</td>
+<td style="text-align: right;">-97.75820</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">-28260.13</td>
-<td style="text-align: right;">-28176.04</td>
-<td style="text-align: right;">-28260.09</td>
+<td style="text-align: right;">-101.35005</td>
+<td style="text-align: right;">-58.25820</td>
+<td style="text-align: right;">-100.12652</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">-28258.27</td>
-<td style="text-align: right;">-28202.21</td>
-<td style="text-align: right;">-28258.26</td>
+<td style="text-align: right;">-101.60668</td>
+<td style="text-align: right;">-72.87878</td>
+<td style="text-align: right;">-101.05069</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">-28259.67</td>
-<td style="text-align: right;">-28196.60</td>
-<td style="text-align: right;">-28259.64</td>
+<td style="text-align: right;">-99.94657</td>
+<td style="text-align: right;">-67.62768</td>
+<td style="text-align: right;">-99.24889</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">-28257.46</td>
-<td style="text-align: right;">-28187.39</td>
-<td style="text-align: right;">-28257.44</td>
+<td style="text-align: right;">-98.03664</td>
+<td style="text-align: right;">-62.12677</td>
+<td style="text-align: right;">-97.18061</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">-28259.40</td>
-<td style="text-align: right;">-28182.32</td>
-<td style="text-align: right;">-28259.37</td>
+<td style="text-align: right;">-106.43841</td>
+<td style="text-align: right;">-66.93755</td>
+<td style="text-align: right;">-105.40716</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">-28260.53</td>
-<td style="text-align: right;">-28176.44</td>
-<td style="text-align: right;">-28260.49</td>
+<td style="text-align: right;">-98.95301</td>
+<td style="text-align: right;">-55.86117</td>
+<td style="text-align: right;">-97.72948</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">-28268.94</td>
-<td style="text-align: right;">-28177.84</td>
-<td style="text-align: right;">-28268.89</td>
+<td style="text-align: right;">-97.28999</td>
+<td style="text-align: right;">-50.60716</td>
+<td style="text-align: right;">-95.85692</td>
 </tr>
 </tbody>
 </table>
@@ -694,8 +693,8 @@ alternative hypothesis: stationary</code></pre>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>   p d q       AIC       BIC      AICc
-11 2 1 5 -28275.05 -28211.99 -28275.03</code></pre>
+<pre><code>  p d q       AIC       BIC      AICc
+9 2 1 3 -107.1233 -81.98642 -106.6926</code></pre>
 </div>
 <details>
 <summary>Model Selection</summary>
@@ -704,7 +703,7 @@ alternative hypothesis: stationary</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  p d q       AIC       BIC      AICc
-1 1 1 1 -28255.98 -28227.95 -28255.97</code></pre>
+1 1 1 1 -103.5327 -89.16876 -103.3806</code></pre>
 </div>
 <details>
 <summary>Model Selection</summary>
@@ -712,8 +711,8 @@ alternative hypothesis: stationary</code></pre>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AICc),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>   p d q       AIC       BIC      AICc
-11 2 1 5 -28275.05 -28211.99 -28275.03</code></pre>
+<pre><code>  p d q       AIC       BIC      AICc
+9 2 1 3 -107.1233 -81.98642 -106.6926</code></pre>
 </div>
 </div>
 <div class="epigrafe">
@@ -763,17 +762,135 @@ alternative hypothesis: stationary</code></pre>
 <div class="cell">
 <details>
 <summary>Model Fitting</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>AIC <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt,<span class="at">order=</span><span class="fu">c</span>(p1, d1, q1),<span class="at">include.drift =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>BIC <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt,<span class="at">order=</span><span class="fu">c</span>(p2, d2, q2),<span class="at">include.drift =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xt, <span class="at">col=</span><span class="st">"black"</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">fitted</span>(BIC),<span class="at">col=</span><span class="st">"blue"</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">fitted</span>(AIC), <span class="at">col=</span><span class="st">"green"</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"xt"</span>, <span class="st">"AIC"</span>, <span class="st">"BIC"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> best_model<span class="sc">$</span>p</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> best_model<span class="sc">$</span>d</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> best_model<span class="sc">$</span>q</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt,<span class="at">order=</span><span class="fu">c</span>(p, d, q),<span class="at">include.drift =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xt, <span class="at">col=</span><span class="st">"black"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">fitted</span>(model), <span class="at">col=</span><span class="st">"green"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"xt"</span>, <span class="st">"AIC"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"green"</span>), <span class="at">lty =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="6_2_oil_price_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+<div class="epigrafe">
+<p>Compare fitted vs Actual plots</p>
+</div>
+<div class="cell">
+<details>
+<summary>Fitted Model Summary</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt, <span class="at">order=</span><span class="fu">c</span>(p, d, q))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: xt 
+ARIMA(2,1,3) 
+
+Coefficients:
+         ar1      ar2      ma1     ma2     ma3
+      0.2652  -0.9097  -0.0610  0.9171  0.2591
+s.e.  0.0343   0.0297   0.0636  0.0255  0.0618
+
+sigma^2 = 0.03738:  log likelihood = 60.49
+AIC=-108.98   AICc=-108.66   BIC=-87.43
+
+Training set error measures:
+                      ME      RMSE      MAE        MPE     MAPE      MASE
+Training set 0.004370332 0.1911687 0.143212 -0.1676065 7.835146 0.2608363
+                    ACF1
+Training set 0.008321852</code></pre>
+</div>
+</div>
+<div class="epigrafe">
+<p>Model Equation with Latex</p>
+<p><span class="math display">\[\begin{align}
+x_t &amp;= \Phi x_{t-1} + w_t + \Theta w_{t-1} \\
+&lt;!-- x_t &amp;= 0.1832 x_{t-1} - 0.6324 x_{t-2} + w_t - 0.4982 w_{t-1} --&gt;
+\end{align}\]</span></p>
+</div>
+<div class="cell">
+<details>
+<summary>auto.arima()</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(xt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: xt 
+ARIMA(0,1,1) 
+
+Coefficients:
+         ma1
+      0.2150
+s.e.  0.0578
+
+sigma^2 = 0.03883:  log likelihood = 55.52
+AIC=-107.05   AICc=-107   BIC=-99.86</code></pre>
+</div>
+</div>
+<div class="epigrafe">
+<p>Compare selected model to auto.arima()</p>
+</div>
+<div class="cell">
+<details>
+<summary>Forecast</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>forecast_fit <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit,<span class="dv">24</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>forecast_fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Point Forecast    Lo 80    Hi 80     Lo 95    Hi 95
+2023.081       2.591672 2.343086 2.840258 2.2114923 2.971852
+2023.164       2.586552 2.197233 2.975872 1.9911399 3.181965
+2023.247       2.508423 2.008621 3.008225 1.7440422 3.272804
+2023.331       2.492360 1.890880 3.093840 1.5724752 3.412245
+2023.414       2.559176 1.874218 3.244135 1.5116226 3.606730
+2023.497       2.591510 1.841074 3.341946 1.4438174 3.739203
+2023.581       2.539301 1.728395 3.350207 1.2991268 3.779474
+2023.664       2.496039 1.621804 3.370274 1.1590123 3.833065
+2023.747       2.532062 1.597196 3.466928 1.1023081 3.961816
+2023.831       2.580972 1.594549 3.567395 1.0723689 4.089575
+2023.914       2.561172 1.528300 3.594045 0.9815306 4.140814
+2023.997       2.511426 1.430418 3.592434 0.8581674 4.164685
+2024.081       2.516245 1.385969 3.646521 0.7876374 4.244853
+2024.164       2.562779 1.387687 3.737871 0.7656309 4.359927
+2024.247       2.570736 1.355682 3.785791 0.7124707 4.429002
+2024.331       2.530513 1.275633 3.785394 0.6113394 4.449687
+2024.414       2.512607 1.216046 3.809168 0.5296886 4.495525
+2024.497       2.544450 1.207717 3.881183 0.5000927 4.588807
+2024.581       2.569185 1.196142 3.942229 0.4692962 4.669074
+2024.664       2.546777 1.138867 3.954687 0.3935640 4.699989
+2024.747       2.518331 1.074223 3.962440 0.3097580 4.726905
+2024.831       2.531173 1.050721 4.011625 0.2670165 4.795329
+2024.914       2.560456 1.046184 4.074728 0.2445771 4.876335
+2024.997       2.556540 1.010481 4.102599 0.1920467 4.921034</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Forecast Plot</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to save plot</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">"../images/6_2_oil_price.png"</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(forecast_fit)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot as a PNG image</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(plot, <span class="at">filename =</span> file_path, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Show plot</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="6_2_oil_price_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="epigrafe">
+<p>Conclusion</p>
 </div>
 
 

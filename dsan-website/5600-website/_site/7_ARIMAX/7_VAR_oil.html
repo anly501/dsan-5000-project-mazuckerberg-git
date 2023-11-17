@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Time Series - VAR - Oil Price ~ Oil Production</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Time Series</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://mazuckerberg.georgetown.domains/" rel="" target="">
+ <span class="menu-text">Home | About me</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">VAR - Oil Price ~ Oil Production</li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../1_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../2_about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../3_data_sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Sources</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../4_data_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Visualization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../5_exploratory_data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploratory Data Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../6_ARMA_ARIMA_SARIMA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARMA/ARIMA/SARIMA Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../7_ARIMAX_SARIMAX_VAR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARIMAX/SARIMAX/VAR</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../8_Spectral_Analysis_Filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spectral Analysis and Filtering (Optional)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../9_Financial_Time_Series_Models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Financial Time Series Models (ARCH/GARCH)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../10_Deep_Learning_TS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Learning for TS</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../11_Conclusions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Viz Examples</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#plot" id="toc-plot" class="nav-link active" data-scroll-target="#plot">Plot</a></li>
+  <li><a href="#correlation-plot" id="toc-correlation-plot" class="nav-link" data-scroll-target="#correlation-plot">Correlation Plot</a></li>
+  <li><a href="#varselect" id="toc-varselect" class="nav-link" data-scroll-target="#varselect">VARSelect()</a></li>
+  <li><a href="#fitting-model-1" id="toc-fitting-model-1" class="nav-link" data-scroll-target="#fitting-model-1">Fitting Model 1</a></li>
+  <li><a href="#fitting-model-2" id="toc-fitting-model-2" class="nav-link" data-scroll-target="#fitting-model-2">Fitting Model 2</a></li>
+  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation">Cross Validation</a></li>
+  <li><a href="#serial-test" id="toc-serial-test" class="nav-link" data-scroll-target="#serial-test">Serial Test</a></li>
+  <li><a href="#forecast-plot" id="toc-forecast-plot" class="nav-link" data-scroll-target="#forecast-plot">Forecast Plot</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">VAR - Oil Price ~ Oil Production</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<style type="text/css">
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+</style>
+</div>
+<section id="plot" class="level3">
+<h3 class="anchored" data-anchor-id="plot">Plot</h3>
+<div class="epigrafe">
+<p>Throghout this analysis we will create a VAR model to see the interrelation between the oil price and the oil production. The first step is to visualize the time series objects for both variables.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'../data/viz_us_oil_production.csv'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter information</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> df_oil_production <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(Date) <span class="sc">&gt;=</span> <span class="dv">2000</span> <span class="sc">&amp;</span> <span class="fu">year</span>(Date) <span class="sc">&lt;=</span> <span class="dv">2022</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Date</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> df_oil_production <span class="sc">%&gt;%</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date2 =</span> <span class="fu">make_date</span>(<span class="fu">year</span>(Date), <span class="fu">month</span>(Date), <span class="dv">01</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'../data/df_oil_price_monthly.csv'</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Date</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> df_oil_price <span class="sc">%&gt;%</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date2 =</span> <span class="fu">make_date</span>(<span class="fu">year</span>(date), <span class="fu">month</span>(date), <span class="dv">01</span>))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_oil_production) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'oil_production'</span>, <span class="st">'date2'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_oil_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'oil_price'</span>, <span class="st">'date2'</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Check maximum starting date between datasets</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">min</span>(df_oil_production<span class="sc">$</span>date2) <span class="sc">&gt;=</span> <span class="fu">min</span>(df_oil_price<span class="sc">$</span>date2))</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    min_date <span class="ot">&lt;-</span> <span class="fu">min</span>(df_oil_production<span class="sc">$</span>date2)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>}<span class="cf">else</span> </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        min_date <span class="ot">&lt;-</span><span class="fu">min</span>(df_oil_price<span class="sc">$</span>date2)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter starting date</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> df_oil_production <span class="sc">%&gt;%</span> <span class="fu">filter</span>(date2 <span class="sc">&gt;=</span> min_date)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter starting date</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> df_oil_price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(date2 <span class="sc">&gt;=</span> min_date)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the time series object</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>ts_oil_production <span class="ot">&lt;-</span> <span class="fu">ts</span>(df_oil_production<span class="sc">$</span>oil_production,<span class="at">star=</span><span class="fu">decimal_date</span>(min_date),<span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the time series object</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>ts_oil_price <span class="ot">&lt;-</span> <span class="fu">ts</span>(df_oil_price<span class="sc">$</span>oil_price,<span class="at">star=</span><span class="fu">decimal_date</span>(min_date),<span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Join time series objects</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">cbind</span>(ts_oil_production, ts_oil_price)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot time series objects</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(x , <span class="at">main =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="7_VAR_oil_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="correlation-plot" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-plot">Correlation Plot</h3>
+<div class="epigrafe">
+<p>Below we can observe the correlation plot between the two variables. We can observe there is is high concentration of values for low oil production levels, and some correalation for the higher oil production values.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation plot</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(<span class="fu">cbind</span>(<span class="at">df_oil_production=</span>ts_oil_production, <span class="at">oil_price=</span>ts_oil_price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="7_VAR_oil_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="varselect" class="level3">
+<h3 class="anchored" data-anchor-id="varselect">VARSelect()</h3>
+<div class="epigrafe">
+<p>We use the function VARselect() to find the suggested models to fit to the time series data. In this case, the models we will test are:</p>
+<p><span class="math inline">\(p = 2\)</span></p>
+<p><span class="math inline">\(p = 3\)</span></p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select parameters</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VARselect</span>(x, <span class="at">lag.max=</span><span class="dv">10</span>, <span class="at">type=</span><span class="st">"both"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>$selection
+AIC(n)  HQ(n)  SC(n) FPE(n) 
+     3      3      2      3 
+
+$criteria
+                 1           2           3           4           5           6
+AIC(n)    7.991526    7.936550    7.896184    7.902688    7.930228    7.943563
+HQ(n)     8.035698    8.002807    7.984527    8.013117    8.062743    8.098163
+SC(n)     8.101389    8.101345    8.115911    8.177346    8.259819    8.328085
+FPE(n) 2955.818525 2797.737039 2687.115164 2704.749394 2780.430551 2817.975230
+                 7           8           9          10
+AIC(n)    7.969733    7.989490    7.998394    8.011819
+HQ(n)     8.146419    8.188262    8.219252    8.254763
+SC(n)     8.409187    8.483875    8.547711    8.616068
+FPE(n) 2892.996799 2951.116284 2978.008553 3018.875286</code></pre>
+</div>
+</div>
+</section>
+<section id="fitting-model-1" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-model-1">Fitting Model 1</h3>
+<div class="epigrafe">
+<p>After fitting the VAR model for <span class="math inline">\(p = 2\)</span>, we can observe that the estimation results for the equation for the oil production time series, the lag 1 value for oil production time series is the only significant component. On the other hand, the estimation results for the oil price equation, the lag 1 value for oil price, the lag 2 value for oil price, the constant and the trend are significant.</p>
+<p>By observing the ACF plots for the residuals we can see that no autocorrelation is left and they all look stationary.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fitvar1 <span class="ot">&lt;-</span> vars<span class="sc">::</span><span class="fu">VAR</span>(x, <span class="at">p=</span><span class="dv">2</span>, <span class="at">type=</span><span class="st">"both"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitvar1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+VAR Estimation Results:
+========================= 
+Endogenous variables: ts_oil_production, ts_oil_price 
+Deterministic variables: both 
+Sample size: 267 
+Log Likelihood: -1798.255 
+Roots of the characteristic polynomial:
+0.9695 0.8909 0.2945 0.1152
+Call:
+vars::VAR(y = x, p = 2, type = "both")
+
+
+Estimation results for equation ts_oil_production: 
+================================================== 
+ts_oil_production = ts_oil_production.l1 + ts_oil_price.l1 + ts_oil_production.l2 + ts_oil_price.l2 + const + trend 
+
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+ts_oil_production.l1   0.87116    0.06248  13.943   &lt;2e-16 ***
+ts_oil_price.l1       42.88394   83.74827   0.512   0.6090    
+ts_oil_production.l2   0.10973    0.06319   1.737   0.0836 .  
+ts_oil_price.l2      -19.91844   82.58673  -0.241   0.8096    
+const                 24.30772  105.48940   0.230   0.8179    
+trend                  0.74561    0.63954   1.166   0.2447    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 265.8 on 261 degrees of freedom
+Multiple R-Squared: 0.9896, Adjusted R-squared: 0.9894 
+F-statistic:  4946 on 5 and 261 DF,  p-value: &lt; 2.2e-16 
+
+
+Estimation results for equation ts_oil_price: 
+============================================= 
+ts_oil_price = ts_oil_production.l1 + ts_oil_price.l1 + ts_oil_production.l2 + ts_oil_price.l2 + const + trend 
+
+                       Estimate Std. Error t value Pr(&gt;|t|)    
+ts_oil_production.l1  1.974e-05  4.522e-05   0.436 0.662910    
+ts_oil_price.l1       1.168e+00  6.062e-02  19.275  &lt; 2e-16 ***
+ts_oil_production.l2 -6.109e-05  4.574e-05  -1.336 0.182795    
+ts_oil_price.l2      -2.559e-01  5.978e-02  -4.281 2.61e-05 ***
+const                 2.920e-01  7.636e-02   3.824 0.000164 ***
+trend                 1.456e-03  4.629e-04   3.144 0.001858 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.1924 on 261 degrees of freedom
+Multiple R-Squared: 0.9437, Adjusted R-squared: 0.9427 
+F-statistic: 875.8 on 5 and 261 DF,  p-value: &lt; 2.2e-16 
+
+
+
+Covariance matrix of residuals:
+                  ts_oil_production ts_oil_price
+ts_oil_production         70665.473     -8.75817
+ts_oil_price                 -8.758      0.03702
+
+Correlation matrix of residuals:
+                  ts_oil_production ts_oil_price
+ts_oil_production            1.0000      -0.1712
+ts_oil_price                -0.1712       1.0000</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF plot</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="fu">residuals</span>(fitvar1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="7_VAR_oil_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="fitting-model-2" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-model-2">Fitting Model 2</h3>
+<div class="epigrafe">
+<p>We also fitted the VAR model for <span class="math inline">\(p = 3\)</span>, and assess the results. Considering the estimation resultst for the oil production equation, we observe that the lag 1 value for oil production and the lag 3 value for the oil price are significant. While for the estimation results for the oil price equation, the lag 1 value for oil price, the lag 2 value for oil price, the lag 3 value for oil production, the constant and the trend are significant.</p>
+<p>After plotting the residuals in the ACF plot, we can observe that the lag values are lower than the previous model. Therefore we can assume that this results are more statitonary.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fitvar2 <span class="ot">=</span> vars<span class="sc">::</span><span class="fu">VAR</span>(x, <span class="at">p=</span><span class="dv">3</span>, <span class="at">type=</span><span class="st">"both"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitvar2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+VAR Estimation Results:
+========================= 
+Endogenous variables: ts_oil_production, ts_oil_price 
+Deterministic variables: both 
+Sample size: 266 
+Log Likelihood: -1782.899 
+Roots of the characteristic polynomial:
+0.9781 0.7841 0.6554 0.4344 0.4344 0.3617
+Call:
+vars::VAR(y = x, p = 3, type = "both")
+
+
+Estimation results for equation ts_oil_production: 
+================================================== 
+ts_oil_production = ts_oil_production.l1 + ts_oil_price.l1 + ts_oil_production.l2 + ts_oil_price.l2 + ts_oil_production.l3 + ts_oil_price.l3 + const + trend 
+
+                       Estimate Std. Error t value Pr(&gt;|t|)    
+ts_oil_production.l1    0.84984    0.06210  13.685   &lt;2e-16 ***
+ts_oil_price.l1       -12.14721   85.63930  -0.142   0.8873    
+ts_oil_production.l2    0.04845    0.08218   0.590   0.5560    
+ts_oil_price.l2       247.58901  130.23538   1.901   0.0584 .  
+ts_oil_production.l3    0.08323    0.06289   1.323   0.1869    
+ts_oil_price.l3      -217.95504   84.62013  -2.576   0.0106 *  
+const                  26.39862  107.02884   0.247   0.8054    
+trend                   0.78335    0.64665   1.211   0.2269    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 262.2 on 258 degrees of freedom
+Multiple R-Squared: 0.9899, Adjusted R-squared: 0.9897 
+F-statistic:  3625 on 7 and 258 DF,  p-value: &lt; 2.2e-16 
+
+
+Estimation results for equation ts_oil_price: 
+============================================= 
+ts_oil_price = ts_oil_production.l1 + ts_oil_price.l1 + ts_oil_production.l2 + ts_oil_price.l2 + ts_oil_production.l3 + ts_oil_price.l3 + const + trend 
+
+                       Estimate Std. Error t value Pr(&gt;|t|)    
+ts_oil_production.l1  3.089e-05  4.504e-05   0.686 0.493435    
+ts_oil_price.l1       1.150e+00  6.211e-02  18.508  &lt; 2e-16 ***
+ts_oil_production.l2  5.357e-05  5.961e-05   0.899 0.369679    
+ts_oil_price.l2      -1.912e-01  9.446e-02  -2.024 0.044004 *  
+ts_oil_production.l3 -1.343e-04  4.562e-05  -2.943 0.003541 ** 
+ts_oil_price.l3      -6.063e-02  6.138e-02  -0.988 0.324135    
+const                 3.445e-01  7.763e-02   4.438 1.34e-05 ***
+trend                 1.722e-03  4.690e-04   3.672 0.000292 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.1902 on 258 degrees of freedom
+Multiple R-Squared: 0.9454, Adjusted R-squared: 0.9439 
+F-statistic: 637.7 on 7 and 258 DF,  p-value: &lt; 2.2e-16 
+
+
+
+Covariance matrix of residuals:
+                  ts_oil_production ts_oil_price
+ts_oil_production         68773.367     -8.39508
+ts_oil_price                 -8.395      0.03618
+
+Correlation matrix of residuals:
+                  ts_oil_production ts_oil_price
+ts_oil_production            1.0000      -0.1683
+ts_oil_price                -0.1683       1.0000</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Plot</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="fu">residuals</span>(fitvar2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="7_VAR_oil_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="cross-validation" class="level3">
+<h3 class="anchored" data-anchor-id="cross-validation">Cross Validation</h3>
+<div class="epigrafe">
+<p>We used cross validation to obtian the best VAR model considering the mean squared errors from the train and test set. The best model obtained is the <span class="math inline">\(p = 3\)</span></p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>len <span class="ot">&lt;-</span> <span class="fu">nrow</span>(x)[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">5</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> <span class="st">""</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>best_mse <span class="ot">&lt;-</span> <span class="cn">Inf</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  st <span class="ot">&lt;-</span> (i<span class="dv">-1</span>)<span class="sc">*</span>len<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  end <span class="ot">&lt;-</span> i<span class="sc">*</span>len</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  xtrain <span class="ot">&lt;-</span> x[<span class="sc">-</span>(st<span class="sc">:</span>end),]</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  xtest <span class="ot">&lt;-</span> x[st<span class="sc">:</span>end,]</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  var_select <span class="ot">&lt;-</span> <span class="fu">VARselect</span>(xtrain, <span class="at">lag.max =</span> <span class="dv">10</span>, <span class="at">type =</span> <span class="st">"both"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  var_select_lag <span class="ot">&lt;-</span> var_select<span class="sc">$</span>selection[<span class="dv">1</span>]</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">VAR</span>(xtrain, <span class="at">p =</span> var_select_lag, <span class="at">type =</span> <span class="st">"both"</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  test_row <span class="ot">&lt;-</span> <span class="fu">nrow</span>(xtest)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">n.ahead =</span> test_row)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  pred_var <span class="ot">&lt;-</span> pred<span class="sc">$</span>fcst<span class="sc">$</span>ts_oil_price[,<span class="dv">1</span>]</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  pred_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((pred_var <span class="sc">-</span> xtest[,<span class="st">"ts_oil_price"</span>])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (pred_mse <span class="sc">&lt;</span> best_mse){</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    best_model <span class="ot">&lt;-</span> model </span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    best_mse <span class="ot">&lt;-</span> pred_mse</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(best_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+VAR Estimation Results:
+======================= 
+
+Estimated coefficients for equation ts_oil_production: 
+====================================================== 
+Call:
+ts_oil_production = ts_oil_production.l1 + ts_oil_price.l1 + ts_oil_production.l2 + ts_oil_price.l2 + ts_oil_production.l3 + ts_oil_price.l3 + const + trend 
+
+ts_oil_production.l1      ts_oil_price.l1 ts_oil_production.l2 
+          0.87636709         -17.91721175           0.02618086 
+     ts_oil_price.l2 ts_oil_production.l3      ts_oil_price.l3 
+        431.68120168           0.06713893        -402.62982283 
+               const                trend 
+         94.06152820           1.44005288 
+
+
+Estimated coefficients for equation ts_oil_price: 
+================================================= 
+Call:
+ts_oil_price = ts_oil_production.l1 + ts_oil_price.l1 + ts_oil_production.l2 + ts_oil_price.l2 + ts_oil_production.l3 + ts_oil_price.l3 + const + trend 
+
+ts_oil_production.l1      ts_oil_price.l1 ts_oil_production.l2 
+       -1.055158e-05         1.125827e+00         9.411954e-05 
+     ts_oil_price.l2 ts_oil_production.l3      ts_oil_price.l3 
+       -9.428803e-02        -1.309282e-04        -1.555282e-01 
+               const                trend 
+        3.304240e-01         2.415505e-03 </code></pre>
+</div>
+</div>
+</section>
+<section id="serial-test" class="level3">
+<h3 class="anchored" data-anchor-id="serial-test">Serial Test</h3>
+<div class="epigrafe">
+<p>In order to check the residuals ACF and PACF plots, we used the serial test for the best model selected, which in this case is the VAR model with <span class="math inline">\(p = 3\)</span>. We can observe that the residuals for both variables being analyzed do not present autocorrelation between the lag values for the confidence bands defined.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>selected_model <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>var_selected_model <span class="ot">&lt;-</span> <span class="fu">VAR</span>(x, <span class="at">p =</span> selected_model, <span class="at">type =</span> <span class="st">"both"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>gu.serial <span class="ot">&lt;-</span> <span class="fu">serial.test</span>(var_selected_model, <span class="at">lags.pt =</span> <span class="dv">12</span>, <span class="at">type =</span> <span class="st">"PT.asymptotic"</span>) </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>gu.serial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Portmanteau Test (asymptotic)
+
+data:  Residuals of VAR object var_selected_model
+Chi-squared = 31.935, df = 36, p-value = 0.6624</code></pre>
+</div>
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gu.serial, <span class="at">names =</span> <span class="st">"ts_oil_production"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="7_VAR_oil_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gu.serial, <span class="at">names =</span> <span class="st">"ts_oil_price"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="7_VAR_oil_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="forecast-plot" class="level3">
+<h3 class="anchored" data-anchor-id="forecast-plot">Forecast Plot</h3>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>var_model <span class="ot">&lt;-</span> <span class="fu">VAR</span>(x, <span class="at">p =</span> selected_model, <span class="at">type =</span> <span class="st">"both"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>fit.pr <span class="ot">&lt;-</span> <span class="fu">predict</span>(var_model, <span class="at">n.ahead =</span> <span class="dv">24</span>, <span class="at">ci =</span> <span class="fl">0.95</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to save plot</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># file_path &lt;- "../images/7_VAR_oil.png"</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot as a PNG image</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(fanchart(fit.pr), filename = file_path, width = 10, height = 5)</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Show plot</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">fanchart</span>(fit.pr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="7_VAR_oil_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

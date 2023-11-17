@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Time Series – test_7</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Time Series</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://mazuckerberg.georgetown.domains/" rel="" target="">
+ <span class="menu-text">Home | About me</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3_data_sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Sources</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4_data_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Visualization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5_exploratory_data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploratory Data Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./6_ARMA_ARIMA_SARIMA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARMA/ARIMA/SARIMA Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./7_ARIMAX_SARIMAX_VAR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARIMAX/SARIMAX/VAR</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./8_Spectral_Analysis_Filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spectral Analysis and Filtering (Optional)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./9_Financial_Time_Series_Models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Financial Time Series Models (ARCH/GARCH)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_Deep_Learning_TS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Learning for TS</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Conclusions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Viz Examples</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(astsa)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp2)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fma)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TSstudio)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyquant)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(imputeTS)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import dataset</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_bus_passengers_PC <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'./data/df_bus_passengers_PC.csv'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>df_oil_price_monthly_PC <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'./data/df_oil_price_monthly_PC.csv'</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Date</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df_oil_price_monthly_PC <span class="ot">&lt;-</span> df_oil_price_monthly_PC <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date2 =</span> <span class="fu">make_date</span>(<span class="fu">year</span>(date), <span class="fu">month</span>(date), <span class="dv">01</span>))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Check maximum starting date between datasets</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">min</span>(df_bus_passengers_PC<span class="sc">$</span>DATE) <span class="sc">&gt;=</span> <span class="fu">min</span>(df_oil_price_monthly_PC<span class="sc">$</span>date))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    min_date <span class="ot">&lt;-</span> <span class="fu">min</span>(df_bus_passengers_PC<span class="sc">$</span>DATE)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>}<span class="cf">else</span> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        min_date <span class="ot">&lt;-</span><span class="fu">min</span>(df_oil_price_monthly_PC<span class="sc">$</span>date)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep relevant columns</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>df_oil_price_monthly_PC <span class="ot">&lt;-</span> df_oil_price_monthly_PC <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="st">'date2'</span>, <span class="st">'adjusted'</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_bus_passengers_PC) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'bus_passengers'</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_oil_price_monthly_PC) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'oil_price'</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter starting date</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>df_bus_passengers_PC <span class="ot">&lt;-</span> df_bus_passengers_PC <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DATE <span class="sc">&gt;=</span> min_date)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter starting date</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>df_oil_price_monthly_PC <span class="ot">&lt;-</span> df_oil_price_monthly_PC <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DATE <span class="sc">&gt;=</span> min_date)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine datasets</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_bus_passengers_PC, df_oil_price_monthly_PC, <span class="at">by.x =</span> <span class="st">"DATE"</span>, <span class="at">by.y =</span> <span class="st">"DATE"</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Order by Date sort ascending</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> dd <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(DATE)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the time series object</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>dd.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(dd, <span class="at">star=</span><span class="fu">decimal_date</span>(min_date), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 216 Columns: 2
+-- Column specification --------------------------------------------------------
+Delimiter: ","
+dbl  (1): Value
+date (1): DATE
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 233 Columns: 2
+-- Column specification --------------------------------------------------------
+Delimiter: ","
+dbl  (1): adjusted
+date (1): date
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit.reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(bus_passengers <span class="sc">~</span> oil_price, <span class="at">data=</span>dd)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(fit.reg)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>res.fit <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">residuals</span>(fit.reg),<span class="at">star=</span><span class="fu">decimal_date</span>(min_date),<span class="at">frequency =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>xt <span class="ot">&lt;-</span> res.fit</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#write a funtion</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>SARIMA.c <span class="ot">=</span> <span class="cf">function</span>(p1,p2,q1,q2,P1,P2,Q1,Q2,data){</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    D <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    ls <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">9</span><span class="sc">*</span>n),<span class="at">nrow=</span>n)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (p <span class="cf">in</span> p1<span class="sc">:</span>p2)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span>(q <span class="cf">in</span> q1<span class="sc">:</span>q2)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span>(P <span class="cf">in</span> P1<span class="sc">:</span>P2)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span>(Q <span class="cf">in</span> Q1<span class="sc">:</span>Q2)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                {</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span>(p<span class="sc">+</span>d<span class="sc">+</span>q<span class="sc">+</span>P<span class="sc">+</span>D<span class="sc">+</span>Q<span class="sc">&lt;=</span><span class="dv">12</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                    {</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>                        </span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>                        model<span class="ot">&lt;-</span> <span class="fu">Arima</span>(data,<span class="at">order=</span><span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>),<span class="at">seasonal =</span> <span class="fu">c</span>(P<span class="dv">-1</span>,D,Q<span class="dv">-1</span>))</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>                        ls[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>,P<span class="dv">-1</span>,D,Q<span class="dv">-1</span>,model<span class="sc">$</span>aic,model<span class="sc">$</span>bic, model<span class="sc">$</span>aicc)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>                        i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>                        <span class="co">#print(i)</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>                    }</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        }   </span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ls)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(temp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"p"</span>,<span class="st">"d"</span>,<span class="st">"q"</span>,<span class="st">"P"</span>,<span class="st">"D"</span>,<span class="st">"Q"</span>,<span class="st">"AIC"</span>,<span class="st">"BIC"</span>,<span class="st">"AICc"</span>)</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(temp)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    temp</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">#knitr::kable(temp)</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">SARIMA.c</span>(<span class="at">p1=</span><span class="dv">1</span>,<span class="at">p2=</span><span class="dv">3</span>,<span class="at">q1=</span><span class="dv">1</span>,<span class="at">q2=</span><span class="dv">3</span>,<span class="at">P1=</span><span class="dv">1</span>,<span class="at">P2=</span><span class="dv">2</span>,<span class="at">Q1=</span><span class="dv">1</span>,<span class="at">Q2=</span><span class="dv">2</span>,<span class="at">data =</span> xt)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>A data.frame: 36 × 9</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">p</th>
+<th data-quarto-table-cell-role="th" scope="col">d</th>
+<th data-quarto-table-cell-role="th" scope="col">q</th>
+<th data-quarto-table-cell-role="th" scope="col">P</th>
+<th data-quarto-table-cell-role="th" scope="col">D</th>
+<th data-quarto-table-cell-role="th" scope="col">Q</th>
+<th data-quarto-table-cell-role="th" scope="col">AIC</th>
+<th data-quarto-table-cell-role="th" scope="col">BIC</th>
+<th data-quarto-table-cell-role="th" scope="col">AICc</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>7369.881</td>
+<td>7373.199</td>
+<td>7369.900</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>7367.156</td>
+<td>7373.793</td>
+<td>7367.216</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>7368.978</td>
+<td>7375.614</td>
+<td>7369.037</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7364.466</td>
+<td>7374.420</td>
+<td>7364.586</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">5</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>7350.861</td>
+<td>7357.497</td>
+<td>7350.921</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">6</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>7345.849</td>
+<td>7355.803</td>
+<td>7345.969</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">7</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>7349.326</td>
+<td>7359.281</td>
+<td>7349.446</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">8</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7338.160</td>
+<td>7351.432</td>
+<td>7338.361</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">9</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>7337.662</td>
+<td>7347.616</td>
+<td>7337.782</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">10</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>7328.027</td>
+<td>7341.300</td>
+<td>7328.228</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">11</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>7333.542</td>
+<td>7346.814</td>
+<td>7333.743</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">12</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7320.894</td>
+<td>7337.485</td>
+<td>7321.197</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">13</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>7339.665</td>
+<td>7346.301</td>
+<td>7339.725</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">14</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>7330.838</td>
+<td>7340.793</td>
+<td>7330.958</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">15</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>7337.465</td>
+<td>7347.419</td>
+<td>7337.585</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">16</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7316.007</td>
+<td>7329.280</td>
+<td>7316.208</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">17</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>7306.634</td>
+<td>7316.588</td>
+<td>7306.754</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">18</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>7257.735</td>
+<td>7271.007</td>
+<td>7257.936</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">19</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>7297.568</td>
+<td>7310.841</td>
+<td>7297.769</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">20</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7249.039</td>
+<td>7265.629</td>
+<td>7249.342</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">21</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>7295.581</td>
+<td>7308.853</td>
+<td>7295.782</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">22</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>7246.489</td>
+<td>7263.079</td>
+<td>7246.792</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">23</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>7281.790</td>
+<td>7298.380</td>
+<td>7282.093</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">24</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7240.026</td>
+<td>7259.934</td>
+<td>7240.452</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">25</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>7318.217</td>
+<td>7328.171</td>
+<td>7318.337</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">26</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>7289.109</td>
+<td>7302.381</td>
+<td>7289.310</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">27</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>7313.182</td>
+<td>7326.455</td>
+<td>7313.383</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">28</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7276.028</td>
+<td>7292.619</td>
+<td>7276.331</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">29</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>7301.527</td>
+<td>7314.800</td>
+<td>7301.728</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">30</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>7251.212</td>
+<td>7267.802</td>
+<td>7251.515</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">31</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>7290.058</td>
+<td>7306.648</td>
+<td>7290.361</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">32</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7243.912</td>
+<td>7263.821</td>
+<td>7244.338</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">33</td>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>7290.051</td>
+<td>7306.642</td>
+<td>7290.354</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">34</td>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>7248.463</td>
+<td>7268.372</td>
+<td>7248.890</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">35</td>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>7282.730</td>
+<td>7302.638</td>
+<td>7283.156</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">36</td>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7241.908</td>
+<td>7265.135</td>
+<td>7242.480</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>AIC <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>p</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>d</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>q</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>P1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>P</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>D</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>Q</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt, <span class="at">order=</span><span class="fu">c</span>(p1, d1, q1), <span class="at">seasonal=</span><span class="fu">c</span>(P1, D1, Q1))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Series: xt 
+ARIMA(1,0,2)(1,1,1)[12] 
+
+Coefficients:
+         ar1      ma1     ma2    sar1     sma1
+      0.9790  -0.8660  0.2807  0.2446  -0.9400
+s.e.  0.0282   0.0696  0.0767  0.0842   0.1083
+
+sigma^2 = 1.334e+14:  log likelihood = -3614.01
+AIC=7240.03   AICc=7240.45   BIC=7259.93
+
+Training set error measures:
+                    ME     RMSE     MAE         MPE     MAPE      MASE
+Training set -892685.9 11088051 8428585 -0.07640613 124.2668 0.6331264
+                     ACF1
+Training set -0.001287048</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>xreg <span class="ot">&lt;-</span> dd.ts[, <span class="st">"oil_price"</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fit_auto_arima <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(dd.ts[, <span class="st">"bus_passengers"</span>], <span class="at">xreg =</span> xreg)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_auto_arima)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>q2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>P2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>D2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>Q2 <span class="ot">&lt;-</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Series: dd.ts[, "bus_passengers"] 
+Regression with ARIMA(1,0,0)(0,1,2)[12] errors 
+
+Coefficients:
+         ar1     sma1     sma2     xreg
+      0.5536  -0.3129  -0.3573  7405046
+s.e.  0.0970   0.1011   0.0797  2668898
+
+sigma^2 = 1.949e+14:  log likelihood = -3647.03
+AIC=7304.06   AICc=7304.36   BIC=7320.65
+
+Training set error measures:
+                   ME     RMSE      MAE        MPE     MAPE      MASE
+Training set -2113747 13433027 10654542 -0.5820241 2.450645 0.8270612
+                   ACF1
+Training set -0.2587463</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> xt</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">24</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>rmse1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>,n<span class="sc">-</span>k,<span class="dv">12</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>rmse2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>,n<span class="sc">-</span>k,<span class="dv">12</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">tsp</span>(x)[<span class="dv">1</span>]<span class="sc">+</span>(k<span class="dv">-2</span>)<span class="sc">/</span><span class="dv">12</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(n<span class="sc">-</span>k))</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  xtrain <span class="ot">&lt;-</span> <span class="fu">window</span>(x, <span class="at">end =</span> st <span class="sc">+</span> i<span class="sc">/</span><span class="dv">12</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  xtest <span class="ot">&lt;-</span> <span class="fu">window</span>(x, <span class="at">start =</span> st <span class="sc">+</span> (i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="dv">12</span>, <span class="at">end =</span> st <span class="sc">+</span> (i<span class="sc">+</span><span class="dv">12</span>)<span class="sc">/</span><span class="dv">12</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">dim</span>(xtrain))</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(xtest)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model 1: ARIMA(1,0,2)(1,1,1)[12]</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model 2: ARIMA(1,0,0)(0,1,2)[12]</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xtrain, <span class="at">order=</span><span class="fu">c</span>(p1,d1,q1), <span class="at">seasonal=</span><span class="fu">list</span>(<span class="at">order=</span><span class="fu">c</span>(P1,D1,Q1), <span class="at">period=</span><span class="dv">12</span>),</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">include.drift=</span><span class="cn">FALSE</span>, <span class="at">method=</span><span class="st">"ML"</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  fcast <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit, <span class="at">h=</span><span class="dv">12</span>)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  fit2 <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xtrain, <span class="at">order=</span><span class="fu">c</span>(p2,d2,q2), <span class="at">seasonal=</span><span class="fu">list</span>(<span class="at">order=</span><span class="fu">c</span>(P2,D2,Q2), <span class="at">period=</span><span class="dv">12</span>),</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>                <span class="at">include.drift=</span><span class="cn">FALSE</span>, <span class="at">method=</span><span class="st">"ML"</span>)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  fcast2 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit2, <span class="at">h=</span><span class="dv">12</span>)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  rmse1[i,<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(xtest)]  <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((fcast<span class="sc">$</span>mean<span class="sc">-</span>xtest)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  rmse2[i,<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(xtest)] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((fcast2<span class="sc">$</span>mean<span class="sc">-</span>xtest)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004  -3978389  -4182845  50639679  19253248  14407757  -2524308 -13554130
+           Aug       Sep       Oct       Nov       Dec
+2004   1660107  19260880  37820126   9709239  13617148
+[1] 2
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004            -4182845  50639679  19253248  14407757  -2524308 -13554130
+2005  -2393539                                                            
+           Aug       Sep       Oct       Nov       Dec
+2004   1660107  19260880  37820126   9709239  13617148
+2005                                                  
+[1] 3
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004                      50639679  19253248  14407757  -2524308 -13554130
+2005  -2393539 -16984926                                                  
+           Aug       Sep       Oct       Nov       Dec
+2004   1660107  19260880  37820126   9709239  13617148
+2005                                                  
+[1] 4
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004                                19253248  14407757  -2524308 -13554130
+2005  -2393539 -16984926  53421313                                        
+           Aug       Sep       Oct       Nov       Dec
+2004   1660107  19260880  37820126   9709239  13617148
+2005                                                  
+[1] 5
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004                                          14407757  -2524308 -13554130
+2005  -2393539 -16984926  53421313  25079295                              
+           Aug       Sep       Oct       Nov       Dec
+2004   1660107  19260880  37820126   9709239  13617148
+2005                                                  
+[1] 6
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004                                                    -2524308 -13554130
+2005  -2393539 -16984926  53421313  25079295  36259553                    
+           Aug       Sep       Oct       Nov       Dec
+2004   1660107  19260880  37820126   9709239  13617148
+2005                                                  
+[1] 7
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004                                                             -13554130
+2005  -2393539 -16984926  53421313  25079295  36259553   3481194          
+           Aug       Sep       Oct       Nov       Dec
+2004   1660107  19260880  37820126   9709239  13617148
+2005                                                  
+[1] 8
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004                                                                      
+2005  -2393539 -16984926  53421313  25079295  36259553   3481194  -1175673
+           Aug       Sep       Oct       Nov       Dec
+2004   1660107  19260880  37820126   9709239  13617148
+2005                                                  
+[1] 9
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004                                                                      
+2005  -2393539 -16984926  53421313  25079295  36259553   3481194  -1175673
+           Aug       Sep       Oct       Nov       Dec
+2004            19260880  37820126   9709239  13617148
+2005  15272367                                        
+[1] 10
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004                                                                      
+2005  -2393539 -16984926  53421313  25079295  36259553   3481194  -1175673
+           Aug       Sep       Oct       Nov       Dec
+2004                      37820126   9709239  13617148
+2005  15272367  37378752                              
+[1] 11
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004                                                                      
+2005  -2393539 -16984926  53421313  25079295  36259553   3481194  -1175673
+           Aug       Sep       Oct       Nov       Dec
+2004                                 9709239  13617148
+2005  15272367  37378752  52511502                    
+[1] 12
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2004                                                                      
+2005  -2393539 -16984926  53421313  25079295  36259553   3481194  -1175673
+           Aug       Sep       Oct       Nov       Dec
+2004                                          13617148
+2005  15272367  37378752  52511502  15655658          
+[1] 13
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005  -2393539 -16984926  53421313  25079295  36259553   3481194  -1175673
+           Aug       Sep       Oct       Nov       Dec
+2005  15272367  37378752  52511502  15655658 -13123077
+[1] 14
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005           -16984926  53421313  25079295  36259553   3481194  -1175673
+2006  11267310                                                            
+           Aug       Sep       Oct       Nov       Dec
+2005  15272367  37378752  52511502  15655658 -13123077
+2006                                                  
+[1] 15
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005                      53421313  25079295  36259553   3481194  -1175673
+2006  11267310 -11871263                                                  
+           Aug       Sep       Oct       Nov       Dec
+2005  15272367  37378752  52511502  15655658 -13123077
+2006                                                  
+[1] 16
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005                                25079295  36259553   3481194  -1175673
+2006  11267310 -11871263  57990333                                        
+           Aug       Sep       Oct       Nov       Dec
+2005  15272367  37378752  52511502  15655658 -13123077
+2006                                                  
+[1] 17
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005                                          36259553   3481194  -1175673
+2006  11267310 -11871263  57990333  -3629027                              
+           Aug       Sep       Oct       Nov       Dec
+2005  15272367  37378752  52511502  15655658 -13123077
+2006                                                  
+[1] 18
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005                                                     3481194  -1175673
+2006  11267310 -11871263  57990333  -3629027  29925112                    
+           Aug       Sep       Oct       Nov       Dec
+2005  15272367  37378752  52511502  15655658 -13123077
+2006                                                  
+[1] 19
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005                                                              -1175673
+2006  11267310 -11871263  57990333  -3629027  29925112  19262218          
+           Aug       Sep       Oct       Nov       Dec
+2005  15272367  37378752  52511502  15655658 -13123077
+2006                                                  
+[1] 20
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005                                                                      
+2006  11267310 -11871263  57990333  -3629027  29925112  19262218 -13581390
+           Aug       Sep       Oct       Nov       Dec
+2005  15272367  37378752  52511502  15655658 -13123077
+2006                                                  
+[1] 21
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005                                                                      
+2006  11267310 -11871263  57990333  -3629027  29925112  19262218 -13581390
+           Aug       Sep       Oct       Nov       Dec
+2005            37378752  52511502  15655658 -13123077
+2006  18557927                                        
+[1] 22
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005                                                                      
+2006  11267310 -11871263  57990333  -3629027  29925112  19262218 -13581390
+           Aug       Sep       Oct       Nov       Dec
+2005                      52511502  15655658 -13123077
+2006  18557927  35358093                              
+[1] 23
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005                                                                      
+2006  11267310 -11871263  57990333  -3629027  29925112  19262218 -13581390
+           Aug       Sep       Oct       Nov       Dec
+2005                                15655658 -13123077
+2006  18557927  35358093  63096135                    
+[1] 24
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2005                                                                      
+2006  11267310 -11871263  57990333  -3629027  29925112  19262218 -13581390
+           Aug       Sep       Oct       Nov       Dec
+2005                                         -13123077
+2006  18557927  35358093  63096135  12756556          
+[1] 25
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006  11267310 -11871263  57990333  -3629027  29925112  19262218 -13581390
+           Aug       Sep       Oct       Nov       Dec
+2006  18557927  35358093  63096135  12756556   2178921
+[1] 26
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006           -11871263  57990333  -3629027  29925112  19262218 -13581390
+2007  11372359                                                            
+           Aug       Sep       Oct       Nov       Dec
+2006  18557927  35358093  63096135  12756556   2178921
+2007                                                  
+[1] 27
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006                      57990333  -3629027  29925112  19262218 -13581390
+2007  11372359 -14064497                                                  
+           Aug       Sep       Oct       Nov       Dec
+2006  18557927  35358093  63096135  12756556   2178921
+2007                                                  
+[1] 28
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006                                -3629027  29925112  19262218 -13581390
+2007  11372359 -14064497  46323978                                        
+           Aug       Sep       Oct       Nov       Dec
+2006  18557927  35358093  63096135  12756556   2178921
+2007                                                  
+[1] 29
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006                                          29925112  19262218 -13581390
+2007  11372359 -14064497  46323978  12876306                              
+           Aug       Sep       Oct       Nov       Dec
+2006  18557927  35358093  63096135  12756556   2178921
+2007                                                  
+[1] 30
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006                                                    19262218 -13581390
+2007  11372359 -14064497  46323978  12876306  41805675                    
+           Aug       Sep       Oct       Nov       Dec
+2006  18557927  35358093  63096135  12756556   2178921
+2007                                                  
+[1] 31
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006                                                             -13581390
+2007  11372359 -14064497  46323978  12876306  41805675   8157559          
+           Aug       Sep       Oct       Nov       Dec
+2006  18557927  35358093  63096135  12756556   2178921
+2007                                                  
+[1] 32
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006                                                                      
+2007  11372359 -14064497  46323978  12876306  41805675   8157559 -11488496
+           Aug       Sep       Oct       Nov       Dec
+2006  18557927  35358093  63096135  12756556   2178921
+2007                                                  
+[1] 33
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006                                                                      
+2007  11372359 -14064497  46323978  12876306  41805675   8157559 -11488496
+           Aug       Sep       Oct       Nov       Dec
+2006            35358093  63096135  12756556   2178921
+2007  23817005                                        
+[1] 34
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006                                                                      
+2007  11372359 -14064497  46323978  12876306  41805675   8157559 -11488496
+           Aug       Sep       Oct       Nov       Dec
+2006                      63096135  12756556   2178921
+2007  23817005  22971155                              
+[1] 35
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006                                                                      
+2007  11372359 -14064497  46323978  12876306  41805675   8157559 -11488496
+           Aug       Sep       Oct       Nov       Dec
+2006                                12756556   2178921
+2007  23817005  22971155  52936109                    
+[1] 36
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2006                                                                      
+2007  11372359 -14064497  46323978  12876306  41805675   8157559 -11488496
+           Aug       Sep       Oct       Nov       Dec
+2006                                           2178921
+2007  23817005  22971155  52936109  18436222          
+[1] 37
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007  11372359 -14064497  46323978  12876306  41805675   8157559 -11488496
+           Aug       Sep       Oct       Nov       Dec
+2007  23817005  22971155  52936109  18436222 -32179255
+[1] 38
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007           -14064497  46323978  12876306  41805675   8157559 -11488496
+2008   4371800                                                            
+           Aug       Sep       Oct       Nov       Dec
+2007  23817005  22971155  52936109  18436222 -32179255
+2008                                                  
+[1] 39
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007                      46323978  12876306  41805675   8157559 -11488496
+2008   4371800  -7176953                                                  
+           Aug       Sep       Oct       Nov       Dec
+2007  23817005  22971155  52936109  18436222 -32179255
+2008                                                  
+[1] 40
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007                                12876306  41805675   8157559 -11488496
+2008   4371800  -7176953  16853214                                        
+           Aug       Sep       Oct       Nov       Dec
+2007  23817005  22971155  52936109  18436222 -32179255
+2008                                                  
+[1] 41
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007                                          41805675   8157559 -11488496
+2008   4371800  -7176953  16853214  24540984                              
+           Aug       Sep       Oct       Nov       Dec
+2007  23817005  22971155  52936109  18436222 -32179255
+2008                                                  
+[1] 42
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007                                                     8157559 -11488496
+2008   4371800  -7176953  16853214  24540984  20608478                    
+           Aug       Sep       Oct       Nov       Dec
+2007  23817005  22971155  52936109  18436222 -32179255
+2008                                                  
+[1] 43
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007                                                             -11488496
+2008   4371800  -7176953  16853214  24540984  20608478  -6774931          
+           Aug       Sep       Oct       Nov       Dec
+2007  23817005  22971155  52936109  18436222 -32179255
+2008                                                  
+[1] 44
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007                                                                      
+2008   4371800  -7176953  16853214  24540984  20608478  -6774931  12800837
+           Aug       Sep       Oct       Nov       Dec
+2007  23817005  22971155  52936109  18436222 -32179255
+2008                                                  
+[1] 45
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007                                                                      
+2008   4371800  -7176953  16853214  24540984  20608478  -6774931  12800837
+           Aug       Sep       Oct       Nov       Dec
+2007            22971155  52936109  18436222 -32179255
+2008  12332464                                        
+[1] 46
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007                                                                      
+2008   4371800  -7176953  16853214  24540984  20608478  -6774931  12800837
+           Aug       Sep       Oct       Nov       Dec
+2007                      52936109  18436222 -32179255
+2008  12332464  47375637                              
+[1] 47
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007                                                                      
+2008   4371800  -7176953  16853214  24540984  20608478  -6774931  12800837
+           Aug       Sep       Oct       Nov       Dec
+2007                                18436222 -32179255
+2008  12332464  47375637  90164309                    
+[1] 48
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2007                                                                      
+2008   4371800  -7176953  16853214  24540984  20608478  -6774931  12800837
+           Aug       Sep       Oct       Nov       Dec
+2007                                         -32179255
+2008  12332464  47375637  90164309  22689234          
+[1] 49
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008  4371800 -7176953 16853214 24540984 20608478 -6774931 12800837 12332464
+          Sep      Oct      Nov      Dec
+2008 47375637 90164309 22689234 12879680
+[1] 50
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008          -7176953 16853214 24540984 20608478 -6774931 12800837 12332464
+2009 16458925                                                               
+          Sep      Oct      Nov      Dec
+2008 47375637 90164309 22689234 12879680
+2009                                    
+[1] 51
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008                   16853214 24540984 20608478 -6774931 12800837 12332464
+2009 16458925 12348403                                                      
+          Sep      Oct      Nov      Dec
+2008 47375637 90164309 22689234 12879680
+2009                                    
+[1] 52
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008                            24540984 20608478 -6774931 12800837 12332464
+2009 16458925 12348403 51421084                                             
+          Sep      Oct      Nov      Dec
+2008 47375637 90164309 22689234 12879680
+2009                                    
+[1] 53
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008                                     20608478 -6774931 12800837 12332464
+2009 16458925 12348403 51421084 36828783                                    
+          Sep      Oct      Nov      Dec
+2008 47375637 90164309 22689234 12879680
+2009                                    
+[1] 54
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008                                              -6774931 12800837 12332464
+2009 16458925 12348403 51421084 36828783 18385979                           
+          Sep      Oct      Nov      Dec
+2008 47375637 90164309 22689234 12879680
+2009                                    
+[1] 55
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008                                                       12800837 12332464
+2009 16458925 12348403 51421084 36828783 18385979  4354590                  
+          Sep      Oct      Nov      Dec
+2008 47375637 90164309 22689234 12879680
+2009                                    
+[1] 56
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008                                                                12332464
+2009 16458925 12348403 51421084 36828783 18385979  4354590  4823217         
+          Sep      Oct      Nov      Dec
+2008 47375637 90164309 22689234 12879680
+2009                                    
+[1] 57
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008                                                                        
+2009 16458925 12348403 51421084 36828783 18385979  4354590  4823217  1486550
+          Sep      Oct      Nov      Dec
+2008 47375637 90164309 22689234 12879680
+2009                                    
+[1] 58
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008                                                                        
+2009 16458925 12348403 51421084 36828783 18385979  4354590  4823217  1486550
+          Sep      Oct      Nov      Dec
+2008          90164309 22689234 12879680
+2009 31624783                           
+[1] 59
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008                                                                        
+2009 16458925 12348403 51421084 36828783 18385979  4354590  4823217  1486550
+          Sep      Oct      Nov      Dec
+2008                   22689234 12879680
+2009 31624783 47362911                  
+[1] 60
+NULL
+          Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+2008                                                                        
+2009 16458925 12348403 51421084 36828783 18385979  4354590  4823217  1486550
+          Sep      Oct      Nov      Dec
+2008                            12879680
+2009 31624783 47362911 -1506628         
+[1] 61
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2009  16458925  12348403  51421084  36828783  18385979   4354590   4823217
+           Aug       Sep       Oct       Nov       Dec
+2009   1486550  31624783  47362911  -1506628 -18355051
+[1] 62
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2009            12348403  51421084  36828783  18385979   4354590   4823217
+2010 -18769533                                                            
+           Aug       Sep       Oct       Nov       Dec
+2009   1486550  31624783  47362911  -1506628 -18355051
+2010                                                  
+[1] 63
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2009                      51421084  36828783  18385979   4354590   4823217
+2010 -18769533 -32442734                                                  
+           Aug       Sep       Oct       Nov       Dec
+2009   1486550  31624783  47362911  -1506628 -18355051
+2010                                                  
+[1] 64
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2009                                36828783  18385979   4354590   4823217
+2010 -18769533 -32442734  37809199                                        
+           Aug       Sep       Oct       Nov       Dec
+2009   1486550  31624783  47362911  -1506628 -18355051
+2010                                                  
+[1] 65
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2009                                          18385979   4354590   4823217
+2010 -18769533 -32442734  37809199  16226395                              
+           Aug       Sep       Oct       Nov       Dec
+2009   1486550  31624783  47362911  -1506628 -18355051
+2010                                                  
+[1] 66
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2009                                                     4354590   4823217
+2010 -18769533 -32442734  37809199  16226395   7211247                    
+           Aug       Sep       Oct       Nov       Dec
+2009   1486550  31624783  47362911  -1506628 -18355051
+2010                                                  
+[1] 67
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2009                                                                        
+2010 -18769533.3 -32442733.8  37809198.9  16226395.5   7211246.9   -444990.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2009   4823217.3   1486550.1  31624782.8  47362910.6  -1506628.2 -18355050.9
+2010                                                                        
+[1] 68
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2009                                                                        
+2010 -18769533.3 -32442733.8  37809198.9  16226395.5   7211246.9   -444990.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2009               1486550.1  31624782.8  47362910.6  -1506628.2 -18355050.9
+2010 -19031447.0                                                            
+[1] 69
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2009                                                                        
+2010 -18769533.3 -32442733.8  37809198.9  16226395.5   7211246.9   -444990.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2009                          31624782.8  47362910.6  -1506628.2 -18355050.9
+2010 -19031447.0    472193.9                                                
+[1] 70
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2009                                                                        
+2010 -18769533.3 -32442733.8  37809198.9  16226395.5   7211246.9   -444990.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2009                                      47362910.6  -1506628.2 -18355050.9
+2010 -19031447.0    472193.9  19974468.3                                    
+[1] 71
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2009                                                                        
+2010 -18769533.3 -32442733.8  37809198.9  16226395.5   7211246.9   -444990.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2009                                                  -1506628.2 -18355050.9
+2010 -19031447.0    472193.9  19974468.3  30118316.4                        
+[1] 72
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2009                                                                        
+2010 -18769533.3 -32442733.8  37809198.9  16226395.5   7211246.9   -444990.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2009                                                             -18355050.9
+2010 -19031447.0    472193.9  19974468.3  30118316.4   1779823.8            
+[1] 73
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2010 -18769533.3 -32442733.8  37809198.9  16226395.5   7211246.9   -444990.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2010 -19031447.0    472193.9  19974468.3  30118316.4   1779823.8 -33404985.9
+[1] 74
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2010             -32442733.8  37809198.9  16226395.5   7211246.9   -444990.5
+2011 -27855816.3                                                            
+             Jul         Aug         Sep         Oct         Nov         Dec
+2010 -19031447.0    472193.9  19974468.3  30118316.4   1779823.8 -33404985.9
+2011                                                                        
+[1] 75
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2010                          37809198.9  16226395.5   7211246.9   -444990.5
+2011 -27855816.3 -35639330.1                                                
+             Jul         Aug         Sep         Oct         Nov         Dec
+2010 -19031447.0    472193.9  19974468.3  30118316.4   1779823.8 -33404985.9
+2011                                                                        
+[1] 76
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2010                                      16226395.5   7211246.9   -444990.5
+2011 -27855816.3 -35639330.1  28116280.8                                    
+             Jul         Aug         Sep         Oct         Nov         Dec
+2010 -19031447.0    472193.9  19974468.3  30118316.4   1779823.8 -33404985.9
+2011                                                                        
+[1] 77
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2010                                                   7211246.9   -444990.5
+2011 -27855816.3 -35639330.1  28116280.8  -2427243.5                        
+             Jul         Aug         Sep         Oct         Nov         Dec
+2010 -19031447.0    472193.9  19974468.3  30118316.4   1779823.8 -33404985.9
+2011                                                                        
+[1] 78
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2010                                                               -444990.5
+2011 -27855816.3 -35639330.1  28116280.8  -2427243.5   2817477.3            
+             Jul         Aug         Sep         Oct         Nov         Dec
+2010 -19031447.0    472193.9  19974468.3  30118316.4   1779823.8 -33404985.9
+2011                                                                        
+[1] 79
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2010                                                                        
+2011 -27855816.3 -35639330.1  28116280.8  -2427243.5   2817477.3  -5261978.0
+             Jul         Aug         Sep         Oct         Nov         Dec
+2010 -19031447.0    472193.9  19974468.3  30118316.4   1779823.8 -33404985.9
+2011                                                                        
+[1] 80
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2010                                                                        
+2011 -27855816.3 -35639330.1  28116280.8  -2427243.5   2817477.3  -5261978.0
+             Jul         Aug         Sep         Oct         Nov         Dec
+2010                472193.9  19974468.3  30118316.4   1779823.8 -33404985.9
+2011 -31675928.6                                                            
+[1] 81
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2010                                                                      
+2011 -27855816 -35639330  28116281  -2427243   2817477  -5261978 -31675929
+           Aug       Sep       Oct       Nov       Dec
+2010            19974468  30118316   1779824 -33404986
+2011   1568355                                        
+[1] 82
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2010                                                                      
+2011 -27855816 -35639330  28116281  -2427243   2817477  -5261978 -31675929
+           Aug       Sep       Oct       Nov       Dec
+2010                      30118316   1779824 -33404986
+2011   1568355  30660011                              
+[1] 83
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2010                                                                      
+2011 -27855816 -35639330  28116281  -2427243   2817477  -5261978 -31675929
+           Aug       Sep       Oct       Nov       Dec
+2010                                 1779824 -33404986
+2011   1568355  30660011  34008436                    
+[1] 84
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2010                                                                        
+2011 -27855816.3 -35639330.1  28116280.8  -2427243.5   2817477.3  -5261978.0
+             Jul         Aug         Sep         Oct         Nov         Dec
+2010                                                             -33404985.9
+2011 -31675928.6   1568355.0  30660011.1  34008436.4    816235.2            
+[1] 85
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011 -27855816.3 -35639330.1  28116280.8  -2427243.5   2817477.3  -5261978.0
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011 -31675928.6   1568355.0  30660011.1  34008436.4    816235.2 -18886138.9
+[1] 86
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011             -35639330.1  28116280.8  -2427243.5   2817477.3  -5261978.0
+2012 -11698304.6                                                            
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011 -31675928.6   1568355.0  30660011.1  34008436.4    816235.2 -18886138.9
+2012                                                                        
+[1] 87
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011                          28116280.8  -2427243.5   2817477.3  -5261978.0
+2012 -11698304.6  -4222722.3                                                
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011 -31675928.6   1568355.0  30660011.1  34008436.4    816235.2 -18886138.9
+2012                                                                        
+[1] 88
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011                                      -2427243.5   2817477.3  -5261978.0
+2012 -11698304.6  -4222722.3  25517611.1                                    
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011 -31675928.6   1568355.0  30660011.1  34008436.4    816235.2 -18886138.9
+2012                                                                        
+[1] 89
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011                                                   2817477.3  -5261978.0
+2012 -11698304.6  -4222722.3  25517611.1   -375342.5                        
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011 -31675928.6   1568355.0  30660011.1  34008436.4    816235.2 -18886138.9
+2012                                                                        
+[1] 90
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011                                                              -5261978.0
+2012 -11698304.6  -4222722.3  25517611.1   -375342.5  19878415.9            
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011 -31675928.6   1568355.0  30660011.1  34008436.4    816235.2 -18886138.9
+2012                                                                        
+[1] 91
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011                                                                        
+2012 -11698304.6  -4222722.3  25517611.1   -375342.5  19878415.9 -12431631.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011 -31675928.6   1568355.0  30660011.1  34008436.4    816235.2 -18886138.9
+2012                                                                        
+[1] 92
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011                                                                        
+2012 -11698304.6  -4222722.3  25517611.1   -375342.5  19878415.9 -12431631.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011               1568355.0  30660011.1  34008436.4    816235.2 -18886138.9
+2012 -22249447.2                                                            
+[1] 93
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011                                                                        
+2012 -11698304.6  -4222722.3  25517611.1   -375342.5  19878415.9 -12431631.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011                          30660011.1  34008436.4    816235.2 -18886138.9
+2012 -22249447.2   8097942.1                                                
+[1] 94
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011                                                                        
+2012 -11698304.6  -4222722.3  25517611.1   -375342.5  19878415.9 -12431631.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011                                      34008436.4    816235.2 -18886138.9
+2012 -22249447.2   8097942.1   8842544.9                                    
+[1] 95
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011                                                                        
+2012 -11698304.6  -4222722.3  25517611.1   -375342.5  19878415.9 -12431631.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011                                                    816235.2 -18886138.9
+2012 -22249447.2   8097942.1   8842544.9  51038217.0                        
+[1] 96
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2011                                                                        
+2012 -11698304.6  -4222722.3  25517611.1   -375342.5  19878415.9 -12431631.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2011                                                             -18886138.9
+2012 -22249447.2   8097942.1   8842544.9  51038217.0   8252600.9            
+[1] 97
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2012 -11698304.6  -4222722.3  25517611.1   -375342.5  19878415.9 -12431631.5
+             Jul         Aug         Sep         Oct         Nov         Dec
+2012 -22249447.2   8097942.1   8842544.9  51038217.0   8252600.9 -30771501.1
+[1] 98
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2012              -4222722.3  25517611.1   -375342.5  19878415.9 -12431631.5
+2013  -4679616.7                                                            
+             Jul         Aug         Sep         Oct         Nov         Dec
+2012 -22249447.2   8097942.1   8842544.9  51038217.0   8252600.9 -30771501.1
+2013                                                                        
+[1] 99
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2012                          25517611.1   -375342.5  19878415.9 -12431631.5
+2013  -4679616.7 -19413962.2                                                
+             Jul         Aug         Sep         Oct         Nov         Dec
+2012 -22249447.2   8097942.1   8842544.9  51038217.0   8252600.9 -30771501.1
+2013                                                                        
+[1] 100
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2012                                       -375342.5  19878415.9 -12431631.5
+2013  -4679616.7 -19413962.2   7093285.8                                    
+             Jul         Aug         Sep         Oct         Nov         Dec
+2012 -22249447.2   8097942.1   8842544.9  51038217.0   8252600.9 -30771501.1
+2013                                                                        
+[1] 101
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2012                                          19878416 -12431632 -22249447
+2013  -4679617 -19413962   7093286  22784258                              
+           Aug       Sep       Oct       Nov       Dec
+2012   8097942   8842545  51038217   8252601 -30771501
+2013                                                  
+[1] 102
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2012                                                   -12431632 -22249447
+2013  -4679617 -19413962   7093286  22784258  17997135                    
+           Aug       Sep       Oct       Nov       Dec
+2012   8097942   8842545  51038217   8252601 -30771501
+2013                                                  
+[1] 103
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2012                                                             -22249447
+2013  -4679617 -19413962   7093286  22784258  17997135 -30432518          
+           Aug       Sep       Oct       Nov       Dec
+2012   8097942   8842545  51038217   8252601 -30771501
+2013                                                  
+[1] 104
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2012                                                                      
+2013  -4679617 -19413962   7093286  22784258  17997135 -30432518 -19979528
+           Aug       Sep       Oct       Nov       Dec
+2012   8097942   8842545  51038217   8252601 -30771501
+2013                                                  
+[1] 105
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2012                                                                      
+2013  -4679617 -19413962   7093286  22784258  17997135 -30432518 -19979528
+           Aug       Sep       Oct       Nov       Dec
+2012             8842545  51038217   8252601 -30771501
+2013  -5799273                                        
+[1] 106
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2012                                                                      
+2013  -4679617 -19413962   7093286  22784258  17997135 -30432518 -19979528
+           Aug       Sep       Oct       Nov       Dec
+2012                      51038217   8252601 -30771501
+2013  -5799273  10484182                              
+[1] 107
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2012                                                                      
+2013  -4679617 -19413962   7093286  22784258  17997135 -30432518 -19979528
+           Aug       Sep       Oct       Nov       Dec
+2012                                 8252601 -30771501
+2013  -5799273  10484182  52905075                    
+[1] 108
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2012                                                                      
+2013  -4679617 -19413962   7093286  22784258  17997135 -30432518 -19979528
+           Aug       Sep       Oct       Nov       Dec
+2012                                         -30771501
+2013  -5799273  10484182  52905075  -9747836          
+[1] 109
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013  -4679617 -19413962   7093286  22784258  17997135 -30432518 -19979528
+           Aug       Sep       Oct       Nov       Dec
+2013  -5799273  10484182  52905075  -9747836 -32550351
+[1] 110
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013           -19413962   7093286  22784258  17997135 -30432518 -19979528
+2014 -26961628                                                            
+           Aug       Sep       Oct       Nov       Dec
+2013  -5799273  10484182  52905075  -9747836 -32550351
+2014                                                  
+[1] 111
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013                       7093286  22784258  17997135 -30432518 -19979528
+2014 -26961628 -39555496                                                  
+           Aug       Sep       Oct       Nov       Dec
+2013  -5799273  10484182  52905075  -9747836 -32550351
+2014                                                  
+[1] 112
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013                                22784258  17997135 -30432518 -19979528
+2014 -26961628 -39555496   6691332                                        
+           Aug       Sep       Oct       Nov       Dec
+2013  -5799273  10484182  52905075  -9747836 -32550351
+2014                                                  
+[1] 113
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013                                          17997135 -30432518 -19979528
+2014 -26961628 -39555496   6691332  12597793                              
+           Aug       Sep       Oct       Nov       Dec
+2013  -5799273  10484182  52905075  -9747836 -32550351
+2014                                                  
+[1] 114
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013                                                   -30432518 -19979528
+2014 -26961628 -39555496   6691332  12597793   6658733                    
+           Aug       Sep       Oct       Nov       Dec
+2013  -5799273  10484182  52905075  -9747836 -32550351
+2014                                                  
+[1] 115
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013                                                             -19979528
+2014 -26961628 -39555496   6691332  12597793   6658733 -26258015          
+           Aug       Sep       Oct       Nov       Dec
+2013  -5799273  10484182  52905075  -9747836 -32550351
+2014                                                  
+[1] 116
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013                                                                      
+2014 -26961628 -39555496   6691332  12597793   6658733 -26258015 -15975686
+           Aug       Sep       Oct       Nov       Dec
+2013  -5799273  10484182  52905075  -9747836 -32550351
+2014                                                  
+[1] 117
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013                                                                      
+2014 -26961628 -39555496   6691332  12597793   6658733 -26258015 -15975686
+           Aug       Sep       Oct       Nov       Dec
+2013            10484182  52905075  -9747836 -32550351
+2014 -11431563                                        
+[1] 118
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013                                                                      
+2014 -26961628 -39555496   6691332  12597793   6658733 -26258015 -15975686
+           Aug       Sep       Oct       Nov       Dec
+2013                      52905075  -9747836 -32550351
+2014 -11431563  26008321                              
+[1] 119
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013                                                                      
+2014 -26961628 -39555496   6691332  12597793   6658733 -26258015 -15975686
+           Aug       Sep       Oct       Nov       Dec
+2013                                -9747836 -32550351
+2014 -11431563  26008321  60671944                    
+[1] 120
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013                                                                      
+2014 -26961628 -39555496   6691332  12597793   6658733 -26258015 -15975686
+           Aug       Sep       Oct       Nov       Dec
+2013                                         -32550351
+2014 -11431563  26008321  60671944 -13380253          
+[1] 121
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014 -26961627.7 -39555496.1   6691331.7  12597792.9   6658733.3 -26258014.7
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014 -15975686.5 -11431563.1  26008320.6  60671944.1 -13380252.8   -776084.9
+[1] 122
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014             -39555496.1   6691331.7  12597792.9   6658733.3 -26258014.7
+2015 -10368934.4                                                            
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014 -15975686.5 -11431563.1  26008320.6  60671944.1 -13380252.8   -776084.9
+2015                                                                        
+[1] 123
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014                           6691331.7  12597792.9   6658733.3 -26258014.7
+2015 -10368934.4 -26844250.1                                                
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014 -15975686.5 -11431563.1  26008320.6  60671944.1 -13380252.8   -776084.9
+2015                                                                        
+[1] 124
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014                                      12597792.9   6658733.3 -26258014.7
+2015 -10368934.4 -26844250.1  30007105.5                                    
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014 -15975686.5 -11431563.1  26008320.6  60671944.1 -13380252.8   -776084.9
+2015                                                                        
+[1] 125
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014                                                   6658733.3 -26258014.7
+2015 -10368934.4 -26844250.1  30007105.5  20224514.7                        
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014 -15975686.5 -11431563.1  26008320.6  60671944.1 -13380252.8   -776084.9
+2015                                                                        
+[1] 126
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014                                                             -26258014.7
+2015 -10368934.4 -26844250.1  30007105.5  20224514.7   2640891.6            
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014 -15975686.5 -11431563.1  26008320.6  60671944.1 -13380252.8   -776084.9
+2015                                                                        
+[1] 127
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014                                                                        
+2015 -10368934.4 -26844250.1  30007105.5  20224514.7   2640891.6  -6673807.0
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014 -15975686.5 -11431563.1  26008320.6  60671944.1 -13380252.8   -776084.9
+2015                                                                        
+[1] 128
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014                                                                        
+2015 -10368934.4 -26844250.1  30007105.5  20224514.7   2640891.6  -6673807.0
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014             -11431563.1  26008320.6  60671944.1 -13380252.8   -776084.9
+2015  -1403156.6                                                            
+[1] 129
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014                                                                        
+2015 -10368934.4 -26844250.1  30007105.5  20224514.7   2640891.6  -6673807.0
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014                          26008320.6  60671944.1 -13380252.8   -776084.9
+2015  -1403156.6  -4066620.4                                                
+[1] 130
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014                                                                        
+2015 -10368934.4 -26844250.1  30007105.5  20224514.7   2640891.6  -6673807.0
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014                                      60671944.1 -13380252.8   -776084.9
+2015  -1403156.6  -4066620.4  27387542.7                                    
+[1] 131
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014                                                                        
+2015 -10368934.4 -26844250.1  30007105.5  20224514.7   2640891.6  -6673807.0
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014                                                 -13380252.8   -776084.9
+2015  -1403156.6  -4066620.4  27387542.7  48417359.1                        
+[1] 132
+NULL
+             Jan         Feb         Mar         Apr         May         Jun
+2014                                                                        
+2015 -10368934.4 -26844250.1  30007105.5  20224514.7   2640891.6  -6673807.0
+             Jul         Aug         Sep         Oct         Nov         Dec
+2014                                                               -776084.9
+2015  -1403156.6  -4066620.4  27387542.7  48417359.1  -3575526.8            
+[1] 133
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015 -10368934 -26844250  30007105  20224515   2640892  -6673807  -1403157
+           Aug       Sep       Oct       Nov       Dec
+2015  -4066620  27387543  48417359  -3575527  -5276407
+[1] 134
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015           -26844250  30007105  20224515   2640892  -6673807  -1403157
+2016 -23723785                                                            
+           Aug       Sep       Oct       Nov       Dec
+2015  -4066620  27387543  48417359  -3575527  -5276407
+2016                                                  
+[1] 135
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015                      30007105  20224515   2640892  -6673807  -1403157
+2016 -23723785  -3026405                                                  
+           Aug       Sep       Oct       Nov       Dec
+2015  -4066620  27387543  48417359  -3575527  -5276407
+2016                                                  
+[1] 136
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015                                20224515   2640892  -6673807  -1403157
+2016 -23723785  -3026405  27195389                                        
+           Aug       Sep       Oct       Nov       Dec
+2015  -4066620  27387543  48417359  -3575527  -5276407
+2016                                                  
+[1] 137
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015                                           2640892  -6673807  -1403157
+2016 -23723785  -3026405  27195389   4859855                              
+           Aug       Sep       Oct       Nov       Dec
+2015  -4066620  27387543  48417359  -3575527  -5276407
+2016                                                  
+[1] 138
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015                                                    -6673807  -1403157
+2016 -23723785  -3026405  27195389   4859855  -3876173                    
+           Aug       Sep       Oct       Nov       Dec
+2015  -4066620  27387543  48417359  -3575527  -5276407
+2016                                                  
+[1] 139
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015                                                              -1403157
+2016 -23723785  -3026405  27195389   4859855  -3876173 -18103551          
+           Aug       Sep       Oct       Nov       Dec
+2015  -4066620  27387543  48417359  -3575527  -5276407
+2016                                                  
+[1] 140
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015                                                                      
+2016 -23723785  -3026405  27195389   4859855  -3876173 -18103551 -38618018
+           Aug       Sep       Oct       Nov       Dec
+2015  -4066620  27387543  48417359  -3575527  -5276407
+2016                                                  
+[1] 141
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015                                                                      
+2016 -23723785  -3026405  27195389   4859855  -3876173 -18103551 -38618018
+           Aug       Sep       Oct       Nov       Dec
+2015            27387543  48417359  -3575527  -5276407
+2016  -4910919                                        
+[1] 142
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015                                                                      
+2016 -23723785  -3026405  27195389   4859855  -3876173 -18103551 -38618018
+           Aug       Sep       Oct       Nov       Dec
+2015                      48417359  -3575527  -5276407
+2016  -4910919  10492105                              
+[1] 143
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015                                                                      
+2016 -23723785  -3026405  27195389   4859855  -3876173 -18103551 -38618018
+           Aug       Sep       Oct       Nov       Dec
+2015                                -3575527  -5276407
+2016  -4910919  10492105  11323048                    
+[1] 144
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2015                                                                      
+2016 -23723785  -3026405  27195389   4859855  -3876173 -18103551 -38618018
+           Aug       Sep       Oct       Nov       Dec
+2015                                          -5276407
+2016  -4910919  10492105  11323048 -19137279          
+[1] 145
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016 -23723785  -3026405  27195389   4859855  -3876173 -18103551 -38618018
+           Aug       Sep       Oct       Nov       Dec
+2016  -4910919  10492105  11323048 -19137279 -44177349
+[1] 146
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016            -3026405  27195389   4859855  -3876173 -18103551 -38618018
+2017 -41087321                                                            
+           Aug       Sep       Oct       Nov       Dec
+2016  -4910919  10492105  11323048 -19137279 -44177349
+2017                                                  
+[1] 147
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016                      27195389   4859855  -3876173 -18103551 -38618018
+2017 -41087321 -47906117                                                  
+           Aug       Sep       Oct       Nov       Dec
+2016  -4910919  10492105  11323048 -19137279 -44177349
+2017                                                  
+[1] 148
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016                                 4859855  -3876173 -18103551 -38618018
+2017 -41087321 -47906117  -2158605                                        
+           Aug       Sep       Oct       Nov       Dec
+2016  -4910919  10492105  11323048 -19137279 -44177349
+2017                                                  
+[1] 149
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016                                          -3876173 -18103551 -38618018
+2017 -41087321 -47906117  -2158605 -30035651                              
+           Aug       Sep       Oct       Nov       Dec
+2016  -4910919  10492105  11323048 -19137279 -44177349
+2017                                                  
+[1] 150
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016                                                   -18103551 -38618018
+2017 -41087321 -47906117  -2158605 -30035651 -11456309                    
+           Aug       Sep       Oct       Nov       Dec
+2016  -4910919  10492105  11323048 -19137279 -44177349
+2017                                                  
+[1] 151
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016                                                             -38618018
+2017 -41087321 -47906117  -2158605 -30035651 -11456309 -34312641          
+           Aug       Sep       Oct       Nov       Dec
+2016  -4910919  10492105  11323048 -19137279 -44177349
+2017                                                  
+[1] 152
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016                                                                      
+2017 -41087321 -47906117  -2158605 -30035651 -11456309 -34312641 -58795623
+           Aug       Sep       Oct       Nov       Dec
+2016  -4910919  10492105  11323048 -19137279 -44177349
+2017                                                  
+[1] 153
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016                                                                      
+2017 -41087321 -47906117  -2158605 -30035651 -11456309 -34312641 -58795623
+           Aug       Sep       Oct       Nov       Dec
+2016            10492105  11323048 -19137279 -44177349
+2017 -24346566                                        
+[1] 154
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016                                                                      
+2017 -41087321 -47906117  -2158605 -30035651 -11456309 -34312641 -58795623
+           Aug       Sep       Oct       Nov       Dec
+2016                      11323048 -19137279 -44177349
+2017 -24346566 -22492249                              
+[1] 155
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016                                                                      
+2017 -41087321 -47906117  -2158605 -30035651 -11456309 -34312641 -58795623
+           Aug       Sep       Oct       Nov       Dec
+2016                               -19137279 -44177349
+2017 -24346566 -22492249   5066289                    
+[1] 156
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2016                                                                      
+2017 -41087321 -47906117  -2158605 -30035651 -11456309 -34312641 -58795623
+           Aug       Sep       Oct       Nov       Dec
+2016                                         -44177349
+2017 -24346566 -22492249   5066289 -31448954          
+[1] 157
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017 -41087321 -47906117  -2158605 -30035651 -11456309 -34312641 -58795623
+           Aug       Sep       Oct       Nov       Dec
+2017 -24346566 -22492249   5066289 -31448954 -66871251
+[1] 158
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017           -47906117  -2158605 -30035651 -11456309 -34312641 -58795623
+2018 -55819180                                                            
+           Aug       Sep       Oct       Nov       Dec
+2017 -24346566 -22492249   5066289 -31448954 -66871251
+2018                                                  
+[1] 159
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017                      -2158605 -30035651 -11456309 -34312641 -58795623
+2018 -55819180 -60132189                                                  
+           Aug       Sep       Oct       Nov       Dec
+2017 -24346566 -22492249   5066289 -31448954 -66871251
+2018                                                  
+[1] 160
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017                               -30035651 -11456309 -34312641 -58795623
+2018 -55819180 -60132189 -31425440                                        
+           Aug       Sep       Oct       Nov       Dec
+2017 -24346566 -22492249   5066289 -31448954 -66871251
+2018                                                  
+[1] 161
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017                                         -11456309 -34312641 -58795623
+2018 -55819180 -60132189 -31425440 -35038312                              
+           Aug       Sep       Oct       Nov       Dec
+2017 -24346566 -22492249   5066289 -31448954 -66871251
+2018                                                  
+[1] 162
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017                                                   -34312641 -58795623
+2018 -55819180 -60132189 -31425440 -35038312 -25850510                    
+           Aug       Sep       Oct       Nov       Dec
+2017 -24346566 -22492249   5066289 -31448954 -66871251
+2018                                                  
+[1] 163
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017                                                             -58795623
+2018 -55819180 -60132189 -31425440 -35038312 -25850510 -57531714          
+           Aug       Sep       Oct       Nov       Dec
+2017 -24346566 -22492249   5066289 -31448954 -66871251
+2018                                                  
+[1] 164
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017                                                                      
+2018 -55819180 -60132189 -31425440 -35038312 -25850510 -57531714 -66107745
+           Aug       Sep       Oct       Nov       Dec
+2017 -24346566 -22492249   5066289 -31448954 -66871251
+2018                                                  
+[1] 165
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017                                                                      
+2018 -55819180 -60132189 -31425440 -35038312 -25850510 -57531714 -66107745
+           Aug       Sep       Oct       Nov       Dec
+2017           -22492249   5066289 -31448954 -66871251
+2018 -34875749                                        
+[1] 166
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017                                                                      
+2018 -55819180 -60132189 -31425440 -35038312 -25850510 -57531714 -66107745
+           Aug       Sep       Oct       Nov       Dec
+2017                       5066289 -31448954 -66871251
+2018 -34875749 -45687616                              
+[1] 167
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017                                                                      
+2018 -55819180 -60132189 -31425440 -35038312 -25850510 -57531714 -66107745
+           Aug       Sep       Oct       Nov       Dec
+2017                               -31448954 -66871251
+2018 -34875749 -45687616  12505268                    
+[1] 168
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2017                                                                      
+2018 -55819180 -60132189 -31425440 -35038312 -25850510 -57531714 -66107745
+           Aug       Sep       Oct       Nov       Dec
+2017                                         -66871251
+2018 -34875749 -45687616  12505268 -37750972          
+[1] 169
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018 -55819180 -60132189 -31425440 -35038312 -25850510 -57531714 -66107745
+           Aug       Sep       Oct       Nov       Dec
+2018 -34875749 -45687616  12505268 -37750972 -60947291
+[1] 170
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018           -60132189 -31425440 -35038312 -25850510 -57531714 -66107745
+2019 -52895733                                                            
+           Aug       Sep       Oct       Nov       Dec
+2018 -34875749 -45687616  12505268 -37750972 -60947291
+2019                                                  
+[1] 171
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018                     -31425440 -35038312 -25850510 -57531714 -66107745
+2019 -52895733 -68486802                                                  
+           Aug       Sep       Oct       Nov       Dec
+2018 -34875749 -45687616  12505268 -37750972 -60947291
+2019                                                  
+[1] 172
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018                               -35038312 -25850510 -57531714 -66107745
+2019 -52895733 -68486802 -33632956                                        
+           Aug       Sep       Oct       Nov       Dec
+2018 -34875749 -45687616  12505268 -37750972 -60947291
+2019                                                  
+[1] 173
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018                                         -25850510 -57531714 -66107745
+2019 -52895733 -68486802 -33632956 -27231591                              
+           Aug       Sep       Oct       Nov       Dec
+2018 -34875749 -45687616  12505268 -37750972 -60947291
+2019                                                  
+[1] 174
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018                                                   -57531714 -66107745
+2019 -52895733 -68486802 -33632956 -27231591 -20068112                    
+           Aug       Sep       Oct       Nov       Dec
+2018 -34875749 -45687616  12505268 -37750972 -60947291
+2019                                                  
+[1] 175
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018                                                             -66107745
+2019 -52895733 -68486802 -33632956 -27231591 -20068112 -61648594          
+           Aug       Sep       Oct       Nov       Dec
+2018 -34875749 -45687616  12505268 -37750972 -60947291
+2019                                                  
+[1] 176
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018                                                                      
+2019 -52895733 -68486802 -33632956 -27231591 -20068112 -61648594 -53750482
+           Aug       Sep       Oct       Nov       Dec
+2018 -34875749 -45687616  12505268 -37750972 -60947291
+2019                                                  
+[1] 177
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018                                                                      
+2019 -52895733 -68486802 -33632956 -27231591 -20068112 -61648594 -53750482
+           Aug       Sep       Oct       Nov       Dec
+2018           -45687616  12505268 -37750972 -60947291
+2019 -36982253                                        
+[1] 178
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018                                                                      
+2019 -52895733 -68486802 -33632956 -27231591 -20068112 -61648594 -53750482
+           Aug       Sep       Oct       Nov       Dec
+2018                      12505268 -37750972 -60947291
+2019 -36982253 -24970603                              
+[1] 179
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018                                                                      
+2019 -52895733 -68486802 -33632956 -27231591 -20068112 -61648594 -53750482
+           Aug       Sep       Oct       Nov       Dec
+2018                               -37750972 -60947291
+2019 -36982253 -24970603   6463315                    
+[1] 180
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2018                                                                      
+2019 -52895733 -68486802 -33632956 -27231591 -20068112 -61648594 -53750482
+           Aug       Sep       Oct       Nov       Dec
+2018                                         -60947291
+2019 -36982253 -24970603   6463315 -50794858          
+[1] 181
+NULL
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2019 -52895733 -68486802 -33632956 -27231591 -20068112 -61648594 -53750482
+           Aug       Sep       Oct       Nov       Dec
+2019 -36982253 -24970603   6463315 -50794858 -72708753
+[1] 182
+NULL
+           Feb       Mar       Apr       May       Jun       Jul       Aug
+2019 -68486802 -33632956 -27231591 -20068112 -61648594 -53750482 -36982253
+           Sep       Oct       Nov       Dec
+2019 -24970603   6463315 -50794858 -72708753
+[1] 183
+NULL
+           Mar       Apr       May       Jun       Jul       Aug       Sep
+2019 -33632956 -27231591 -20068112 -61648594 -53750482 -36982253 -24970603
+           Oct       Nov       Dec
+2019   6463315 -50794858 -72708753
+[1] 184
+NULL
+           Apr       May       Jun       Jul       Aug       Sep       Oct
+2019 -27231591 -20068112 -61648594 -53750482 -36982253 -24970603   6463315
+           Nov       Dec
+2019 -50794858 -72708753
+[1] 185
+NULL
+           May       Jun       Jul       Aug       Sep       Oct       Nov
+2019 -20068112 -61648594 -53750482 -36982253 -24970603   6463315 -50794858
+           Dec
+2019 -72708753
+[1] 186
+NULL
+           Jun       Jul       Aug       Sep       Oct       Nov       Dec
+2019 -61648594 -53750482 -36982253 -24970603   6463315 -50794858 -72708753
+[1] 187
+NULL
+           Jul       Aug       Sep       Oct       Nov       Dec
+2019 -53750482 -36982253 -24970603   6463315 -50794858 -72708753
+[1] 188
+NULL
+           Aug       Sep       Oct       Nov       Dec
+2019 -36982253 -24970603   6463315 -50794858 -72708753
+[1] 189
+NULL
+           Sep       Oct       Nov       Dec
+2019 -24970603   6463315 -50794858 -72708753
+[1] 190
+NULL
+           Oct       Nov       Dec
+2019   6463315 -50794858 -72708753
+[1] 191
+NULL
+           Nov       Dec
+2019 -50794858 -72708753
+[1] 192
+NULL
+           Dec
+2019 -72708753</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message in window.default(x, ...):
+"'end' value not changed"
+Warning message in window.default(x, ...):
+"'end' value not changed"
+Warning message in window.default(x, ...):
+"'end' value not changed"
+Warning message in window.default(x, ...):
+"'end' value not changed"
+Warning message in window.default(x, ...):
+"'end' value not changed"
+Warning message in window.default(x, ...):
+"'end' value not changed"
+Warning message in window.default(x, ...):
+"'end' value not changed"
+Warning message in window.default(x, ...):
+"'end' value not changed"
+Warning message in window.default(x, ...):
+"'end' value not changed"
+Warning message in window.default(x, ...):
+"'end' value not changed"
+Warning message in window.default(x, ...):
+"'end' value not changed"</code></pre>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

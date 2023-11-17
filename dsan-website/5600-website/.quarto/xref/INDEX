@@ -115,5 +115,68 @@
   },
   "test_6_ARMA.ipynb": {
     "test_6_ARMA.html": "e3956542"
+  },
+  "1_introduction_v1.qmd": {
+    "1_introduction_v1.html": "1991877c"
+  },
+  "5_EDA/5_0_oil_production_us.qmd": {
+    "5_0_oil_production_us.html": "3e6dac19"
+  },
+  "5_EDA/5_7_bus_passengers.qmd": {
+    "5_7_bus_passengers.html": "89c1a666"
+  },
+  "5_EDA/5_3_oil_price_monthly.qmd": {
+    "5_3_oil_price_monthly.html": "31d67aa8"
+  },
+  "6_ARMA/6_0_oil_production.qmd": {
+    "6_0_oil_production.html": "14e14658"
+  },
+  "6_ARMA/6_3_sarima.qmd": {
+    "6_3_sarima.html": "fe5ef27c"
+  },
+  "5_EDA/5_bus_passengers.qmd": {
+    "5_bus_passengers.html": "eef4f6fa"
+  },
+  "5_EDA/5_oil_price_year.qmd": {
+    "5_oil_price_year.html": "9721e700"
+  },
+  "5_EDA/5_oil_price_month.qmd": {
+    "5_oil_price_month.html": "ad181897"
+  },
+  "5_EDA/5_oil_production_month.qmd": {
+    "5_oil_production_month.html": "1b79a186"
+  },
+  "5_EDA/5_oil_production_year.qmd": {
+    "5_oil_production_year.html": "849de82c"
+  },
+  "6_ARMA/6_bus_passengers.qmd": {
+    "6_bus_passengers.html": "e9ba4607"
+  },
+  "6_ARMA/6_oil_production_month.qmd": {
+    "6_oil_production_month.html": "9ee7456b"
+  },
+  "6_ARMA/6_oil_production_year.qmd": {
+    "6_oil_production_year.html": "7d0ddc1d"
+  },
+  "6_ARMA/6_oil_price_month.qmd": {
+    "6_oil_price_month.html": "1259cc47"
+  },
+  "6_ARMA/6_SARIMAX.qmd": {
+    "6_SARIMAX.html": "082cfe93"
+  },
+  "7_ARIMAX/7_SARIMAX.qmd": {
+    "7_SARIMAX.html": "38522c3d"
+  },
+  "7_ARIMAX/7_SARIMAX_bus.qmd": {
+    "7_SARIMAX_bus.html": "7c6975c0"
+  },
+  "7_ARIMAX/7_VAR_economy.qmd": {
+    "7_VAR_economy.html": "67c67a7a"
+  },
+  "7_ARIMAX/7_VAR_oil.qmd": {
+    "7_VAR_oil.html": "aa2c1bcf"
+  },
+  "test_7.ipynb": {
+    "test_7.html": "74f68d35"
   }
 }
