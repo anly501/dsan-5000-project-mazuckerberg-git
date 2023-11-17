@@ -212,7 +212,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#resources-price" id="toc-resources-price" class="nav-link active" data-scroll-target="#resources-price">Resources Price</a></li>
+  <li><a href="#uranium-price" id="toc-uranium-price" class="nav-link active" data-scroll-target="#uranium-price">Uranium Price</a></li>
+  <li><a href="#aluminum-price" id="toc-aluminum-price" class="nav-link" data-scroll-target="#aluminum-price">Aluminum Price</a></li>
+  <li><a href="#cobalt-price" id="toc-cobalt-price" class="nav-link" data-scroll-target="#cobalt-price">Cobalt Price</a></li>
+  <li><a href="#copper-price" id="toc-copper-price" class="nav-link" data-scroll-target="#copper-price">Copper Price</a></li>
+  <li><a href="#natural-gas-price" id="toc-natural-gas-price" class="nav-link" data-scroll-target="#natural-gas-price">Natural Gas Price</a></li>
+  <li><a href="#resources-price" id="toc-resources-price" class="nav-link" data-scroll-target="#resources-price">Resources Price</a></li>
   </ul>
 </nav>
     </div>
@@ -257,8 +262,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 </div>
-<section id="resources-price" class="level3">
-<h3 class="anchored" data-anchor-id="resources-price">Resources Price</h3>
 <div class="epigrafe">
 <p>Before cleaning the dataset, the dataset had ### rows and # columns:</p>
 <ul>
@@ -3523,137 +3526,109 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p><strong>Cleaned Data:</strong></p>
-<div class="epigrafe">
-<p>Data Cleaning Description.</p>
-</div>
-<div class="cell">
-<details>
-<summary>Data Cleaning</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> df_commodity_price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Commodity <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Lithium"</span>, <span class="st">"Aluminum"</span>, <span class="st">"Cobalt"</span>, <span class="st">"Copper"</span>, <span class="st">"Nickel"</span>, <span class="st">"Zinc"</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(df_commodity_price, <span class="at">id_cols =</span> DATE, <span class="at">names_from =</span> Commodity, <span class="at">values_from =</span> Price)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#df_commodity_price &lt;- df_commodity_price %&gt;% select(Commodity, DATE, Price)</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#names(df_commodity_price) &lt;- c('DATE', 'Price')</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>df_commodity_price <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df_commodity_price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p><strong>Cleaned Data:</strong></p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 13%">
-<col style="width: 13%">
-<col style="width: 15%">
-<col style="width: 13%">
-<col style="width: 13%">
-<col style="width: 13%">
-</colgroup>
 <thead>
 <tr class="header">
+<th style="text-align: left;">Commodity</th>
 <th style="text-align: left;">DATE</th>
-<th style="text-align: right;">Aluminum</th>
-<th style="text-align: right;">Cobalt</th>
-<th style="text-align: right;">Copper</th>
-<th style="text-align: right;">Nickel</th>
-<th style="text-align: right;">Zinc</th>
-<th style="text-align: right;">Lithium</th>
+<th style="text-align: right;">Price</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">2022-03-01</td>
-<td style="text-align: right;">3498.373</td>
-<td style="text-align: right;">80457.43</td>
-<td style="text-align: right;">10230.894</td>
-<td style="text-align: right;">33924.18</td>
-<td style="text-align: right;">3962.207</td>
-<td style="text-align: right;">473185.9</td>
+<td style="text-align: left;">Australian, export markets</td>
+<td style="text-align: left;">2012-01-01</td>
+<td style="text-align: right;">123.08571</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2022-04-01</td>
-<td style="text-align: right;">3246.990</td>
-<td style="text-align: right;">81790.38</td>
-<td style="text-align: right;">10174.348</td>
-<td style="text-align: right;">33133.81</td>
-<td style="text-align: right;">4371.343</td>
-<td style="text-align: right;">490008.2</td>
+<td style="text-align: left;">Australian, export markets</td>
+<td style="text-align: left;">2012-02-01</td>
+<td style="text-align: right;">124.96684</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">2022-05-01</td>
-<td style="text-align: right;">2839.505</td>
-<td style="text-align: right;">77721.36</td>
-<td style="text-align: right;">9395.027</td>
-<td style="text-align: right;">28228.89</td>
-<td style="text-align: right;">3769.652</td>
-<td style="text-align: right;">453228.9</td>
+<td style="text-align: left;">Australian, export markets</td>
+<td style="text-align: left;">2012-03-01</td>
+<td style="text-align: right;">114.15097</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2022-06-01</td>
-<td style="text-align: right;">2575.670</td>
-<td style="text-align: right;">72057.73</td>
-<td style="text-align: right;">9067.552</td>
-<td style="text-align: right;">25877.07</td>
-<td style="text-align: right;">3652.891</td>
-<td style="text-align: right;">443656.2</td>
+<td style="text-align: left;">Australian, export markets</td>
+<td style="text-align: left;">2012-04-01</td>
+<td style="text-align: right;">110.35376</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">2022-07-01</td>
-<td style="text-align: right;">2408.423</td>
-<td style="text-align: right;">55713.24</td>
-<td style="text-align: right;">7544.810</td>
-<td style="text-align: right;">21481.89</td>
-<td style="text-align: right;">3105.362</td>
-<td style="text-align: right;">441052.3</td>
+<td style="text-align: left;">Australian, export markets</td>
+<td style="text-align: left;">2012-05-01</td>
+<td style="text-align: right;">103.81948</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2022-08-01</td>
-<td style="text-align: right;">2433.916</td>
-<td style="text-align: right;">49308.83</td>
-<td style="text-align: right;">7990.812</td>
-<td style="text-align: right;">22034.89</td>
-<td style="text-align: right;">3590.131</td>
-<td style="text-align: right;">435305.3</td>
+<td style="text-align: left;">Australian, export markets</td>
+<td style="text-align: left;">2012-06-01</td>
+<td style="text-align: right;">92.75470</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">2022-09-01</td>
-<td style="text-align: right;">2224.756</td>
-<td style="text-align: right;">51515.41</td>
-<td style="text-align: right;">7746.011</td>
-<td style="text-align: right;">22773.97</td>
-<td style="text-align: right;">3124.968</td>
-<td style="text-align: right;">418813.5</td>
+<td style="text-align: left;">Australian, export markets</td>
+<td style="text-align: left;">2012-07-01</td>
+<td style="text-align: right;">91.36412</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2022-10-01</td>
-<td style="text-align: right;">2255.535</td>
-<td style="text-align: right;">51509.24</td>
-<td style="text-align: right;">7651.083</td>
-<td style="text-align: right;">22032.89</td>
-<td style="text-align: right;">2967.210</td>
-<td style="text-align: right;">409005.5</td>
+<td style="text-align: left;">Australian, export markets</td>
+<td style="text-align: left;">2012-08-01</td>
+<td style="text-align: right;">93.45633</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">2022-11-01</td>
-<td style="text-align: right;">2350.716</td>
-<td style="text-align: right;">51504.59</td>
-<td style="text-align: right;">8049.861</td>
-<td style="text-align: right;">25562.70</td>
-<td style="text-align: right;">2938.920</td>
-<td style="text-align: right;">409954.0</td>
+<td style="text-align: left;">Australian, export markets</td>
+<td style="text-align: left;">2012-09-01</td>
+<td style="text-align: right;">93.18161</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2022-12-01</td>
-<td style="text-align: right;">2398.207</td>
-<td style="text-align: right;">51497.77</td>
-<td style="text-align: right;">8371.091</td>
-<td style="text-align: right;">28985.92</td>
-<td style="text-align: right;">3116.523</td>
-<td style="text-align: right;">421882.5</td>
+<td style="text-align: left;">Australian, export markets</td>
+<td style="text-align: left;">2012-10-01</td>
+<td style="text-align: right;">86.88540</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="uranium-price" class="level3">
+<h3 class="anchored" data-anchor-id="uranium-price">Uranium Price</h3>
+<p><strong>Cleaned Data:</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Commodity</th>
+<th style="text-align: left;">DATE</th>
+<th style="text-align: right;">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Uranium</td>
+<td style="text-align: left;">2012-01-01</td>
+<td style="text-align: right;">52.31250</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Uranium</td>
+<td style="text-align: left;">2012-02-01</td>
+<td style="text-align: right;">52.05556</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Uranium</td>
+<td style="text-align: left;">2012-03-01</td>
+<td style="text-align: right;">51.28889</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Uranium</td>
+<td style="text-align: left;">2012-04-01</td>
+<td style="text-align: right;">51.30000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Uranium</td>
+<td style="text-align: left;">2012-05-01</td>
+<td style="text-align: right;">51.88889</td>
 </tr>
 </tbody>
 </table>
@@ -3662,26 +3637,592 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Summary:</strong></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>      DATE               Aluminum        Cobalt          Copper     
- Min.   :2012-06-01   Min.   :1460   Min.   :22276   Min.   : 4472  
- 1st Qu.:2015-01-16   1st Qu.:1742   1st Qu.:28745   1st Qu.: 5828  
- Median :2017-09-01   Median :1871   Median :32100   Median : 6713  
- Mean   :2017-08-31   Mean   :1973   Mean   :41195   Mean   : 6816  
- 3rd Qu.:2020-04-16   3rd Qu.:2081   3rd Qu.:52590   3rd Qu.: 7565  
- Max.   :2022-12-01   Max.   :3498   Max.   :90782   Max.   :10231  
-     Nickel           Zinc         Lithium      
- Min.   : 8298   Min.   :1520   Min.   : 62377  
- 1st Qu.:11664   1st Qu.:2026   1st Qu.: 66030  
- Median :14101   Median :2414   Median : 87823  
- Mean   :14992   Mean   :2488   Mean   :122254  
- 3rd Qu.:17331   3rd Qu.:2892   3rd Qu.:120041  
- Max.   :33924   Max.   :4371   Max.   :490008  </code></pre>
+<pre><code>  Commodity              DATE                Price      
+ Length:132         Min.   :2012-01-01   Min.   :18.57  
+ Class :character   1st Qu.:2014-09-23   1st Qu.:25.57  
+ Mode  :character   Median :2017-06-16   Median :32.14  
+                    Mean   :2017-06-16   Mean   :32.71  
+                    3rd Qu.:2020-03-08   3rd Qu.:38.26  
+                    Max.   :2022-12-01   Max.   :52.31  </code></pre>
 </div>
 </div>
 <p><strong>Dimensions:</strong></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 127   7</code></pre>
+<pre><code>[1] 132   3</code></pre>
+</div>
+</div>
+</section>
+<section id="aluminum-price" class="level3">
+<h3 class="anchored" data-anchor-id="aluminum-price">Aluminum Price</h3>
+<p><strong>Cleaned Data:</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Commodity</th>
+<th style="text-align: left;">DATE</th>
+<th style="text-align: right;">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Aluminum</td>
+<td style="text-align: left;">2012-01-01</td>
+<td style="text-align: right;">2151.333</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Aluminum</td>
+<td style="text-align: left;">2012-02-01</td>
+<td style="text-align: right;">2207.917</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Aluminum</td>
+<td style="text-align: left;">2012-03-01</td>
+<td style="text-align: right;">2184.159</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Aluminum</td>
+<td style="text-align: left;">2012-04-01</td>
+<td style="text-align: right;">2048.505</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Aluminum</td>
+<td style="text-align: left;">2012-05-01</td>
+<td style="text-align: right;">2002.523</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Summary:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  Commodity              DATE                Price     
+ Length:132         Min.   :2012-01-01   Min.   :1460  
+ Class :character   1st Qu.:2014-09-23   1st Qu.:1747  
+ Mode  :character   Median :2017-06-16   Median :1885  
+                    Mean   :2017-06-16   Mean   :1978  
+                    3rd Qu.:2020-03-08   3rd Qu.:2089  
+                    Max.   :2022-12-01   Max.   :3498  </code></pre>
+</div>
+</div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 132   3</code></pre>
+</div>
+</div>
+</section>
+<section id="cobalt-price" class="level3">
+<h3 class="anchored" data-anchor-id="cobalt-price">Cobalt Price</h3>
+<p><strong>Cleaned Data:</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Commodity</th>
+<th style="text-align: left;">DATE</th>
+<th style="text-align: right;">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cobalt</td>
+<td style="text-align: left;">2012-01-01</td>
+<td style="text-align: right;">33006.67</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cobalt</td>
+<td style="text-align: left;">2012-02-01</td>
+<td style="text-align: right;">31772.62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cobalt</td>
+<td style="text-align: left;">2012-03-01</td>
+<td style="text-align: right;">31142.73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cobalt</td>
+<td style="text-align: left;">2012-04-01</td>
+<td style="text-align: right;">30795.66</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cobalt</td>
+<td style="text-align: left;">2012-05-01</td>
+<td style="text-align: right;">30516.82</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Summary:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  Commodity              DATE                Price      
+ Length:132         Min.   :2012-01-01   Min.   :22276  
+ Class :character   1st Qu.:2014-09-23   1st Qu.:28823  
+ Mode  :character   Median :2017-06-16   Median :31827  
+                    Mean   :2017-06-16   Mean   :40826  
+                    3rd Qu.:2020-03-08   3rd Qu.:51952  
+                    Max.   :2022-12-01   Max.   :90782  </code></pre>
+</div>
+</div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 132   3</code></pre>
+</div>
+</div>
+</section>
+<section id="copper-price" class="level3">
+<h3 class="anchored" data-anchor-id="copper-price">Copper Price</h3>
+<p><strong>Cleaned Data:</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Commodity</th>
+<th style="text-align: left;">DATE</th>
+<th style="text-align: right;">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Copper</td>
+<td style="text-align: left;">2012-01-01</td>
+<td style="text-align: right;">8061.917</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Copper</td>
+<td style="text-align: left;">2012-02-01</td>
+<td style="text-align: right;">8441.488</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Copper</td>
+<td style="text-align: left;">2012-03-01</td>
+<td style="text-align: right;">8470.784</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Copper</td>
+<td style="text-align: left;">2012-04-01</td>
+<td style="text-align: right;">8285.526</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Copper</td>
+<td style="text-align: left;">2012-05-01</td>
+<td style="text-align: right;">7896.909</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Summary:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  Commodity              DATE                Price      
+ Length:132         Min.   :2012-01-01   Min.   : 4472  
+ Class :character   1st Qu.:2014-09-23   1st Qu.: 5832  
+ Mode  :character   Median :2017-06-16   Median : 6768  
+                    Mean   :2017-06-16   Mean   : 6869  
+                    3rd Qu.:2020-03-08   3rd Qu.: 7720  
+                    Max.   :2022-12-01   Max.   :10231  </code></pre>
+</div>
+</div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 132   3</code></pre>
+</div>
+</div>
+</section>
+<section id="natural-gas-price" class="level3">
+<h3 class="anchored" data-anchor-id="natural-gas-price">Natural Gas Price</h3>
+<div class="epigrafe">
+<p>Before cleaning the dataset, the dataset had ### rows and ### columns:</p>
+<ul>
+<li><h3 id="section-4" class="anchored"></h3></li>
+<li><h3 id="section-5" class="anchored"></h3></li>
+</ul>
+</div>
+<div class="cell">
+<details>
+<summary>Data Gathering</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the start and end dates</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="st">"2000-01-01"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="st">"2022-12-31"</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the symbol for Gas Price to USD exchange rate</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>symbol <span class="ot">&lt;-</span> <span class="st">"GASREGCOVW"</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use getSymbols() to fetch the data</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(symbol, <span class="at">from =</span> start_date, <span class="at">to =</span> end_date, <span class="at">src =</span> <span class="st">"FRED"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "GASREGCOVW"</code></pre>
+</div>
+<details>
+<summary>Data Gathering</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the data as a data frame</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(GASREGCOVW)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> <span class="fu">rownames_to_column</span>(df_gas_price, <span class="at">var =</span> <span class="st">"DATE"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>df_gas_price<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_gas_price<span class="sc">$</span>DATE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">DATE</th>
+<th style="text-align: right;">GASREGCOVW</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2000-01-03</td>
+<td style="text-align: right;">1.260</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-01-10</td>
+<td style="text-align: right;">1.252</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-01-17</td>
+<td style="text-align: right;">1.268</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-01-24</td>
+<td style="text-align: right;">1.307</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-01-31</td>
+<td style="text-align: right;">1.307</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-02-07</td>
+<td style="text-align: right;">1.319</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-02-14</td>
+<td style="text-align: right;">1.350</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-02-21</td>
+<td style="text-align: right;">1.400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-02-28</td>
+<td style="text-align: right;">1.413</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-03-06</td>
+<td style="text-align: right;">1.490</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>      DATE              GASREGCOVW   
+ Min.   :2000-01-03   Min.   :1.042  
+ 1st Qu.:2005-10-01   1st Qu.:1.933  
+ Median :2011-06-30   Median :2.479  
+ Mean   :2011-06-30   Mean   :2.510  
+ 3rd Qu.:2017-03-28   3rd Qu.:3.078  
+ Max.   :2022-12-26   Max.   :4.844  </code></pre>
+</div>
+</div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1200    2</code></pre>
+</div>
+</div>
+<div class="epigrafe">
+<p>Data Cleaning Description.</p>
+</div>
+<div class="cell">
+<details>
+<summary>Data Cleaning</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate the Date by terms</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">year</span>(DATE)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Month =</span> <span class="fu">month</span>(DATE)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Day =</span> <span class="fu">day</span>(DATE))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Year, Month) <span class="sc">%&gt;%</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Day <span class="sc">==</span> <span class="fu">min</span>(Day)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(GASREGCOVW, Year, Month, Day)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">DATE =</span> <span class="fu">paste</span>(Year, Month, <span class="st">'01'</span>, <span class="at">sep =</span> <span class="st">"-"</span>))</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>df_gas_price<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_gas_price<span class="sc">$</span>DATE)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>df_gas_price <span class="ot">&lt;-</span> df_gas_price <span class="sc">%&gt;%</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(GASREGCOVW, DATE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>Cleaned Data:</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">GASREGCOVW</th>
+<th style="text-align: left;">DATE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1.260</td>
+<td style="text-align: left;">2000-01-01</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.319</td>
+<td style="text-align: left;">2000-02-01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.490</td>
+<td style="text-align: left;">2000-03-01</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.478</td>
+<td style="text-align: left;">2000-04-01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.386</td>
+<td style="text-align: left;">2000-05-01</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.535</td>
+<td style="text-align: left;">2000-06-01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.606</td>
+<td style="text-align: left;">2000-07-01</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.437</td>
+<td style="text-align: left;">2000-08-01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.502</td>
+<td style="text-align: left;">2000-09-01</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.498</td>
+<td style="text-align: left;">2000-10-01</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Summary:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   GASREGCOVW         DATE           
+ Min.   :1.084   Min.   :2000-01-01  
+ 1st Qu.:1.919   1st Qu.:2005-09-23  
+ Median :2.485   Median :2011-06-16  
+ Mean   :2.510   Mean   :2011-06-16  
+ 3rd Qu.:3.089   3rd Qu.:2017-03-08  
+ Max.   :4.702   Max.   :2022-12-01  </code></pre>
+</div>
+</div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 276   2</code></pre>
+</div>
+</div>
+</section>
+<section id="resources-price" class="level3">
+<h3 class="anchored" data-anchor-id="resources-price">Resources Price</h3>
+<div class="epigrafe">
+<p>Data Cleaning Description.</p>
+</div>
+<div class="cell">
+<details>
+<summary>Data Cleaning</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df_uranium_price <span class="ot">&lt;-</span> df_uranium_price <span class="sc">%&gt;%</span> <span class="fu">select</span>(DATE, Price)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df_aluminum_price <span class="ot">&lt;-</span> df_aluminum_price <span class="sc">%&gt;%</span> <span class="fu">select</span>(DATE, Price)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>df_cobalt_price <span class="ot">&lt;-</span> df_cobalt_price <span class="sc">%&gt;%</span> <span class="fu">select</span>(DATE, Price)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>df_copper_price <span class="ot">&lt;-</span> df_copper_price <span class="sc">%&gt;%</span> <span class="fu">select</span>(DATE, Price)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_uranium_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'Uranium'</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_aluminum_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'Aluminum'</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_cobalt_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'Cobalt'</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_copper_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'Copper'</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_gas_price) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Natural_Gas'</span>, <span class="st">'DATE'</span>)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>df_resource_price <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_uranium_price, df_gas_price, <span class="at">by.x =</span> <span class="st">'DATE'</span>, <span class="at">by.y =</span> <span class="st">'DATE'</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>df_resource_price <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_resource_price, df_aluminum_price, <span class="at">by.x =</span> <span class="st">'DATE'</span>, <span class="at">by.y =</span> <span class="st">'DATE'</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>df_resource_price <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_resource_price, df_cobalt_price, <span class="at">by.x =</span> <span class="st">'DATE'</span>, <span class="at">by.y =</span> <span class="st">'DATE'</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>df_resource_price <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_resource_price, df_copper_price, <span class="at">by.x =</span> <span class="st">'DATE'</span>, <span class="at">by.y =</span> <span class="st">'DATE'</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>df_resource_price <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df_resource_price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>Cleaned Data:</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">DATE</th>
+<th style="text-align: right;">Uranium</th>
+<th style="text-align: right;">Natural_Gas</th>
+<th style="text-align: right;">Aluminum</th>
+<th style="text-align: right;">Cobalt</th>
+<th style="text-align: right;">Copper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">145</td>
+<td style="text-align: left;">2012-01-01</td>
+<td style="text-align: right;">52.31250</td>
+<td style="text-align: right;">3.254</td>
+<td style="text-align: right;">2151.333</td>
+<td style="text-align: right;">33006.67</td>
+<td style="text-align: right;">8061.917</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">146</td>
+<td style="text-align: left;">2012-02-01</td>
+<td style="text-align: right;">52.05556</td>
+<td style="text-align: right;">3.436</td>
+<td style="text-align: right;">2207.917</td>
+<td style="text-align: right;">31772.62</td>
+<td style="text-align: right;">8441.488</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">147</td>
+<td style="text-align: left;">2012-03-01</td>
+<td style="text-align: right;">51.28889</td>
+<td style="text-align: right;">3.717</td>
+<td style="text-align: right;">2184.159</td>
+<td style="text-align: right;">31142.73</td>
+<td style="text-align: right;">8470.784</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">148</td>
+<td style="text-align: left;">2012-04-01</td>
+<td style="text-align: right;">51.30000</td>
+<td style="text-align: right;">3.874</td>
+<td style="text-align: right;">2048.505</td>
+<td style="text-align: right;">30795.66</td>
+<td style="text-align: right;">8285.526</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">149</td>
+<td style="text-align: left;">2012-05-01</td>
+<td style="text-align: right;">51.88889</td>
+<td style="text-align: right;">3.718</td>
+<td style="text-align: right;">2002.523</td>
+<td style="text-align: right;">30516.82</td>
+<td style="text-align: right;">7896.909</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">150</td>
+<td style="text-align: left;">2012-06-01</td>
+<td style="text-align: right;">50.83333</td>
+<td style="text-align: right;">3.518</td>
+<td style="text-align: right;">1885.513</td>
+<td style="text-align: right;">28831.91</td>
+<td style="text-align: right;">7428.289</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">151</td>
+<td style="text-align: left;">2012-07-01</td>
+<td style="text-align: right;">50.35556</td>
+<td style="text-align: right;">3.291</td>
+<td style="text-align: right;">1876.250</td>
+<td style="text-align: right;">28394.08</td>
+<td style="text-align: right;">7584.261</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">152</td>
+<td style="text-align: left;">2012-08-01</td>
+<td style="text-align: right;">49.25000</td>
+<td style="text-align: right;">3.606</td>
+<td style="text-align: right;">1843.327</td>
+<td style="text-align: right;">29050.36</td>
+<td style="text-align: right;">7510.432</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">153</td>
+<td style="text-align: left;">2012-09-01</td>
+<td style="text-align: right;">47.72500</td>
+<td style="text-align: right;">3.797</td>
+<td style="text-align: right;">2064.120</td>
+<td style="text-align: right;">29221.25</td>
+<td style="text-align: right;">8087.743</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">154</td>
+<td style="text-align: left;">2012-10-01</td>
+<td style="text-align: right;">44.61111</td>
+<td style="text-align: right;">3.750</td>
+<td style="text-align: right;">1974.304</td>
+<td style="text-align: right;">26896.74</td>
+<td style="text-align: right;">8062.033</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Summary:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>      DATE               Uranium       Natural_Gas       Aluminum   
+ Min.   :2012-01-01   Min.   :18.57   Min.   :1.680   Min.   :1460  
+ 1st Qu.:2014-09-23   1st Qu.:25.57   1st Qu.:2.309   1st Qu.:1747  
+ Median :2017-06-16   Median :32.14   Median :2.680   Median :1885  
+ Mean   :2017-06-16   Mean   :32.71   Mean   :2.818   Mean   :1978  
+ 3rd Qu.:2020-03-08   3rd Qu.:38.26   3rd Qu.:3.354   3rd Qu.:2089  
+ Max.   :2022-12-01   Max.   :52.31   Max.   :4.702   Max.   :3498  
+     Cobalt          Copper     
+ Min.   :22276   Min.   : 4472  
+ 1st Qu.:28823   1st Qu.: 5832  
+ Median :31827   Median : 6768  
+ Mean   :40826   Mean   : 6869  
+ 3rd Qu.:51952   3rd Qu.: 7720  
+ Max.   :90782   Max.   :10231  </code></pre>
+</div>
+</div>
+<p><strong>Dimensions:</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 132   6</code></pre>
 </div>
 </div>
 

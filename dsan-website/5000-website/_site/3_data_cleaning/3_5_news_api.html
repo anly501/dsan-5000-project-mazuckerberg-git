@@ -171,6 +171,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../4_1_NaiveBayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Naïve Bayes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../5_clustering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clustering</span></a>
   </div>
@@ -238,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Libraries</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dateutil.relativedelta <span class="im">import</span> relativedelta</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date, timedelta</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> newsapi.newsapi_client <span class="im">import</span> NewsApiClient</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -256,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> date.today()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>date_past <span class="op">=</span> date <span class="op">-</span> relativedelta(days<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>date_past <span class="op">=</span> date <span class="op">-</span> timedelta(days<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'../auth.k'</span>,<span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ak <span class="op">=</span> f.readlines()</span>
@@ -270,9 +276,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>sources <span class="op">=</span> sources[(sources[<span class="st">'language'</span>] <span class="op">==</span> <span class="st">'en'</span>) <span class="op">&amp;</span> (sources[<span class="st">'country'</span>] <span class="op">==</span> <span class="st">'us'</span>) <span class="op">&amp;</span> <span class="op">~</span>sources[<span class="st">'category'</span>].isin([<span class="st">'sports'</span>, <span class="st">'entertainment'</span>, <span class="st">'health'</span>])]</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>sources.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>sources.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="60">
 <div>
 
 
@@ -340,56 +346,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>en</td>
 <td>us</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">16</td>
-<td>bloomberg</td>
-<td>Bloomberg</td>
-<td>Bloomberg delivers business and markets news, ...</td>
-<td>http://www.bloomberg.com</td>
-<td>business</td>
-<td>en</td>
-<td>us</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">17</td>
-<td>breitbart-news</td>
-<td>Breitbart News</td>
-<td>Syndicated news and opinion website providing ...</td>
-<td>http://www.breitbart.com</td>
-<td>general</td>
-<td>en</td>
-<td>us</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">18</td>
-<td>business-insider</td>
-<td>Business Insider</td>
-<td>Business Insider is a fast-growing business si...</td>
-<td>http://www.businessinsider.com</td>
-<td>business</td>
-<td>en</td>
-<td>us</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">22</td>
-<td>cbs-news</td>
-<td>CBS News</td>
-<td>CBS News: dedicated to providing the best in j...</td>
-<td>http://www.cbsnews.com</td>
-<td>general</td>
-<td>en</td>
-<td>us</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">23</td>
-<td>cnn</td>
-<td>CNN</td>
-<td>View the latest news and breaking news today f...</td>
-<td>http://us.cnn.com</td>
-<td>general</td>
-<td>en</td>
-<td>us</td>
-</tr>
 </tbody>
 </table>
 
@@ -413,9 +369,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>df_articles <span class="op">=</span> pd.DataFrame(all_articles[<span class="st">'articles'</span>])</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>df_articles.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>df_articles[[<span class="st">'id'</span>, <span class="st">'name'</span>]] <span class="op">=</span> df_articles[<span class="st">'source'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: pd.Series([x[<span class="st">'id'</span>], x[<span class="st">'name'</span>]]))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>df_articles_save <span class="op">=</span> pd.DataFrame(df_articles, columns<span class="op">=</span>[</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">'id'</span>, </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">'name'</span>, </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">'author'</span>, </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">'title'</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">'description'</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">'url'</span>,</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">'urlToImage'</span>, </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">'content'</span>, </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">'publishedAt'</span>])</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>df_articles.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="61">
 <div>
 
 
@@ -431,33 +401,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">urlToImage</th>
 <th data-quarto-table-cell-role="th">publishedAt</th>
 <th data-quarto-table-cell-role="th">content</th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">name</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>{'id': 'wired', 'name': 'Wired'}</td>
-<td>Grace Browne, Matt Reynolds</td>
-<td>Here’s the Truth Behind the Biggest (and Dumbe...</td>
-<td>Yes, charging your phone overnight is bad for ...</td>
-<td>https://www.wired.com/story/how-to-improve-bat...</td>
-<td>https://media.wired.com/photos/653b8f898ed7be7...</td>
-<td>2023-10-27T11:00:00Z</td>
-<td>In lithium-ion batteries, thats no longer the ...</td>
+<td>{'id': 'the-verge', 'name': 'The Verge'}</td>
+<td>Andrew J. Hawkins</td>
+<td>Redwood Materials will recycle stationary stor...</td>
+<td>Redwood Materials is recycling a 4MWh energy s...</td>
+<td>https://www.theverge.com/2023/11/7/23949188/re...</td>
+<td>https://cdn.vox-cdn.com/thumbor/hqCI-2cI_EHKDl...</td>
+<td>2023-11-07T14:00:00Z</td>
+<td>Redwood Materials will recycle stationary stor...</td>
+<td>the-verge</td>
+<td>The Verge</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>{'id': 'the-verge', 'name': 'The Verge'}</td>
-<td>Andrew J. Hawkins</td>
-<td>Ford hits the brakes on $12 billion in EV spen...</td>
-<td>Ford is pausing about $12 billion in spending ...</td>
-<td>https://www.theverge.com/2023/10/26/23934172/f...</td>
-<td>https://cdn.vox-cdn.com/thumbor/LpKbkjEO0XFAxX...</td>
-<td>2023-10-27T00:16:44Z</td>
-<td>Ford hits the brakes on $12 billion in EV spen...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
 <td>{'id': 'ars-technica', 'name': 'Ars Technica'}</td>
 <td>Jonathan M. Gitlin</td>
 <td>A giant battery gives this new school bus a 30...</td>
@@ -466,83 +429,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>https://cdn.arstechnica.net/wp-content/uploads...</td>
 <td>2023-10-31T11:00:53Z</td>
 <td>Enlarge/ GreenPower has given its class-D elec...</td>
+<td>ars-technica</td>
+<td>Ars Technica</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>{'id': 'ars-technica', 'name': 'Ars Technica'}</td>
+<td>Jonathan M. Gitlin</td>
+<td>A lithium mine for EV batteries is coming to A...</td>
+<td>With EV incentives tied to domestic battery co...</td>
+<td>https://arstechnica.com/cars/2023/11/exxon-wil...</td>
+<td>https://cdn.arstechnica.net/wp-content/uploads...</td>
+<td>2023-11-13T18:59:10Z</td>
+<td>Enlarge/ These are piles of lithium harvested ...</td>
+<td>ars-technica</td>
+<td>Ars Technica</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>{'id': 'business-insider', 'name': 'Business I...</td>
-<td>Nathan Rennolds</td>
-<td>China's led the EV race – but it may be runnin...</td>
-<td>The world has woken up to China's control over...</td>
-<td>https://www.businessinsider.com/electric-cars-...</td>
-<td>https://i.insider.com/652eba9496f7540cd05e9155...</td>
-<td>2023-10-22T09:43:12Z</td>
-<td>Wuling Hongguang Mini EVs on display at the Sh...</td>
+<td>Tim Levin</td>
+<td>Big Oil wants to become Big EV</td>
+<td>Heavyweights of the combustion-car era like Sh...</td>
+<td>https://www.businessinsider.com/big-oil-wants-...</td>
+<td>https://i.insider.com/65451ccc36d588dc55ca51ee...</td>
+<td>2023-11-03T16:37:44Z</td>
+<td>BP's EV charging arm has bought $100 million w...</td>
+<td>business-insider</td>
+<td>Business Insider</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>{'id': 'the-next-web', 'name': 'The Next Web'}</td>
-<td>Ioanna Lykiardopoulou</td>
-<td>Startup bags €8.5M to bolster Europe’s EV batt...</td>
-<td>In a big boost to sustainable mobility, 130 mi...</td>
-<td>https://thenextweb.com/news/startup-to-bolster...</td>
-<td>https://img-cdn.tnwcdn.com/image/tnw-blurple?f...</td>
-<td>2023-10-24T04:03:53Z</td>
-<td>In a big boost to sustainable mobility, 130 mi...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>{'id': 'the-next-web', 'name': 'The Next Web'}</td>
-<td>Siôn Geschwindt</td>
-<td>Norway’s AutoStore unveils next-gen electric w...</td>
-<td>Norwegian tech company AutoStore today unveile...</td>
-<td>https://thenextweb.com/news/norway-autostore-u...</td>
-<td>https://img-cdn.tnwcdn.com/image/tnw-blurple?f...</td>
-<td>2023-10-23T04:00:52Z</td>
-<td>Norwegian tech company AutoStore today unveile...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>{'id': 'engadget', 'name': 'Engadget'}</td>
-<td>Andrew Tarantola</td>
-<td>NASA's John Mather keeps redefining our unders...</td>
-<td>Space isn't hard only on account of the rocket...</td>
-<td>https://www.engadget.com/inside-the-star-facto...</td>
-<td>https://s.yimg.com/ny/api/res/1.2/pcPe4lUVbQVQ...</td>
-<td>2023-10-22T14:30:46Z</td>
-<td>Space isn't hard only on account of the rocket...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
-<td>{'id': 'business-insider', 'name': 'Business I...</td>
-<td>Jenny McGrath</td>
-<td>Why we don't have fusion power plants yet, and...</td>
-<td>Trying to create a fusion reaction on Earth is...</td>
-<td>https://www.businessinsider.com/why-no-fusion-...</td>
-<td>https://i.insider.com/6531858096f7540cd060d9a2...</td>
-<td>2023-10-29T12:19:01Z</td>
-<td>The National Spherical Torus Experiment-Upgrad...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
-<td>{'id': 'cbs-news', 'name': 'CBS News'}</td>
-<td>Kate Gibson</td>
-<td>Feds warn against using Toos electric scooters...</td>
-<td>The U.S. Consumer Product Safety Commission sa...</td>
-<td>https://www.cbsnews.com/news/product-recall-el...</td>
-<td>https://assets2.cbsnewsstatic.com/hub/i/r/2023...</td>
-<td>2023-10-23T19:46:00Z</td>
-<td>Riders of Toos Elite 60-volt electric scooters...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
-<td>{'id': 'next-big-future', 'name': 'Next Big Fu...</td>
-<td>Brian Wang</td>
-<td>Better EV Batteries and a Glut of Batteries Sh...</td>
-<td>CATL’s new Shenxing ultra-fast charging iron L...</td>
-<td>https://www.nextbigfuture.com/2023/10/better-e...</td>
-<td>https://nextbigfuture.s3.amazonaws.com/uploads...</td>
-<td>2023-10-25T15:47:05Z</td>
-<td>Brian Wang is a Futurist Thought Leader and a ...</td>
+<td>{'id': 'time', 'name': 'Time'}</td>
+<td>Siobhan Wagner / Bloomberg</td>
+<td>Battery Recycler Among Winners of Prince Willi...</td>
+<td>A lithium-ion battery recycler and a program t...</td>
+<td>https://time.com/6332319/battery-recycler-prin...</td>
+<td>https://api.time.com/wp-content/uploads/2023/1...</td>
+<td>2023-11-07T14:41:00Z</td>
+<td>A lithium-ion battery recycler and a program t...</td>
+<td>time</td>
+<td>Time</td>
 </tr>
 </tbody>
 </table>
@@ -574,29 +501,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>ibm_date <span class="op">=</span> []</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>ibm_score <span class="op">=</span> []</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>ibm_label <span class="op">=</span> []</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, row <span class="kw">in</span> df_content.iterrows():</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> natural_language_understanding.analyze(</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    text<span class="op">=</span>row[<span class="st">'content'</span>], language <span class="op">=</span> <span class="st">'en'</span>,</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    features<span class="op">=</span>Features(sentiment<span class="op">=</span>SentimentOptions())).get_result()</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> row[<span class="st">'source'</span>]</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    ibm_source.append(s)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> row[<span class="st">'publishedAt'</span>]</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    ibm_date.append(d)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> response[<span class="st">'sentiment'</span>][<span class="st">'document'</span>][<span class="st">'score'</span>]</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="bu">round</span>(x, <span class="dv">4</span>)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    ibm_score.append(x)</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> response[<span class="st">'sentiment'</span>][<span class="st">'document'</span>][<span class="st">'label'</span>]</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    ibm_label.append(y)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(response['sentiment']['document']['score'])</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(response['sentiment']['document']['label'])</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(json.dumps(response, indent=2))</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    i<span class="op">=</span>i<span class="op">+</span><span class="dv">1</span>   </span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {<span class="st">"id"</span>: ibm_source, <span class="st">"ibm_date"</span>: ibm_date, <span class="st">"ibm_score"</span>: ibm_score, <span class="st">"ibm_label"</span>: ibm_label}</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>ibm_content <span class="op">=</span> []</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, row <span class="kw">in</span> df_content.iterrows():</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> natural_language_understanding.analyze(</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    text<span class="op">=</span>row[<span class="st">'content'</span>], language <span class="op">=</span> <span class="st">'en'</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    features<span class="op">=</span>Features(sentiment<span class="op">=</span>SentimentOptions())).get_result()</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> row[<span class="st">'source'</span>]</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    ibm_source.append(s)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> row[<span class="st">'publishedAt'</span>]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    ibm_date.append(d)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> row[<span class="st">'content'</span>]</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    ibm_content.append(c)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> response[<span class="st">'sentiment'</span>][<span class="st">'document'</span>][<span class="st">'score'</span>]</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="bu">round</span>(x, <span class="dv">4</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    ibm_score.append(x)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> response[<span class="st">'sentiment'</span>][<span class="st">'document'</span>][<span class="st">'label'</span>]</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    ibm_label.append(y)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(response['sentiment']['document']['score'])</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(response['sentiment']['document']['label'])</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(json.dumps(response, indent=2))</span></span>
 <span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    i<span class="op">=</span>i<span class="op">+</span><span class="dv">1</span>   </span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {<span class="st">"id"</span>: ibm_source, <span class="st">"ibm_date"</span>: ibm_date, <span class="st">"ibm_score"</span>: ibm_score, <span class="st">"ibm_label"</span>: ibm_label, <span class="st">"ibm_content"</span>: ibm_content}</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell" data-execution_count="6">
@@ -610,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> results.merge(sources, how<span class="op">=</span><span class="st">'left'</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame(results, columns<span class="op">=</span>[<span class="st">'name'</span>, <span class="st">'category'</span>, <span class="st">'ibm_score'</span>, <span class="st">'ibm_label'</span>, <span class="st">'ibm_date'</span>])</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame(results, columns<span class="op">=</span>[<span class="st">'name'</span>, <span class="st">'category'</span>, <span class="st">'ibm_score'</span>, <span class="st">'ibm_label'</span>, <span class="st">'ibm_date'</span>, <span class="st">'ibm_content'</span>])</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> results.rename(columns<span class="op">=</span>{<span class="st">'ibm_date'</span>: <span class="st">'date'</span>})</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
@@ -618,9 +549,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>results[<span class="st">'date'</span>] <span class="op">=</span> results[<span class="st">'date'</span>].dt.date</span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>results.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>results.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="64">
 <div>
 
 
@@ -633,88 +564,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">ibm_score</th>
 <th data-quarto-table-cell-role="th">ibm_label</th>
 <th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">ibm_content</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>Wired</td>
+<td>The Verge</td>
 <td>technology</td>
-<td>-0.5961</td>
-<td>negative</td>
-<td>2023-10-27</td>
+<td>0.6783</td>
+<td>positive</td>
+<td>2023-11-07</td>
+<td>Redwood Materials will recycle stationary stor...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>The Verge</td>
-<td>technology</td>
-<td>-0.8783</td>
-<td>negative</td>
-<td>2023-10-27</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
 <td>Ars Technica</td>
 <td>technology</td>
 <td>0.2886</td>
 <td>positive</td>
 <td>2023-10-31</td>
+<td>Enlarge/ GreenPower has given its class-D elec...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Ars Technica</td>
+<td>technology</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-11-13</td>
+<td>Enlarge/ These are piles of lithium harvested ...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>Business Insider</td>
 <td>business</td>
-<td>0.6452</td>
-<td>positive</td>
-<td>2023-10-22</td>
+<td>-0.5678</td>
+<td>negative</td>
+<td>2023-11-03</td>
+<td>BP's EV charging arm has bought $100 million w...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>The Next Web</td>
-<td>technology</td>
-<td>0.6209</td>
-<td>positive</td>
-<td>2023-10-24</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>The Next Web</td>
-<td>technology</td>
-<td>0.9080</td>
-<td>positive</td>
-<td>2023-10-23</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>Engadget</td>
-<td>technology</td>
-<td>0.0000</td>
-<td>neutral</td>
-<td>2023-10-22</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
-<td>Business Insider</td>
-<td>business</td>
-<td>0.6035</td>
-<td>positive</td>
-<td>2023-10-29</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
-<td>CBS News</td>
+<td>Time</td>
 <td>general</td>
-<td>-0.6290</td>
+<td>-0.7521</td>
 <td>negative</td>
-<td>2023-10-23</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
-<td>Next Big Future</td>
-<td>science</td>
-<td>0.0000</td>
-<td>neutral</td>
-<td>2023-10-25</td>
+<td>2023-11-07</td>
+<td>A lithium-ion battery recycler and a program t...</td>
 </tr>
 </tbody>
 </table>
