@@ -72,7 +72,7 @@ Before cleaning the dataset, the dataset had 532 rows and 4 columns:
 df_production <- read.csv("../../../data/00-raw-data/lithium-production.csv")
 
 # Original dataset
-head(df_production, n = 10)
+knitr::kable(head(df_production, n = 10))
 ```
 
 **Dimensions:**
@@ -99,8 +99,11 @@ The cleaned dataset has 224 rows and 4 columns. The available information was co
 #| code-summary: "Data Cleaning"
 #| warning: false
 
-# Filter Code Column 
+# Filter code column 
 df_production <- df_production %>% filter(nchar(Code) == 3)
+
+# Change column names
+names(df_production) <- c('Country', 'Code', 'Year', 'Production')
 ```
 
 **Cleaned Data:**
@@ -111,7 +114,7 @@ df_production <- df_production %>% filter(nchar(Code) == 3)
 #| warning: false
 
 # Cleaned dataset
-head(df_production, n = 10)
+knitr::kable(head(df_production, n = 10))
 ```
 
 **Summary:**

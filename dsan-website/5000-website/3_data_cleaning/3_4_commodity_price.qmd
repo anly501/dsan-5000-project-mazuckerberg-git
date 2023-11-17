@@ -50,7 +50,7 @@ library(readxl)
 library(zoo)
 ```
 
-### Uranium Price
+### Resources Price
 
 ::: {.epigrafe}
 Before cleaning the dataset, the dataset had ### rows and # columns:
@@ -75,7 +75,7 @@ Before cleaning the dataset, the dataset had ### rows and # columns:
 df_commodity_price <- read_excel("../../../data/00-raw-data/commodity_price.xlsx")
 
 # Original dataset
-head(df_commodity_price, n = 10)
+knitr::kable(head(df_commodity_price, n = 10))
 ```
 
 **Dimensions:**
@@ -118,114 +118,9 @@ df_commodity_price$Month_Year <- paste("01-", df_commodity_price$Month_Year, sep
 df_commodity_price$Month_Year <- as.Date(df_commodity_price$Month_Year, format = "%d-%m-%Y")
 
 names(df_commodity_price) <- c('Commodity', 'DATE', 'Price')
-
-df_uranium_price <- df_commodity_price %>%
-  filter(Commodity == "Uranium")
 ```
 
 **Cleaned Data:**
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-# Cleaned dataset
-head(df_uranium_price, n = 10)
-```
-
-**Summary:**
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-summary(df_uranium_price)
-```
-
-**Dimensions:**
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-dim(df_uranium_price)
-```
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-# Save dataframe as a new file
-write.csv(df_uranium_price, '../../../data/01-modified-data/clean_uranium-price.csv', row.names = FALSE)
-```
-
-### Natural Gas Price
-
-::: {.epigrafe}
-Before cleaning the dataset, the dataset had ### rows and ### columns:
-
-- ###
-
-- ###
-
-:::
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Data Gathering"
-#| warning: false
-
-# Set the start and end dates
-start_date <- "2000-01-01"
-end_date <- "2022-12-31"
-
-# Define the symbol for Gas Price to USD exchange rate
-symbol <- "GASREGCOVW"
-
-# Use getSymbols() to fetch the data
-getSymbols(symbol, from = start_date, to = end_date, src = "FRED")
-
-# Access the data as a data frame
-df_gas_price <- as.data.frame(GASREGCOVW)
-
-df_gas_price <- rownames_to_column(df_gas_price, var = "DATE")
-
-df_gas_price$DATE <- as.Date(df_gas_price$DATE)
-```
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-# Print the first few rows of the data
-head(df_gas_price, n = 10)
-```
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-summary(df_gas_price)
-```
-
-**Dimensions:**
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-# Dataset dimensions
-dim(df_gas_price)
-```
 
 ::: {.epigrafe}
 Data Cleaning Description. 
@@ -238,32 +133,15 @@ Data Cleaning Description.
 #| code-summary: "Data Cleaning"
 #| warning: false
 
-# Separate the Date by terms
-df_gas_price <- df_gas_price %>%
-    mutate(Year = year(DATE)) %>%
-    mutate(Month = month(DATE)) %>%
-    mutate(Day = day(DATE))
+df_commodity_price <- df_commodity_price %>% filter(Commodity %in% c("Lithium", "Aluminum", "Cobalt", "Copper", "Nickel", "Zinc"))
 
+df_commodity_price <- pivot_wider(df_commodity_price, id_cols = DATE, names_from = Commodity, values_from = Price)
 
-df_gas_price <- df_gas_price %>%
-    group_by(Year, Month) %>%
-    filter(Day == min(Day)) %>%
-    ungroup()
+#df_commodity_price <- df_commodity_price %>% select(Commodity, DATE, Price)
 
+#names(df_commodity_price) <- c('DATE', 'Price')
 
-df_gas_price <- df_gas_price %>%
-    select(GASREGCOVW, Year, Month, Day)
-
-
-df_gas_price <- df_gas_price %>%
-    mutate(DATE = paste(Year, Month, '01', sep = "-"))
-
-
-df_gas_price$DATE <- as.Date(df_gas_price$DATE)
-
-
-df_gas_price <- df_gas_price %>%
-    select(GASREGCOVW, DATE)
+df_commodity_price <- na.omit(df_commodity_price)
 ```
 
 **Cleaned Data:**
@@ -274,7 +152,7 @@ df_gas_price <- df_gas_price %>%
 #| warning: false
 
 # Cleaned dataset
-head(df_gas_price, n = 10)
+knitr::kable(tail(df_commodity_price, n = 10))
 ```
 
 **Summary:**
@@ -284,7 +162,7 @@ head(df_gas_price, n = 10)
 #| message: false
 #| warning: false
 
-summary(df_gas_price)
+summary(df_commodity_price)
 ```
 
 **Dimensions:**
@@ -294,7 +172,7 @@ summary(df_gas_price)
 #| message: false
 #| warning: false
 
-dim(df_gas_price)
+dim(df_commodity_price)
 ```
 
 ``` {r}
@@ -303,68 +181,5 @@ dim(df_gas_price)
 #| warning: false
 
 # Save dataframe as a new file
-write.csv(df_gas_price, '../../../data/01-modified-data/clean_gas-price.csv', row.names = FALSE)
-```
-
-### Resources Price
-
-::: {.epigrafe}
-Data Cleaning Description. 
-:::
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Data Cleaning"
-#| warning: false
-
-
-df_uranium_price <- df_uranium_price %>% select(DATE, Price)
-
-names(df_uranium_price) <- c('DATE', 'Uranium')
-
-names(df_gas_price) <- c('Natural Gas', 'DATE')
-
-df_resource_price <- merge(df_uranium_price, df_gas_price, by.x = 'DATE', by.y = 'DATE', all = TRUE)
-```
-
-**Cleaned Data:**
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-# Cleaned dataset
-head(df_resource_price, n = 10)
-```
-
-**Summary:**
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-summary(df_resource_price)
-```
-
-**Dimensions:**
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-dim(df_resource_price)
-```
-
-``` {r}
-#| echo: false
-#| message: false
-#| warning: false
-
-# Save dataframe as a new file
-write.csv(df_resource_price, '../../../data/01-modified-data/clean_resources-price.csv', row.names = FALSE)
+write.csv(df_commodity_price, '../../../data/01-modified-data/clean_resources-price.csv', row.names = FALSE)
 ```

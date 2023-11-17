@@ -10,7 +10,7 @@ format: html
 #| code-summary: "Libraries"
 
 from datetime import date
-from dateutil.relativedelta import relativedelta
+from datetime import date, timedelta
 from newsapi.newsapi_client import NewsApiClient
 import pandas as pd
 
@@ -31,7 +31,7 @@ import os
 #| code-summary: "Code"
 
 date = date.today()
-date_past = date - relativedelta(days=12)
+date_past = date - timedelta(days=20)
 
 f = open('../auth.k','r', encoding="utf-8")
 ak = f.readlines()
@@ -45,7 +45,7 @@ sources = pd.DataFrame(sources['sources'])
 
 sources = sources[(sources['language'] == 'en') & (sources['country'] == 'us') & ~sources['category'].isin(['sports', 'entertainment', 'health'])]
 
-sources.head(10)
+sources.head(5)
 ```
 
 ```{python}
@@ -68,7 +68,21 @@ all_articles = newsapi.get_everything(q='lithium',
 
 df_articles = pd.DataFrame(all_articles['articles'])
 
-df_articles.head(10)
+
+df_articles[['id', 'name']] = df_articles['source'].apply(lambda x: pd.Series([x['id'], x['name']]))
+
+df_articles_save = pd.DataFrame(df_articles, columns=[
+                                                'id', 
+                                                'name', 
+                                                'author', 
+                                                'title',
+                                                'description',
+                                                'url',
+                                                'urlToImage', 
+                                                'content', 
+                                                'publishedAt'])
+
+df_articles.head(5)
 ```
 
 ```{python}
@@ -76,7 +90,7 @@ df_articles.head(10)
 #| message: false
 #| warning: false
 
-df_articles.to_csv('../../../data/01-modified-data/clean_articles.csv', index=False)
+df_articles_save.to_csv('../../../data/01-modified-data/clean_articles.csv', index=False)
 ```
 
 ***
@@ -105,6 +119,8 @@ ibm_source = []
 ibm_date = []
 ibm_score = []
 ibm_label = []
+ibm_content = []
+
 for index, row in df_content.iterrows():
     response = natural_language_understanding.analyze(
     text=row['content'], language = 'en',
@@ -114,6 +130,8 @@ for index, row in df_content.iterrows():
     ibm_source.append(s)
     d = row['publishedAt']
     ibm_date.append(d)
+    c = row['content']
+    ibm_content.append(c)
     x = response['sentiment']['document']['score']
     x = round(x, 4)
     ibm_score.append(x)
@@ -125,9 +143,9 @@ for index, row in df_content.iterrows():
 
     i=i+1   
 
-results = {"id": ibm_source, "ibm_date": ibm_date, "ibm_score": ibm_score, "ibm_label": ibm_label}
+results = {"id": ibm_source, "ibm_date": ibm_date, "ibm_score": ibm_score, "ibm_label": ibm_label, "ibm_content": ibm_content}
 
-results = pd.DataFrame(data = results)
+results = pd.DataFrame(results)
 ```
 
 ```{python}
@@ -144,7 +162,7 @@ results.to_csv(name, index=False)
 
 results = results.merge(sources, how='left')
 
-results = pd.DataFrame(results, columns=['name', 'category', 'ibm_score', 'ibm_label', 'ibm_date'])
+results = pd.DataFrame(results, columns=['name', 'category', 'ibm_score', 'ibm_label', 'ibm_date', 'ibm_content'])
 
 results = results.rename(columns={'ibm_date': 'date'})
 
@@ -152,15 +170,13 @@ results['date'] = pd.to_datetime(results['date'])
 
 results['date'] = results['date'].dt.date
 
-results.head(10)
+results.head(5)
 ```
 
 ```{python}
 #| echo: false
 #| message: false
 #| warning: false
-
-results = pd.read_csv('../2023-11-02_results.csv')
 
 results.to_csv('../../../data/01-modified-data/clean_sentiment_analysis.csv', index=False)
 ```
