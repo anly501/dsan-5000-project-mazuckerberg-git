@@ -1,86 +1,135 @@
 name,category,ibm_score,ibm_label,date,ibm_content
-Wired,technology,-0.5961,negative,2023-10-27,"In lithium-ion batteries, thats no longer the case. Modern batteries are capable of reading their state no matter their level of charge, and when your device isnt in use the strain on the battery is … [+3255 chars]"
-The Verge,technology,-0.8783,negative,2023-10-27,"Ford hits the brakes on $12 billion in EV spending because EVs are too expensive
-Ford hits the brakes on $12 billion in EV spending because EVs are too expensive
- / The car company says it isnt bac… [+2216 chars]"
+The Verge,technology,0.6783,positive,2023-11-07,"Redwood Materials will recycle stationary storage batteries as it expands its scope
+Redwood Materials will recycle stationary storage batteries as it expands its scope
+ / The company is recycling b… [+3842 chars]"
 Ars Technica,technology,0.2886,positive,2023-10-31,"Enlarge/ GreenPower has given its class-D electric school bus a big battery bump.
 39 with 
 On Tuesday morning, the West Virginia-based GreenPower Motor Company debuted its latest electric vehicle. … [+4366 chars]"
-Business Insider,business,0.6452,positive,2023-10-22,"Wuling Hongguang Mini EVs on display at the Shanghai auto expo.VCG/VCG via Getty Images
+Ars Technica,technology,0.0,neutral,2023-11-13,"Enlarge/ These are piles of lithium harvested in Bolivia; Exxon's site in Arkansas will look almost entirely unlike this as it will use direct lithium extraction, not evaporation, to harvest the mine… [+1611 chars]"
+Business Insider,business,-0.5678,negative,2023-11-03,"BP's EV charging arm has bought $100 million worth of Tesla Superchargers.BP
+<ul><li>Big Oil companies have dreams of becoming Big EV. </li><li>Fossil fuel heavyweights are making investments in EV … [+2964 chars]"
+Time,general,-0.7521,negative,2023-11-07,"A lithium-ion battery recycler and a program to end illegal fishing are among the winners of Prince Williams Earthshot Prize, which supports companies tackling the environmental crisis.
+The five cha… [+2296 chars]"
+ABC News,general,-0.7716,negative,2023-11-14,"NEW YORK -- New York City officials say retailers and food delivery companies must do more to halt the proliferation of unsafe e-bike and e-scooter batteries, after a fire blamed on an electric scoot… [+3372 chars]"
+Business Insider,business,-0.7674,negative,2023-11-04,"Jimmy Levy appeared on the 2019 season of ""American Idol.""Eliza Morse/ABC via Getty Images
 <ul>
-<li>China has led the world in production and sales of electric vehicles, helped by government subsidies.… [+6141 chars]"
-The Next Web,technology,0.6209,positive,2023-10-24,"In a big boost to sustainable mobility, 130 million EVs are expected to hit Europes streets by 2035, reaching about half of the total vehicles on the continent. However, this also translates to 130 m… [+3822 chars]"
-The Next Web,technology,0.908,positive,2023-10-23,"Norwegian tech company AutoStore today unveiled the latest version of its warehouse storage and retrieval robot, as it seeks to boost the efficiency of its automated fulfilment system. 
-Dubbed the R… [+3374 chars]"
-Business Insider,business,-0.676,negative,2023-10-18,"When something enters Earth's atmosphere, it's typically in a fiery blaze.solarseven/Getty Images
+<li>Former 'American Idol' star Jimmy Levy's bag caught fire while his JetBlue flight sat at the gate.… [+2937 chars]"
+Business Insider,business,-0.392,negative,2023-11-13,"Your fake AirPods may be able to fool others at a glance, but Lumafield used a CT scanner to show what's really going on with counterfeits.Jon Bruner/Lumafield
 <ul>
-<li>Scientists have discovered evidence of various pollutant metals in Earth's stratosphere.</l… [+1984 chars]"
-Engadget,technology,0.0,neutral,2023-10-22,Space isn't hard only on account of the rocket science. The task of taking a NASA mission from development and funding through construction and launch all before we even use the thing for science can… [+11147 chars]
+<li>There are some major differen… [+3413 chars]"
+The Next Web,technology,0.0,neutral,2023-11-16,"For UK battery startup NyoBolt, six seems to be the magic number. First, in June it showcased an EV that could be fully charged in just six minutes (a claimed record). And today it unveiled a new kin… [+3589 chars]"
 Business Insider,business,0.6035,positive,2023-10-29,"The National Spherical Torus Experiment-Upgrade (NSTX-U) at the Princeton Plasma Physics Laboratory.Elle Starkman, PPPL
 <ul>
 <li>It's been almost 90 years since scientists made the first fusion reac… [+8038 chars]"
-Time,general,0.0,neutral,2023-10-19,"In her new book, The Woman in Me, Britney Spears details the extent of her family's attempts to control her life and her considerable estate through a conservatorship for 13 years. She suggests that … [+3975 chars]"
-Time,general,0.0,neutral,2023-10-19,"The rocky relationship between Britney Spears and her younger sister, Jamie Lynn Spears, has long been documented in the press. In January 2022, Britney sent Jamie Lynn a cease and desist letter, ask… [+5806 chars]"
-Ars Technica,technology,0.8393,positive,2023-10-16,"Enlarge/ The back of the 2019 iPad Air.
-13 with 
-Whether you're shopping for a new laptop or you're looking to build your own PC, we found some great savings for you with some post-Prime Day sales.… [+12394 chars]"
-CBS News,general,-0.629,negative,2023-10-23,"Riders of Toos Elite 60-volt electric scooters are being urged to find another means of travel immediately, after the deaths of two people in a fire caused by the product.
-The urgent warning to stop… [+1457 chars]"
-Next Big Future,science,0.0,neutral,2023-10-25,Brian Wang is a Futurist Thought Leader and a popular Science blogger with 1 million readers per month. His blog Nextbigfuture.com is ranked #1 Science News Blog. It covers many disruptive technology… [+593 chars]
+Al Jazeera English,general,0.0,neutral,2023-11-07,Portuguese Prime Minister Antonio Costa has said he is resigning amid an investigation into into alleged irregularities committed by his administration in handling lithium mining and hydrogen project… [+742 chars]
+The Next Web,technology,0.838,positive,2023-11-10,"Climate tech is receiving a proportionally larger share of what is, undeniably, a muted venture capital investment environment. VC and private equity investment in the sector has, thus far in 2023, f… [+8154 chars]"
+Al Jazeera English,general,0.0,neutral,2023-11-09,"Portugals President Marcelo Rebelo de Sousa has dissolved parliament and called snap elections, two days after the countrys prime minister resigned amid a continuing corruption investigation.
+Rebelo… [+2488 chars]"
+TechRadar,technology,0.6178,positive,2023-11-11,"Researchers have found that adding salt to computer systems can prevent devices from overheating and boost performance by more than 32%. 
+A team at the City University of Hong Kong hope this passive… [+2005 chars]"
+New York Magazine,general,0.0,neutral,2023-11-13,"Over the weekend, ExxonMobil  the oil-and-gas giant announced it would also become one of the countrys largest producers of lithium, the metal used to power electric vehicles. It turns out that Arkan… [+1952 chars]"
+Business Insider,business,-0.7416,negative,2023-11-13,"A Tesla owner said he heard a hissing sound coming from the battery the day before it caught fire in his garage. 
+The vehicle, a Model X, caught alight Friday and took firefighters hours to put out… [+2257 chars]"
+TechRadar,technology,0.6935,positive,2023-11-06,"Phone batteries could be in Apple’s sights for its next bit of in-house developed hardware, which may lead to iPhones with significantly boosted battery life. 
+That’s according to a report by Korean… [+2210 chars]"
+Politico,general,0.0,neutral,2023-11-08,"Bidens GOP critics, including former President Donald Trump, have latched onto the claim that these programs are a giveaway to Beijing, whose companies dominate the global supply chain for green tech… [+6961 chars]"
+The Wall Street Journal,business,-0.2816,negative,2023-11-13,"Exxon Mobil said Monday it is starting to drill 
+for lithium in Arkansas and aims to become a major U.S. supplier for makers of electric-vehicle batteries by 2030.  The Texas-based oil companys entr… [+452 chars]"
+CBS News,general,0.7544,positive,2023-11-10,"Walmart
+Planning some end-of-year home improvement projects before guests arrive for Thanksgiving and Christmas? We've found a pretty incredible deal on a tool kit that you're going to need to do th… [+1446 chars]"
 New Scientist,science,0.6051,positive,2023-10-31,"Passive cooling could be more efficient using a device containing a salty water solution
 daniiD/Shutterstock
 Computers could see their performance jump by one third through an inexpensive cooling s… [+2046 chars]"
-CBS News,general,-0.7609,negative,2023-10-17,"As e-scooters, hoverboards and e-bikes increase in popularity, emergency rooms are seeing a surge in injuries — fractures, contusions, burns and cuts — related to the products, continuing a multiyear… [+1968 chars]"
-Fortune,business,-0.8252,negative,2023-10-19,"With the growing popularity of disposable e-cigarettes, communities across the U.S. are confronting a new vaping problem: how to safely get rid of millions of small, battery-powered devices that are … [+7951 chars]"
+Fortune,business,0.0,neutral,2023-11-15,"On this weeks episode of Fortunes Leadership Next podcast, co-host Alan Murray talks with chemist Christina Lampe-Önnerud, the CEO of Cadenza Innovation, about her efforts to power the battery indust… [+33594 chars]"
 Fortune,business,0.0,neutral,2023-10-31,"Toyota will invest an additional $8 billion in the hybrid and electric vehicle battery factory its constructing in North Carolina, more than doubling its prior investments and expected number of new … [+3679 chars]"
-New Scientist,science,0.8984,positive,2023-10-24,"Solid-state batteries could be lighter and more powerful than current batteries
-Phonlamai Photo/Shutterstock
-Toyota says it has made a breakthrough that will allow “game-changing” solid-state batte… [+3641 chars]"
-TechRadar,technology,0.0,neutral,2023-10-16,"Mercedes-Benz launched the series production version of its eActros 600 battery-electric long-haul truck last week, signifying its intent to assist in phasing out diesel counterparts in the coming ye… [+3861 chars]"
-CBS News,general,0.651,positive,2023-10-17,"Remote Retriever via CBS Deals
-This week on ""CBS Mornings,"" lifestyle expert Elizabeth Werner discussed deals on items that might make your life easier -- all at exclusive discounts. Discover this w… [+1904 chars]"
-Newsweek,general,-0.952,negative,2023-10-23,"U.S. consumers are being strongly warned against using a brand of electric scooters after reports found that a malfunctioning battery caused a fire earlier this year that killed two people, including… [+2738 chars]"
+TechRadar,technology,-0.404,negative,2023-11-11,"The EICMA show tends to only appear on the radar of ardent motorcycle fans, as it's the motor show to attend if you want to catch a glimpse of fresh metal, the occasional concept machine, and the lat… [+7964 chars]"
+Fortune,business,0.0,neutral,2023-11-14,"Exxon in early 2023 acquired the rights to 120000 gross acres (48562 gross hectares) of the Smackover formation in southern Arkansas, considered one of the most prolific lithium resources of its type… [+1619 chars]"
+Breitbart News,general,0.0,neutral,2023-11-14,Stellantis is offering to buy out thousands of its American white-collar employees as a result of the company’s transition to electric vehicles (EVs) — a move spurred by tax credits from President Jo… [+3045 chars]
+Fortune,business,-0.416,negative,2023-11-15,"The Energy Department is making a push to strengthen the U.S. battery supply chain, announcing up to $3.5 billion for companies that produce batteries and the critical minerals that go into them.Batt… [+4202 chars]"
+CBS News,general,0.0,neutral,2023-11-12,"Recipients of the 2023 Earthshot Prize Awards were officially chosen last week in Singapore, marking the third annual ceremony where Prince William's climate-focused charity recognized companies that… [+5156 chars]"
+CBS News,general,-0.8139,negative,2023-11-07,"Captain in deadly Conception boat fire found guilty 
+Captain in deadly Conception boat fire found guilty02:00
+A jury has found a former captain guilty in the Conception boat fire that killed 33 pas… [+2189 chars]"
+Business Insider,business,-0.7687,negative,2023-11-15,"NEW YORK (AP) New York City officials say retailers and food delivery companies must do more to halt the proliferation of unsafe e-bike and e-scooter batteries, after a fire blamed on an electric sco… [+3630 chars]"
+The Verge,technology,0.0,neutral,2023-11-02,"Redwood Materials is recycling its first stationary storage substation
+Redwood Materials is recycling its first stationary storage substation
+ / The company is going to help decommission and recycl… [+2468 chars]"
+The Verge,technology,0.0,neutral,2023-11-13,"ExxonMobil is a lithium company now
+ExxonMobil is a lithium company now
+ / ExxonMobil plans on extracting and producing battery-grade lithium from the Smackover Formation in Arkansas.
+ByEmma Roth,… [+2526 chars]"
+ABC News,general,0.0,neutral,2023-11-07,"LISBON, Portugal -- Portuguese police have arrested the chief of staff of Prime Minister António Costa while making multiple raids of public buildings and other properties as part of a widespread cor… [+1217 chars]"
+Breitbart News,general,-0.4535,negative,2023-11-10,"A Tesla vehicle caught fire in Plano, Texas, early Friday morning, leading to concerns about electric vehicle battery safety. The owner claims he just had a new battery installed by Elon Musk’s compa… [+3033 chars]"
+Breitbart News,general,-0.6507,negative,2023-11-04,"President Biden is the most pro-union president in history has become the White Houses go-to response to the recent strike that had upturned American auto manufacturing.
+UAW victories may lift Biden… [+9793 chars]"
 ABC News,general,0.0,neutral,2023-10-31,"RALEIGH, N.C. -- Toyota will invest an additional $8 billion in the hybrid and electric vehicle battery factory it's constructing in North Carolina, more than doubling its prior investments and expec… [+3480 chars]"
 Fortune,business,-0.6701,negative,2023-10-31,"Since Russian President Vladimir Putin invaded Ukraine, most of the attention has focused on Russias imagined security dangers on its western border, the threat of Ukraines democratic success as a mo… [+5789 chars]"
-Breitbart News,general,0.6588,positive,2023-10-16,"The Taliban jihadist regime in Afghanistan sent its Industry and Commerce Minister Nooruddin Azizi to Beijing on Monday to attend this week’s “Belt and Road Forum,” a celebration of ten years of Chin… [+6220 chars]"
-Breitbart News,general,0.0,neutral,2023-10-19,"Haji Nooruddin Azizi, the acting commerce minister for the Taliban regime, announced on Thursday that the terrorist organization plans to formally join Chinas Belt and Road Initiative (BRI) and will … [+4762 chars]"
+Breitbart News,general,0.0,neutral,2023-11-11,Chinese dictator Xi Jinping will attend the Asia-Pacific Economic Cooperation (APEC) summit in San Francisco next week and is scheduled to be the guest of honor at a dinner attended by hundreds of U.… [+6132 chars]
+ABC News,general,0.0,neutral,2023-11-13,"LITTLE ROCK, Ark. -- Exxon Mobil on Monday announced it's drilling for lithium in southern Arkansas, with the oil giant expected to begin production of the critical material for electric vehicles by … [+1835 chars]"
+Next Big Future,science,0.0,neutral,2023-11-02,"In January, 2022, The first molecular electronics chip was developed. This achieved a 50-year-old goal of integrating single molecules into circuits toachieve the ultimate scaling limits of Moores La… [+7733 chars]"
+Fortune,business,0.3846,positive,2023-11-09,"American policymakers and automakers just got a big wake-up call with Chinas announcement that it will require a special export license for battery-grade graphite, effectively restricting exports. Wh… [+4077 chars]"
+ABC News,general,-0.3041,negative,2023-11-15,"The Energy Department is making a push to strengthen the U.S. battery supply chain, announcing up to $3.5 billion for companies that produce batteries and the critical minerals that go into them.
+Ba… [+4216 chars]"
+ABC News,general,0.0,neutral,2023-11-07,"LISBON, Portugal -- Portuguese police have arrested the chief of staff of Prime Minister António Costa while making multiple raids of public buildings and other properties as part of a widespread cor… [+1217 chars]"
+ABC News,general,-0.7716,negative,2023-11-14,"NEW YORK -- New York City officials say retailers and food delivery companies must do more to halt the proliferation of unsafe e-bike and e-scooter batteries, after a fire blamed on an electric scoot… [+3035 chars]"
+Newsweek,general,0.8768,positive,2023-11-15,"This Wednesday, November 15, is America Recycles Day, a nationally recognized day dedicated to the importance of recycling.
+It's also the perfect time to develop your understanding of recycling, lea… [+4815 chars]"
+NBC News,general,-0.7859,negative,2023-11-06,"The lithium-ion battery is a near-ubiquitous technology with a serious flaw: They sometimes catch on fire. 
+A video of crew and passengers aboard a JetBlue flight feverishly dumping water on a backp… [+4272 chars]"
+Fortune,business,-0.561,negative,2023-11-14,"Economic leaders are looking to the past for some inspiration on how to deal with the presentthe only issue is, no one seems to be able to agree which past era they should be studying. Deutsche Bank … [+4294 chars]"
 ABC News,general,0.6487,positive,2023-11-01,"TOKYO -- Toyotas July-September profit jumped nearly threefold from a year ago as vehicle sales grew around the world and a cheap yen boosted the Japanese automakers overseas earnings.
 Toyota Motor … [+2983 chars]"
-ABC News,general,-0.8907,negative,2023-10-19,"WASHINGTON -- With the growing popularity of disposable e-cigarettes, communities across the U.S. are confronting a new vaping problem: how to safely get rid of millions of small, battery-powered dev… [+8104 chars]"
+ABC News,general,-0.7607,negative,2023-11-15,"RABAT, Morocco -- A mining company controlled by Morocco 's royal family on Wednesday denied claims that operations at a site used to mine minerals for car batteries were causing hazardous levels of … [+2909 chars]"
 ABC News,general,0.6301,positive,2023-10-29,TOKYO -- Trade and economy officials from the Group of Seven wealthy democracies strengthened their pledge Sunday to work together to ensure smooth supply chains for essentials like energy and food d… [+3548 chars]
 New Scientist,science,0.0,neutral,2023-10-30,"The Athel tamarisk has ingenious ways of surviving in a dry climate
 Shutterstock / Wirestock Creators
 An evergreen desert shrub common in the Middle East excretes salt crystals onto its leaves that… [+2510 chars]"
 Newsweek,general,0.448,positive,2023-10-30,"Around the world, entrepreneurs are trying to turn green tech ideas into viable businesses. Many are working with technology that has been proven to work, but is too expensive for widespread use. The… [+11350 chars]"
+Next Big Future,science,0.0,neutral,2023-11-14,The NT Times had a recent article discussing laser nuclear fusion. Nextbigfuture has spoken with all of the nuclear fusion companies listed in the NY Times article as they all attended the 2023 Inter… [+10972 chars]
+Wired,technology,0.8491,positive,2023-11-08,"Its important to recognize the head start that China, and to some extent South Korea, has. It will take a little time to build up the scale and the supply chains and get them as efficient as they are… [+3110 chars]"
+Fortune,business,-0.6669,negative,2023-11-04,"After years of pumping cash into the sizzling electric-vehicle market, Tesla Inc. and other major automakers are facing a new dilemma: what to do when demand chills.While the battery-powered vehicle … [+6586 chars]"
+CNN,general,0.0,neutral,2023-11-14,"Editors Note: Sign up for Unlocking the World, CNN Travels weekly newsletter. Get the latest news in aviation, food and drink, where to stay and other travel developments.
+Spotting the tiny Elektra … [+10260 chars]"
 ABC News,general,0.0,neutral,2023-10-31,"RALEIGH, N.C. -- Toyota will invest an additional $8 billion in the hybrid and electric vehicle battery factory it's constructing in North Carolina, more than doubling its prior investments and expec… [+3480 chars]"
-ABC News,general,0.5985,positive,2023-10-25,"TOKYO -- TOKYO (AP) We love battery EVs.
-Takero Kato, the executive in charge of electric vehicles at Toyota, said that not once, but twice, to emphasize what he considers the message at this years … [+5263 chars]"
-ABC News,general,-0.8907,negative,2023-10-19,"WASHINGTON -- With the growing popularity of disposable e-cigarettes, communities across the U.S. are confronting a new vaping problem: how to safely get rid of millions of small, battery-powered dev… [+8105 chars]"
-ABC News,general,0.5985,positive,2023-10-25,"TOKYO -- TOKYO (AP) We love battery EVs.
-Takero Kato, the executive in charge of electric vehicles at Toyota, said that not once, but twice, to emphasize what he considers the message at this years … [+5263 chars]"
+ABC News,general,-0.9587,negative,2023-11-04,"CANBERRA, Australia -- Prime Minister Anthony Albanese said Saturday he would protest a lack of transparency in Chinas treatment of a detained Australian democracy blogger when meeting with President… [+4065 chars]"
+ABC News,general,-0.6795,negative,2023-11-02,WASHINGTON -- Treasury Secretary Janet Yellen wants Latin America to trade more with the United States as part of an initiative that so far has failed to disrupt Chinas dominance in global manufactur… [+3661 chars]
 ABC News,general,0.6487,positive,2023-11-01,"TOKYO -- Toyotas July-September profit jumped nearly threefold from a year ago as vehicle sales grew around the world and a cheap yen boosted the Japanese automakers overseas earnings.
 Toyota Motor … [+2983 chars]"
+ABC News,general,-0.6795,negative,2023-11-02,WASHINGTON -- Treasury Secretary Janet Yellen wants Latin America to trade more with the United States as part of an initiative that so far has failed to disrupt Chinas dominance in global manufactur… [+3661 chars]
 ABC News,general,0.6301,positive,2023-10-29,TOKYO -- Trade and economy officials from the Group of Seven wealthy democracies strengthened their pledge Sunday to work together to ensure smooth supply chains for essentials like energy and food d… [+3548 chars]
-Time,general,-0.3817,negative,2023-10-20,"Britney Spears knows what it means to be deprived of adulthood. As told in her highly anticipated memoir, The Woman in Me, hers is a tale of rapid maturity followed by arrested development, freedom f… [+11066 chars]"
-ABC News,general,0.5985,positive,2023-10-25,"TOKYO -- TOKYO (AP) We love battery EVs.
-Takero Kato, the executive in charge of electric vehicles at Toyota, said that not once, but twice, to emphasize what he considers the message at this years … [+5263 chars]"
-ABC News,general,0.0,neutral,2023-10-17,"BEIJING -- China is hosting its third international forum centered around President Xi Jinpings signature policy, the Belt and Road Initiative, which over the past 10 years has built infrastructure a… [+5446 chars]"
-Breitbart News,general,0.0,neutral,2023-10-17,"Chiles far-left President Gabriel Boric met with his Chinese counterpart, genocidal dictator Xi Jinping, on Tuesday, pledging to defend Beijing’s false claims over Taiwan and seeking support for his … [+5595 chars]"
-Ars Technica,technology,-0.7175,negative,2023-10-25,"Enlarge/ A GM Ultium battery pack. 
-75 with 
-Bad news for fans of cheaper electric vehicles: The planned collaboration between Honda and General Motors on a range of cheaper EVs has been canceled. … [+3548 chars]"
+ABC News,general,-0.7607,negative,2023-11-15,"RABAT, Morocco -- A mining company controlled by Morocco 's royal family on Wednesday denied claims that operations at a site used to mine minerals for car batteries were causing hazardous levels of … [+2909 chars]"
+National Geographic,science,-0.6865,negative,2023-11-16,"As a participant in multiple affiliate marketing programs, National Geographic will earn a commission for certain purchases. See full disclaimer below.*
+This year set new records for travel, a trend… [+5010 chars]"
+ABC News,general,-0.9587,negative,2023-11-04,"CANBERRA, Australia -- Prime Minister Anthony Albanese said Saturday he would protest a lack of transparency in Chinas treatment of a detained Australian democracy blogger when meeting with President… [+4464 chars]"
+The Verge,technology,-0.473,negative,2023-11-13,"Apple stunned the world when it came out in support of Californias right-to-repair law. But software locks and other obstacles seem to signal that the fight is far from over.
+Nov 13, 2023, 1:30 PM U… [+19903 chars]"
+Fortune,business,0.8039,positive,2023-11-11,"In June 2021, Brian Deese, the director of Joe Bidens National Economic Council, planted a flag in the ground. I am excited to lay out our vision for a 21st-century American industrial strategy, he s… [+19426 chars]"
+The Verge,technology,-0.8655,negative,2023-11-14,"How to electrify your life when you rent
+How to electrify your life when you rent
+ / Homeowners who want to reduce their carbon footprint by getting rid of polluting appliances have the US governme… [+8933 chars]"
+Business Insider,business,-0.7688,negative,2023-11-09,"Car fires have always been dangerous and difficult for firefighters, but highly combustible chemicals in electric car batteries are posing new challenges.
+Not unlike the gasoline tanks in internal-c… [+3052 chars]"
+Fox News,general,-0.7301,negative,2023-11-14,The New York Fire Department is warning of the dangers of non-safety certified lithium-ion batteries after an e-scooter battery was determined to be the cause of a fire that claimed the lives of thre… [+3088 chars]
+Breitbart News,general,0.0,neutral,2023-11-07,"LISBON, Portugal (AP) – Portuguese Prime Minister António Costa said Tuesday he is resigning after being involved in a widespread corruption probe.
+Costa said in a nationally televised address that … [+2545 chars]"
+Ars Technica,technology,0.2814,positive,2023-11-09,"9 with 
+There's a lot to like about electric vehicles. They're quiet, reliable, and about twice as efficient as the most frugal hybrid, not to mention that whole ""instant torque"" thing. But there's … [+2686 chars]"
 Breitbart News,general,0.3935,positive,2023-10-31,"After investing billions to adhere to President Joe Biden’s green energy agenda, General Motors (GM) is backtracking on all fronts when it comes to Electric Vehicles (EVs).
 As GM was the last of the… [+3230 chars]"
-Breitbart News,general,0.0,neutral,2023-10-23,"Nearly 7,000 auto workers at Stellantis’ Sterling Heights Assembly Plant in Sterling Heights, Michigan, have joined the United Auto Workers (UAW) strike — a major blow for the automaker as the plant … [+2519 chars]"
-Fox News,general,-0.8252,negative,2023-10-19,"With the growing popularity of disposable e-cigarettes, communities across the U.S. are confronting a new vaping problem: how to safely get rid of millions of small, battery-powered devices that are … [+7914 chars]"
+Fox News,general,-0.828,negative,2023-11-14,"New York City officials say retailers and food delivery companies must do more to halt the proliferation of unsafe e-bike and e-scooter batteries, after a fire blamed on an electric scooter's lithium… [+3610 chars]"
+Fox News,general,-0.4375,negative,2023-11-16,"When California Democrat Gov. Gavin Newsom, admitted that clean-up efforts in San Francisco this week were a consequence of ""fancy leaders coming into town,"" he did more than say the quiet part out l… [+5203 chars]"
+Breitbart News,general,0.0,neutral,2023-11-15,Rural communities in the Democratic Republic of Congo (DRC) are facing an “environmental catastrophe” as mining for cobalt and other minerals necessary for manufacturing batteries poisons their land … [+7058 chars]
 TechRadar,technology,-0.5295,negative,2023-10-30,"Yeedi Cube: One-minute review
 The Yeedi Cube comes among a litany of combo robot vacuums capable of both vacuuming and mopping. In that regard, it’s one of many. What sets it apart then is the fact … [+15208 chars]"
-NBC News,general,-0.5513,negative,2023-10-20,"Britney Spears is shedding new light onto what her life was like during her 13-year court-ordered conservatorship.
-In her upcoming memoir, The Woman In Me, obtained early by TheNew York Times, which… [+3213 chars]"
-Breitbart News,general,0.3316,positive,2023-10-27,"After investing billions into a green energy agenda mimicking President Joe Biden’s federal rules, American automakers are quickly learning that Americans are not buying electric vehicles (EVs) at th… [+5334 chars]"
-Fox News,general,0.0,neutral,2023-10-18,"In yet another attempt to regulate the car market and phase out internal combustion engines (ICE), another agency has proposed a rule with lofty ambitions of increasing fleet-wide Corporate Average F… [+4942 chars]"
+Fox News,general,-0.4456,negative,2023-11-02,"President Biden will meet with Chilean President Gabriel Boric even as the South American leaders government recalls its diplomats from Israel, a measure several countries have initiated. 
+The leade… [+4533 chars]"
+TechRadar,technology,0.0,neutral,2023-11-06,"Two-minute review
+Apple’s October reveal of the MacBook Pro 16-inch (M3) range was both an unexpected, in terms of its timing, and a risky one. We expected that Apple would bring out a successor to … [+25404 chars]"
+TechCrunch,technology,0.0,neutral,2023-11-16,"Battery cells produced at Toyota’s future North American EV factory will someday contain a little Redwood Materials DNA.
+The two companies announced Thursday that Redwood Materials will supply Toyot… [+2780 chars]"
+The Verge,technology,-0.9134,negative,2023-11-16,"The effort to climate-proof our housing is running into a mess of problems, including aging housing stock, out-of-date zoning laws, and NIMBY-ism. Can we build our way to a better future?
+ByAbigail … [+17047 chars]"
+Reuters,general,-0.5973,negative,2023-11-06,"ROME, Nov 6 (Reuters) - Italy's Industrie De Nora (DNR.MI) said its plant in Souzhou, in China, would triple its production capacity, in line with the electrode maker's plans to increase manufacturin… [+907 chars]"
+Reuters,general,0.0,neutral,2023-11-13,"WASHINGTON, Nov 13 (Reuters) - Democratic Senator Joe Manchin urged the U.S. Treasury on Monday to adopt the ""strictest possible standards"" to prevent Chinese-produced minerals or Chinese battery com… [+2466 chars]"
 Engadget,technology,-0.6099,negative,2023-11-01,"Your EV may go a long way between charges, but can it carry dozens of passengers? GreenPower can boast both of those things with its latest electric school bus called ""Mega Beast,"" it announced in a … [+1575 chars]"
-Reuters,general,-0.3458,negative,2023-10-24,"DETROIT, Oct 24 (Reuters) - General Motors (GM.N) on Tuesday withdrew its 2023 profit outlook, blaming the rising costs of United Auto Workers strikes, but the automaker's shares rose on better-than-… [+5638 chars]"
-TechCrunch,technology,0.0,neutral,2023-10-15,Ten billion. That’s how many commercially procurable molecules are available today. Start looking at them in groups of five the typical combination used to make electrolyte materials in batteries and… [+4802 chars]
-USA Today,general,-0.6586,negative,2023-10-26,"More than a dozen states now have near-total abortion bans following the overturning of Roe v. Wade, with limited medical exceptions meant to protect the patients health or life.
-But among those sta… [+12492 chars]"
+Politico,general,0.5868,positive,2023-11-06,"The administration is well aware of the high stakes in how it opts to interpret that prohibition, both for the success of Bidens climate ambitions and for his ability to persuade voters that his poli… [+11359 chars]"
