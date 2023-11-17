@@ -1,0 +1,139 @@
+---
+title: "Lithium News"
+format: html
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+```
+
+::: {.epigrafe}
+Before cleaning the dataset, the dataset had 532 rows and 4 columns:
+
+- Entity that represents the region/country of the information
+
+- Code of the Entity
+
+- Year the information was collected 
+
+- Lithium production measured in tons.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data Gathering"
+#| warning: false
+
+# Read csv file
+df_news <- read.csv('../../../data/01-modified-data/clean_sentiment_analysis.csv')
+
+# Edit datatypes
+df_news$date <- as.Date(df_news$date)
+
+df_news
+
+# Original dataset
+#knitr::kable(head(df_news, n = 10), format = "markdown")
+```
+
+**Dimensions:**
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Dataset dimensions
+dim(df_news)
+```
+
+::: {.epigrafe}
+Description
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data Cleaning"
+#| warning: false
+
+
+```
+
+**Cleaned Data:**
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Cleaned dataset
+head(df_news, n = 10)
+```
+
+**Summary:**
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+summary(df_news)
+```
+
+**Dimensions:**
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+dim(df_news)
+```

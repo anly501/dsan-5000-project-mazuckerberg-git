@@ -1,0 +1,221 @@
+---
+title: "Commodity Price"
+format: html
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+```
+
+::: {.epigrafe}
+Intro
+:::
+
+**Dataset**
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Read csv file
+df_resources <- read.csv("../../../data/01-modified-data/clean_resources-price.csv")
+
+names(df_resources) <- c("DATE", "Uranium", "Natural Gas")
+
+# Edit datatypes
+df_resources$DATE <- as.Date(df_resources$DATE)
+
+# View dataset
+knitr::kable(head(df_resources, n = 10), format = "markdown")
+```
+
+**Summary**
+
+::: {.epigrafe}
+Description
+:::
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+summary(df_resources)
+```
+
+**Histograms Visualization**
+
+::: {.epigrafe}
+Description
+
+:::
+
+``` {r, fig.width = 8, fig.height = 6}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Histogram Visualization Code"
+#| warning: false
+
+df_resources <- pivot_longer(df_resources, 
+                        cols = -DATE,
+                        names_to = "Resources",
+                        values_to = "Prices")
+
+uranium <- ggplot(df_resources[df_resources$Resources == "Uranium",]) +
+                geom_histogram(aes(x = Prices), color = "pink", bins = 30, fill = "darkred") +
+                labs(x = "Price", y = "Frequency", title = "Resource Distributions", subtitle = "Uranium") +
+                theme_minimal() +
+                theme(
+                plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+                plot.subtitle = element_text(hjust = 0.5, size = 14),
+                axis.title.x = element_text(size = 10),
+                axis.title.y = element_text(size = 10),
+                plot.margin = margin(1, 1, 1, 1, "cm")
+                )
+
+natural_gas <- ggplot(df_resources[df_resources$Resources == "Natural Gas",]) +
+                geom_histogram(aes(x = Prices), color = "pink", bins = 30, fill = "darkred") +
+                labs(x = "Price", y = "Frequency", subtitle = "Natural Gas") +
+                theme_minimal() +
+                theme(
+                plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+                plot.subtitle = element_text(hjust = 0.5, size = 14),
+                axis.title.x = element_text(size = 10),
+                axis.title.y = element_text(size = 10),
+                plot.margin = margin(1, 1, 1, 1, "cm")
+                )
+
+plots <- wrap_plots(uranium, natural_gas, nrow = 2)
+
+plots
+```
+
+**Boxplot Visualization**
+
+::: {.epigrafe}
+Description
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Boxplot Visualization Code"
+#| warning: false
+
+box <- ggplot(df_resources[df_resources$Resources == "Uranium",]) +
+            geom_boxplot(aes(y = Prices)) +
+            labs(x = "", y = "Price", title = "Resource Distributions", subtitle = "Uranium") +
+            theme_minimal() +
+            theme(
+            plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+            plot.subtitle = element_text(hjust = 0.5, size = 14),
+            axis.title.x = element_text(size = 10),
+            axis.title.y = element_text(size = 10),
+            plot.margin = margin(1, 1, 1, 1, "cm")
+            )
+
+# box <- ggplotly(box, width = 300, height = 600)
+
+box
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Boxplot Visualization Code"
+#| warning: false
+
+box <-  ggplot(df_resources[df_resources$Resources == "Natural Gas",]) +
+                geom_boxplot(aes(y = Prices)) +
+                labs(x = "", y = "Price", title = "Resource Distributions", subtitle = "Natural Gas") +
+                theme_minimal() +
+                theme(
+                plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+                plot.subtitle = element_text(hjust = 0.5, size = 14),
+                axis.title.x = element_text(size = 10),
+                axis.title.y = element_text(size = 10),
+                plot.margin = margin(1, 1, 1, 1, "cm"))
+
+# box <- ggplotly(box, width = 300, height = 600)
+
+box
+```
+
+**Time Series Visualization**
+
+::: {.epigrafe}
+Description
+
+Mention Trends
+:::
+``` {r, fig.width = 8, fig.height = 6}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Time Series Visualization Code"
+#| warning: false
+
+
+p <- ggplot(df_resources) +
+        geom_line(aes(x = DATE, y = Prices), color = "darkred") + 
+        labs(x = "Date", y = "Price", title = "Resources Prices") +
+        theme_minimal() +
+        theme(
+                plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+                axis.title.x = element_text(size = 10),
+                axis.title.y = element_text(size = 10),
+                plot.margin = margin(1, 1, 1, 1, "cm"))+
+        facet_grid(Resources ~ ., scales = "free")    
+
+#ggplotly(p, width = 650, height = 400)
+ggplotly(p)
+```
