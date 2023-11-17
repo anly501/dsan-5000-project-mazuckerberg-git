@@ -134,6 +134,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./4_1_NaiveBayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Naïve Bayes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./5_clustering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clustering</span></a>
   </div>
@@ -173,7 +179,6 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#global-lithium-production" id="toc-global-lithium-production" class="nav-link active" data-scroll-target="#global-lithium-production">Global Lithium Production</a></li>
-  <li><a href="#global-lithium-demand-projection" id="toc-global-lithium-demand-projection" class="nav-link" data-scroll-target="#global-lithium-demand-projection">Global Lithium Demand Projection</a></li>
   <li><a href="#commodity-price" id="toc-commodity-price" class="nav-link" data-scroll-target="#commodity-price">Commodity Price</a></li>
   <li><a href="#lithium-news" id="toc-lithium-news" class="nav-link" data-scroll-target="#lithium-news">Lithium News</a></li>
   <li><a href="#lithium-news---sentiment-analysis" id="toc-lithium-news---sentiment-analysis" class="nav-link" data-scroll-target="#lithium-news---sentiment-analysis">Lithium News - Sentiment Analysis</a></li>
@@ -203,7 +208,19 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell">
 <style type="text/css">
 .justify {
-  text-align: justify
+text-align: justify !important;
+text-indent: 20px;
+}
+
+
+.epigrafe {
+text-align: justify !important;
+text-indent: 20px;
+border: 1.5px solid #87c8b5;
+padding: 15px;
+font-size: 14px;
+background-color: #f9f9f9;
+margin: 20px 0px 30px 0px;
 }
 </style>
 </div>
@@ -211,12 +228,13 @@ ul.task-list li input[type="checkbox"] {
 <p align="center">
 <img src="./images/our_world_in_data.png" alt="" width="200">
 </p>
-<section id="global-lithium-production" class="level3 justify">
+<section id="global-lithium-production" class="level3">
 <h3 class="anchored" data-anchor-id="global-lithium-production">Global Lithium Production</h3>
 <p><a href="https://ourworldindata.org/grapher/lithium-production"><strong>Source</strong></a></p>
+<div class="justify">
 <p>The Global Lithium Production dataset was extracted from the Our World in Data website. The Energy Institute Statistical Review of World Energy analyzes data on world energy markets from the previous year, and Our World in Data consolidates data originally derived from the reports produced. The dataset provides information on global lithium production, including data for major producing countries and aggregations at the regional, continental, and global levels. Lithium production is measured in metric tons. The dataset covers the period from 1995 to 2022.</p>
 <p>While the dataset includes global data, this analysis will focus specifically on the evolution of lithium production, with a strong emphasis on the U.S. This approach allows for a more in-depth analysis of the growth and fluctuations of this resource, while assessing the impact on the economy.</p>
-</section>
+</div>
 <!-- ::: {.justify}
 ***
 
@@ -234,20 +252,26 @@ The Chinese Yuan to U.S. Dollar spot exchange rate dataset is a critical compone
 
 This currency conversion dataset was obtained from the Quantmod API, with the data originating from FRED economic data. The dataset provides daily exchange rates. The data source provides a wide range of dates for analysis, but the selection of the time period is determined by the information available for the other datasets and analysis variables.
 ::: -->
-<hr>
+<!-- ***
+
 <br>
 <p align="center">
-<img src="./images/statista.png" alt="" width="200">
+    <img src="./images/statista.png" alt="" width="200">
 </p>
-<section id="global-lithium-demand-projection" class="level3 justify">
-<h3 class="anchored" data-anchor-id="global-lithium-demand-projection">Global Lithium Demand Projection</h3>
-<p><a href="https://www.statista.com/statistics/452025/projected-total-demand-for-lithium-globally/"><strong>Source</strong></a></p>
-<p>A key resource for our analysis is the Global Lithium Demand Projection dataset, which provides insight into the expected global demand for lithium. This data was originally published by the Comisión Chilena del Cobre in June 2023 in the paper “El mercado de litio: Desarrollo reciente y proyecciones al 2035”. Statista makes it available by condensing the the information into a dataset.</p>
-<p>In recent years, the main source of lithium demand has come from electric vehicles. This is a trend that is expected to continue to grow progressively, so any projection of lithium demand will depend primarily on the growth of this sector. The demand projection methodology developed consists of several key steps. The first step is to obtain projected demand figures for electric vehicles. Second, it focuses on estimating the energy demand for lithium-ion batteries to be used in these vehicles. Third, the amount of lithium required for these batteries is calculated. Finally, this information is aggregated to present the projection of lithium demand specifically for electric vehicles, which is considered to be the most significant in the market. The information source for this analysis is Rho Motion, which was done in 2022.</p>
-<p>This information is useful in two ways. On the one hand, it would be interesting to perform the same steps on raw data sets instead of using the analysis already done. On the other hand, this information serves as a key dataset for our assessment of future trends and the application of machine learning models.</p>
-</section>
+
+::: {.justify}
+### Global Lithium Demand Projection
+[**Source**](https://www.statista.com/statistics/452025/projected-total-demand-for-lithium-globally/)
+
+A key resource for our analysis is the Global Lithium Demand Projection dataset, which provides insight into the expected global demand for lithium. This data was originally published by the Comisión Chilena del Cobre in June 2023 in the paper "El mercado de litio: Desarrollo reciente y proyecciones al 2035". Statista makes it available by condensing the the information into a dataset.
+
+In recent years, the main source of lithium demand has come from electric vehicles. This is a trend that is expected to continue to grow progressively, so any projection of lithium demand will depend primarily on the growth of this sector. The demand projection methodology developed consists of several key steps. The first step is to obtain projected demand figures for electric vehicles. Second, it focuses on estimating the energy demand for lithium-ion batteries to be used in these vehicles. Third, the amount of lithium required for these batteries is calculated. Finally, this information is aggregated to present the projection of lithium demand specifically for electric vehicles, which is considered to be the most significant in the market. The information source for this analysis is Rho Motion, which was done in 2022.
+
+This information is useful in two ways. On the one hand, it would be interesting to perform the same steps on raw data sets instead of using the analysis already done. On the other hand, this information serves as a key dataset for our assessment of future trends and the application of machine learning models.
+::: -->
 <hr>
 <p><br></p>
+</section>
 <section id="commodity-price" class="level3 justify">
 <h3 class="anchored" data-anchor-id="commodity-price">Commodity Price</h3>
 <ul>
@@ -259,8 +283,7 @@ This currency conversion dataset was obtained from the Quantmod API, with the da
 <li>Biofuels</li>
 <li>Electricity.</li>
 </ul>
-<p>The commodity datasets play a key role in the goal of comparing lithium to other energy sources. This initial analysis focuses primarily on price comparisons, with future analyses to include consumption patterns. The commodities included in the analysis are Uranium, Crude Oil, Natural Gas, Coal, Renewables, Biofuels and Electricity, allowing for energy market assessments.</p>
-<p>Currently, the dataset includes information related to the price of uranium over time. The data is obtained from the International Monetary Fund (IMF) and is available from January 2012, to December 2022.</p>
+<p>The commodity datasets play a key role in the goal of comparing lithium to other energy sources. This initial analysis focuses primarily on price comparisons, with future analyses to include consumption patterns. The commodities included in the analysis are …s.</p>
 </section>
 <hr>
 <br>

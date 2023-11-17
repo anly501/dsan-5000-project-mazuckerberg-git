@@ -168,6 +168,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./4_1_NaiveBayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Naïve Bayes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./5_clustering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clustering</span></a>
   </div>
@@ -208,9 +214,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#global-lithium-production" id="toc-global-lithium-production" class="nav-link" data-scroll-target="#global-lithium-production">Global Lithium Production</a></li>
-  <li><a href="#global-lithium-demand" id="toc-global-lithium-demand" class="nav-link" data-scroll-target="#global-lithium-demand">Global Lithium Demand</a></li>
-  <li><a href="#commodity-price" id="toc-commodity-price" class="nav-link" data-scroll-target="#commodity-price">Commodity Price</a></li>
-  <li><a href="#lithium-news" id="toc-lithium-news" class="nav-link" data-scroll-target="#lithium-news">Lithium News</a></li>
+  <li><a href="#lithium-companies-stocks" id="toc-lithium-companies-stocks" class="nav-link" data-scroll-target="#lithium-companies-stocks">Lithium Companies Stocks</a></li>
+  <li><a href="#resource-price" id="toc-resource-price" class="nav-link" data-scroll-target="#resource-price">Resource Price</a></li>
+  <li><a href="#lithium-news-sentiment-analysis" id="toc-lithium-news-sentiment-analysis" class="nav-link" data-scroll-target="#lithium-news-sentiment-analysis">Lithium News Sentiment Analysis</a></li>
   </ul>
 </nav>
     </div>
@@ -273,31 +279,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp2)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fma)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TSstudio)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyquant)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details>
-<summary>Python Libraries</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dateutil.relativedelta <span class="im">import</span> relativedelta</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> newsapi.newsapi_client <span class="im">import</span> NewsApiClient</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_watson <span class="im">import</span> NaturalLanguageUnderstandingV1</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_cloud_sdk_core.authenticators <span class="im">import</span> IAMAuthenticator</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_watson.natural_language_understanding_v1 <span class="im">import</span> Features, SentimentOptions</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TSstudio)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyquant)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(imputeTS)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vars)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -306,49 +300,291 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="justify">
 <p>The Global Lithium Production dataset was downloaded from the Our World in Data website as a csv file. Very few steps were applied to this dataset due to the quality of the original data.</p>
 </div>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Country</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Code</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Year</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Production</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Argentina</td>
+<td style="text-align: left;">ARG</td>
+<td style="text-align: right;">1995</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Argentina</td>
+<td style="text-align: left;">ARG</td>
+<td style="text-align: right;">1996</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Argentina</td>
+<td style="text-align: left;">ARG</td>
+<td style="text-align: right;">1997</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Argentina</td>
+<td style="text-align: left;">ARG</td>
+<td style="text-align: right;">1998</td>
+<td style="text-align: right;">1130</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Argentina</td>
+<td style="text-align: left;">ARG</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: right;">200</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p><a href="https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_lithium-production.csv">View dataset</a></p>
 <blockquote class="blockquote">
 <p><a href="https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_1_lithium_production.html">Data Cleaning - Global Lithium Production</a></p>
 </blockquote>
-<!-- 
-### Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate
-
-::: {.justify}
-
-Add description
-:::
-
-<br>
-
-> [Data Cleaning - Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_2_exchange_rate.html) -->
 </section>
-<section id="global-lithium-demand" class="level3">
-<h3 class="anchored" data-anchor-id="global-lithium-demand">Global Lithium Demand</h3>
+<section id="lithium-companies-stocks" class="level3">
+<h3 class="anchored" data-anchor-id="lithium-companies-stocks">Lithium Companies Stocks</h3>
 <div class="justify">
 <p>Add description</p>
 </div>
-<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">date</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ALB</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQM</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">MALRY</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">LTHM</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SGML</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GNENF</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">PILBF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">8394</td>
+<td style="text-align: left;">2022-12-26</td>
+<td style="text-align: right;">215.4762</td>
+<td style="text-align: right;">73.26099</td>
+<td style="text-align: right;">52.24586</td>
+<td style="text-align: right;">19.95778</td>
+<td style="text-align: right;">28.78222</td>
+<td style="text-align: right;">7.345427</td>
+<td style="text-align: right;">2.322318</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8395</td>
+<td style="text-align: left;">2022-12-27</td>
+<td style="text-align: right;">212.9210</td>
+<td style="text-align: right;">72.58228</td>
+<td style="text-align: right;">52.24586</td>
+<td style="text-align: right;">19.94000</td>
+<td style="text-align: right;">29.00000</td>
+<td style="text-align: right;">7.299978</td>
+<td style="text-align: right;">2.365613</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8396</td>
+<td style="text-align: left;">2022-12-28</td>
+<td style="text-align: right;">212.8017</td>
+<td style="text-align: right;">71.54632</td>
+<td style="text-align: right;">52.24586</td>
+<td style="text-align: right;">19.52000</td>
+<td style="text-align: right;">27.42000</td>
+<td style="text-align: right;">7.372391</td>
+<td style="text-align: right;">2.213439</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8397</td>
+<td style="text-align: left;">2022-12-29</td>
+<td style="text-align: right;">216.2119</td>
+<td style="text-align: right;">73.61823</td>
+<td style="text-align: right;">52.24586</td>
+<td style="text-align: right;">19.80000</td>
+<td style="text-align: right;">27.49000</td>
+<td style="text-align: right;">7.348906</td>
+<td style="text-align: right;">2.333334</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8398</td>
+<td style="text-align: left;">2022-12-30</td>
+<td style="text-align: right;">215.6054</td>
+<td style="text-align: right;">74.51420</td>
+<td style="text-align: right;">52.24586</td>
+<td style="text-align: right;">19.87000</td>
+<td style="text-align: right;">28.22000</td>
+<td style="text-align: right;">7.221694</td>
+<td style="text-align: right;">2.333334</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p><a href="https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_lithium-companies.csv">View dataset</a></p>
 <blockquote class="blockquote">
-<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_3_lithium_demand.html">Data Cleaning - Global Lithium Demand</a></p>
+<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_2_lithium_companies.html">Data Cleaning - Lithium Companies Stocks</a></p>
 </blockquote>
 </section>
-<section id="commodity-price" class="level3">
-<h3 class="anchored" data-anchor-id="commodity-price">Commodity Price</h3>
+<section id="resource-price" class="level3">
+<h3 class="anchored" data-anchor-id="resource-price">Resource Price</h3>
 <div class="justify">
 <p>Add description</p>
 </div>
-<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">DATE</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Aluminum</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Cobalt</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Copper</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Nickel</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Zinc</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Lithium</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2012-06-01</td>
+<td style="text-align: right;">1885.513</td>
+<td style="text-align: right;">28831.91</td>
+<td style="text-align: right;">7428.289</td>
+<td style="text-align: right;">16603.68</td>
+<td style="text-align: right;">1855.934</td>
+<td style="text-align: right;">63643.22</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2012-07-01</td>
+<td style="text-align: right;">1876.250</td>
+<td style="text-align: right;">28394.08</td>
+<td style="text-align: right;">7584.261</td>
+<td style="text-align: right;">16128.41</td>
+<td style="text-align: right;">1847.750</td>
+<td style="text-align: right;">63568.83</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2012-08-01</td>
+<td style="text-align: right;">1843.327</td>
+<td style="text-align: right;">29050.36</td>
+<td style="text-align: right;">7510.432</td>
+<td style="text-align: right;">15703.99</td>
+<td style="text-align: right;">1816.318</td>
+<td style="text-align: right;">63682.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2012-09-01</td>
+<td style="text-align: right;">2064.120</td>
+<td style="text-align: right;">29221.25</td>
+<td style="text-align: right;">8087.743</td>
+<td style="text-align: right;">17287.96</td>
+<td style="text-align: right;">2009.850</td>
+<td style="text-align: right;">64069.57</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2012-10-01</td>
+<td style="text-align: right;">1974.304</td>
+<td style="text-align: right;">26896.74</td>
+<td style="text-align: right;">8062.033</td>
+<td style="text-align: right;">17168.74</td>
+<td style="text-align: right;">1903.959</td>
+<td style="text-align: right;">64650.80</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p><a href="https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_resources-price.csv">View dataset</a></p>
 <blockquote class="blockquote">
 <p><a href="https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_4_commodity_price.html">Data Cleaning - Commodity Price</a></p>
 </blockquote>
 </section>
-<section id="lithium-news" class="level3">
-<h3 class="anchored" data-anchor-id="lithium-news">Lithium News</h3>
+<section id="lithium-news-sentiment-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="lithium-news-sentiment-analysis">Lithium News Sentiment Analysis</h3>
 <div class="justify">
 <p>Add description</p>
 </div>
-<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">category</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ibm_score</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">ibm_label</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">date</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">ibm_content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">The Verge</td>
+<td style="text-align: left;">technology</td>
+<td style="text-align: right;">0.6783</td>
+<td style="text-align: left;">positive</td>
+<td style="text-align: left;">2023-11-07</td>
+<td style="text-align: left;">Redwood Materials will recycle stationary storage batteries as it expands its scope Redwood Materials will recycle stationary storage batteries as it expands its scope / The company is recycling b… [+3842 chars]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ars Technica</td>
+<td style="text-align: left;">technology</td>
+<td style="text-align: right;">0.2886</td>
+<td style="text-align: left;">positive</td>
+<td style="text-align: left;">2023-10-31</td>
+<td style="text-align: left;">Enlarge/ GreenPower has given its class-D electric school bus a big battery bump. 39 with On Tuesday morning, the West Virginia-based GreenPower Motor Company debuted its latest electric vehicle. … [+4366 chars]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ars Technica</td>
+<td style="text-align: left;">technology</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: left;">neutral</td>
+<td style="text-align: left;">2023-11-13</td>
+<td style="text-align: left;">Enlarge/ These are piles of lithium harvested in Bolivia; Exxon's site in Arkansas will look almost entirely unlike this as it will use direct lithium extraction, not evaporation, to harvest the mine… [+1611 chars]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Business Insider</td>
+<td style="text-align: left;">business</td>
+<td style="text-align: right;">-0.5678</td>
+<td style="text-align: left;">negative</td>
+<td style="text-align: left;">2023-11-03</td>
+<td style="text-align: left;">BP's EV charging arm has bought $100 million worth of Tesla Superchargers.BP &lt;ul&gt;&lt;li&gt;Big Oil companies have dreams of becoming Big EV.&nbsp;&lt;/li&gt;&lt;li&gt;Fossil fuel heavyweights are making investments in EV … [+2964 chars]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time</td>
+<td style="text-align: left;">general</td>
+<td style="text-align: right;">-0.7521</td>
+<td style="text-align: left;">negative</td>
+<td style="text-align: left;">2023-11-07</td>
+<td style="text-align: left;">A lithium-ion battery recycler and a program to end illegal fishing are among the winners of Prince Williams Earthshot Prize, which supports companies tackling the environmental crisis. The five cha… [+2296 chars]</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p><a href="https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_sentiment_analysis.csv">View dataset</a></p>
 <blockquote class="blockquote">
-<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_5_news_api.html">Data Cleaning - Lithium News</a></p>
+<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_5_news_api.html">Data Cleaning - Lithium News Sentiment Analysis</a></p>
 </blockquote>
 
 
