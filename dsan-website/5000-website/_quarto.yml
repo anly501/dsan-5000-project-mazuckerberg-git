@@ -25,6 +25,8 @@ website:
         text: Data Cleaning
       - href: "4_data_exploration.qmd"
         text: Data Exploration
+      - href: "4_1_NaiveBayes.qmd"
+        text: Naïve Bayes
       - href: "5_clustering.qmd"
         text: Clustering
       - href: "6_dimensionality_reduction.qmd"
