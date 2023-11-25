@@ -1,0 +1,1676 @@
+"Country","Code","Year","Oil_production_TWh"
+"Brazil","BRA",1900,0
+"Brazil","BRA",1901,0
+"Brazil","BRA",1902,0
+"Brazil","BRA",1903,0
+"Brazil","BRA",1904,0
+"Brazil","BRA",1905,0
+"Brazil","BRA",1906,0
+"Brazil","BRA",1907,0
+"Brazil","BRA",1908,0
+"Brazil","BRA",1909,0
+"Brazil","BRA",1910,0
+"Brazil","BRA",1911,0
+"Brazil","BRA",1912,0
+"Brazil","BRA",1913,0
+"Brazil","BRA",1914,0
+"Brazil","BRA",1915,0
+"Brazil","BRA",1916,0
+"Brazil","BRA",1917,0
+"Brazil","BRA",1918,0
+"Brazil","BRA",1919,0
+"Brazil","BRA",1920,0
+"Brazil","BRA",1921,0
+"Brazil","BRA",1922,0
+"Brazil","BRA",1923,0
+"Brazil","BRA",1924,0
+"Brazil","BRA",1925,0
+"Brazil","BRA",1926,0
+"Brazil","BRA",1927,0
+"Brazil","BRA",1928,0
+"Brazil","BRA",1929,0
+"Brazil","BRA",1930,0
+"Brazil","BRA",1931,0
+"Brazil","BRA",1932,0
+"Brazil","BRA",1933,0
+"Brazil","BRA",1934,0
+"Brazil","BRA",1935,0
+"Brazil","BRA",1936,0
+"Brazil","BRA",1937,0
+"Brazil","BRA",1938,0
+"Brazil","BRA",1939,0
+"Brazil","BRA",1940,0
+"Brazil","BRA",1941,0
+"Brazil","BRA",1942,0.04652
+"Brazil","BRA",1943,0.06978
+"Brazil","BRA",1944,0.09304
+"Brazil","BRA",1945,0.1163
+"Brazil","BRA",1946,0.10467
+"Brazil","BRA",1947,0.15119
+"Brazil","BRA",1948,0.22097
+"Brazil","BRA",1949,0.16282
+"Brazil","BRA",1950,0.51172
+"Brazil","BRA",1951,1.0467
+"Brazil","BRA",1952,1.13974
+"Brazil","BRA",1953,1.38397
+"Brazil","BRA",1954,1.50027
+"Brazil","BRA",1955,3.07032
+"Brazil","BRA",1956,6.17553
+"Brazil","BRA",1957,15.36323
+"Brazil","BRA",1958,28.76099
+"Brazil","BRA",1959,35.85529
+"Brazil","BRA",1960,45.0081
+"Brazil","BRA",1961,52.90487
+"Brazil","BRA",1962,50.78821
+"Brazil","BRA",1963,54.30047
+"Brazil","BRA",1964,50.62539
+"Brazil","BRA",1965,58.675575
+"Brazil","BRA",1966,71.632545
+"Brazil","BRA",1967,90.1425
+"Brazil","BRA",1968,99.05112
+"Brazil","BRA",1969,108.03546
+"Brazil","BRA",1970,102.25953
+"Brazil","BRA",1971,107.041916
+"Brazil","BRA",1972,104.99714
+"Brazil","BRA",1973,106.482506
+"Brazil","BRA",1974,111.1111
+"Brazil","BRA",1975,108.2866
+"Brazil","BRA",1976,105.45653
+"Brazil","BRA",1977,101.61979
+"Brazil","BRA",1978,101.04517
+"Brazil","BRA",1979,104.676834
+"Brazil","BRA",1980,114.915504
+"Brazil","BRA",1981,134.21123
+"Brazil","BRA",1982,163.54337
+"Brazil","BRA",1983,207.35083
+"Brazil","BRA",1984,290.23807
+"Brazil","BRA",1985,342.74146
+"Brazil","BRA",1986,360.37137
+"Brazil","BRA",1987,358.51154
+"Brazil","BRA",1988,350.34323
+"Brazil","BRA",1989,374.16556
+"Brazil","BRA",1990,396.90588
+"Brazil","BRA",1991,392.28058
+"Brazil","BRA",1992,398.22037
+"Brazil","BRA",1993,406.4251
+"Brazil","BRA",1994,421.4718
+"Brazil","BRA",1995,436.17145
+"Brazil","BRA",1996,494.66245
+"Brazil","BRA",1997,530.28345
+"Brazil","BRA",1998,612.65924
+"Brazil","BRA",1999,691.94525
+"Brazil","BRA",2000,780.2455
+"Brazil","BRA",2001,816.74133
+"Brazil","BRA",2002,914.1956
+"Brazil","BRA",2003,948.01917
+"Brazil","BRA",2004,940.91486
+"Brazil","BRA",2005,1034.8539
+"Brazil","BRA",2006,1093.6329
+"Brazil","BRA",2007,1109.1145
+"Brazil","BRA",2008,1152.7557
+"Brazil","BRA",2009,1232.6158
+"Brazil","BRA",2010,1298.3738
+"Brazil","BRA",2011,1326.1354
+"Brazil","BRA",2012,1306.8228
+"Brazil","BRA",2013,1281.0779
+"Brazil","BRA",2014,1424.1478
+"Brazil","BRA",2015,1537.4033
+"Brazil","BRA",2016,1589.9032
+"Brazil","BRA",2017,1658.9243
+"Brazil","BRA",2018,1635.2148
+"Brazil","BRA",2019,1758.4464
+"Brazil","BRA",2020,1853.1815
+"Brazil","BRA",2021,1824.239
+"Brazil","BRA",2022,1896.3617
+"Canada","CAN",1900,1.41886
+"Canada","CAN",1901,1.17463
+"Canada","CAN",1902,0.82573
+"Canada","CAN",1903,0.75595
+"Canada","CAN",1904,0.86062
+"Canada","CAN",1905,0.98855
+"Canada","CAN",1906,0.88388
+"Canada","CAN",1907,1.22115
+"Canada","CAN",1908,0.8141
+"Canada","CAN",1909,0.65128
+"Canada","CAN",1910,0.48846
+"Canada","CAN",1911,0.45357
+"Canada","CAN",1912,0.37216
+"Canada","CAN",1913,0.3489
+"Canada","CAN",1914,0.33727
+"Canada","CAN",1915,0.33727
+"Canada","CAN",1916,0.30238
+"Canada","CAN",1917,0.33727
+"Canada","CAN",1918,0.47683
+"Canada","CAN",1919,0.37216
+"Canada","CAN",1920,0.30238
+"Canada","CAN",1921,0.31401
+"Canada","CAN",1922,0.30238
+"Canada","CAN",1923,0.29075
+"Canada","CAN",1924,0.26749
+"Canada","CAN",1925,0.55824
+"Canada","CAN",1926,0.54661
+"Canada","CAN",1927,0.70943
+"Canada","CAN",1928,0.9304
+"Canada","CAN",1929,1.67472
+"Canada","CAN",1930,2.27948
+"Canada","CAN",1931,2.30274
+"Canada","CAN",1932,1.55842
+"Canada","CAN",1933,1.70961
+"Canada","CAN",1934,2.10503
+"Canada","CAN",1935,2.16318
+"Canada","CAN",1936,2.24459
+"Canada","CAN",1937,3.59367
+"Canada","CAN",1938,10.15299
+"Canada","CAN",1939,11.82771
+"Canada","CAN",1940,13.11864
+"Canada","CAN",1941,15.4679
+"Canada","CAN",1942,15.8168
+"Canada","CAN",1943,15.06085
+"Canada","CAN",1944,15.16552
+"Canada","CAN",1945,12.68833
+"Canada","CAN",1946,11.23458
+"Canada","CAN",1947,11.42066
+"Canada","CAN",1948,18.57311
+"Canada","CAN",1949,32.73845
+"Canada","CAN",1950,45.42678
+"Canada","CAN",1951,74.47852
+"Canada","CAN",1952,95.78468
+"Canada","CAN",1953,126.54603
+"Canada","CAN",1954,150.2945
+"Canada","CAN",1955,202.4783
+"Canada","CAN",1956,269.01352
+"Canada","CAN",1957,284.45816
+"Canada","CAN",1958,258.87216
+"Canada","CAN",1959,289.04037
+"Canada","CAN",1960,296.66968
+"Canada","CAN",1961,345.66687
+"Canada","CAN",1962,382.21994
+"Canada","CAN",1963,403.03766
+"Canada","CAN",1964,429.5773
+"Canada","CAN",1965,510.25668
+"Canada","CAN",1966,560.70734
+"Canada","CAN",1967,612.9143
+"Canada","CAN",1968,664.29785
+"Canada","CAN",1969,723.5959
+"Canada","CAN",1970,814.8895
+"Canada","CAN",1971,874.15466
+"Canada","CAN",1972,1008.47394
+"Canada","CAN",1973,1166.6589
+"Canada","CAN",1974,1097.7156
+"Canada","CAN",1975,948.72656
+"Canada","CAN",1976,875.7928
+"Canada","CAN",1977,878.9293
+"Canada","CAN",1978,874.45825
+"Canada","CAN",1979,1003.3732
+"Canada","CAN",1980,968.42413
+"Canada","CAN",1981,876.45544
+"Canada","CAN",1982,867.18097
+"Canada","CAN",1983,913.65857
+"Canada","CAN",1984,974.7762
+"Canada","CAN",1985,996.51917
+"Canada","CAN",1986,997.11
+"Canada","CAN",1987,1050.1238
+"Canada","CAN",1988,1105.9545
+"Canada","CAN",1989,1077.1763
+"Canada","CAN",1990,1078.7738
+"Canada","CAN",1991,1084.0847
+"Canada","CAN",1992,1129.9681
+"Canada","CAN",1993,1189.5297
+"Canada","CAN",1994,1240.8297
+"Canada","CAN",1995,1301.4706
+"Canada","CAN",1996,1342.7246
+"Canada","CAN",1997,1403.7892
+"Canada","CAN",1998,1454.7723
+"Canada","CAN",1999,1407.1923
+"Canada","CAN",2000,1454.7485
+"Canada","CAN",2001,1467.3573
+"Canada","CAN",2002,1546.8191
+"Canada","CAN",2003,1635.5128
+"Canada","CAN",2004,1688.1901
+"Canada","CAN",2005,1659.3553
+"Canada","CAN",2006,1756.1113
+"Canada","CAN",2007,1810.4688
+"Canada","CAN",2008,1782.1812
+"Canada","CAN",2009,1781.1637
+"Canada","CAN",2010,1868.1315
+"Canada","CAN",2011,1978.6213
+"Canada","CAN",2012,2127.2776
+"Canada","CAN",2013,2272.614
+"Canada","CAN",2014,2439.7065
+"Canada","CAN",2015,2512.9456
+"Canada","CAN",2016,2545.1667
+"Canada","CAN",2017,2751.9355
+"Canada","CAN",2018,2997.575
+"Canada","CAN",2019,3064.065
+"Canada","CAN",2020,2931.024
+"Canada","CAN",2021,3100.7773
+"Canada","CAN",2022,3186.427
+"China","CHN",1900,0
+"China","CHN",1901,0
+"China","CHN",1902,0
+"China","CHN",1903,0
+"China","CHN",1904,0
+"China","CHN",1905,0
+"China","CHN",1906,0
+"China","CHN",1907,0
+"China","CHN",1908,0
+"China","CHN",1909,0
+"China","CHN",1910,0
+"China","CHN",1911,0
+"China","CHN",1912,0
+"China","CHN",1913,0
+"China","CHN",1914,0
+"China","CHN",1915,0
+"China","CHN",1916,0
+"China","CHN",1917,0
+"China","CHN",1918,0
+"China","CHN",1919,0
+"China","CHN",1920,0
+"China","CHN",1921,0
+"China","CHN",1922,0
+"China","CHN",1923,0
+"China","CHN",1924,0
+"China","CHN",1925,0
+"China","CHN",1926,0.02326
+"China","CHN",1927,0.03489
+"China","CHN",1928,0.03489
+"China","CHN",1929,0.04652
+"China","CHN",1930,0.5815
+"China","CHN",1931,0.70943
+"China","CHN",1932,0.8141
+"China","CHN",1933,1.01181
+"China","CHN",1934,1.06996
+"China","CHN",1935,1.63983
+"China","CHN",1936,1.93058
+"China","CHN",1937,2.25622
+"China","CHN",1938,3.16336
+"China","CHN",1939,4.46592
+"China","CHN",1940,6.80355
+"China","CHN",1941,7.71069
+"China","CHN",1942,9.50171
+"China","CHN",1943,3.61693
+"China","CHN",1944,2.33763
+"China","CHN",1945,2.03525
+"China","CHN",1946,0.8141
+"China","CHN",1947,0.60476
+"China","CHN",1948,0.84899
+"China","CHN",1949,1.37234
+"China","CHN",1950,2.34926
+"China","CHN",1951,3.55878
+"China","CHN",1952,5.07068
+"China","CHN",1953,7.23386
+"China","CHN",1954,9.17607
+"China","CHN",1955,11.23458
+"China","CHN",1956,13.52569
+"China","CHN",1957,16.9798
+"China","CHN",1958,26.33032
+"China","CHN",1959,43.031
+"China","CHN",1960,63.965
+"China","CHN",1961,72.106
+"China","CHN",1962,79.084
+"China","CHN",1963,87.225
+"China","CHN",1964,98.855
+"China","CHN",1965,131.53531
+"China","CHN",1966,169.2165
+"China","CHN",1967,161.42441
+"China","CHN",1968,185.9637
+"China","CHN",1969,252.8362
+"China","CHN",1970,356.4595
+"China","CHN",1971,458.33832
+"China","CHN",1972,531.1421
+"China","CHN",1973,623.4843
+"China","CHN",1974,754.2055
+"China","CHN",1975,896.20776
+"China","CHN",1976,1013.67084
+"China","CHN",1977,1089.0332
+"China","CHN",1978,1210.1016
+"China","CHN",1979,1234.5245
+"China","CHN",1980,1232.1985
+"China","CHN",1981,1177.1886
+"China","CHN",1982,1187.6556
+"China","CHN",1983,1233.5941
+"China","CHN",1984,1332.9143
+"China","CHN",1985,1452.587
+"China","CHN",1986,1519.9247
+"China","CHN",1987,1560.0482
+"China","CHN",1988,1593.8916
+"China","CHN",1989,1600.7532
+"China","CHN",1990,1608.5453
+"China","CHN",1991,1639.7137
+"China","CHN",1992,1651.9252
+"China","CHN",1993,1675.0688
+"China","CHN",1994,1698.9104
+"China","CHN",1995,1733.1027
+"China","CHN",1996,1843.5876
+"China","CHN",1997,1862.312
+"China","CHN",1998,1862.8933
+"China","CHN",1999,1863.3586
+"China","CHN",2000,1891.2705
+"China","CHN",2001,1916.9729
+"China","CHN",2002,1940.6516
+"China","CHN",2003,1972.2737
+"China","CHN",2004,2024.2131
+"China","CHN",2005,2109.1343
+"China","CHN",2006,2148.8252
+"China","CHN",2007,2166.8809
+"China","CHN",2008,2214.8127
+"China","CHN",2009,2203.7688
+"China","CHN",2010,2361.053
+"China","CHN",2011,2359.4421
+"China","CHN",2012,2412.9692
+"China","CHN",2013,2441.8267
+"China","CHN",2014,2458.9192
+"China","CHN",2015,2495.3328
+"China","CHN",2016,2322.3364
+"China","CHN",2017,2227.2148
+"China","CHN",2018,2201.8381
+"China","CHN",2019,2228.6338
+"China","CHN",2020,2265.1636
+"China","CHN",2021,2312.986
+"China","CHN",2022,2380.8936
+"Iran","IRN",1900,0
+"Iran","IRN",1901,0
+"Iran","IRN",1902,0
+"Iran","IRN",1903,0
+"Iran","IRN",1904,0
+"Iran","IRN",1905,0
+"Iran","IRN",1906,0.01163
+"Iran","IRN",1907,0
+"Iran","IRN",1908,0
+"Iran","IRN",1909,0
+"Iran","IRN",1910,0
+"Iran","IRN",1911,0.51172
+"Iran","IRN",1912,0.95366
+"Iran","IRN",1913,3.23314
+"Iran","IRN",1914,4.44266
+"Iran","IRN",1915,5.31491
+"Iran","IRN",1916,7.60602
+"Iran","IRN",1917,10.60656
+"Iran","IRN",1918,13.07212
+"Iran","IRN",1919,16.37504
+"Iran","IRN",1920,20.60836
+"Iran","IRN",1921,27.50495
+"Iran","IRN",1922,34.97141
+"Iran","IRN",1923,43.89162
+"Iran","IRN",1924,51.20689
+"Iran","IRN",1925,53.83527
+"Iran","IRN",1926,57.09167
+"Iran","IRN",1927,63.31372
+"Iran","IRN",1928,67.02369
+"Iran","IRN",1929,64.53487
+"Iran","IRN",1930,70.18705
+"Iran","IRN",1931,67.95409
+"Iran","IRN",1932,76.16487
+"Iran","IRN",1933,83.736
+"Iran","IRN",1934,89.06254
+"Iran","IRN",1935,88.48104
+"Iran","IRN",1936,96.8779
+"Iran","IRN",1937,120.1379
+"Iran","IRN",1938,120.47517
+"Iran","IRN",1939,113.18316
+"Iran","IRN",1940,101.79739
+"Iran","IRN",1941,77.93263
+"Iran","IRN",1942,111.03161
+"Iran","IRN",1943,114.69506
+"Iran","IRN",1944,156.8538
+"Iran","IRN",1945,198.9893
+"Iran","IRN",1946,226.76173
+"Iran","IRN",1947,238.63597
+"Iran","IRN",1948,293.8901
+"Iran","IRN",1949,316.7663
+"Iran","IRN",1950,375.1838
+"Iran","IRN",1951,196.38419
+"Iran","IRN",1952,15.8168
+"Iran","IRN",1953,15.60746
+"Iran","IRN",1954,40.72826
+"Iran","IRN",1955,191.09253
+"Iran","IRN",1956,306.27606
+"Iran","IRN",1957,418.55206
+"Iran","IRN",1958,480.02826
+"Iran","IRN",1959,539.38776
+"Iran","IRN",1960,622.10034
+"Iran","IRN",1961,689.71716
+"Iran","IRN",1962,765.35864
+"Iran","IRN",1963,855.4679
+"Iran","IRN",1964,984.03754
+"Iran","IRN",1965,1112.55
+"Iran","IRN",1966,1243.164
+"Iran","IRN",1967,1517.8029
+"Iran","IRN",1968,1660.5339
+"Iran","IRN",1969,1968.5372
+"Iran","IRN",1970,2239.7864
+"Iran","IRN",1971,2659.6023
+"Iran","IRN",1972,2950.6582
+"Iran","IRN",1973,3435.2354
+"Iran","IRN",1974,3526.1836
+"Iran","IRN",1975,3133.9348
+"Iran","IRN",1976,3453.717
+"Iran","IRN",1977,3321.8525
+"Iran","IRN",1978,3079.8574
+"Iran","IRN",1979,1866.4425
+"Iran","IRN",1980,862.45776
+"Iran","IRN",1981,769.4381
+"Iran","IRN",1982,1396.675
+"Iran","IRN",1983,1428.5646
+"Iran","IRN",1984,1192.2871
+"Iran","IRN",1985,1283.3833
+"Iran","IRN",1986,1194.3988
+"Iran","IRN",1987,1357.5194
+"Iran","IRN",1988,1365.1671
+"Iran","IRN",1989,1672.8422
+"Iran","IRN",1990,1893.2347
+"Iran","IRN",1991,2027.9333
+"Iran","IRN",1992,2043.1453
+"Iran","IRN",1993,2143.3389
+"Iran","IRN",1994,2151.3699
+"Iran","IRN",1995,2156.8594
+"Iran","IRN",1996,2170.6436
+"Iran","IRN",1997,2174.3757
+"Iran","IRN",1998,2218.8591
+"Iran","IRN",1999,2071.5051
+"Iran","IRN",2000,2229.0667
+"Iran","IRN",2001,2207.4316
+"Iran","IRN",2002,2083.1982
+"Iran","IRN",2003,2350.3044
+"Iran","IRN",2004,2428.724
+"Iran","IRN",2005,2417.5408
+"Iran","IRN",2006,2449.531
+"Iran","IRN",2007,2480.1643
+"Iran","IRN",2008,2505.3982
+"Iran","IRN",2009,2409.9597
+"Iran","IRN",2010,2465.9385
+"Iran","IRN",2011,2471.7043
+"Iran","IRN",2012,2098.9683
+"Iran","IRN",2013,1973.2856
+"Iran","IRN",2014,2024.1608
+"Iran","IRN",2015,2096.2253
+"Iran","IRN",2016,2513.76
+"Iran","IRN",2017,2697.5283
+"Iran","IRN",2018,2554.3416
+"Iran","IRN",2019,1844.6189
+"Iran","IRN",2020,1678.9973
+"Iran","IRN",2021,1963.0627
+"Iran","IRN",2022,2053.1738
+"Iraq","IRQ",1900,0
+"Iraq","IRQ",1901,0
+"Iraq","IRQ",1902,0
+"Iraq","IRQ",1903,0
+"Iraq","IRQ",1904,0
+"Iraq","IRQ",1905,0
+"Iraq","IRQ",1906,0
+"Iraq","IRQ",1907,0
+"Iraq","IRQ",1908,0
+"Iraq","IRQ",1909,0
+"Iraq","IRQ",1910,0
+"Iraq","IRQ",1911,0
+"Iraq","IRQ",1912,0
+"Iraq","IRQ",1913,0
+"Iraq","IRQ",1914,0
+"Iraq","IRQ",1915,0
+"Iraq","IRQ",1916,0
+"Iraq","IRQ",1917,0
+"Iraq","IRQ",1918,0
+"Iraq","IRQ",1919,0
+"Iraq","IRQ",1920,0
+"Iraq","IRQ",1921,0
+"Iraq","IRQ",1922,0
+"Iraq","IRQ",1923,0
+"Iraq","IRQ",1924,0
+"Iraq","IRQ",1925,0
+"Iraq","IRQ",1926,0
+"Iraq","IRQ",1927,0.52335
+"Iraq","IRQ",1928,1.09322
+"Iraq","IRQ",1929,1.40723
+"Iraq","IRQ",1930,1.40723
+"Iraq","IRQ",1931,1.3956
+"Iraq","IRQ",1932,1.41886
+"Iraq","IRQ",1933,1.33745
+"Iraq","IRQ",1934,10.86242
+"Iraq","IRQ",1935,41.37954
+"Iraq","IRQ",1936,45.28722
+"Iraq","IRQ",1937,47.83419
+"Iraq","IRQ",1938,48.12494
+"Iraq","IRQ",1939,46.08969
+"Iraq","IRQ",1940,29.15641
+"Iraq","IRQ",1941,18.22421
+"Iraq","IRQ",1942,30.17985
+"Iraq","IRQ",1943,41.54236
+"Iraq","IRQ",1944,48.42732
+"Iraq","IRQ",1945,53.57941
+"Iraq","IRQ",1946,54.4284
+"Iraq","IRQ",1947,54.68426
+"Iraq","IRQ",1948,39.84438
+"Iraq","IRQ",1949,47.29921
+"Iraq","IRQ",1950,76.57192
+"Iraq","IRQ",1951,99.92496
+"Iraq","IRQ",1952,215.39923
+"Iraq","IRQ",1953,327.8032
+"Iraq","IRQ",1954,356.16876
+"Iraq","IRQ",1955,386.59283
+"Iraq","IRQ",1956,366.05426
+"Iraq","IRQ",1957,255.83675
+"Iraq","IRQ",1958,416.5517
+"Iraq","IRQ",1959,487.7622
+"Iraq","IRQ",1960,552.0412
+"Iraq","IRQ",1961,569.6258
+"Iraq","IRQ",1962,571.82385
+"Iraq","IRQ",1963,659.0605
+"Iraq","IRQ",1964,716.722
+"Iraq","IRQ",1965,752.17535
+"Iraq","IRQ",1966,797.43195
+"Iraq","IRQ",1967,703.4816
+"Iraq","IRQ",1968,863.37915
+"Iraq","IRQ",1969,871.33185
+"Iraq","IRQ",1970,887.37213
+"Iraq","IRQ",1971,970.4379
+"Iraq","IRQ",1972,842.125
+"Iraq","IRQ",1973,1156.0471
+"Iraq","IRQ",1974,1131.332
+"Iraq","IRQ",1975,1299.1066
+"Iraq","IRQ",1976,1390.0804
+"Iraq","IRQ",1977,1348.9895
+"Iraq","IRQ",1978,1472.1066
+"Iraq","IRQ",1979,1996.2805
+"Iraq","IRQ",1980,1524.3804
+"Iraq","IRQ",1981,517.584
+"Iraq","IRQ",1982,564.10254
+"Iraq","IRQ",1983,632.14026
+"Iraq","IRQ",1984,704.0628
+"Iraq","IRQ",1985,812.2264
+"Iraq","IRQ",1986,1083.7975
+"Iraq","IRQ",1987,1363.688
+"Iraq","IRQ",1988,1589.8123
+"Iraq","IRQ",1989,1616.1876
+"Iraq","IRQ",1990,1224.6495
+"Iraq","IRQ",1991,162.1561
+"Iraq","IRQ",1992,304.08456
+"Iraq","IRQ",1993,259.72107
+"Iraq","IRQ",1994,288.36447
+"Iraq","IRQ",1995,302.68616
+"Iraq","IRQ",1996,332.23203
+"Iraq","IRQ",1997,664.58966
+"Iraq","IRQ",1998,1211.6783
+"Iraq","IRQ",1999,1491.8107
+"Iraq","IRQ",2000,1497.8922
+"Iraq","IRQ",2001,1440.6339
+"Iraq","IRQ",2002,1208.0497
+"Iraq","IRQ",2003,767.865
+"Iraq","IRQ",2004,1162.3728
+"Iraq","IRQ",2005,1045.9281
+"Iraq","IRQ",2006,1139.9895
+"Iraq","IRQ",2007,1222.1901
+"Iraq","IRQ",2008,1387.679
+"Iraq","IRQ",2009,1392.5465
+"Iraq","IRQ",2010,1405.0623
+"Iraq","IRQ",2011,1579.3668
+"Iraq","IRQ",2012,1759.7953
+"Iraq","IRQ",2013,1767.0059
+"Iraq","IRQ",2014,1846.9589
+"Iraq","IRQ",2015,2275.0127
+"Iraq","IRQ",2016,2530.7146
+"Iraq","IRQ",2017,2586.301
+"Iraq","IRQ",2018,2640.1548
+"Iraq","IRQ",2019,2723.98
+"Iraq","IRQ",2020,2349.7002
+"Iraq","IRQ",2021,2335.6458
+"Iraq","IRQ",2022,2573.8372
+"Kazakhstan","KAZ",1985,263.5358
+"Kazakhstan","KAZ",1986,270.8627
+"Kazakhstan","KAZ",1987,279.8178
+"Kazakhstan","KAZ",1988,290.2848
+"Kazakhstan","KAZ",1989,295.402
+"Kazakhstan","KAZ",1990,300.054
+"Kazakhstan","KAZ",1991,309.358
+"Kazakhstan","KAZ",1992,300.054
+"Kazakhstan","KAZ",1993,267.49
+"Kazakhstan","KAZ",1994,236.22856
+"Kazakhstan","KAZ",1995,239.96179
+"Kazakhstan","KAZ",1996,267.03644
+"Kazakhstan","KAZ",1997,299.80975
+"Kazakhstan","KAZ",1998,301.74036
+"Kazakhstan","KAZ",1999,350.42355
+"Kazakhstan","KAZ",2000,410.73672
+"Kazakhstan","KAZ",2001,466.25833
+"Kazakhstan","KAZ",2002,549.7617
+"Kazakhstan","KAZ",2003,598.34375
+"Kazakhstan","KAZ",2004,691.95593
+"Kazakhstan","KAZ",2005,715.0833
+"Kazakhstan","KAZ",2006,755.9872
+"Kazakhstan","KAZ",2007,780.6731
+"Kazakhstan","KAZ",2008,821.9061
+"Kazakhstan","KAZ",2009,889.495
+"Kazakhstan","KAZ",2010,926.7331
+"Kazakhstan","KAZ",2011,931.1083
+"Kazakhstan","KAZ",2012,921.381
+"Kazakhstan","KAZ",2013,951.18286
+"Kazakhstan","KAZ",2014,940.004
+"Kazakhstan","KAZ",2015,924.07794
+"Kazakhstan","KAZ",2016,907.50867
+"Kazakhstan","KAZ",2017,1002.44324
+"Kazakhstan","KAZ",2018,1050.881
+"Kazakhstan","KAZ",2019,1053.1604
+"Kazakhstan","KAZ",2020,996.1863
+"Kazakhstan","KAZ",2021,998.75885
+"Kazakhstan","KAZ",2022,978.53656
+"Kuwait","KWT",1900,0
+"Kuwait","KWT",1901,0
+"Kuwait","KWT",1902,0
+"Kuwait","KWT",1903,0
+"Kuwait","KWT",1904,0
+"Kuwait","KWT",1905,0
+"Kuwait","KWT",1906,0
+"Kuwait","KWT",1907,0
+"Kuwait","KWT",1908,0
+"Kuwait","KWT",1909,0
+"Kuwait","KWT",1910,0
+"Kuwait","KWT",1911,0
+"Kuwait","KWT",1912,0
+"Kuwait","KWT",1913,0
+"Kuwait","KWT",1914,0
+"Kuwait","KWT",1915,0
+"Kuwait","KWT",1916,0
+"Kuwait","KWT",1917,0
+"Kuwait","KWT",1918,0
+"Kuwait","KWT",1919,0
+"Kuwait","KWT",1920,0
+"Kuwait","KWT",1921,0
+"Kuwait","KWT",1922,0
+"Kuwait","KWT",1923,0
+"Kuwait","KWT",1924,0
+"Kuwait","KWT",1925,0
+"Kuwait","KWT",1926,0
+"Kuwait","KWT",1927,0
+"Kuwait","KWT",1928,0
+"Kuwait","KWT",1929,0
+"Kuwait","KWT",1930,0
+"Kuwait","KWT",1931,0
+"Kuwait","KWT",1932,0
+"Kuwait","KWT",1933,0
+"Kuwait","KWT",1934,0
+"Kuwait","KWT",1935,0
+"Kuwait","KWT",1936,0
+"Kuwait","KWT",1937,0
+"Kuwait","KWT",1938,0
+"Kuwait","KWT",1939,0
+"Kuwait","KWT",1940,0
+"Kuwait","KWT",1941,0
+"Kuwait","KWT",1942,0
+"Kuwait","KWT",1943,0
+"Kuwait","KWT",1944,0
+"Kuwait","KWT",1945,0
+"Kuwait","KWT",1946,9.304
+"Kuwait","KWT",1947,25.586
+"Kuwait","KWT",1948,74.432
+"Kuwait","KWT",1949,143.95615
+"Kuwait","KWT",1950,199.9197
+"Kuwait","KWT",1951,325.8377
+"Kuwait","KWT",1952,434.7992
+"Kuwait","KWT",1953,500.2528
+"Kuwait","KWT",1954,557.25146
+"Kuwait","KWT",1955,640.88275
+"Kuwait","KWT",1956,645.5464
+"Kuwait","KWT",1957,680.84344
+"Kuwait","KWT",1958,834.44086
+"Kuwait","KWT",1959,837.9764
+"Kuwait","KWT",1960,986.4566
+"Kuwait","KWT",1961,1010.6819
+"Kuwait","KWT",1962,1141.3682
+"Kuwait","KWT",1963,1223.3713
+"Kuwait","KWT",1964,1346.6726
+"Kuwait","KWT",1965,1384.1022
+"Kuwait","KWT",1966,1460.2218
+"Kuwait","KWT",1967,1469.943
+"Kuwait","KWT",1968,1548.2809
+"Kuwait","KWT",1969,1638.7595
+"Kuwait","KWT",1970,1765.4216
+"Kuwait","KWT",1971,1890.4507
+"Kuwait","KWT",1972,1946.2715
+"Kuwait","KWT",1973,1788.6992
+"Kuwait","KWT",1974,1510.3931
+"Kuwait","KWT",1975,1236.8494
+"Kuwait","KWT",1976,1278.2631
+"Kuwait","KWT",1977,1172.0682
+"Kuwait","KWT",1978,1265.1078
+"Kuwait","KWT",1979,1507.4767
+"Kuwait","KWT",1980,1009.875
+"Kuwait","KWT",1981,681.79614
+"Kuwait","KWT",1982,496.1857
+"Kuwait","KWT",1983,639.71454
+"Kuwait","KWT",1984,706.256
+"Kuwait","KWT",1985,645.34283
+"Kuwait","KWT",1986,690.7675
+"Kuwait","KWT",1987,606.09753
+"Kuwait","KWT",1988,733.22754
+"Kuwait","KWT",1989,795.61633
+"Kuwait","KWT",1990,544.2467
+"Kuwait","KWT",1991,107.19352
+"Kuwait","KWT",1992,627.50287
+"Kuwait","KWT",1993,1123.2484
+"Kuwait","KWT",1994,1202.0443
+"Kuwait","KWT",1995,1219.8585
+"Kuwait","KWT",1996,1222.6143
+"Kuwait","KWT",1997,1222.4785
+"Kuwait","KWT",1998,1279.338
+"Kuwait","KWT",1999,1192.7302
+"Kuwait","KWT",2000,1278.0026
+"Kuwait","KWT",2001,1238.9849
+"Kuwait","KWT",2002,1148.5774
+"Kuwait","KWT",2003,1344.474
+"Kuwait","KWT",2004,1433.8256
+"Kuwait","KWT",2005,1516.6808
+"Kuwait","KWT",2006,1555.5902
+"Kuwait","KWT",2007,1512.2474
+"Kuwait","KWT",2008,1584.2684
+"Kuwait","KWT",2009,1407.5665
+"Kuwait","KWT",2010,1435.0907
+"Kuwait","KWT",2011,1638.5555
+"Kuwait","KWT",2012,1790.6489
+"Kuwait","KWT",2013,1761.1348
+"Kuwait","KWT",2014,1747.1171
+"Kuwait","KWT",2015,1724.1124
+"Kuwait","KWT",2016,1776.3003
+"Kuwait","KWT",2017,1685.9868
+"Kuwait","KWT",2018,1707.8542
+"Kuwait","KWT",2019,1667.5315
+"Kuwait","KWT",2020,1525.7699
+"Kuwait","KWT",2021,1510.924
+"Kuwait","KWT",2022,1694.665
+"Mexico","MEX",1900,0
+"Mexico","MEX",1901,0.02326
+"Mexico","MEX",1902,0.05815
+"Mexico","MEX",1903,0.1163
+"Mexico","MEX",1904,0.22097
+"Mexico","MEX",1905,0.41868
+"Mexico","MEX",1906,0.83736
+"Mexico","MEX",1907,1.79102
+"Mexico","MEX",1908,6.5128
+"Mexico","MEX",1909,4.652
+"Mexico","MEX",1910,6.0476
+"Mexico","MEX",1911,21.79462
+"Mexico","MEX",1912,25.67904
+"Mexico","MEX",1913,40.20491
+"Mexico","MEX",1914,32.85475
+"Mexico","MEX",1915,51.03244
+"Mexico","MEX",1916,62.98808
+"Mexico","MEX",1917,95.97076
+"Mexico","MEX",1918,110.55478
+"Mexico","MEX",1919,150.77132
+"Mexico","MEX",1920,283.8883
+"Mexico","MEX",1921,337.01413
+"Mexico","MEX",1922,317.63855
+"Mexico","MEX",1923,264.04752
+"Mexico","MEX",1924,248.49821
+"Mexico","MEX",1925,204.99039
+"Mexico","MEX",1926,160.00554
+"Mexico","MEX",1927,113.13664
+"Mexico","MEX",1928,83.54992
+"Mexico","MEX",1929,74.44363
+"Mexico","MEX",1930,65.84906
+"Mexico","MEX",1931,55.04479
+"Mexico","MEX",1932,54.64937
+"Mexico","MEX",1933,56.6381
+"Mexico","MEX",1934,63.59284
+"Mexico","MEX",1935,67.53541
+"Mexico","MEX",1936,68.36114
+"Mexico","MEX",1937,78.04893
+"Mexico","MEX",1938,64.0813
+"Mexico","MEX",1939,71.38494
+"Mexico","MEX",1940,73.28063
+"Mexico","MEX",1941,71.6408
+"Mexico","MEX",1942,57.94066
+"Mexico","MEX",1943,58.51053
+"Mexico","MEX",1944,63.58121
+"Mexico","MEX",1945,72.46653
+"Mexico","MEX",1946,81.94498
+"Mexico","MEX",1947,93.65639
+"Mexico","MEX",1948,97.36636
+"Mexico","MEX",1949,90.92334
+"Mexico","MEX",1950,118.10265
+"Mexico","MEX",1951,126.0692
+"Mexico","MEX",1952,127.6974
+"Mexico","MEX",1953,118.1608
+"Mexico","MEX",1954,136.4199
+"Mexico","MEX",1955,145.78204
+"Mexico","MEX",1956,147.85219
+"Mexico","MEX",1957,143.95615
+"Mexico","MEX",1958,152.52745
+"Mexico","MEX",1959,157.19109
+"Mexico","MEX",1960,161.52907
+"Mexico","MEX",1961,174.13599
+"Mexico","MEX",1962,182.3584
+"Mexico","MEX",1963,187.31277
+"Mexico","MEX",1964,188.48741
+"Mexico","MEX",1965,209.9668
+"Mexico","MEX",1966,215.03337
+"Mexico","MEX",1967,237.99353
+"Mexico","MEX",1968,254.70474
+"Mexico","MEX",1969,267.08307
+"Mexico","MEX",1970,281.20184
+"Mexico","MEX",1971,280.36813
+"Mexico","MEX",1972,291.8853
+"Mexico","MEX",1973,300.7447
+"Mexico","MEX",1974,377.0003
+"Mexico","MEX",1975,466.99908
+"Mexico","MEX",1976,520.71875
+"Mexico","MEX",1977,632.27313
+"Mexico","MEX",1978,775.63153
+"Mexico","MEX",1979,938.07477
+"Mexico","MEX",1980,1246.5953
+"Mexico","MEX",1981,1488.5858
+"Mexico","MEX",1982,1756.2821
+"Mexico","MEX",1983,1711.0585
+"Mexico","MEX",1984,1724.8599
+"Mexico","MEX",1985,1696.2805
+"Mexico","MEX",1986,1591.9349
+"Mexico","MEX",1987,1663.4996
+"Mexico","MEX",1988,1659.4952
+"Mexico","MEX",1989,1663.8485
+"Mexico","MEX",1990,1688.312
+"Mexico","MEX",1991,1777.2651
+"Mexico","MEX",1992,1779.7585
+"Mexico","MEX",1993,1782.6091
+"Mexico","MEX",1994,1793.0317
+"Mexico","MEX",1995,1746.981
+"Mexico","MEX",1996,1888.243
+"Mexico","MEX",1997,1972.6746
+"Mexico","MEX",1998,2017.5048
+"Mexico","MEX",1999,1924.6742
+"Mexico","MEX",2000,1980.8431
+"Mexico","MEX",2001,2045.3356
+"Mexico","MEX",2002,2068.0566
+"Mexico","MEX",2003,2188.7676
+"Mexico","MEX",2004,2210.1963
+"Mexico","MEX",2005,2168.8948
+"Mexico","MEX",2006,2123.0002
+"Mexico","MEX",2007,2003.0498
+"Mexico","MEX",2008,1824.7035
+"Mexico","MEX",2009,1705.7043
+"Mexico","MEX",2010,1693.3341
+"Mexico","MEX",2011,1680.7505
+"Mexico","MEX",2012,1673.2366
+"Mexico","MEX",2013,1652.5209
+"Mexico","MEX",2014,1597.3098
+"Mexico","MEX",2015,1485.5498
+"Mexico","MEX",2016,1413.2421
+"Mexico","MEX",2017,1274.4688
+"Mexico","MEX",2018,1190.9146
+"Mexico","MEX",2019,1104.8539
+"Mexico","MEX",2020,1106.1436
+"Mexico","MEX",2021,1122.1359
+"Mexico","MEX",2022,1136.0168
+"Nigeria","NGA",1900,0
+"Nigeria","NGA",1901,0
+"Nigeria","NGA",1902,0
+"Nigeria","NGA",1903,0
+"Nigeria","NGA",1904,0
+"Nigeria","NGA",1905,0
+"Nigeria","NGA",1906,0
+"Nigeria","NGA",1907,0
+"Nigeria","NGA",1908,0
+"Nigeria","NGA",1909,0
+"Nigeria","NGA",1910,0
+"Nigeria","NGA",1911,0
+"Nigeria","NGA",1912,0
+"Nigeria","NGA",1913,0
+"Nigeria","NGA",1914,0
+"Nigeria","NGA",1915,0
+"Nigeria","NGA",1916,0
+"Nigeria","NGA",1917,0
+"Nigeria","NGA",1918,0
+"Nigeria","NGA",1919,0
+"Nigeria","NGA",1920,0
+"Nigeria","NGA",1921,0
+"Nigeria","NGA",1922,0
+"Nigeria","NGA",1923,0
+"Nigeria","NGA",1924,0
+"Nigeria","NGA",1925,0
+"Nigeria","NGA",1926,0
+"Nigeria","NGA",1927,0
+"Nigeria","NGA",1928,0
+"Nigeria","NGA",1929,0
+"Nigeria","NGA",1930,0
+"Nigeria","NGA",1931,0
+"Nigeria","NGA",1932,0
+"Nigeria","NGA",1933,0
+"Nigeria","NGA",1934,0
+"Nigeria","NGA",1935,0
+"Nigeria","NGA",1936,0
+"Nigeria","NGA",1937,0
+"Nigeria","NGA",1938,0
+"Nigeria","NGA",1939,0
+"Nigeria","NGA",1940,0
+"Nigeria","NGA",1941,0
+"Nigeria","NGA",1942,0
+"Nigeria","NGA",1943,0
+"Nigeria","NGA",1944,0
+"Nigeria","NGA",1945,0
+"Nigeria","NGA",1946,0
+"Nigeria","NGA",1947,0
+"Nigeria","NGA",1948,0
+"Nigeria","NGA",1949,0
+"Nigeria","NGA",1950,0
+"Nigeria","NGA",1951,0
+"Nigeria","NGA",1952,0
+"Nigeria","NGA",1953,0
+"Nigeria","NGA",1954,0
+"Nigeria","NGA",1955,0
+"Nigeria","NGA",1956,0
+"Nigeria","NGA",1957,0.01163
+"Nigeria","NGA",1958,2.97728
+"Nigeria","NGA",1959,6.19879
+"Nigeria","NGA",1960,9.73431
+"Nigeria","NGA",1961,25.98142
+"Nigeria","NGA",1962,38.07662
+"Nigeria","NGA",1963,43.17056
+"Nigeria","NGA",1964,69.00079
+"Nigeria","NGA",1965,157.08034
+"Nigeria","NGA",1966,239.22957
+"Nigeria","NGA",1967,182.8021
+"Nigeria","NGA",1968,81.167984
+"Nigeria","NGA",1969,309.52045
+"Nigeria","NGA",1970,620.473
+"Nigeria","NGA",1971,877.1751
+"Nigeria","NGA",1972,1043.0057
+"Nigeria","NGA",1973,1176.8423
+"Nigeria","NGA",1974,1291.8168
+"Nigeria","NGA",1975,1021.53784
+"Nigeria","NGA",1976,1187.2389
+"Nigeria","NGA",1977,1194.486
+"Nigeria","NGA",1978,1086.7255
+"Nigeria","NGA",1979,1318.7386
+"Nigeria","NGA",1980,1182.1919
+"Nigeria","NGA",1981,824.7004
+"Nigeria","NGA",1982,737.2808
+"Nigeria","NGA",1983,707.77814
+"Nigeria","NGA",1984,797.3189
+"Nigeria","NGA",1985,858.6715
+"Nigeria","NGA",1986,840.16785
+"Nigeria","NGA",1987,772.05383
+"Nigeria","NGA",1988,794.1685
+"Nigeria","NGA",1989,1011.5126
+"Nigeria","NGA",1990,1017.47095
+"Nigeria","NGA",1991,1117.5122
+"Nigeria","NGA",1992,1159.6453
+"Nigeria","NGA",1993,1144.7253
+"Nigeria","NGA",1994,1096.4194
+"Nigeria","NGA",1995,1105.5588
+"Nigeria","NGA",1996,1121.2941
+"Nigeria","NGA",1997,1122.7622
+"Nigeria","NGA",1998,1150.4365
+"Nigeria","NGA",1999,1073.8617
+"Nigeria","NGA",2000,1239.1555
+"Nigeria","NGA",2001,1224.6005
+"Nigeria","NGA",2002,1104.9845
+"Nigeria","NGA",2003,1304.6278
+"Nigeria","NGA",2004,1414.9651
+"Nigeria","NGA",2005,1408.9027
+"Nigeria","NGA",2006,1343.7993
+"Nigeria","NGA",2007,1246.2552
+"Nigeria","NGA",2008,1229.331
+"Nigeria","NGA",2009,1242.6493
+"Nigeria","NGA",2010,1419.1029
+"Nigeria","NGA",2011,1376.2834
+"Nigeria","NGA",2012,1353.362
+"Nigeria","NGA",2013,1271.8242
+"Nigeria","NGA",2014,1270.0397
+"Nigeria","NGA",2015,1228.846
+"Nigeria","NGA",2016,1061.333
+"Nigeria","NGA",2017,1097.865
+"Nigeria","NGA",2018,1119.5613
+"Nigeria","NGA",2019,1175.3026
+"Nigeria","NGA",2020,1027.885
+"Nigeria","NGA",2021,911.4743
+"Nigeria","NGA",2022,802.53613
+"Norway","NOR",1900,0
+"Norway","NOR",1901,0
+"Norway","NOR",1902,0
+"Norway","NOR",1903,0
+"Norway","NOR",1904,0
+"Norway","NOR",1905,0
+"Norway","NOR",1906,0
+"Norway","NOR",1907,0
+"Norway","NOR",1908,0
+"Norway","NOR",1909,0
+"Norway","NOR",1910,0
+"Norway","NOR",1911,0
+"Norway","NOR",1912,0
+"Norway","NOR",1913,0
+"Norway","NOR",1914,0
+"Norway","NOR",1915,0
+"Norway","NOR",1916,0
+"Norway","NOR",1917,0
+"Norway","NOR",1918,0
+"Norway","NOR",1919,0
+"Norway","NOR",1920,0
+"Norway","NOR",1921,0
+"Norway","NOR",1922,0
+"Norway","NOR",1923,0
+"Norway","NOR",1924,0
+"Norway","NOR",1925,0
+"Norway","NOR",1926,0
+"Norway","NOR",1927,0
+"Norway","NOR",1928,0
+"Norway","NOR",1929,0
+"Norway","NOR",1930,0
+"Norway","NOR",1931,0
+"Norway","NOR",1932,0
+"Norway","NOR",1933,0
+"Norway","NOR",1934,0
+"Norway","NOR",1935,0
+"Norway","NOR",1936,0
+"Norway","NOR",1937,0
+"Norway","NOR",1938,0
+"Norway","NOR",1939,0
+"Norway","NOR",1940,0
+"Norway","NOR",1941,0
+"Norway","NOR",1942,0
+"Norway","NOR",1943,0
+"Norway","NOR",1944,0
+"Norway","NOR",1945,0
+"Norway","NOR",1946,0
+"Norway","NOR",1947,0
+"Norway","NOR",1948,0
+"Norway","NOR",1949,0
+"Norway","NOR",1950,0
+"Norway","NOR",1951,0
+"Norway","NOR",1952,0
+"Norway","NOR",1953,0
+"Norway","NOR",1954,0
+"Norway","NOR",1955,0
+"Norway","NOR",1956,0
+"Norway","NOR",1957,0
+"Norway","NOR",1958,0
+"Norway","NOR",1959,0
+"Norway","NOR",1960,0
+"Norway","NOR",1961,0
+"Norway","NOR",1962,0
+"Norway","NOR",1963,0
+"Norway","NOR",1964,0
+"Norway","NOR",1965,0
+"Norway","NOR",1966,0
+"Norway","NOR",1967,0
+"Norway","NOR",1968,0
+"Norway","NOR",1969,0
+"Norway","NOR",1970,0
+"Norway","NOR",1971,3.4050403
+"Norway","NOR",1972,18.77903
+"Norway","NOR",1973,18.160213
+"Norway","NOR",1974,19.862734
+"Norway","NOR",1975,107.25876
+"Norway","NOR",1976,158.76816
+"Norway","NOR",1977,162.87442
+"Norway","NOR",1978,202.0324
+"Norway","NOR",1979,226.77942
+"Norway","NOR",1980,291.3272
+"Norway","NOR",1981,282.51993
+"Norway","NOR",1982,293.44254
+"Norway","NOR",1983,365.15457
+"Norway","NOR",1984,418.15393
+"Norway","NOR",1985,456.02182
+"Norway","NOR",1986,500.486
+"Norway","NOR",1987,582.8407
+"Norway","NOR",1988,662.67206
+"Norway","NOR",1989,871.1927
+"Norway","NOR",1990,955.32367
+"Norway","NOR",1991,1091.3854
+"Norway","NOR",1992,1243.2552
+"Norway","NOR",1993,1327.3126
+"Norway","NOR",1994,1495.4199
+"Norway","NOR",1995,1609.5884
+"Norway","NOR",1996,1798.7454
+"Norway","NOR",1997,1816.9309
+"Norway","NOR",1998,1739.8503
+"Norway","NOR",1999,1740.7052
+"Norway","NOR",2000,1861.6567
+"Norway","NOR",2001,1881.2806
+"Norway","NOR",2002,1830.0901
+"Norway","NOR",2003,1783.962
+"Norway","NOR",2004,1747.0891
+"Norway","NOR",2005,1609.9893
+"Norway","NOR",2006,1498.5483
+"Norway","NOR",2007,1377.3876
+"Norway","NOR",2008,1331.0986
+"Norway","NOR",2009,1260.4038
+"Norway","NOR",2010,1146.6089
+"Norway","NOR",2011,1085.8439
+"Norway","NOR",2012,1012.3336
+"Norway","NOR",2013,964.4767
+"Norway","NOR",2014,988.1589
+"Norway","NOR",2015,1019.21277
+"Norway","NOR",2016,1050.2723
+"Norway","NOR",2017,1033.6267
+"Norway","NOR",2018,968.9926
+"Norway","NOR",2019,927.94086
+"Norway","NOR",2020,1071.5087
+"Norway","NOR",2021,1091.7832
+"Norway","NOR",2022,1034.5089
+"Qatar","QAT",1900,0
+"Qatar","QAT",1901,0
+"Qatar","QAT",1902,0
+"Qatar","QAT",1903,0
+"Qatar","QAT",1904,0
+"Qatar","QAT",1905,0
+"Qatar","QAT",1906,0
+"Qatar","QAT",1907,0
+"Qatar","QAT",1908,0
+"Qatar","QAT",1909,0
+"Qatar","QAT",1910,0
+"Qatar","QAT",1911,0
+"Qatar","QAT",1912,0
+"Qatar","QAT",1913,0
+"Qatar","QAT",1914,0
+"Qatar","QAT",1915,0
+"Qatar","QAT",1916,0
+"Qatar","QAT",1917,0
+"Qatar","QAT",1918,0
+"Qatar","QAT",1919,0
+"Qatar","QAT",1920,0
+"Qatar","QAT",1921,0
+"Qatar","QAT",1922,0
+"Qatar","QAT",1923,0
+"Qatar","QAT",1924,0
+"Qatar","QAT",1925,0
+"Qatar","QAT",1926,0
+"Qatar","QAT",1927,0
+"Qatar","QAT",1928,0
+"Qatar","QAT",1929,0
+"Qatar","QAT",1930,0
+"Qatar","QAT",1931,0
+"Qatar","QAT",1932,0
+"Qatar","QAT",1933,0
+"Qatar","QAT",1934,0
+"Qatar","QAT",1935,0
+"Qatar","QAT",1936,0
+"Qatar","QAT",1937,0
+"Qatar","QAT",1938,0
+"Qatar","QAT",1939,0
+"Qatar","QAT",1940,0
+"Qatar","QAT",1941,0
+"Qatar","QAT",1942,0
+"Qatar","QAT",1943,0
+"Qatar","QAT",1944,0
+"Qatar","QAT",1945,0
+"Qatar","QAT",1946,0
+"Qatar","QAT",1947,0
+"Qatar","QAT",1948,0
+"Qatar","QAT",1949,1.163
+"Qatar","QAT",1950,19.02668
+"Qatar","QAT",1951,27.5631
+"Qatar","QAT",1952,38.34411
+"Qatar","QAT",1953,47.24106
+"Qatar","QAT",1954,55.56814
+"Qatar","QAT",1955,63.24394
+"Qatar","QAT",1956,68.33788
+"Qatar","QAT",1957,77.31624
+"Qatar","QAT",1958,95.62186
+"Qatar","QAT",1959,92.95859
+"Qatar","QAT",1960,95.50556
+"Qatar","QAT",1961,97.48266
+"Qatar","QAT",1962,102.43704
+"Qatar","QAT",1963,105.77485
+"Qatar","QAT",1964,117.75375
+"Qatar","QAT",1965,134.96996
+"Qatar","QAT",1966,168.56763
+"Qatar","QAT",1967,187.68355
+"Qatar","QAT",1968,197.49146
+"Qatar","QAT",1969,206.2202
+"Qatar","QAT",1970,210.27509
+"Qatar","QAT",1971,249.08618
+"Qatar","QAT",1972,279.9732
+"Qatar","QAT",1973,330.18402
+"Qatar","QAT",1974,300.06198
+"Qatar","QAT",1975,253.14108
+"Qatar","QAT",1976,282.8775
+"Qatar","QAT",1977,251.98256
+"Qatar","QAT",1978,280.3668
+"Qatar","QAT",1979,293.11072
+"Qatar","QAT",1980,275.31665
+"Qatar","QAT",1981,240.69855
+"Qatar","QAT",1982,196.26921
+"Qatar","QAT",1983,178.5046
+"Qatar","QAT",1984,199.42004
+"Qatar","QAT",1985,178.14629
+"Qatar","QAT",1986,200.86798
+"Qatar","QAT",1987,177.60414
+"Qatar","QAT",1988,205.23705
+"Qatar","QAT",1989,228.99637
+"Qatar","QAT",1990,245.6507
+"Qatar","QAT",1991,237.2873
+"Qatar","QAT",1992,274.47525
+"Qatar","QAT",1993,253.68784
+"Qatar","QAT",1994,248.28114
+"Qatar","QAT",1995,253.89717
+"Qatar","QAT",1996,315.21988
+"Qatar","QAT",1997,386.96454
+"Qatar","QAT",1998,390.20615
+"Qatar","QAT",1999,398.6554
+"Qatar","QAT",2000,467.28427
+"Qatar","QAT",2001,465.19556
+"Qatar","QAT",2002,434.17203
+"Qatar","QAT",2003,509.2333
+"Qatar","QAT",2004,580.2947
+"Qatar","QAT",2005,611.25684
+"Qatar","QAT",2006,659.2999
+"Qatar","QAT",2007,668.2696
+"Qatar","QAT",2008,750.18787
+"Qatar","QAT",2009,725.67804
+"Qatar","QAT",2010,824.8058
+"Qatar","QAT",2011,904.16223
+"Qatar","QAT",2012,952.5738
+"Qatar","QAT",2013,949.98724
+"Qatar","QAT",2014,928.8421
+"Qatar","QAT",2015,899.8932
+"Qatar","QAT",2016,902.2269
+"Qatar","QAT",2017,869.83575
+"Qatar","QAT",2018,873.32007
+"Qatar","QAT",2019,840.89795
+"Qatar","QAT",2020,833.2996
+"Qatar","QAT",2021,846.9084
+"Qatar","QAT",2022,861.59503
+"Russia","RUS",1985,6307.019
+"Russia","RUS",1986,6526.547
+"Russia","RUS",1987,6623.0645
+"Russia","RUS",1988,6614.9
+"Russia","RUS",1989,6422.3887
+"Russia","RUS",1990,5999.8125
+"Russia","RUS",1991,5372.4087
+"Russia","RUS",1992,4638.16
+"Russia","RUS",1993,4127.1963
+"Russia","RUS",1994,3693.4321
+"Russia","RUS",1995,3614.0107
+"Russia","RUS",1996,3522.4128
+"Russia","RUS",1997,3575.2947
+"Russia","RUS",1998,3539.474
+"Russia","RUS",1999,3544.452
+"Russia","RUS",2000,3798.947
+"Russia","RUS",2001,4090.0337
+"Russia","RUS",2002,4462.3774
+"Russia","RUS",2003,4951.0513
+"Russia","RUS",2004,5388.0737
+"Russia","RUS",2005,5522.1504
+"Russia","RUS",2006,5655.1367
+"Russia","RUS",2007,5783.959
+"Russia","RUS",2008,5748.177
+"Russia","RUS",2009,5830.85
+"Russia","RUS",2010,5958.2305
+"Russia","RUS",2011,6041.363
+"Russia","RUS",2012,6125.9355
+"Russia","RUS",2013,6189.7603
+"Russia","RUS",2014,6250.2017
+"Russia","RUS",2015,6333.144
+"Russia","RUS",2016,6495.112
+"Russia","RUS",2017,6495.898
+"Russia","RUS",2018,6604.5015
+"Russia","RUS",2019,6668.512
+"Russia","RUS",2020,6098.4463
+"Russia","RUS",2021,6266.0537
+"Russia","RUS",2022,6379.2515
+"Saudi Arabia","SAU",1900,0
+"Saudi Arabia","SAU",1901,0
+"Saudi Arabia","SAU",1902,0
+"Saudi Arabia","SAU",1903,0
+"Saudi Arabia","SAU",1904,0
+"Saudi Arabia","SAU",1905,0
+"Saudi Arabia","SAU",1906,0
+"Saudi Arabia","SAU",1907,0
+"Saudi Arabia","SAU",1908,0
+"Saudi Arabia","SAU",1909,0
+"Saudi Arabia","SAU",1910,0
+"Saudi Arabia","SAU",1911,0
+"Saudi Arabia","SAU",1912,0
+"Saudi Arabia","SAU",1913,0
+"Saudi Arabia","SAU",1914,0
+"Saudi Arabia","SAU",1915,0
+"Saudi Arabia","SAU",1916,0
+"Saudi Arabia","SAU",1917,0
+"Saudi Arabia","SAU",1918,0
+"Saudi Arabia","SAU",1919,0
+"Saudi Arabia","SAU",1920,0
+"Saudi Arabia","SAU",1921,0
+"Saudi Arabia","SAU",1922,0
+"Saudi Arabia","SAU",1923,0
+"Saudi Arabia","SAU",1924,0
+"Saudi Arabia","SAU",1925,0
+"Saudi Arabia","SAU",1926,0
+"Saudi Arabia","SAU",1927,0
+"Saudi Arabia","SAU",1928,0
+"Saudi Arabia","SAU",1929,0
+"Saudi Arabia","SAU",1930,0
+"Saudi Arabia","SAU",1931,0
+"Saudi Arabia","SAU",1932,0
+"Saudi Arabia","SAU",1933,0
+"Saudi Arabia","SAU",1934,0
+"Saudi Arabia","SAU",1935,0
+"Saudi Arabia","SAU",1936,0.02326
+"Saudi Arabia","SAU",1937,0.09304
+"Saudi Arabia","SAU",1938,0.77921
+"Saudi Arabia","SAU",1939,6.26857
+"Saudi Arabia","SAU",1940,8.141
+"Saudi Arabia","SAU",1941,6.8617
+"Saudi Arabia","SAU",1942,7.2106
+"Saudi Arabia","SAU",1943,7.5595
+"Saudi Arabia","SAU",1944,12.36269
+"Saudi Arabia","SAU",1945,33.40136
+"Saudi Arabia","SAU",1946,95.366
+"Saudi Arabia","SAU",1947,143.049
+"Saudi Arabia","SAU",1948,221.87714
+"Saudi Arabia","SAU",1949,270.26956
+"Saudi Arabia","SAU",1950,309.92786
+"Saudi Arabia","SAU",1951,431.72885
+"Saudi Arabia","SAU",1952,468.84018
+"Saudi Arabia","SAU",1953,478.83035
+"Saudi Arabia","SAU",1954,545.226
+"Saudi Arabia","SAU",1955,554.33234
+"Saudi Arabia","SAU",1956,570.3003
+"Saudi Arabia","SAU",1957,581.7791
+"Saudi Arabia","SAU",1958,599.9452
+"Saudi Arabia","SAU",1959,656.30414
+"Saudi Arabia","SAU",1960,750.4141
+"Saudi Arabia","SAU",1961,854.0723
+"Saudi Arabia","SAU",1962,948.2521
+"Saudi Arabia","SAU",1963,1031.9182
+"Saudi Arabia","SAU",1964,1099.8026
+"Saudi Arabia","SAU",1965,1291.2112
+"Saudi Arabia","SAU",1966,1523.1675
+"Saudi Arabia","SAU",1967,1643.169
+"Saudi Arabia","SAU",1968,1793.6106
+"Saudi Arabia","SAU",1969,1892.793
+"Saudi Arabia","SAU",1970,2234.9546
+"Saudi Arabia","SAU",1971,2800.4424
+"Saudi Arabia","SAU",1972,3538.2239
+"Saudi Arabia","SAU",1973,4466.09
+"Saudi Arabia","SAU",1974,4996.796
+"Saudi Arabia","SAU",1975,4179.089
+"Saudi Arabia","SAU",1976,5085.341
+"Saudi Arabia","SAU",1977,5447.446
+"Saudi Arabia","SAU",1978,4936.231
+"Saudi Arabia","SAU",1979,5675.5664
+"Saudi Arabia","SAU",1980,5929.0127
+"Saudi Arabia","SAU",1981,5888.819
+"Saudi Arabia","SAU",1982,3956.3428
+"Saudi Arabia","SAU",1983,2794.4504
+"Saudi Arabia","SAU",1984,2547.3987
+"Saudi Arabia","SAU",1985,2001.202
+"Saudi Arabia","SAU",1986,2937.7393
+"Saudi Arabia","SAU",1987,2484.2625
+"Saudi Arabia","SAU",1988,3178.5789
+"Saudi Arabia","SAU",1989,3153.7424
+"Saudi Arabia","SAU",1990,3984.946
+"Saudi Arabia","SAU",1991,4981.6616
+"Saudi Arabia","SAU",1992,5141.365
+"Saudi Arabia","SAU",1993,4992.883
+"Saudi Arabia","SAU",1994,5026.3213
+"Saudi Arabia","SAU",1995,5015.5874
+"Saudi Arabia","SAU",1996,5087.378
+"Saudi Arabia","SAU",1997,5024.416
+"Saudi Arabia","SAU",1998,5178.7773
+"Saudi Arabia","SAU",1999,4751.1567
+"Saudi Arabia","SAU",2000,5099.946
+"Saudi Arabia","SAU",2001,4974.1143
+"Saudi Arabia","SAU",2002,4536.3174
+"Saudi Arabia","SAU",2003,5355.6123
+"Saudi Arabia","SAU",2004,5731.1167
+"Saudi Arabia","SAU",2005,6008.3857
+"Saudi Arabia","SAU",2006,5918.9785
+"Saudi Arabia","SAU",2007,5686.37
+"Saudi Arabia","SAU",2008,5930.9995
+"Saudi Arabia","SAU",2009,5338.2544
+"Saudi Arabia","SAU",2010,5388.1865
+"Saudi Arabia","SAU",2011,6079.007
+"Saudi Arabia","SAU",2012,6387.4927
+"Saudi Arabia","SAU",2013,6261.744
+"Saudi Arabia","SAU",2014,6324.668
+"Saudi Arabia","SAU",2015,6606.238
+"Saudi Arabia","SAU",2016,6823.4634
+"Saudi Arabia","SAU",2017,6504.885
+"Saudi Arabia","SAU",2018,6708.389
+"Saudi Arabia","SAU",2019,6472.84
+"Saudi Arabia","SAU",2020,6042.749
+"Saudi Arabia","SAU",2021,5989.718
+"Saudi Arabia","SAU",2022,6665.056
+"United Arab Emirates","ARE",1900,0
+"United Arab Emirates","ARE",1901,0
+"United Arab Emirates","ARE",1902,0
+"United Arab Emirates","ARE",1903,0
+"United Arab Emirates","ARE",1904,0
+"United Arab Emirates","ARE",1905,0
+"United Arab Emirates","ARE",1906,0
+"United Arab Emirates","ARE",1907,0
+"United Arab Emirates","ARE",1908,0
+"United Arab Emirates","ARE",1909,0
+"United Arab Emirates","ARE",1910,0
+"United Arab Emirates","ARE",1911,0
+"United Arab Emirates","ARE",1912,0
+"United Arab Emirates","ARE",1913,0
+"United Arab Emirates","ARE",1914,0
+"United Arab Emirates","ARE",1915,0
+"United Arab Emirates","ARE",1916,0
+"United Arab Emirates","ARE",1917,0
+"United Arab Emirates","ARE",1918,0
+"United Arab Emirates","ARE",1919,0
+"United Arab Emirates","ARE",1920,0
+"United Arab Emirates","ARE",1921,0
+"United Arab Emirates","ARE",1922,0
+"United Arab Emirates","ARE",1923,0
+"United Arab Emirates","ARE",1924,0
+"United Arab Emirates","ARE",1925,0
+"United Arab Emirates","ARE",1926,0
+"United Arab Emirates","ARE",1927,0
+"United Arab Emirates","ARE",1928,0
+"United Arab Emirates","ARE",1929,0
+"United Arab Emirates","ARE",1930,0
+"United Arab Emirates","ARE",1931,0
+"United Arab Emirates","ARE",1932,0
+"United Arab Emirates","ARE",1933,0
+"United Arab Emirates","ARE",1934,0
+"United Arab Emirates","ARE",1935,0
+"United Arab Emirates","ARE",1936,0
+"United Arab Emirates","ARE",1937,0
+"United Arab Emirates","ARE",1938,0
+"United Arab Emirates","ARE",1939,0
+"United Arab Emirates","ARE",1940,0
+"United Arab Emirates","ARE",1941,0
+"United Arab Emirates","ARE",1942,0
+"United Arab Emirates","ARE",1943,0
+"United Arab Emirates","ARE",1944,0
+"United Arab Emirates","ARE",1945,0
+"United Arab Emirates","ARE",1946,0
+"United Arab Emirates","ARE",1947,0
+"United Arab Emirates","ARE",1948,0
+"United Arab Emirates","ARE",1949,0
+"United Arab Emirates","ARE",1950,0
+"United Arab Emirates","ARE",1951,0
+"United Arab Emirates","ARE",1952,0
+"United Arab Emirates","ARE",1953,0
+"United Arab Emirates","ARE",1954,0
+"United Arab Emirates","ARE",1955,0
+"United Arab Emirates","ARE",1956,0
+"United Arab Emirates","ARE",1957,0
+"United Arab Emirates","ARE",1958,0
+"United Arab Emirates","ARE",1959,0
+"United Arab Emirates","ARE",1960,0
+"United Arab Emirates","ARE",1961,0
+"United Arab Emirates","ARE",1962,9.28074
+"United Arab Emirates","ARE",1963,28.21438
+"United Arab Emirates","ARE",1964,105.78648
+"United Arab Emirates","ARE",1965,158.93922
+"United Arab Emirates","ARE",1966,202.75734
+"United Arab Emirates","ARE",1967,215.20438
+"United Arab Emirates","ARE",1968,280.45877
+"United Arab Emirates","ARE",1969,353.58624
+"United Arab Emirates","ARE",1970,439.08228
+"United Arab Emirates","ARE",1971,596.7261
+"United Arab Emirates","ARE",1972,679.2343
+"United Arab Emirates","ARE",1973,863.18304
+"United Arab Emirates","ARE",1974,945.4124
+"United Arab Emirates","ARE",1975,937.07684
+"United Arab Emirates","ARE",1976,1093.5983
+"United Arab Emirates","ARE",1977,1125.703
+"United Arab Emirates","ARE",1978,1030.9653
+"United Arab Emirates","ARE",1979,1031.0718
+"United Arab Emirates","ARE",1980,974.6628
+"United Arab Emirates","ARE",1981,861.628
+"United Arab Emirates","ARE",1982,749.46564
+"United Arab Emirates","ARE",1983,705.9224
+"United Arab Emirates","ARE",1984,676.1817
+"United Arab Emirates","ARE",1985,650.816
+"United Arab Emirates","ARE",1986,751.5359
+"United Arab Emirates","ARE",1987,793.14496
+"United Arab Emirates","ARE",1988,837.8947
+"United Arab Emirates","ARE",1989,989.44775
+"United Arab Emirates","ARE",1990,1083.3516
+"United Arab Emirates","ARE",1991,1242.6837
+"United Arab Emirates","ARE",1992,1368.6174
+"United Arab Emirates","ARE",1993,1330.0209
+"United Arab Emirates","ARE",1994,1341.0413
+"United Arab Emirates","ARE",1995,1330.6033
+"United Arab Emirates","ARE",1996,1359.7686
+"United Arab Emirates","ARE",1997,1364.287
+"United Arab Emirates","ARE",1998,1413.2999
+"United Arab Emirates","ARE",1999,1302.896
+"United Arab Emirates","ARE",2000,1413.3167
+"United Arab Emirates","ARE",2001,1377.1503
+"United Arab Emirates","ARE",2002,1267.8835
+"United Arab Emirates","ARE",2003,1467.5858
+"United Arab Emirates","ARE",2004,1526.739
+"United Arab Emirates","ARE",2005,1588.1108
+"United Arab Emirates","ARE",2006,1693.9802
+"United Arab Emirates","ARE",2007,1670.5735
+"United Arab Emirates","ARE",2008,1689.2214
+"United Arab Emirates","ARE",2009,1498.1176
+"United Arab Emirates","ARE",2010,1561.2549
+"United Arab Emirates","ARE",2011,1737.4958
+"United Arab Emirates","ARE",2012,1801.5314
+"United Arab Emirates","ARE",2013,1879.6893
+"United Arab Emirates","ARE",2014,1895.0093
+"United Arab Emirates","ARE",2015,2036.3232
+"United Arab Emirates","ARE",2016,2112.0898
+"United Arab Emirates","ARE",2017,2034.374
+"United Arab Emirates","ARE",2018,2046.3977
+"United Arab Emirates","ARE",2019,2092.2188
+"United Arab Emirates","ARE",2020,1929.9459
+"United Arab Emirates","ARE",2021,1900.77
+"United Arab Emirates","ARE",2022,2106.3857
+"United States","USA",1900,98.64566
+"United States","USA",1901,107.60076
+"United States","USA",1902,137.64105
+"United States","USA",1903,155.78384
+"United States","USA",1904,181.55592
+"United States","USA",1905,208.89806
+"United States","USA",1906,196.15158
+"United States","USA",1907,257.55798
+"United States","USA",1908,276.8405
+"United States","USA",1909,284.0395
+"United States","USA",1910,324.95383
+"United States","USA",1911,341.84058
+"United States","USA",1912,345.70175
+"United States","USA",1913,385.25537
+"United States","USA",1914,412.10904
+"United States","USA",1915,435.8924
+"United States","USA",1916,466.363
+"United States","USA",1917,519.9773
+"United States","USA",1918,551.9249
+"United States","USA",1919,605.9114
+"United States","USA",1920,722.4789
+"United States","USA",1921,752.67035
+"United States","USA",1922,888.7064
+"United States","USA",1923,1167.3147
+"United States","USA",1924,1140.0192
+"United States","USA",1925,1216.7539
+"United States","USA",1926,1238.2926
+"United States","USA",1927,1436.1422
+"United States","USA",1928,1437.375
+"United States","USA",1929,1606.1495
+"United States","USA",1930,1431.8507
+"United States","USA",1931,1357.0233
+"United States","USA",1932,1251.9114
+"United States","USA",1933,1425.0936
+"United States","USA",1934,1429.6875
+"United States","USA",1935,1566.2703
+"United States","USA",1936,1728.2877
+"United States","USA",1937,2010.4199
+"United States","USA",1938,1908.5645
+"United States","USA",1939,1988.1019
+"United States","USA",1940,2126.813
+"United States","USA",1941,2203.8384
+"United States","USA",1942,2179.3457
+"United States","USA",1943,2365.635
+"United States","USA",1944,2637.114
+"United States","USA",1945,2693.2986
+"United States","USA",1946,2725.1765
+"United States","USA",1947,2918.5718
+"United States","USA",1948,3175.0713
+"United States","USA",1949,2894.928
+"United States","USA",1950,3101.814
+"United States","USA",1951,3532.659
+"United States","USA",1952,3598.8687
+"United States","USA",1953,3704.562
+"United States","USA",1954,3638.399
+"United States","USA",1955,3904.7026
+"United States","USA",1956,4113.508
+"United States","USA",1957,4112.903
+"United States","USA",1958,3849.0066
+"United States","USA",1959,4046.4143
+"United States","USA",1960,4046.9492
+"United States","USA",1961,4120.544
+"United States","USA",1962,4206.094
+"United States","USA",1963,4326.3716
+"United States","USA",1964,4379.963
+"United States","USA",1965,4974.0864
+"United States","USA",1966,5286.2866
+"United States","USA",1967,5631.4976
+"United States","USA",1968,5848.4985
+"United States","USA",1969,5947.0205
+"United States","USA",1970,6204.4873
+"United States","USA",1971,6116.076
+"United States","USA",1972,6139.336
+"United States","USA",1973,5985.4062
+"United States","USA",1974,5715.0557
+"United States","USA",1975,5463.43
+"United States","USA",1976,5326.3057
+"United States","USA",1977,5382.4077
+"United States","USA",1978,5631.312
+"United States","USA",1979,5547.409
+"United States","USA",1980,5584.6494
+"United States","USA",1981,5568.406
+"United States","USA",1982,5590.8115
+"United States","USA",1983,5616.8555
+"United States","USA",1984,5770.069
+"United States","USA",1985,5799.941
+"United States","USA",1986,5609.4917
+"United States","USA",1987,5434.2373
+"United States","USA",1988,5338.8906
+"United States","USA",1989,4989.655
+"United States","USA",1990,4845.259
+"United States","USA",1991,4918.2886
+"United States","USA",1992,4803.5605
+"United States","USA",1993,4617.1855
+"United States","USA",1994,4506.6177
+"United States","USA",1995,4460.73
+"United States","USA",1996,4443.334
+"United States","USA",1997,4418.8193
+"United States","USA",1998,4281.3467
+"United States","USA",1999,4101.04
+"United States","USA",2000,4042.3733
+"United States","USA",2001,4006.665
+"United States","USA",2002,3976.3623
+"United States","USA",2003,3867.6333
+"United States","USA",2004,3783.905
+"United States","USA",2005,3593.5337
+"United States","USA",2006,3541.373
+"United States","USA",2007,3546.8767
+"United States","USA",2008,3514.8438
+"United States","USA",2009,3751.6802
+"United States","USA",2010,3874.478
+"United States","USA",2011,4028.8867
+"United States","USA",2012,4597.0796
+"United States","USA",2013,5218.0586
+"United States","USA",2014,6102.5527
+"United States","USA",2015,6595.9434
+"United States","USA",2016,6312.184
+"United States","USA",2017,6678.5654
+"United States","USA",2018,7788.5522
+"United States","USA",2019,8736.102
+"United States","USA",2020,8295.474
+"United States","USA",2021,8317.922
+"United States","USA",2022,8832.521
