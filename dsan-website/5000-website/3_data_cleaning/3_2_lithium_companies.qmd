@@ -140,7 +140,10 @@ df_list <- list()
 start <- "2000-01-01"
 end <- "2022-12-31"
 
-tickers <- c("ALB", "SQM", "MALRY", "LTHM", "SGML", "GNENF", "PILBF")
+tickers_Lithium <- c("ALB", "SQM", "MALRY", "LTHM", "SGML", "GNENF", "PILBF")
+tickers_EV <- c("TSLA", "F", "LI", "ON", "RIVN", "XPEV", "LVWR", "AEHR")
+
+tickers <- append(tickers_Lithium, tickers_EV)
 
 for(i in tickers){
     df <- tq_get(i, get = "stock.prices", from = start, to = end)
