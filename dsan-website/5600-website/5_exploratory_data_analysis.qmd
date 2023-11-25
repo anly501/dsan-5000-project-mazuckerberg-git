@@ -69,7 +69,15 @@ The following plot, shows the data for the top 15 oil-producing countries in 202
 
 <br>
 
-> [Exploratory Data Analisis - Global Oil Production](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_1_oil_production.html)
+> [Exploratory Data Analisis - U.S Oil Production by Year](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_production_year.html)
+
+
+::: {.justify}
+
+A first analysis was done by year. It's important to analyze the monthly data to understand changes in trends and to assess the presence of seasonality or cycles.
+:::
+
+> [Exploratory Data Analisis - U.S Oil Production by Month](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_production_month.html)
 
 ### Crude Oil Price
 
@@ -78,7 +86,78 @@ The following plot, shows the data for the top 15 oil-producing countries in 202
 Price is a key characteristic to analyze in order to understand the behavior of a product in the market. One relevant dataset that has been included is the price of crude oil. An extensive exploratory data analysis of the daily price of crude oil was developed to gain insight into market fluctuations and trends from a time series perspective.
 :::
 
-> [Exploratory Data Analisis - Crude Oil Price](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_2_oil_price.html)
+> [Exploratory Data Analisis - Crude Oil Price by Year](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_price_year.html)
 
+> [Exploratory Data Analisis - Crude Oil Price by Month](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_price_month.html)
+
+
+<!-- ### Inflation Rate -->
+
+<!-- ::: {.justify}
+
+Description.
+:::
+
+> [Exploratory Data Analisis - Inflation Rate](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_3_inflation.html) -->
+
+
+<!-- ### Interest Rate -->
+
+<!-- ::: {.justify}
+
+Description.
+:::
+
+> [Exploratory Data Analisis - Interest Rate](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_4_interest.html) -->
+
+
+<!-- ### Food Production -->
+
+<!-- ::: {.justify}
+
+Description.
+:::
+
+> [Exploratory Data Analisis - Food Production](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_5_food_production.html) -->
+
+
+<!-- ### Healthcare Index -->
+
+<!-- ::: {.justify}
+
+Description.
+:::
+
+> [Exploratory Data Analisis - Healthcare Index](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_6_healthcare_index.html) -->
+
+
+### Bus Passenger Trips
+
+::: {.justify}
+
+Description.
+:::
+
+> [Exploratory Data Analisis - Bus Passenger Trips](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_bus_passengers.html)
+
+
+<!-- ### Air Personal Expenditure -->
+
+<!-- ::: {.justify}
+
+Description.
+:::
+
+> [Exploratory Data Analisis - Air Personal Expenditure](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_8_air_transport.html) -->
+
+
+<!-- ### Bicycles Personal Expenditure -->
+
+<!-- ::: {.justify}
+
+Description.
+:::
+
+> [Exploratory Data Analisis - Bicycles Personal Expenditure](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_9_bikes.html) -->
 
 

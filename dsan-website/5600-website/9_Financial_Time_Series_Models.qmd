@@ -1,3 +1,94 @@
 ---
 title: "Financial Time Series Models (ARCH/GARCH)"
 ---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+### Overview
+
+::: {.justify}
+
+In this section, we evaluate the application of Autoregressive Conditional Heteroskedasticity (ARCH) and Generalized Autoregressive Conditional Heteroskedasticity (GARCH) models. These models are commonly used in finance to capture changing volatility over time in a time series. 
+
+For each analysis, we will model and predict the volatility of future returns. Volatility is a measure of the dispersion of returns on a given market index. We will evaluate the application of the models by analyzing stationarity and volatility by using ACF plots and the Augmented Dickey-Fuller Test. We apply decomposition and differencing methods to make the data stationary when necessary. Where appropriate, we evaluate the model parameters and  auto.arima() results using model diagnostics to obtain the best ARIMA model. The model residuals are plotted using ACF and PACF to determine the possible parameters for ARCH and GARCH models. Once the best model is obtained, the forecast is plotted.
+
+To assess the impact of oil price and production fluctuations on the manufacturing sector, we will use food production and the healthcare index.
+:::
+
+Below are the libraries used in this section:
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+library(vars)
+library(dplyr)
+library(car)
+library(fGarch)
+```
+
+<!-- 
+### Food Index ~ Oil Price + Oil Production
+
+::: {.justify}
+
+Buses depend on fuel to operate and that fluctuations in oil prices affect the cost of primary fuel. One of the variables that will be analyzed within the transportation industry is bus passenger trips using a seasonal autoregressive integrated moving average model with oil price as the exogenous variable.
+
+The analysis process and the forecast model elaborated can be found below.
+:::
+
+> [SARIMAX Model](https://mazuckerberg.georgetown.domains/DSAN_5600/7_ARIMAX/7_SARIMAX_bus.html)
+
+<img src="./images/7_SARIMAX_bus.png" width=80% height=80%> -->
+
+
+### Healthcare Index ~ Oil Price + Oil Production
+
+::: {.justify}
+
+Below, we can observe the prediction of 100 points with confidence intervals for the Healthcare Index using the ARIMA + GARCH model. The steps applied and the detailed time series analysis can be found in the found in the following link:
+:::
+
+> [ARIMA + GARCH Model](https://mazuckerberg.georgetown.domains/DSAN_5600/9_GARCH/9_health.html)
+
+<img src="./images/9_GARCH_health.png" width=80% height=80%>

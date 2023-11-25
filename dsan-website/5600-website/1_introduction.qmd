@@ -34,28 +34,31 @@ It is important to develop a time series model based on historical data and even
 
 1. How has the distribution of total global oil production among the main oil-producing countries evolved over the past two decades?
 2. How do voluntary decisions made by organizations like OPEC (Organization of the Petroleum Exporting Countries), such as production cuts or increases, influence fluctuations in global oil prices?
-3. How do exogenous factors and events influence the volatility and trends in global oil prices?
-4. How have the US macroeconomic indicators, such as inflation rate, interest rates variation and currency exchange rate, responded to oil price shocks over the past years?
+3. How does the global oil price influence U.S. oil production? Is there an opposite relationship between them?
+4. How have the US macroeconomic indicators, such as inflation rate and interest rates variation responded to oil price shocks over the past years?
 5. How have fluctuations in U.S. macroeconomic indicators influenced the global oil price over the past years?
-6. How do fluctuations in oil prices impact stock market performance, such as energy, transportation, and staples sectors?
-7. To what extent do variations in oil prices affect investor preferences for specific sectors, and how do they influence in stock market trends?
-8. How do changes in oil prices affect consumers' attitudes and behaviors regarding personal finance, including spending and saving decisions?
-9. How can time series analysis of historical oil price data be used to develop short-term and long-term forecasts of oil price fluctuations?
-10. To what extent can the adoption of renewable energies and the reduction of exposure to fossil fuel price fluctuations contribute to improving economic stability?
+6. How do fluctuations in oil prices and U.S oil production impact the Food Industry?
+7. How do fluctuations in oil prices and U.S oil production impact the Pharmaceutical Industry?
+8. How do changes in oil prices affect consumers' attitudes and behaviors regarding personal transportation, including spending and saving decisions?
+9. How do exogenous factors and events influence the volatility and trends in global oil prices?
+10. How can time series analysis of historical oil price data be used to develop short-term and long-term forecasts of oil price fluctuations?
 
 ## Big Picture
 ::: {.justify}
 Petroleum and its derivatives are an essential raw material in almost every manufacturing process. Since there are currently no substitutes available in sufficient quantities, their price is a determining factor in the cost structure of the final products. Therefore, any significant change in price has a direct impact on the real economy. This forces governments to make decisions to mitigate potential negative effects by adjusting public economic policies.
 
-When oil prices rise, consumers may reduce their spending on other goods and services due to higher energy costs. Consumer confidence may also be adversely affected, thereby affecting spending patterns.
+The cost dynamics of both the pharmaceutical and food industries are significantly impacted by oil prices, affecting various facets of their operations.
+Fluctuations in oil prices affect the cost of raw materials, particularly chemicals and plastics used in packaging, which can increase companies' production costs as oil prices rise. In addition, higher oil prices contribute to increased transportation costs for shipping both raw materials and finished products, affecting the overall cost structure of the supply chain. Given the energy-intensive nature of pharmaceutical manufacturing, changes in oil prices can affect energy costs, thereby impacting operational expenses and potentially lead to higher production costs. Moreover, high oil prices can increase fuel costs, influencing consumers' disposable income and, consequently, their spending patterns on food and pharmaceutical products. The complex relationship between oil prices and these industries is further shaped by factors such as geographic location, supply chain strategies and the nature of the product within the broader context of the interconnected global economy.
 
-Higher oil prices increase production costs for businesses, potentially reducing their profit margins. This may lead to reduced business investment, particularly in energy-intensive industries.
+Higher oil prices increase production costs for businesses, potentially reducing their profit margins. This can lead to reduced business investment, particularly in energy-intensive industries.
+
+As oil prices rise, consumers may reduce their spending on other goods and services due to higher energy costs. Consumer confidence may also be adversely affected, thereby affecting spending patterns.
 
 Rising oil prices may encourage investment in the energy sector, including exploration and production. Conversely, falling oil prices may lead to reduced investment in the energy sector, affecting employment and economic activity in related industries.
 :::
 
 ### Big Picture Chart:
-![](./images/big_picture_diagram_3.png)
+![](./images/Time Series Big Picture.png)
 
 
 ## Literature Review

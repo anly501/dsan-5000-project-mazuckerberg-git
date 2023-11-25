@@ -57,7 +57,7 @@ library(gridExtra)
 library(readxl)
 ```
 
-### [Global Oil Production](https://ourworldindata.org/grapher/oil-production-by-country?time=earliest..1923)
+### Global Oil Production
 ``` {r}
 #| echo: true
 #| message: false
@@ -88,7 +88,7 @@ df_oil_production <- df_oil_production %>%
     filter(Country %in% top_countries$Country)
 
 # Save dataframe as a new file
-write.csv(df_oil_production, './data/viz_oil-production-by-country.csv', row.names = FALSE)
+write.csv(df_oil_production, './data/viz_oil_production.csv', row.names = FALSE)
 ```
 
 ``` {=html}
@@ -103,10 +103,7 @@ Based on the information from the visualization, from the year 2000 to 2011, the
 From the year 2011 to 2014, the United States had a significant increase in oil-production, making it really close to Saudi Arabia and Russia. By the year 2018, it had a production high above the previously mentioned countries making it the top 1. This situation continued until the year 2022. The rest of the countries remain with lower price values.
 :::
 
-
-### [Crude Oil Price](https://finance.yahoo.com/quote/CL%3DF/chart?p=CL%3DF#eyJpbnRlcnZhbCI6IndlZWsiLCJwZXJpb2RpY2l0eSI6MSwiY2FuZGxlV2lkdGgiOjEsImZsaXBwZWQiOmZhbHNlLCJ2b2x1bWVVbmRlcmxheSI6dHJ1ZSwiYWRqIjp0cnVlLCJjcm9zc2hhaXIiOnRydWUsImNoYXJ0VHlwZSI6ImxpbmUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkNMPUYiLCJjaGFydE5hbWUiOiJjaGFydCIsImluZGV4IjowLCJ5QXhpcyI6eyJuYW1lIjoiY2hhcnQiLCJwb3NpdGlvbiI6bnVsbH0sInlheGlzTEhTIjpbXSwieWF4aXNSSFMiOlsiY2hhcnQiLCLigIx2b2wgdW5kcuKAjCJdfX0sInNldFNwYW4iOnsiYmFzZSI6ImFsbCIsIm11bHRpcGxpZXIiOjF9LCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwiY3VzdG9tUmFuZ2UiOm51bGwsInN5bWJvbHMiOlt7InN5bWJvbCI6IkNMPUYiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiQ0w9RiIsInF1b3RlVHlwZSI6IkZVVFVSRSIsImV4Y2hhbmdlVGltZVpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6IndlZWsiLCJzZXRTcGFuIjp7ImJhc2UiOiJhbGwiLCJtdWx0aXBsaWVyIjoxfX1dLCJzdHVkaWVzIjp7IuKAjHZvbCB1bmRy4oCMIjp7InR5cGUiOiJ2b2wgdW5kciIsImlucHV0cyI6eyJpZCI6IuKAjHZvbCB1bmRy4oCMIiwiZGlzcGxheSI6IuKAjHZvbCB1bmRy4oCMIn0sIm91dHB1dHMiOnsiVXAgVm9sdW1lIjoiIzAwYjA2MSIsIkRvd24gVm9sdW1lIjoiI2ZmMzMzYSJ9LCJwYW5lbCI6ImNoYXJ0IiwicGFyYW1ldGVycyI6eyJ3aWR0aEZhY3RvciI6MC40NSwiY2hhcnROYW1lIjoiY2hhcnQiLCJwYW5lbE5hbWUiOiJjaGFydCJ9fX19)
-
-
+### U.S. Oil Production
 ```{r}
 #| echo: true
 #| message: false
@@ -115,16 +112,79 @@ From the year 2011 to 2014, the United States had a significant increase in oil-
 #| warning: false
 
 # Get oil price data from stock market
-oil_price <- tq_get("CL=F", get = "stock.prices", from = "2000-01-01", to = "2022-12-31")
+df_oil_production_us <- read_csv('./data/oil_production.csv')
+
+# # Rename Columns
+names(df_oil_production_us) <- c("Data")
+
+# Filter rows
+df_oil_production_us <- tail(df_oil_production_us, nrow(df_oil_production_us)-3)
+
+# Separate Columns
+df_oil_production_us <- df_oil_production_us %>%
+  separate('Data', into = c("Date", "Production"), sep = ";")
+
+# Chage data type
+df_oil_production_us$Date <- as.Date(df_oil_production_us$Date, format = "%d/%m/%Y")
+
+# Change data type
+df_oil_production_us$Production <- round(as.numeric(df_oil_production_us$Production), 2)
+
+#Save dataframe as a new file 
+write.csv(df_oil_production_us, './data/viz_us_oil_production.csv', row.names = FALSE)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
+
+# Chage data type
+df_oil_production_us <- df_oil_production_us %>% filter(year(Date) >= 2000 & year(Date) <= 2022)
+
+# Create plot
+viz_oil_production <- plot_ly(data = df_oil_production_us, x = df_oil_production_us$Date, y = df_oil_production_us$Production, type = 'bar') %>%
+                layout(
+                  title = 'U.S. Oil Production',
+                  xaxis = list(title = 'Date'),
+                  yaxis = list(title = 'Production (thousand barrels)'),
+                  showlegend = FALSE
+                )
+# Show plot
+ggplotly(viz_oil_production)
+```
+
+::: {.epigrafe}
+
+This project is primarily focused on the United States, and as such we are analyzing its oil production by month for the past 22 years. 
+
+From the plot, we can see that for the first 11 years, from 2000 to 2011, the monthly oil production was below 6 thousand barrels. There is an upward trend until the middle of 2015, when the production increased almost to 10 thousand barrels per month. For the next year, the production had a slight decrease, but the values were still higher compared to the first years of analysis.
+
+In the following years, we can see that there was a big increase once again, reaching the 13 thousand barrels production, but due to the COVID pandemic, the production had a great fall, causing the increase trend to slow down.
+:::
+
+
+### Crude Oil Price
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data"
+#| warning: false
+
+# Get oil price data from stock market
+df_oil_price <- tq_get("CL=F", get = "stock.prices", from = "2000-01-01", to = "2022-12-31")
 
 # Calculate adjusted price
-oil_price$adjusted <- oil_price$adjusted/oil_price$adjusted[1]
+df_oil_price$adjusted <- df_oil_price$adjusted/df_oil_price$adjusted[1]
 
 # Create dataframe
-oil_price <- data.frame(oil_price,rownames(oil_price))
+df_oil_price <- data.frame(df_oil_price,rownames(df_oil_price))
 
 # Save dataframe as a new file 
-write.csv(oil_price, './data/viz_oil_price.csv', row.names = FALSE)
+write.csv(df_oil_price, './data/viz_oil_price.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -135,14 +195,14 @@ write.csv(oil_price, './data/viz_oil_price.csv', row.names = FALSE)
 #| warning: false
 
 # Create plot
-oil_price_viz <- plot_ly(oil_price, type = 'scatter', mode = 'lines')%>%
-  add_trace(x = oil_price$date, y = oil_price$adjusted, name = 'Price', showlegend = FALSE)%>%
+viz_oil_price <- plot_ly(df_oil_price, type = 'scatter', mode = 'lines')%>%
+  add_trace(x = df_oil_price$date, y = df_oil_price$adjusted, name = 'Price', showlegend = FALSE)%>%
   layout(title = 'Crude Oil Price by Day',
          xaxis = list(rangeslider = list(visible = T)))
 options(warn = -1)
 
 # Set plot layout
-oil_price_viz <- oil_price_viz %>%
+viz_oil_price <- viz_oil_price %>%
   layout(
          xaxis = list(zerolinecolor = '#ffff',
                       zerolinewidth = 2,
@@ -154,7 +214,7 @@ oil_price_viz <- oil_price_viz %>%
          plot_bgcolor='#e5ecf6')
 
 # Show plot
-ggplotly(oil_price_viz)
+ggplotly(viz_oil_price)
 ```
 
 ::: {.epigrafe}
@@ -167,7 +227,7 @@ The COVID-19 pandemic caused a sharp drop in oil prices due to government-impose
 By the early summer of 2020, oil prices rebounded as nations lifted shutdowns, and OPEC agreed to substantial crude oil production cuts. Major central banks stopped raising interest rates, supporting demand. Towards the end of the year, optimism surrounded the planned launch of several COVID-19 vaccines, supporting the market.
 :::
 
-### [U.S. Inflation Rate](https://data.oecd.org/price/inflation-cpi.htm)
+### Inflation Rate
 ``` {r}
 #| echo: true
 #| message: false
@@ -196,28 +256,6 @@ write.csv(df_inflation, './data/viz_inflation.csv', row.names = FALSE)
 ```
 
 ``` {r}
-#| echo: false
-#| message: false
-#| code-fold: true
-#| code-summary: "Visualization"
-#| warning: false
-
-# # Filter data
-# df_inflation <- df_inflation %>% filter(TIME >= '2000-01-01' & TIME < '2023-01-01') 
-
-# # Create plot
-# viz_inflation <- plot_ly(data = df_inflation, x = ~TIME, y = ~Value, type = 'bar') %>%
-#   layout(title = 'U.S. Inflation Variations by Month',
-#          xaxis = list(title = 'Time'),
-#          yaxis = list(title = 'Value'),
-#          showlegend = FALSE)
-
-# # Show plot
-# ggplotly(viz_inflation)
-```
-
-
-``` {r}
 #| echo: true
 #| message: false
 #| code-fold: true
@@ -242,7 +280,7 @@ viz_inflation <- plot_ly(data = df_inflation, x = ~TIME, y = ~Value, type = 'bar
                 layout(
                   title = 'U.S. Inflation Variations by Month',
                   xaxis = list(title = 'Time'),
-                  yaxis = list(title = 'Value'),
+                  yaxis = list(title = 'Rate'),
                   showlegend = FALSE
                 )
 # Show plot
@@ -264,7 +302,7 @@ In 2020, the COVID-19 pandemic triggered a global economic shutdown, resulting i
 :::
 
 
-### [U.S. Interest Rate](https://data.imf.org/regular.aspx?key=61545855)
+### Interest Rate
 ``` {r}
 #| echo: true
 #| message: false
@@ -324,7 +362,7 @@ color_2020 <- 'rgba(210,238,130,1)' # green
 color_2021 <- 'rgba(204,204,204,1)' # gray
 
 # Create plot
-interest_viz <- plot_ly(df_interest, x = df_interest$Year, y = df_interest$Value, type = 'bar',
+viz_interest <- plot_ly(df_interest, x = df_interest$Year, y = df_interest$Value, type = 'bar',
             marker = list(color = c(color_2000, color_2001, color_2002, color_2003, color_2004, 
                                     color_2005, color_2006, color_2007, color_2008, color_2009,
                                     color_2010, color_2011, color_2012, color_2013, color_2014, 
@@ -335,12 +373,12 @@ interest_viz <- plot_ly(df_interest, x = df_interest$Year, y = df_interest$Value
             textangle = 0)
 
 # Set de layout of the plot
-interest_viz <- interest_viz %>% layout(title = "Interest Rate by Year",
+viz_interest <- viz_interest %>% layout(title = "Interest Rate by Year",
          xaxis = list(title = "Year"),
-         yaxis = list(title = "%"))
+         yaxis = list(title = "Rate"))
 
 # Show plot
-ggplotly(interest_viz)
+ggplotly(viz_interest)
 ```
 
 ::: {.epigrafe}
@@ -355,4 +393,348 @@ By the end of 2008, during the Great Recession, rates were reduced to a range of
 Seven years later, the Fed cautiously raised rates as the economy recovered, with the first hike coming in December 2015. Economic concerns from China in early 2016 and falling oil prices led to a year-long pause in rate hikes. In 2019, U.S.-China trade tensions prompted three rate cuts in the second half of the year to support the economy.
 
 In 2020, the COVID-19 pandemic caused massive job losses and an unemployment rate of 14.7%, leading to two emergency rate cuts that returned rates to the 0-0.25% range.
+:::
+
+
+### Food Production
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data"
+#| results: 'hide'
+#| warning: false
+
+# Set the start and end dates
+start_date <- "2000-01-01"
+end_date <- "2022-12-31"
+
+# Define the symbol for 
+symbol <- "GOAI"
+
+# Use getSymbols() to fetch the data
+getSymbols(symbol, from = start_date, to = end_date, src = "FRED")
+
+# Access the data as a data frame
+df_food <- as.data.frame(GOAI)
+
+df_food <- rownames_to_column(df_food, var = "DATE")
+
+df_food$DATE <- as.Date(df_food$DATE)
+
+# Rename columns
+names(df_food) <- c("DATE", "Value")
+
+# Save dataframe as a new file 
+write.csv(df_food, './data/viz_food_production.csv', row.names = FALSE)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
+
+# Create plot
+viz_food <- plot_ly(df_food, x = df_food$DATE, y = df_food$Value, type = 'bar')
+
+# Set de layout of the plot
+viz_food <- viz_food %>% layout(title = "Food Production by Quarter",
+         xaxis = list(title = "Date"),
+         yaxis = list(title = "Billions of Dollars"))
+
+# Show plot
+ggplotly(viz_food)
+```
+
+::: {.epigrafe}
+
+As it was introduced before, the food industry is very important for the analysis of oil production and prices on different industries. Plotting quarterly food production in billions of dollars is helpful in understanding the trend and variation in the data.
+
+Plotting quarterly food production in billions of dollars is helpful in understanding the trend and variation in the data. In this case, we can see a clear upward trend that was directly affected by two events that caused a drop in the following quarters. The first occurred in 2008 due to the financial crisis, where the recovery of production was slower compared to the beginning of 2020, when the COVID pandemic took place. In this second event, the trend increased at a higher rate, reaching values 10 thousand higher compared to the quarters before the pandemic.
+:::
+
+### iShares U.S. Healthcare ETF
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data"
+#| warning: false
+
+# Get oil price data from stock market
+df_healthcare_index <- tq_get("iyh", get = "stock.prices", from = "2000-01-01", to = "2022-12-31")
+
+# Calculate adjusted price
+df_healthcare_index$adjusted <- df_healthcare_index$adjusted
+
+# Create dataframe
+df_healthcare_index <- data.frame(df_healthcare_index,rownames(df_healthcare_index))
+
+# Save dataframe as a new file 
+write.csv(df_healthcare_index, './data/viz_healthcare_index.csv', row.names = FALSE)
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
+
+# Create plot
+viz_healthcare_index <- plot_ly(df_healthcare_index, type = 'scatter', mode = 'lines')%>%
+  add_trace(x = df_healthcare_index$date, y = df_healthcare_index$adjusted, name = 'Price', showlegend = FALSE)%>%
+  layout(title = 'Healthcare Index by Day',
+         xaxis = list(rangeslider = list(visible = T)))
+options(warn = -1)
+
+# Set plot layout
+viz_healthcare_index <- viz_healthcare_index %>%
+  layout(
+         xaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff'),
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title = 'Index'),
+         plot_bgcolor='#e5ecf6')
+
+# Show plot
+ggplotly(viz_healthcare_index)
+```
+
+::: {.epigrafe}
+
+The Healthcare Index allows us to understand the performance, volatility and trends of the major companies in the healthcare industry.
+
+During the first 13 years of analysis, we can see that the index is below the value of 2, with very low volatility. In the following 7 years, the performance of the sector improved, reaching values higher than 4. We can clearly see the upward trend along these years. 
+
+The COVID pandemic had a different effect on this sector. In the first few weeks, there was a sharp decline that caused the index to fall to values close to 3. However, the sector's performance improved very quickly as demand for the products increased to levels never seen before. As a result, the index rose to levels above 6. This reflects the dependence of societies on the healthcare sector and the high expectations for the recovery of their lifestyles. Over the next few years, the industry maintained high index scores, but we can see that there was a lot of volatility.
+:::
+
+### Bus Passenger Trips
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data"
+#| warning: false
+
+# Import dataset
+df_bus_passengers <- read_excel('./data/bus_passengers.xlsx', sheet = "UPT", .name_repair = "unique_quiet") 
+
+# Filter relevant rows
+df_bus_passengers <- df_bus_passengers %>% filter(df_bus_passengers$'3 Mode' == "Bus")
+
+# Convert dataframe from wide to long
+df_bus_passengers <- df_bus_passengers %>% gather(key = "Year_Month", value = "Value", -'NTD ID', -'Legacy NTD ID', -'Agency', -'Status', -'Reporter Type', -'UACE CD', -'UZA Name', -'Mode', -'TOS', -'3 Mode')
+
+# Select relevant columns
+df_bus_passengers <- df_bus_passengers %>% select('3 Mode', 'Year_Month', 'Value')
+
+# Rename columns
+names(df_bus_passengers) <- c('Type', 'Year_Month', 'Value')
+
+# Filter relevant rows
+df_bus_passengers <- df_bus_passengers %>%
+  group_by(Type, Year_Month) %>%
+  summarize(Value = sum(Value))
+
+# Change data type
+df_bus_passengers$Value <- as.integer(df_bus_passengers$Value)
+
+# Separate Year_Month
+df_bus_passengers <- df_bus_passengers %>%
+  separate('Year_Month', into = c("Month", "Year"), sep = "/")
+
+# Create DATE column
+df_bus_passengers <- df_bus_passengers %>%
+  mutate(DATE = make_date(Year, Month, day = 1))
+
+# Select relevant columns
+df_bus_passengers <- df_bus_passengers %>% select('DATE', 'Value')
+
+# Chage data type
+df_bus_passengers$DATE <- as.Date(df_bus_passengers$DATE)
+
+# Select relevant columns
+df_bus_passengers <- df_bus_passengers %>% select(DATE, Value)
+
+# Save dataframe as a new file 
+write.csv(df_bus_passengers, './data/viz_bus_passengers.csv', row.names = FALSE)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
+
+# Chage data type
+df_bus_passengers <- df_bus_passengers %>% filter(year(DATE) <= 2022)
+
+# Create plot
+viz_bus_passengers <- plot_ly(data = df_bus_passengers, x = ~DATE, y = ~Value/1000000, type = 'bar') %>%
+                layout(
+                  title = 'U.S. Bus Passengers',
+                  xaxis = list(title = 'Date'),
+                  yaxis = list(title = 'Passenger Trips (millions)'),
+                  showlegend = FALSE
+                )
+# Show plot
+ggplotly(viz_bus_passengers)
+```
+
+::: {.epigrafe}
+
+From the perspective of the transportation industry, the first analysis is bus passenger trips by month, nationally.
+
+:::
+
+### Air Carrier Domestic and International
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data"
+#| warning: false
+
+# Import dataset
+df_air_transport <- read_excel('./data/personal_expenditure_by_industry.xlsx', sheet = "U20405-M", .name_repair = "unique_quiet") 
+
+# Make first row the column headers
+names(df_air_transport) <- append(c('Line', 'Indicator', 'Code'), as.character(df_air_transport[7, ])[4:ncol(df_air_transport)])
+
+# Filter relevant rows
+df_air_transport <- df_air_transport %>% filter(Indicator == "Air transportation (64)")
+
+# Convert dataframe from wide to long
+df_air_transport <- df_air_transport %>% gather(key = "Year-Month", value = "Value", -'Line', -'Indicator', -'Code')
+
+# Change data type
+df_air_transport$Value <- round(as.numeric(df_air_transport$Value), 2)
+
+# Select relevant columns
+df_air_transport <- df_air_transport %>% select('Year-Month', 'Value')
+
+# Separate Year-Month
+df_air_transport <- df_air_transport %>%
+  separate('Year-Month', into = c("Year", "Month"), sep = "M")
+
+# Create DATE column
+df_air_transport <- df_air_transport %>%
+  mutate(DATE = make_date(Year, Month, day = 1))
+
+# Select relevant columns
+df_air_transport <- df_air_transport %>% select('DATE', 'Value')
+
+# Chage data type
+df_air_transport$DATE <- as.Date(df_air_transport$DATE)
+
+# Save dataframe as a new file 
+write.csv(df_air_transport, './data/viz_air_transport.csv', row.names = FALSE)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
+
+# Chage data type
+df_air_transport <- df_air_transport %>% filter(year(DATE) >= 2000)
+
+# Create plot
+viz_air_transport <- plot_ly(data = df_air_transport, x = ~DATE, y = ~Value, type = 'bar') %>%
+                layout(
+                  title = 'U.S. Air Carrier Domestic and International',
+                  xaxis = list(title = 'Date'),
+                  yaxis = list(title = 'Personal Consumption Expenditures (millions of dollars)'),
+                  showlegend = FALSE
+                )
+# Show plot
+ggplotly(viz_air_transport)
+```
+
+::: {.epigrafe}
+
+Description
+
+:::
+
+### Bikes Personal Expenditure
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data"
+#| warning: false
+
+# Import dataset
+df_bikes <- read_excel('./data/personal_expenditure_by_industry.xlsx', sheet = "U20405-M", .name_repair = "unique_quiet")
+
+# Make first row the column headers
+names(df_bikes) <- append(c('Line', 'Indicator', 'Code'), as.character(df_bikes[7, ])[4:ncol(df_bikes)])
+
+# Filter relevant rows
+df_bikes <- df_bikes %>% filter(Indicator == "Bicycles and accessories")
+
+# Convert dataframe from wide to long
+df_bikes <- df_bikes %>% gather(key = "Year-Month", value = "Value", -'Line', -'Indicator', -'Code')
+
+# # Change data type
+df_bikes$Value <- round(as.numeric(df_bikes$Value), 2)
+
+# Select relevant columns
+df_bikes <- df_bikes %>% select('Year-Month', 'Value')
+
+# Separate Year-Month
+df_bikes <- df_bikes %>%
+  separate('Year-Month', into = c("Year", "Month"), sep = "M")
+
+# Create DATE column
+df_bikes <- df_bikes %>%
+  mutate(DATE = make_date(Year, Month, day = 1))
+
+# Select relevant columns
+df_bikes <- df_bikes %>% select('DATE', 'Value')
+
+# Chage data type
+df_bikes$DATE <- as.Date(df_bikes$DATE)
+
+# Save dataframe as a new file 
+write.csv(df_bikes, './data/viz_bikes.csv', row.names = FALSE)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Visualization"
+#| warning: false
+
+# Chage data type
+df_bikes <- df_bikes %>% filter(year(DATE) >= 2000)
+
+# Create plot
+viz_bikes <- plot_ly(data = df_bikes, x = ~DATE, y = ~Value, type = 'bar') %>%
+                layout(
+                  title = 'U.S. Bicycles and accessories',
+                  xaxis = list(title = 'Date'),
+                  yaxis = list(title = 'Personal Consumption Expenditures (millions of dollars)'),
+                  showlegend = FALSE
+                )
+# Show plot
+ggplotly(viz_bikes)
+```
+
+::: {.epigrafe}
+
+Description
+
 :::

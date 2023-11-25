@@ -62,7 +62,7 @@ library(readxl)
 library(imputeTS)
 ```
 
-### U.S. Oil Production
+### U.S. Oil Production by Year
 
 ::: {.justify}
 
@@ -73,16 +73,39 @@ To ensure the suitability of the data for analysis, we applied the first differe
 A detailed understanding of the analysis process and the conclusions drawn to produce this forecast can be found below.
 :::
 
-<img src="./images/6_1_oil_production_forecast.png" width=80% height=80%>
+> [ARIMA Model](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_oil_production_year.html)
 
-> [ARMA / ARIMA / SARIMA Models - Global Oil Production](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_1_oil_production.html)
+<img src="./images/6_oil_production_year.png" width=80% height=80%>
 
-### Crude Oil Price
+### U.S. Oil Production by Month
+
+::: {.justify}
+
+Description.
+:::
+
+> [ARIMA Model](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_oil_production_month.html)
+
+<img src="./images/6_oil_production_month.png" width=80% height=80%>
+
+### Crude Oil Price by Month
 
 ::: {.justify}
 
 Add description
 :::
 
-> [ARMA / ARIMA / SARIMA Models - Crude Oil Price](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_2_oil_price.html)
+> [ARIMA Model](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_oil_price_month.html)
 
+<img src="./images/6_oil_price_month.png" width=80% height=80%>
+
+### Bus Passengers - Pre Covid Analysis
+
+::: {.justify}
+
+Add description
+:::
+
+> [SARIMA Model](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_bus_passengers.html)
+
+<img src="./images/6_bus_passengers.png" width=80% height=80%>

@@ -1,3 +1,110 @@
 ---
 title: "ARIMAX / SARIMAX / VAR"
+bibliography: "../Personal/reference.bib"
 ---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+### Overview
+
+::: {.justify}
+
+In this section, we examine the applicability of AutoRegressive Integrated Moving Average with eXogenous variables (ARIMAX), Seasonal AutoRegressive Integrated Moving Average with eXogenous variables (SARIMAX), and Vector AutoRegressive (VAR) models.
+
+Considering the analysis performed and the models obtained in the previous section, we understand that additional analysis is needed to understand the relationship between two or more variables and their interaction among Time Series Forecasting models.
+
+Depending on the type of model being analyzed, we will take different steps to achieve the best forecasting model for the variables being analyzed. The analyses consist of:
+
+* VAR model taking into account the interaction between oil production and oil price.
+
+* ARIMAX model for food industry considering the oil price and oil production as external variables. (Manufacturing Sectors)
+
+* ARIMAX model for healthcare industry considering the oil price and oil production as external variables. (Manufacturing Sectors)
+
+* SARIMAX model for bus passengers (pre covid analysis) considering the oil price as an external variable. (Impacts on Transportation + External Factors Analysis)
+
+* ARIMAX model for air transport (pre covid analysis) considering the oil price as an external variable. (Impacts on Transportation + External Factors Analysis)
+
+* ARIMAX model for bicycles (pre covid analysis) considering the oil price as an external variable. (Impacts on Transportation + External Factors Analysis) 
+:::
+
+Below are the libraries used in this section:
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+```
+
+### Oil Price ~ Oil Production
+
+::: {.justify}
+
+The two main variables that drive the analysis of the project are the global oil price and U.S. oil production. After doing some research, we understand that these two variables are influenced by each other.  In "The Impact of U.S. Supply Shocks on the Global Oil Price", Thomas S. Gundersen @gundersen2020impact finds that between 2003 and 2015, 13% of the variation in the global oil price was due to U.S. supply shocks. 
+
+The analysis process and the forecast model elaborated can be found below.
+:::
+
+> [VAR Model](https://mazuckerberg.georgetown.domains/DSAN_5600/7_ARIMAX/7_VAR_oil.html)
+
+<img src="./images/7_VAR_oil.png" width=80% height=80%>
+
+
+### Bus Passengers ~ Oil Price - Pre Covid Analysis
+
+::: {.justify}
+
+Buses depend on fuel to operate and that fluctuations in oil prices affect the cost of primary fuel. One of the variables that will be analyzed within the transportation industry is bus passenger trips using a seasonal autoregressive integrated moving average model with oil price as the exogenous variable.
+
+The analysis process and the forecast model elaborated can be found below.
+:::
+
+> [SARIMAX Model](https://mazuckerberg.georgetown.domains/DSAN_5600/7_ARIMAX/7_SARIMAX_bus.html)
+
+<img src="./images/7_SARIMAX_bus.png" width=80% height=80%>
+
+***
+
+
+**References:**
+
+::: {#refs}
+:::
