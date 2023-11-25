@@ -44,36 +44,19 @@ library(tseries)
 library(fpp2)
 library(fma)
 library(lubridate)
-library(tidyverse)
 library(TSstudio)
 library(quantmod)
 library(tidyquant)
 library(plotly)
-library(ggplot2)
 library(gridExtra)
 library(readxl)
+library(imputeTS)
 library(zoo)
-```
-
-```{python}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Python Libraries"
-#| results: 'hide'
-#| warning: false
-
-from datetime import date
-from dateutil.relativedelta import relativedelta
-from newsapi.newsapi_client import NewsApiClient
-import pandas as pd
-
-import json
-from ibm_watson import NaturalLanguageUnderstandingV1
-from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
-
-import os
+library(knitr)
+library(kableExtra)
+library(patchwork)
+library(vars)
+library(dplyr)
 ```
 
 ### Global Lithium Production
@@ -82,49 +65,86 @@ import os
 The Global Lithium Production dataset was downloaded from the Our World in Data website as a csv file. Very few steps were applied to this dataset due to the quality of the original data.
 :::
 
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Save dataframe as a new file
+df_production <- read.csv('../../data/01-modified-data/clean_lithium-production.csv')
+
+knitr::kable(head(df_production, 5))
+```
+
+[View dataset](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_lithium-production.csv)
+
 > [Data Cleaning - Global Lithium Production](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_1_lithium_production.html)
 
-<!-- 
-### Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate
+
+### Lithium Companies Stocks
 
 ::: {.justify}
 
 Add description
 :::
 
-<br>
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
 
-> [Data Cleaning - Chinese Yuan Renminbi to U.S. Dollar Spot Exchange Rate](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_2_exchange_rate.html) -->
+# Save dataframe as a new file
+df_companies <- read.csv('../../data/01-modified-data/clean_lithium-companies.csv')
 
-### Global Lithium Demand
+knitr::kable(tail(df_companies, 5))
+```
+
+[View dataset](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_lithium-companies.csv)
+
+> [Data Cleaning - Lithium Companies Stocks](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_2_lithium_companies.html)
+
+
+### Resource Price
 
 ::: {.justify}
 
 Add description
 :::
 
-<br>
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
 
-> [Data Cleaning - Global Lithium Demand](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_3_lithium_demand.html)
+# Save dataframe as a new file
+df_resources <- read.csv('../../data/01-modified-data/clean_resources-price.csv')
 
-### Commodity Price
+knitr::kable(head(df_resources, 5))
+```
 
-::: {.justify}
-
-Add description
-:::
-
-<br>
+[View dataset](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_resources-price.csv)
 
 > [Data Cleaning - Commodity Price](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_4_commodity_price.html)
 
-### Lithium News
+### Lithium News Sentiment Analysis
+
 
 ::: {.justify}
 
 Add description
 :::
 
-<br>
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
 
-> [Data Cleaning - Lithium News](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_5_news_api.html)
+# Save dataframe as a new file
+df_sentiment <- read.csv('../../data/01-modified-data/clean_sentiment_analysis.csv')
+
+knitr::kable(head(df_sentiment, 5))
+```
+
+[View dataset](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_sentiment_analysis.csv)
+
+> [Data Cleaning - Lithium News Sentiment Analysis](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_5_news_api.html)

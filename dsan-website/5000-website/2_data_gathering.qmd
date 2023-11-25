@@ -1,12 +1,28 @@
 ---
 title: "Data Gathering"
-format: html
-engine: knitr
 ---
 ```{css, echo = FALSE}
 .justify {
-  text-align: justify
+text-align: justify !important;
+text-indent: 20px;
 }
+
+
+.epigrafe {
+text-align: justify !important;
+text-indent: 20px;
+border: 1.5px solid #87c8b5;
+padding: 15px;
+font-size: 14px;
+background-color: #f9f9f9;
+margin: 20px 0px 30px 0px;
+}
+```
+
+```{r}
+#| echo: false
+
+x = 3
 ```
 
 ***
@@ -15,11 +31,11 @@ engine: knitr
     <img src="./images/our_world_in_data.png" alt="" width="200">
 </p>
 
-::: {.justify}
 ### Global Lithium Production
 
 [**Source**](https://ourworldindata.org/grapher/lithium-production)
 
+::: {.justify}
 The Global Lithium Production dataset was extracted from the Our World in Data website. The Energy Institute Statistical Review of World Energy analyzes data on world energy markets from the previous year, and Our World in Data consolidates data originally derived from the reports produced. The dataset provides information on global lithium production, including data for major producing countries and aggregations at the regional, continental, and global levels. Lithium production is measured in metric tons. The dataset covers the period from 1995 to 2022.
 
 While the dataset includes global data, this analysis will focus specifically on the evolution of lithium production, with a strong emphasis on the U.S. This approach allows for a more in-depth analysis of the growth and fluctuations of this resource, while assessing the impact on the economy.
@@ -43,7 +59,7 @@ The Chinese Yuan to U.S. Dollar spot exchange rate dataset is a critical compone
 This currency conversion dataset was obtained from the Quantmod API, with the data originating from FRED economic data. The dataset provides daily exchange rates. The data source provides a wide range of dates for analysis, but the selection of the time period is determined by the information available for the other datasets and analysis variables.
 ::: -->
 
-***
+<!-- ***
 
 <br>
 <p align="center">
@@ -59,7 +75,7 @@ A key resource for our analysis is the Global Lithium Demand Projection dataset,
 In recent years, the main source of lithium demand has come from electric vehicles. This is a trend that is expected to continue to grow progressively, so any projection of lithium demand will depend primarily on the growth of this sector. The demand projection methodology developed consists of several key steps. The first step is to obtain projected demand figures for electric vehicles. Second, it focuses on estimating the energy demand for lithium-ion batteries to be used in these vehicles. Third, the amount of lithium required for these batteries is calculated. Finally, this information is aggregated to present the projection of lithium demand specifically for electric vehicles, which is considered to be the most significant in the market. The information source for this analysis is Rho Motion, which was done in 2022.
 
 This information is useful in two ways. On the one hand, it would be interesting to perform the same steps on raw data sets instead of using the analysis already done. On the other hand, this information serves as a key dataset for our assessment of future trends and the application of machine learning models.
-:::
+::: -->
 
 ***
 
@@ -76,9 +92,9 @@ This information is useful in two ways. On the one hand, it would be interesting
 * Biofuels
 * Electricity.
 
-The commodity datasets play a key role in the goal of comparing lithium to other energy sources. This initial analysis focuses primarily on price comparisons, with future analyses to include consumption patterns. The commodities included in the analysis are Uranium, Crude Oil, Natural Gas, Coal, Renewables, Biofuels and Electricity, allowing for energy market assessments.
+The commodity datasets play a key role in the goal of comparing lithium to other energy sources. This initial analysis focuses primarily on price comparisons, with future analyses to include consumption patterns. The commodities included in the analysis are ...s.
 
-Currently, the dataset includes information related to the price of uranium over time. The data is obtained from the International Monetary Fund (IMF) and is available from January 2012, to December 2022. 
+
 :::
 
 ***

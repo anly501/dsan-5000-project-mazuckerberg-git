@@ -1,3 +1,109 @@
 ---
 title: "Data Exploration"
 ---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+### Overview
+::: {.justify}
+.
+:::
+
+Below are the libraries used in this section:
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "R Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+library(zoo)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Python Libraries"
+#| results: 'hide'
+#| warning: false
+
+
+```
+
+### Global Lithium Production
+
+::: {.justify}
+
+Add description
+:::
+
+> [Exploratory Data Analysis - Global Lithium Production](https://mazuckerberg.georgetown.domains/DSAN_5000/4_eda/4_1_lithium_production.html)
+
+### Global Lithium Demand
+
+::: {.justify}
+
+Add description
+:::
+
+<br>
+
+> [Exploratory Data Analysis - Global Lithium Demand](https://mazuckerberg.georgetown.domains/DSAN_5000/4_eda/4_3_lithium_demand.html)
+
+### Commodity Price
+
+::: {.justify}
+
+Add description
+:::
+
+<br>
+
+> [Exploratory Data Analysis - Commodity Price](https://mazuckerberg.georgetown.domains/DSAN_5000/4_eda/4_4_commodity_price.html)
+
+### Lithium News
+
+::: {.justify}
+
+Add description
+:::
+
+<br>
+
+> [Exploratory Data Analysis - Lithium News](https://mazuckerberg.georgetown.domains/DSAN_5000/4_eda/4_5_news_api.html)
