@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Time Series - Healthcare Index</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="../site_libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Time Series</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://mazuckerberg.georgetown.domains/" rel="" target="">
+ <span class="menu-text">Home | About me</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Healthcare Index</li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../1_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../2_about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../3_data_sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Sources</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../4_data_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Visualization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../5_exploratory_data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploratory Data Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../6_ARMA_ARIMA_SARIMA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARMA/ARIMA/SARIMA Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../7_ARIMAX_SARIMAX_VAR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARIMAX/SARIMAX/VAR</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../8_Spectral_Analysis_Filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spectral Analysis and Filtering (Optional)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../9_Financial_Time_Series_Models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Financial Time Series Models (ARCH/GARCH)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../10_Deep_Learning_TS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Learning for TS</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../11_Conclusions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Viz Examples</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-cleaning-and-merge-datasets" id="toc-data-cleaning-and-merge-datasets" class="nav-link active" data-scroll-target="#data-cleaning-and-merge-datasets">Data Cleaning and Merge Datasets</a></li>
+  <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot">Plot</a></li>
+  <li><a href="#linear-models" id="toc-linear-models" class="nav-link" data-scroll-target="#linear-models">Linear Models</a></li>
+  <li><a href="#stationarity" id="toc-stationarity" class="nav-link" data-scroll-target="#stationarity">Stationarity</a></li>
+  <li><a href="#differencing" id="toc-differencing" class="nav-link" data-scroll-target="#differencing">Differencing</a></li>
+  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model Selection</a></li>
+  <li><a href="#model-diagnostics" id="toc-model-diagnostics" class="nav-link" data-scroll-target="#model-diagnostics">Model Diagnostics</a></li>
+  <li><a href="#residuals" id="toc-residuals" class="nav-link" data-scroll-target="#residuals">Residuals</a></li>
+  <li><a href="#garch-model" id="toc-garch-model" class="nav-link" data-scroll-target="#garch-model">GARCH Model</a></li>
+  <li><a href="#model-equation" id="toc-model-equation" class="nav-link" data-scroll-target="#model-equation">Model Equation</a></li>
+  <li><a href="#forecast-plot" id="toc-forecast-plot" class="nav-link" data-scroll-target="#forecast-plot">Forecast Plot</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Healthcare Index</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<style type="text/css">
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+</style>
+</div>
+<div class="cell">
+<style type="text/css">
+.tabs-container-linear {
+  display: flex;
+}
+
+.tab-linear {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.tab-linear:hover {
+  background-color: #f1f1f1;
+}
+
+.tab-content-linear {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+}
+
+.tab-content-linear.active {
+  display: block;
+}
+</style>
+</div>
+<div class="cell">
+<style type="text/css">
+.tabs-container-volatility {
+  display: flex;
+}
+
+.tab-volatility {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.tab-volatility:hover {
+  background-color: #f1f1f1;
+}
+
+.tab-content-volatility {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+}
+
+.tab-content-volatility.active {
+  display: block;
+}
+</style>
+</div>
+<div class="cell">
+<style type="text/css">
+.tabs-container-model-selection {
+  display: flex;
+}
+
+.tab-model-selection {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.tab-model-selection:hover {
+  background-color: #f1f1f1;
+}
+
+.tab-content-model-selection {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+}
+
+.tab-content-model-selection.active {
+  display: block;
+}
+</style>
+</div>
+<script>
+
+function toggleTabLinear(tabName) {
+  var tabs = document.querySelectorAll('.tab-content-linear');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+
+  var selectedTab = document.getElementById(tabName);
+  selectedTab.classList.add("active");
+}
+
+function toggleTabVolatility(tabName) {
+  var tabs = document.querySelectorAll('.tab-content-volatility');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+
+  var selectedTab = document.getElementById(tabName);
+  selectedTab.classList.add("active");
+}
+
+function toggleTabModelSelection(tabName) {
+  var tabs = document.querySelectorAll('.tab-content-model-selection');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+
+  var selectedTab = document.getElementById(tabName);
+  selectedTab.classList.add("active");
+}
+
+</script>
+<section id="data-cleaning-and-merge-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="data-cleaning-and-merge-datasets">Data Cleaning and Merge Datasets</h3>
+<div class="epigrafe">
+<p>We created a new dataset that contains the information for the Healthcare Index, Oil Production and Oil price. Index and Production variables have been transformed in order to have a closer scale to the Price variable.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read csv</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df_healthcare_index <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../data/viz_healthcare_index.csv'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Change data type</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df_healthcare_index<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_healthcare_index<span class="sc">$</span>date)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sequence of dates from start_date to end_date</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">min</span>(df_healthcare_index<span class="sc">$</span>date))  </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">max</span>(df_healthcare_index<span class="sc">$</span>date))   </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create date sequence</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>date_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(start_date, end_date, <span class="at">by =</span> <span class="st">"1 day"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataset with the date range</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>date_dataset <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> date_range)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge dataframes</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>df_healthcare_index <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_healthcare_index, date_dataset, <span class="at">by.x =</span> <span class="st">"date"</span>, <span class="at">by.y =</span> <span class="st">"Date"</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># is.na(df_oil_price$adjusted)</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract rows with missing values</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>df_na_rows <span class="ot">&lt;-</span> df_healthcare_index[<span class="fu">which</span>(<span class="fu">rowSums</span>(<span class="fu">is.na</span>(df_healthcare_index)) <span class="sc">&gt;</span> <span class="dv">0</span>),]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract columns with missing values</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>df_na_cols <span class="ot">&lt;-</span> df_healthcare_index[, <span class="fu">which</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(df_healthcare_index)) <span class="sc">&gt;</span> <span class="dv">0</span>)]</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify data</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>imputed_time_series <span class="ot">&lt;-</span> <span class="fu">na_ma</span>(df_healthcare_index, <span class="at">k =</span> <span class="dv">4</span>, <span class="at">weighting =</span> <span class="st">"exponential"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Add modified data</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>df_healthcare_index <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(imputed_time_series)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Change data type</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>df_healthcare_index<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_healthcare_index<span class="sc">$</span>date,<span class="at">format =</span> <span class="st">"%m/%d/%y"</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Date separte terms columns</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly <span class="ot">&lt;-</span> df_healthcare_index <span class="sc">%&gt;%</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date),</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>         <span class="at">Month =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(date),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>         <span class="at">Day =</span> lubridate<span class="sc">::</span><span class="fu">day</span>(date))</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by Year Month and get the maximum day</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly <span class="ot">&lt;-</span> df_healthcare_index_monthly <span class="sc">%&gt;%</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, Month) <span class="sc">%&gt;%</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Max_Day =</span> <span class="fu">max</span>(Day))</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Date</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly <span class="ot">&lt;-</span> df_healthcare_index_monthly <span class="sc">%&gt;%</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">make_date</span>(Year, Month, Max_Day))</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge datasets</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_healthcare_index_monthly, df_healthcare_index, <span class="at">by =</span> <span class="st">"date"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep relevant columns</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly <span class="ot">&lt;-</span>  df_healthcare_index_monthly <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">"date"</span>, <span class="st">"adjusted"</span>)</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_healthcare_index_monthly) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Date'</span>, <span class="st">'Index'</span>)</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Save ts as a new file</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df_healthcare_index_monthly, <span class="st">'../data/df_healthcare_index_monthly.csv'</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read_csv</span>(<span class="st">'../data/df_healthcare_index_monthly.csv'</span>))</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter information</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly <span class="ot">&lt;-</span> df_healthcare_index_monthly <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(Date) <span class="sc">&gt;=</span> <span class="dv">2000</span> <span class="sc">&amp;</span> <span class="fu">year</span>(Date) <span class="sc">&lt;=</span> <span class="dv">2022</span>)</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Date</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly <span class="ot">&lt;-</span> df_healthcare_index_monthly <span class="sc">%&gt;%</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date2 =</span> <span class="fu">make_date</span>(<span class="fu">year</span>(Date), <span class="fu">month</span>(Date), <span class="dv">01</span>))</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read_csv</span>(<span class="st">'../data/viz_us_oil_production.csv'</span>))</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter information</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> df_oil_production <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(Date) <span class="sc">&gt;=</span> <span class="dv">2000</span> <span class="sc">&amp;</span> <span class="fu">year</span>(Date) <span class="sc">&lt;=</span> <span class="dv">2022</span>)</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Date</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> df_oil_production <span class="sc">%&gt;%</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date2 =</span> <span class="fu">make_date</span>(<span class="fu">year</span>(Date), <span class="fu">month</span>(Date), <span class="dv">01</span>))</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read_csv</span>(<span class="st">'../data/df_oil_price_monthly.csv'</span>))</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Date</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> df_oil_price <span class="sc">%&gt;%</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date2 =</span> <span class="fu">make_date</span>(<span class="fu">year</span>(date), <span class="fu">month</span>(date), <span class="dv">01</span>))</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly<span class="sc">$</span>date2 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_healthcare_index_monthly<span class="sc">$</span>date2)</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>df_oil_production<span class="sc">$</span>date2 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_oil_production<span class="sc">$</span>date2)</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>df_oil_price<span class="sc">$</span>date2 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_oil_price<span class="sc">$</span>date2)</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="co"># List of minimum dates</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(df_healthcare_index_monthly<span class="sc">$</span>date2), <span class="fu">min</span>(df_oil_production<span class="sc">$</span>date2),<span class="fu">min</span>(df_oil_price<span class="sc">$</span>date2))</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>min_date <span class="ot">&lt;-</span> <span class="fu">max</span>(dates)</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter starting date</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly <span class="ot">&lt;-</span> df_healthcare_index_monthly <span class="sc">%&gt;%</span> <span class="fu">filter</span>(date2 <span class="sc">&gt;=</span> min_date)</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter starting date</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> df_oil_production <span class="sc">%&gt;%</span> <span class="fu">filter</span>(date2 <span class="sc">&gt;=</span> min_date)</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter starting date</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> df_oil_price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(date2 <span class="sc">&gt;=</span> min_date)</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep relevant columns</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly <span class="ot">&lt;-</span> df_healthcare_index_monthly <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">'date2'</span>, <span class="st">'Index'</span>)</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to Log</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>df_healthcare_index_monthly<span class="sc">$</span>Index <span class="ot">&lt;-</span> <span class="fu">log</span>(df_healthcare_index_monthly<span class="sc">$</span>Index)</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep relevant columns</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>df_oil_production <span class="ot">&lt;-</span> df_oil_production <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">'date2'</span>, <span class="st">'Production'</span>)</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to Log</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>df_oil_production<span class="sc">$</span>Production <span class="ot">&lt;-</span> <span class="fu">log</span>(df_oil_production<span class="sc">$</span>Production)</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep relevant columns</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span> df_oil_price <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">'date2'</span>, <span class="st">'adjusted'</span>)</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="co"># List of dataframes</span></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>df_list <span class="ot">&lt;-</span> <span class="fu">list</span>(df_healthcare_index_monthly, df_oil_production, df_oil_price)</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine datasets</span></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> <span class="fu">merge_dataframes</span>(df_list)</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns</span></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dd) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'DATE'</span>, <span class="st">'Index'</span>, <span class="st">'Production'</span>, <span class="st">'Price'</span>) </span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="co"># Order by Date sort ascending</span></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> dd <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(DATE)</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="co"># # Create the time series object</span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="co"># dd.ts &lt;- ts(dd,star=decimal_date(min_date),frequency = 12)</span></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="co"># Show table</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(dd))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">DATE</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Index</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Production</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2000-08-01</td>
+<td style="text-align: right;">3.874331</td>
+<td style="text-align: right;">8.663715</td>
+<td style="text-align: right;">1.0327613</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-09-01</td>
+<td style="text-align: right;">3.904424</td>
+<td style="text-align: right;">8.658345</td>
+<td style="text-align: right;">0.9740746</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-10-01</td>
+<td style="text-align: right;">3.935549</td>
+<td style="text-align: right;">8.667164</td>
+<td style="text-align: right;">1.0199688</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-11-01</td>
+<td style="text-align: right;">3.959132</td>
+<td style="text-align: right;">8.671287</td>
+<td style="text-align: right;">1.0546022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-12-01</td>
+<td style="text-align: right;">3.969801</td>
+<td style="text-align: right;">8.675051</td>
+<td style="text-align: right;">0.8429909</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2001-01-01</td>
+<td style="text-align: right;">3.901347</td>
+<td style="text-align: right;">8.665441</td>
+<td style="text-align: right;">0.8954759</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="plot" class="level3">
+<h3 class="anchored" data-anchor-id="plot">Plot</h3>
+<div class="epigrafe">
+<p>In the plot below we can observe the time series for the variables Index, Production and Price from 2020 to 2022.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dd, <span class="fu">aes</span>(<span class="at">x =</span> DATE)) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Index, <span class="at">color =</span> <span class="st">"Index"</span>), <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Production, <span class="at">color =</span> <span class="st">"Production"</span>), <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Price, <span class="at">color =</span> <span class="st">"Price"</span>), <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Healthcare Index ~ Oil Price + Oil Production"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Value"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Variables"</span>) <span class="sc">+</span>  <span class="co"># Set legend title</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Index =</span> <span class="st">"red"</span>, <span class="at">Production =</span> <span class="st">"blue"</span>, <span class="at">Price =</span> <span class="st">"green"</span>)) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">%&gt;%</span> <span class="fu">ggplotly</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2f7013014df1384f7943" style="width:100%;height:325px;"></div>
+<script type="application/json" data-for="htmlwidget-2f7013014df1384f7943">{"x":{"data":[{"x":[11170,11201,11231,11262,11292,11323,11354,11382,11413,11443,11474,11504,11535,11566,11596,11627,11657,11688,11719,11747,11778,11808,11839,11869,11900,11931,11961,11992,12022,12053,12084,12112,12143,12173,12204,12234,12265,12296,12326,12357,12387,12418,12449,12478,12509,12539,12570,12600,12631,12662,12692,12723,12753,12784,12815,12843,12874,12904,12935,12965,12996,13027,13057,13088,13118,13149,13180,13208,13239,13269,13300,13330,13361,13392,13422,13453,13483,13514,13545,13573,13604,13634,13665,13695,13726,13757,13787,13818,13848,13879,13910,13939,13970,14000,14031,14061,14092,14123,14153,14184,14214,14245,14276,14304,14335,14365,14396,14426,14457,14488,14518,14549,14579,14610,14641,14669,14700,14730,14761,14791,14822,14853,14883,14914,14944,14975,15006,15034,15065,15095,15126,15156,15187,15218,15248,15279,15309,15340,15371,15400,15431,15461,15492,15522,15553,15584,15614,15645,15675,15706,15737,15765,15796,15826,15857,15887,15918,15949,15979,16010,16040,16071,16102,16130,16161,16191,16222,16252,16283,16314,16344,16375,16405,16436,16467,16495,16526,16556,16587,16617,16648,16679,16709,16740,16770,16801,16832,16861,16892,16922,16953,16983,17014,17045,17075,17106,17136,17167,17198,17226,17257,17287,17318,17348,17379,17410,17440,17471,17501,17532,17563,17591,17622,17652,17683,17713,17744,17775,17805,17836,17866,17897,17928,17956,17987,18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327],"y":[3.874330597697909,3.9044241135126247,3.9355486448539287,3.9591324191999493,3.9698009103824656,3.9013470176729248,3.8944741383851618,3.7877370716078231,3.8460976180881548,3.8557131497025185,3.8363860924788113,3.8534917948394809,3.8267367132210772,3.8267356670884305,3.8280228096056339,3.8778450736314234,3.8489053493835113,3.8259377685966731,3.8229674707023698,3.8265891225907582,3.7622998291633905,3.7407898904886854,3.6196937417921164,3.621800375320432,3.623240989021832,3.5663357107873233,3.6186059320113135,3.6416733695644092,3.6094541632340098,3.6065653696701205,3.5827246362312906,3.6224657017076405,3.6553476295182912,3.6863310566948573,3.7292539608311444,3.729437589363505,3.7004499716871067,3.6993072068730086,3.7096741397269182,3.7412898580192033,3.7798025730136304,3.8180930867668428,3.8271195431638838,3.7885489868578039,3.8165506420626216,3.8229020134072793,3.8121151601123655,3.7536335135739347,3.7742504540566095,3.7627661084655166,3.7363993557293669,3.7631243304678899,3.8210984811224451,3.7866062699381571,3.8127573123853677,3.8138786357923378,3.8456191907282644,3.8614866619655257,3.8601271285939491,3.8934590585736335,3.8854977724604587,3.8793324259306985,3.8499573357299841,3.867360430870848,3.8996073137143821,3.9080189519206949,3.9187643761384292,3.9079234271050241,3.8681035721948205,3.8549363053252996,3.8572717997173918,3.9011263735492889,3.9283033329964137,3.9389160197834774,3.9474452914769791,3.9475971966669325,3.9580386259245368,3.9856381934814373,3.9643607866505794,3.9679539532326507,4.0295795750133374,4.0454683347790192,4.0148498629899523,3.9710124877085584,3.9968574464348681,4.0377534624063323,4.0480895481600996,4.0580382433162159,4.0317982095868388,3.9784697713126587,3.9582671630658832,3.914185886880766,3.9289281782733703,3.9419393556176838,3.9019211891026107,3.958249679841582,3.9782988254240101,3.9112839781422806,3.7818442279934228,3.6659886363099385,3.7717957486647977,3.7662862763473637,3.6394612863881242,3.693977938327397,3.693370316383553,3.7602113865881255,3.7896406908706624,3.8423652837222368,3.8657530355497607,3.8789176192094246,3.85835129581911,3.9362737598619395,3.9622271678031558,3.9747201251117263,3.9800235699256894,4.0037347998570647,3.9720251621839107,3.8968337550069658,3.8782735039177365,3.896558558144819,3.8746604342440798,3.9656655888551646,3.9843797551669979,3.9564550773329739,4.0025624684132772,4.0079025920704474,4.0418596364072306,4.0619717323709921,4.126377759632482,4.1453245668524881,4.1305168475638441,4.070127877994735,4.0601962744295079,4.0133159105033362,4.0697251541716533,4.0789445939436666,4.1104746552960725,4.1460108644261622,4.1604513624730926,4.2007036414274106,4.2003368972829724,4.1656616620202307,4.2177888510147818,4.2331851349469982,4.2497305496480662,4.2958528428979044,4.2758831638643189,4.2843534165266606,4.2808766154890829,4.3531608381361613,4.3660003838140735,4.4334773028745085,4.4605104696676658,4.4763435463873611,4.4731706689419148,4.5419435480958965,4.5087121456819537,4.5372997040134715,4.5741183057013242,4.618377867381251,4.6262153331532945,4.641041714726013,4.7007955488274336,4.6832476741811595,4.6750044087620317,4.7010876135958064,4.7278706495562712,4.7257623826060939,4.7759299442108665,4.7773052116775991,4.8312744988446994,4.8644724223520059,4.8505333655654441,4.8738119174131667,4.9129935000789056,4.9207769617672605,4.9031266349750222,4.9521130454088871,4.9514383838969369,4.9790892382187426,4.896663726403399,4.8285333176849479,4.9055363990505354,4.8974975573542885,4.9103939186970935,4.817005095335146,4.8175538472771349,4.8478990678026692,4.8832521656652421,4.8997510146268786,4.9049762267510202,4.9582513630420975,4.9222229006298521,4.9208676585125177,4.853400470006771,4.8764221680282187,4.8868618135049182,4.9064597405176675,4.9684147653539696,4.9631404789543945,4.9831324227080547,4.9837362085063859,5.0314574465622774,5.037334098444374,5.0585736066728364,5.0688760616161002,5.060557068342459,5.0905097183801677,5.0933361552541978,5.1476909587757298,5.1029134457177729,5.0673885680012694,5.0853371799013596,5.0956885275531407,5.112919882065758,5.1748676900742687,5.218954994817012,5.2461470885432435,5.1704025826166937,5.2338055377625521,5.1404966940286343,5.195428007712052,5.2070344895410585,5.2108084683845997,5.1833304345510536,5.1567339726355668,5.2273084207685603,5.2092801796687418,5.1966960817587164,5.1944341662403817,5.2422036249230297,5.2959336862650845,5.3294445195475992,5.3030469177414705,5.2582365934858917,5.1944390756910677,5.3160250280959795,5.3493031010137688,5.3355579799862509,5.3875141906723707,5.4096759330144675,5.3917791094195717,5.3703075191146459,5.4365371153435653,5.4740433525076782,5.4991541243768021,5.4810812639095801,5.5029201613085199,5.543824398158363,5.5431608815529918,5.5826564933815304,5.630917306982246,5.6534632337193162,5.5967924627832417,5.6442209338276097,5.6060633389240264,5.6844152262017085,5.6032011022758335,5.5930392300224909,5.6475351159804461,5.5970696403558406,5.6029242280813198,5.5784438063158772,5.6072988058830795,5.5489717022056224,5.521416239129791,5.6091520361061624,5.6567345205946946,5.6387724882296677],"text":["DATE: 2000-08-01<br />Index: 3.874331<br />colour: Index","DATE: 2000-09-01<br />Index: 3.904424<br />colour: Index","DATE: 2000-10-01<br />Index: 3.935549<br />colour: Index","DATE: 2000-11-01<br />Index: 3.959132<br />colour: Index","DATE: 2000-12-01<br />Index: 3.969801<br />colour: Index","DATE: 2001-01-01<br />Index: 3.901347<br />colour: Index","DATE: 2001-02-01<br />Index: 3.894474<br />colour: Index","DATE: 2001-03-01<br />Index: 3.787737<br />colour: Index","DATE: 2001-04-01<br />Index: 3.846098<br />colour: Index","DATE: 2001-05-01<br />Index: 3.855713<br />colour: Index","DATE: 2001-06-01<br />Index: 3.836386<br />colour: Index","DATE: 2001-07-01<br />Index: 3.853492<br />colour: Index","DATE: 2001-08-01<br />Index: 3.826737<br />colour: Index","DATE: 2001-09-01<br />Index: 3.826736<br />colour: Index","DATE: 2001-10-01<br />Index: 3.828023<br />colour: Index","DATE: 2001-11-01<br />Index: 3.877845<br />colour: Index","DATE: 2001-12-01<br />Index: 3.848905<br />colour: Index","DATE: 2002-01-01<br />Index: 3.825938<br />colour: Index","DATE: 2002-02-01<br />Index: 3.822967<br />colour: Index","DATE: 2002-03-01<br />Index: 3.826589<br />colour: Index","DATE: 2002-04-01<br />Index: 3.762300<br />colour: Index","DATE: 2002-05-01<br />Index: 3.740790<br />colour: Index","DATE: 2002-06-01<br />Index: 3.619694<br />colour: Index","DATE: 2002-07-01<br />Index: 3.621800<br />colour: Index","DATE: 2002-08-01<br />Index: 3.623241<br />colour: Index","DATE: 2002-09-01<br />Index: 3.566336<br />colour: Index","DATE: 2002-10-01<br />Index: 3.618606<br />colour: Index","DATE: 2002-11-01<br />Index: 3.641673<br />colour: Index","DATE: 2002-12-01<br />Index: 3.609454<br />colour: Index","DATE: 2003-01-01<br />Index: 3.606565<br />colour: Index","DATE: 2003-02-01<br />Index: 3.582725<br />colour: Index","DATE: 2003-03-01<br />Index: 3.622466<br />colour: Index","DATE: 2003-04-01<br />Index: 3.655348<br />colour: Index","DATE: 2003-05-01<br />Index: 3.686331<br />colour: Index","DATE: 2003-06-01<br />Index: 3.729254<br />colour: Index","DATE: 2003-07-01<br />Index: 3.729438<br />colour: Index","DATE: 2003-08-01<br />Index: 3.700450<br />colour: Index","DATE: 2003-09-01<br />Index: 3.699307<br />colour: Index","DATE: 2003-10-01<br />Index: 3.709674<br />colour: Index","DATE: 2003-11-01<br />Index: 3.741290<br />colour: Index","DATE: 2003-12-01<br />Index: 3.779803<br />colour: Index","DATE: 2004-01-01<br />Index: 3.818093<br />colour: Index","DATE: 2004-02-01<br />Index: 3.827120<br />colour: Index","DATE: 2004-03-01<br />Index: 3.788549<br />colour: Index","DATE: 2004-04-01<br />Index: 3.816551<br />colour: Index","DATE: 2004-05-01<br />Index: 3.822902<br />colour: Index","DATE: 2004-06-01<br />Index: 3.812115<br />colour: Index","DATE: 2004-07-01<br />Index: 3.753634<br />colour: Index","DATE: 2004-08-01<br />Index: 3.774250<br />colour: Index","DATE: 2004-09-01<br />Index: 3.762766<br />colour: Index","DATE: 2004-10-01<br />Index: 3.736399<br />colour: Index","DATE: 2004-11-01<br />Index: 3.763124<br />colour: Index","DATE: 2004-12-01<br />Index: 3.821098<br />colour: Index","DATE: 2005-01-01<br />Index: 3.786606<br />colour: Index","DATE: 2005-02-01<br />Index: 3.812757<br />colour: Index","DATE: 2005-03-01<br />Index: 3.813879<br />colour: Index","DATE: 2005-04-01<br />Index: 3.845619<br />colour: Index","DATE: 2005-05-01<br />Index: 3.861487<br />colour: Index","DATE: 2005-06-01<br />Index: 3.860127<br />colour: Index","DATE: 2005-07-01<br />Index: 3.893459<br />colour: Index","DATE: 2005-08-01<br />Index: 3.885498<br />colour: Index","DATE: 2005-09-01<br />Index: 3.879332<br />colour: Index","DATE: 2005-10-01<br />Index: 3.849957<br />colour: Index","DATE: 2005-11-01<br />Index: 3.867360<br />colour: Index","DATE: 2005-12-01<br />Index: 3.899607<br />colour: Index","DATE: 2006-01-01<br />Index: 3.908019<br />colour: Index","DATE: 2006-02-01<br />Index: 3.918764<br />colour: Index","DATE: 2006-03-01<br />Index: 3.907923<br />colour: Index","DATE: 2006-04-01<br />Index: 3.868104<br />colour: Index","DATE: 2006-05-01<br />Index: 3.854936<br />colour: Index","DATE: 2006-06-01<br />Index: 3.857272<br />colour: Index","DATE: 2006-07-01<br />Index: 3.901126<br />colour: Index","DATE: 2006-08-01<br />Index: 3.928303<br />colour: Index","DATE: 2006-09-01<br />Index: 3.938916<br />colour: Index","DATE: 2006-10-01<br />Index: 3.947445<br />colour: Index","DATE: 2006-11-01<br />Index: 3.947597<br />colour: Index","DATE: 2006-12-01<br />Index: 3.958039<br />colour: Index","DATE: 2007-01-01<br />Index: 3.985638<br />colour: Index","DATE: 2007-02-01<br />Index: 3.964361<br />colour: Index","DATE: 2007-03-01<br />Index: 3.967954<br />colour: Index","DATE: 2007-04-01<br />Index: 4.029580<br />colour: Index","DATE: 2007-05-01<br />Index: 4.045468<br />colour: Index","DATE: 2007-06-01<br />Index: 4.014850<br />colour: Index","DATE: 2007-07-01<br />Index: 3.971012<br />colour: Index","DATE: 2007-08-01<br />Index: 3.996857<br />colour: Index","DATE: 2007-09-01<br />Index: 4.037753<br />colour: Index","DATE: 2007-10-01<br />Index: 4.048090<br />colour: Index","DATE: 2007-11-01<br />Index: 4.058038<br />colour: Index","DATE: 2007-12-01<br />Index: 4.031798<br />colour: Index","DATE: 2008-01-01<br />Index: 3.978470<br />colour: Index","DATE: 2008-02-01<br />Index: 3.958267<br />colour: Index","DATE: 2008-03-01<br />Index: 3.914186<br />colour: Index","DATE: 2008-04-01<br />Index: 3.928928<br />colour: Index","DATE: 2008-05-01<br />Index: 3.941939<br />colour: Index","DATE: 2008-06-01<br />Index: 3.901921<br />colour: Index","DATE: 2008-07-01<br />Index: 3.958250<br />colour: Index","DATE: 2008-08-01<br />Index: 3.978299<br />colour: Index","DATE: 2008-09-01<br />Index: 3.911284<br />colour: Index","DATE: 2008-10-01<br />Index: 3.781844<br />colour: Index","DATE: 2008-11-01<br />Index: 3.665989<br />colour: Index","DATE: 2008-12-01<br />Index: 3.771796<br />colour: Index","DATE: 2009-01-01<br />Index: 3.766286<br />colour: Index","DATE: 2009-02-01<br />Index: 3.639461<br />colour: Index","DATE: 2009-03-01<br />Index: 3.693978<br />colour: Index","DATE: 2009-04-01<br />Index: 3.693370<br />colour: Index","DATE: 2009-05-01<br />Index: 3.760211<br />colour: Index","DATE: 2009-06-01<br />Index: 3.789641<br />colour: Index","DATE: 2009-07-01<br />Index: 3.842365<br />colour: Index","DATE: 2009-08-01<br />Index: 3.865753<br />colour: Index","DATE: 2009-09-01<br />Index: 3.878918<br />colour: Index","DATE: 2009-10-01<br />Index: 3.858351<br />colour: Index","DATE: 2009-11-01<br />Index: 3.936274<br />colour: Index","DATE: 2009-12-01<br />Index: 3.962227<br />colour: Index","DATE: 2010-01-01<br />Index: 3.974720<br />colour: Index","DATE: 2010-02-01<br />Index: 3.980024<br />colour: Index","DATE: 2010-03-01<br />Index: 4.003735<br />colour: Index","DATE: 2010-04-01<br />Index: 3.972025<br />colour: Index","DATE: 2010-05-01<br />Index: 3.896834<br />colour: Index","DATE: 2010-06-01<br />Index: 3.878274<br />colour: Index","DATE: 2010-07-01<br />Index: 3.896559<br />colour: Index","DATE: 2010-08-01<br />Index: 3.874660<br />colour: Index","DATE: 2010-09-01<br />Index: 3.965666<br />colour: Index","DATE: 2010-10-01<br />Index: 3.984380<br />colour: Index","DATE: 2010-11-01<br />Index: 3.956455<br />colour: Index","DATE: 2010-12-01<br />Index: 4.002562<br />colour: Index","DATE: 2011-01-01<br />Index: 4.007903<br />colour: Index","DATE: 2011-02-01<br />Index: 4.041860<br />colour: Index","DATE: 2011-03-01<br />Index: 4.061972<br />colour: Index","DATE: 2011-04-01<br />Index: 4.126378<br />colour: Index","DATE: 2011-05-01<br />Index: 4.145325<br />colour: Index","DATE: 2011-06-01<br />Index: 4.130517<br />colour: Index","DATE: 2011-07-01<br />Index: 4.070128<br />colour: Index","DATE: 2011-08-01<br />Index: 4.060196<br />colour: Index","DATE: 2011-09-01<br />Index: 4.013316<br />colour: Index","DATE: 2011-10-01<br />Index: 4.069725<br />colour: Index","DATE: 2011-11-01<br />Index: 4.078945<br />colour: Index","DATE: 2011-12-01<br />Index: 4.110475<br />colour: Index","DATE: 2012-01-01<br />Index: 4.146011<br />colour: Index","DATE: 2012-02-01<br />Index: 4.160451<br />colour: Index","DATE: 2012-03-01<br />Index: 4.200704<br />colour: Index","DATE: 2012-04-01<br />Index: 4.200337<br />colour: Index","DATE: 2012-05-01<br />Index: 4.165662<br />colour: Index","DATE: 2012-06-01<br />Index: 4.217789<br />colour: Index","DATE: 2012-07-01<br />Index: 4.233185<br />colour: Index","DATE: 2012-08-01<br />Index: 4.249731<br />colour: Index","DATE: 2012-09-01<br />Index: 4.295853<br />colour: Index","DATE: 2012-10-01<br />Index: 4.275883<br />colour: Index","DATE: 2012-11-01<br />Index: 4.284353<br />colour: Index","DATE: 2012-12-01<br />Index: 4.280877<br />colour: Index","DATE: 2013-01-01<br />Index: 4.353161<br />colour: Index","DATE: 2013-02-01<br />Index: 4.366000<br />colour: Index","DATE: 2013-03-01<br />Index: 4.433477<br />colour: Index","DATE: 2013-04-01<br />Index: 4.460510<br />colour: Index","DATE: 2013-05-01<br />Index: 4.476344<br />colour: Index","DATE: 2013-06-01<br />Index: 4.473171<br />colour: Index","DATE: 2013-07-01<br />Index: 4.541944<br />colour: Index","DATE: 2013-08-01<br />Index: 4.508712<br />colour: Index","DATE: 2013-09-01<br />Index: 4.537300<br />colour: Index","DATE: 2013-10-01<br />Index: 4.574118<br />colour: Index","DATE: 2013-11-01<br />Index: 4.618378<br />colour: Index","DATE: 2013-12-01<br />Index: 4.626215<br />colour: Index","DATE: 2014-01-01<br />Index: 4.641042<br />colour: Index","DATE: 2014-02-01<br />Index: 4.700796<br />colour: Index","DATE: 2014-03-01<br />Index: 4.683248<br />colour: Index","DATE: 2014-04-01<br />Index: 4.675004<br />colour: Index","DATE: 2014-05-01<br />Index: 4.701088<br />colour: Index","DATE: 2014-06-01<br />Index: 4.727871<br />colour: Index","DATE: 2014-07-01<br />Index: 4.725762<br />colour: Index","DATE: 2014-08-01<br />Index: 4.775930<br />colour: Index","DATE: 2014-09-01<br />Index: 4.777305<br />colour: Index","DATE: 2014-10-01<br />Index: 4.831274<br />colour: Index","DATE: 2014-11-01<br />Index: 4.864472<br />colour: Index","DATE: 2014-12-01<br />Index: 4.850533<br />colour: Index","DATE: 2015-01-01<br />Index: 4.873812<br />colour: Index","DATE: 2015-02-01<br />Index: 4.912994<br />colour: Index","DATE: 2015-03-01<br />Index: 4.920777<br />colour: Index","DATE: 2015-04-01<br />Index: 4.903127<br />colour: Index","DATE: 2015-05-01<br />Index: 4.952113<br />colour: Index","DATE: 2015-06-01<br />Index: 4.951438<br />colour: Index","DATE: 2015-07-01<br />Index: 4.979089<br />colour: Index","DATE: 2015-08-01<br />Index: 4.896664<br />colour: Index","DATE: 2015-09-01<br />Index: 4.828533<br />colour: Index","DATE: 2015-10-01<br />Index: 4.905536<br />colour: Index","DATE: 2015-11-01<br />Index: 4.897498<br />colour: Index","DATE: 2015-12-01<br />Index: 4.910394<br />colour: Index","DATE: 2016-01-01<br />Index: 4.817005<br />colour: Index","DATE: 2016-02-01<br />Index: 4.817554<br />colour: Index","DATE: 2016-03-01<br />Index: 4.847899<br />colour: Index","DATE: 2016-04-01<br />Index: 4.883252<br />colour: Index","DATE: 2016-05-01<br />Index: 4.899751<br />colour: Index","DATE: 2016-06-01<br />Index: 4.904976<br />colour: Index","DATE: 2016-07-01<br />Index: 4.958251<br />colour: Index","DATE: 2016-08-01<br />Index: 4.922223<br />colour: Index","DATE: 2016-09-01<br />Index: 4.920868<br />colour: Index","DATE: 2016-10-01<br />Index: 4.853400<br />colour: Index","DATE: 2016-11-01<br />Index: 4.876422<br />colour: Index","DATE: 2016-12-01<br />Index: 4.886862<br />colour: Index","DATE: 2017-01-01<br />Index: 4.906460<br />colour: Index","DATE: 2017-02-01<br />Index: 4.968415<br />colour: Index","DATE: 2017-03-01<br />Index: 4.963140<br />colour: Index","DATE: 2017-04-01<br />Index: 4.983132<br />colour: Index","DATE: 2017-05-01<br />Index: 4.983736<br />colour: Index","DATE: 2017-06-01<br />Index: 5.031457<br />colour: Index","DATE: 2017-07-01<br />Index: 5.037334<br />colour: Index","DATE: 2017-08-01<br />Index: 5.058574<br />colour: Index","DATE: 2017-09-01<br />Index: 5.068876<br />colour: Index","DATE: 2017-10-01<br />Index: 5.060557<br />colour: Index","DATE: 2017-11-01<br />Index: 5.090510<br />colour: Index","DATE: 2017-12-01<br />Index: 5.093336<br />colour: Index","DATE: 2018-01-01<br />Index: 5.147691<br />colour: Index","DATE: 2018-02-01<br />Index: 5.102913<br />colour: Index","DATE: 2018-03-01<br />Index: 5.067389<br />colour: Index","DATE: 2018-04-01<br />Index: 5.085337<br />colour: Index","DATE: 2018-05-01<br />Index: 5.095689<br />colour: Index","DATE: 2018-06-01<br />Index: 5.112920<br />colour: Index","DATE: 2018-07-01<br />Index: 5.174868<br />colour: Index","DATE: 2018-08-01<br />Index: 5.218955<br />colour: Index","DATE: 2018-09-01<br />Index: 5.246147<br />colour: Index","DATE: 2018-10-01<br />Index: 5.170403<br />colour: Index","DATE: 2018-11-01<br />Index: 5.233806<br />colour: Index","DATE: 2018-12-01<br />Index: 5.140497<br />colour: Index","DATE: 2019-01-01<br />Index: 5.195428<br />colour: Index","DATE: 2019-02-01<br />Index: 5.207034<br />colour: Index","DATE: 2019-03-01<br />Index: 5.210808<br />colour: Index","DATE: 2019-04-01<br />Index: 5.183330<br />colour: Index","DATE: 2019-05-01<br />Index: 5.156734<br />colour: Index","DATE: 2019-06-01<br />Index: 5.227308<br />colour: Index","DATE: 2019-07-01<br />Index: 5.209280<br />colour: Index","DATE: 2019-08-01<br />Index: 5.196696<br />colour: Index","DATE: 2019-09-01<br />Index: 5.194434<br />colour: Index","DATE: 2019-10-01<br />Index: 5.242204<br />colour: Index","DATE: 2019-11-01<br />Index: 5.295934<br />colour: Index","DATE: 2019-12-01<br />Index: 5.329445<br />colour: Index","DATE: 2020-01-01<br />Index: 5.303047<br />colour: Index","DATE: 2020-02-01<br />Index: 5.258237<br />colour: Index","DATE: 2020-03-01<br />Index: 5.194439<br />colour: Index","DATE: 2020-04-01<br />Index: 5.316025<br />colour: Index","DATE: 2020-05-01<br />Index: 5.349303<br />colour: Index","DATE: 2020-06-01<br />Index: 5.335558<br />colour: Index","DATE: 2020-07-01<br />Index: 5.387514<br />colour: Index","DATE: 2020-08-01<br />Index: 5.409676<br />colour: Index","DATE: 2020-09-01<br />Index: 5.391779<br />colour: Index","DATE: 2020-10-01<br />Index: 5.370308<br />colour: Index","DATE: 2020-11-01<br />Index: 5.436537<br />colour: Index","DATE: 2020-12-01<br />Index: 5.474043<br />colour: Index","DATE: 2021-01-01<br />Index: 5.499154<br />colour: Index","DATE: 2021-02-01<br />Index: 5.481081<br />colour: Index","DATE: 2021-03-01<br />Index: 5.502920<br />colour: Index","DATE: 2021-04-01<br />Index: 5.543824<br />colour: Index","DATE: 2021-05-01<br />Index: 5.543161<br />colour: Index","DATE: 2021-06-01<br />Index: 5.582656<br />colour: Index","DATE: 2021-07-01<br />Index: 5.630917<br />colour: Index","DATE: 2021-08-01<br />Index: 5.653463<br />colour: Index","DATE: 2021-09-01<br />Index: 5.596792<br />colour: Index","DATE: 2021-10-01<br />Index: 5.644221<br />colour: Index","DATE: 2021-11-01<br />Index: 5.606063<br />colour: Index","DATE: 2021-12-01<br />Index: 5.684415<br />colour: Index","DATE: 2022-01-01<br />Index: 5.603201<br />colour: Index","DATE: 2022-02-01<br />Index: 5.593039<br />colour: Index","DATE: 2022-03-01<br />Index: 5.647535<br />colour: Index","DATE: 2022-04-01<br />Index: 5.597070<br />colour: Index","DATE: 2022-05-01<br />Index: 5.602924<br />colour: Index","DATE: 2022-06-01<br />Index: 5.578444<br />colour: Index","DATE: 2022-07-01<br />Index: 5.607299<br />colour: Index","DATE: 2022-08-01<br />Index: 5.548972<br />colour: Index","DATE: 2022-09-01<br />Index: 5.521416<br />colour: Index","DATE: 2022-10-01<br />Index: 5.609152<br />colour: Index","DATE: 2022-11-01<br />Index: 5.656735<br />colour: Index","DATE: 2022-12-01<br />Index: 5.638772<br />colour: Index"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(255,0,0,0.7)","dash":"solid"},"hoveron":"points","name":"Index","legendgroup":"Index","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11170,11201,11231,11262,11292,11323,11354,11382,11413,11443,11474,11504,11535,11566,11596,11627,11657,11688,11719,11747,11778,11808,11839,11869,11900,11931,11961,11992,12022,12053,12084,12112,12143,12173,12204,12234,12265,12296,12326,12357,12387,12418,12449,12478,12509,12539,12570,12600,12631,12662,12692,12723,12753,12784,12815,12843,12874,12904,12935,12965,12996,13027,13057,13088,13118,13149,13180,13208,13239,13269,13300,13330,13361,13392,13422,13453,13483,13514,13545,13573,13604,13634,13665,13695,13726,13757,13787,13818,13848,13879,13910,13939,13970,14000,14031,14061,14092,14123,14153,14184,14214,14245,14276,14304,14335,14365,14396,14426,14457,14488,14518,14549,14579,14610,14641,14669,14700,14730,14761,14791,14822,14853,14883,14914,14944,14975,15006,15034,15065,15095,15126,15156,15187,15218,15248,15279,15309,15340,15371,15400,15431,15461,15492,15522,15553,15584,15614,15645,15675,15706,15737,15765,15796,15826,15857,15887,15918,15949,15979,16010,16040,16071,16102,16130,16161,16191,16222,16252,16283,16314,16344,16375,16405,16436,16467,16495,16526,16556,16587,16617,16648,16679,16709,16740,16770,16801,16832,16861,16892,16922,16953,16983,17014,17045,17075,17106,17136,17167,17198,17226,17257,17287,17318,17348,17379,17410,17440,17471,17501,17532,17563,17591,17622,17652,17683,17713,17744,17775,17805,17836,17866,17897,17928,17956,17987,18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327],"y":[8.6637148440790046,8.6583454711721206,8.6671637179925334,8.6712867267536371,8.6750512760318177,8.66544076787644,8.6621589616664227,8.6793120408926718,8.6764166969642158,8.6706007380455503,8.6597338781983471,8.6567812056232913,8.6525978284224401,8.64979915596426,8.656259239539235,8.6794820944599564,8.6805018090282609,8.6781208555225202,8.6794820944599564,8.680331928793418,8.6731707728705896,8.6835547286314618,8.6799920817213287,8.6571290317137546,8.6649233034405722,8.5961891976427349,8.5863460501045541,8.6347984334905004,8.6520736736100563,8.6578243211559833,8.6626778581582187,8.6661303041906077,8.6527724856580601,8.6417090661138047,8.6410024771425231,8.6121396687251917,8.6258682080418936,8.632127729508337,8.6330187569218282,8.6210125200552348,8.6253298500208153,8.6278397115033005,8.6255093348996965,8.633552992532433,8.6233533872446273,8.622633703874234,8.5954496893820043,8.609590040682205,8.5801679905776265,8.5332633715937316,8.550627967502475,8.5984044468410605,8.6143199021469599,8.6026366732337056,8.6126851728754588,8.6307004322098315,8.6238928100752936,8.6298073357853724,8.6019019193431916,8.566554620953962,8.5560292152014359,8.3461675943641342,8.4239808096940578,8.4881762423457445,8.5147903067999273,8.5267474042210498,8.5235727983802771,8.5225786636925758,8.5334601638801093,8.546946149565585,8.5492730848796494,8.5358186555394031,8.5251613610654147,8.5233740504913182,8.5385632171524293,8.5299119638240128,8.5537179660986098,8.5385632171524293,8.5405190167197347,8.5407143864575836,8.5525603352535295,8.5585270549092147,8.5320818039099873,8.5247644569125551,8.5111751190906748,8.4973985640880585,8.5215835397175308,8.5239701756952613,8.5391503587682802,8.5399326783857266,8.5463635687160178,8.5542962793677404,8.5525603352535295,8.5453918457749154,8.5444191776698286,8.5519810169019017,8.5177930114882052,8.2875284231117625,8.4633703847187309,8.5326727622646246,8.5375838810639717,8.5455862659174553,8.5638859194082197,8.5600610916434139,8.5713025170632697,8.589885876809678,8.5695958702092856,8.5937837935779502,8.5974820226450408,8.6231735149534696,8.6168575145291832,8.5932278776922342,8.6037377928164229,8.5948946990800899,8.6220936012416072,8.6152269316876033,8.5926716525921432,8.5943394005928919,8.5904436531558304,8.5750846698320142,8.6028202773836746,8.633374945705647,8.6360423252546177,8.6262269524403603,8.6317710961236731,8.6119577678606607,8.5952647268363922,8.6337310076641884,8.6237130347939104,8.6349762270726202,8.6285556592696988,8.6015343398499891,8.6420621734621061,8.6330187569218282,8.6830465555028855,8.7059937143079011,8.7180093308463569,8.7285879956958983,8.7432126034759108,8.7525814691468842,8.7514744871409036,8.7593547485662082,8.7443287639999845,8.7688853261348623,8.7563675598029747,8.7945218517885273,8.8493705037545691,8.8653116326718493,8.8686947765809716,8.8654528257536231,8.8741680903639679,8.8837788614634849,8.9057155787940907,8.89918494333876,8.8924739683470868,8.9255873390302813,8.9271813882519861,8.9667389787595759,8.956737613177264,8.9770202142104125,8.9786604896396867,8.9967757954422964,9.004668301573977,9.0235287499093637,9.050875597325156,9.0647363981173914,9.0758942754232592,9.0877206584282728,9.0972836496838863,9.1144900463193483,9.1339991387194601,9.1403470001556482,9.1656567643495421,9.1466548202900491,9.157993891603974,9.167745974343763,9.1755418664334876,9.1563064834836965,9.1438800052759124,9.1532407799356097,9.1494219570067656,9.1566230894701945,9.148358579620302,9.1412046331413208,9.1350778874756351,9.1270674527823612,9.1116243990370247,9.1160296925049416,9.0907682368353377,9.0863631921564725,9.0682006048150594,9.066585468331045,9.0698131368392065,9.0528675131516181,9.0828478514609063,9.0940312495757993,9.0842100948319704,9.0908809319388553,9.1153701343849551,9.123038043573386,9.1161395765773552,9.1253269976492266,9.1171279902540032,9.1319463045481708,9.1323788305064717,9.1607298714228484,9.1765767418233732,9.218804450388312,9.2086389253364249,9.2103403719761836,9.2362030315019101,9.2558871869321528,9.2590352935149411,9.2528249835823377,9.2723757628956349,9.2961510283892927,9.3405788488999129,9.3451334683177141,9.3507977246714393,9.3830323797942938,9.3879843392190256,9.3818537300535336,9.3632331180793251,9.3852176218809014,9.4046728414362732,9.4053313318707996,9.4105018468984678,9.3839574881399912,9.431802510507854,9.4401814447381138,9.4575909986336253,9.4727046364436731,9.4711649902580817,9.4610990903233656,9.4606320552094054,9.4568097485938889,9.3852176218809014,9.1813234229056899,9.2539744089962443,9.3060141220444645,9.2666261829867747,9.2989005489556629,9.2549312553040579,9.3233118506353438,9.3211659270650671,9.3180281773930993,9.2019048931550813,9.3370611247553388,9.3341496577024685,9.3404910564412287,9.3383817218570666,9.3406666336517574,9.3304318522340033,9.2984428201977281,9.3556521031362365,9.3743282220816333,9.3654620088434832,9.3483616698735581,9.3288342660239714,9.3763631558006342,9.3733092002543223,9.3702458894858047,9.375854810453756,9.3787320232366387,9.3914111468684851,9.4193849989108909,9.4236759822993061,9.4235143922529012,9.4040963063958003],"text":["DATE: 2000-08-01<br />Production: 8.663715<br />colour: Production","DATE: 2000-09-01<br />Production: 8.658345<br />colour: Production","DATE: 2000-10-01<br />Production: 8.667164<br />colour: Production","DATE: 2000-11-01<br />Production: 8.671287<br />colour: Production","DATE: 2000-12-01<br />Production: 8.675051<br />colour: Production","DATE: 2001-01-01<br />Production: 8.665441<br />colour: Production","DATE: 2001-02-01<br />Production: 8.662159<br />colour: Production","DATE: 2001-03-01<br />Production: 8.679312<br />colour: Production","DATE: 2001-04-01<br />Production: 8.676417<br />colour: Production","DATE: 2001-05-01<br />Production: 8.670601<br />colour: Production","DATE: 2001-06-01<br />Production: 8.659734<br />colour: Production","DATE: 2001-07-01<br />Production: 8.656781<br />colour: Production","DATE: 2001-08-01<br />Production: 8.652598<br />colour: Production","DATE: 2001-09-01<br />Production: 8.649799<br />colour: Production","DATE: 2001-10-01<br />Production: 8.656259<br />colour: Production","DATE: 2001-11-01<br />Production: 8.679482<br />colour: Production","DATE: 2001-12-01<br />Production: 8.680502<br />colour: Production","DATE: 2002-01-01<br />Production: 8.678121<br />colour: Production","DATE: 2002-02-01<br />Production: 8.679482<br />colour: Production","DATE: 2002-03-01<br />Production: 8.680332<br />colour: Production","DATE: 2002-04-01<br />Production: 8.673171<br />colour: Production","DATE: 2002-05-01<br />Production: 8.683555<br />colour: Production","DATE: 2002-06-01<br />Production: 8.679992<br />colour: Production","DATE: 2002-07-01<br />Production: 8.657129<br />colour: Production","DATE: 2002-08-01<br />Production: 8.664923<br />colour: Production","DATE: 2002-09-01<br />Production: 8.596189<br />colour: Production","DATE: 2002-10-01<br />Production: 8.586346<br />colour: Production","DATE: 2002-11-01<br />Production: 8.634798<br />colour: Production","DATE: 2002-12-01<br />Production: 8.652074<br />colour: Production","DATE: 2003-01-01<br />Production: 8.657824<br />colour: Production","DATE: 2003-02-01<br />Production: 8.662678<br />colour: Production","DATE: 2003-03-01<br />Production: 8.666130<br />colour: Production","DATE: 2003-04-01<br />Production: 8.652772<br />colour: Production","DATE: 2003-05-01<br />Production: 8.641709<br />colour: Production","DATE: 2003-06-01<br />Production: 8.641002<br />colour: Production","DATE: 2003-07-01<br />Production: 8.612140<br />colour: Production","DATE: 2003-08-01<br />Production: 8.625868<br />colour: Production","DATE: 2003-09-01<br />Production: 8.632128<br />colour: Production","DATE: 2003-10-01<br />Production: 8.633019<br />colour: Production","DATE: 2003-11-01<br />Production: 8.621013<br />colour: Production","DATE: 2003-12-01<br />Production: 8.625330<br />colour: Production","DATE: 2004-01-01<br />Production: 8.627840<br />colour: Production","DATE: 2004-02-01<br />Production: 8.625509<br />colour: Production","DATE: 2004-03-01<br />Production: 8.633553<br />colour: Production","DATE: 2004-04-01<br />Production: 8.623353<br />colour: Production","DATE: 2004-05-01<br />Production: 8.622634<br />colour: Production","DATE: 2004-06-01<br />Production: 8.595450<br />colour: Production","DATE: 2004-07-01<br />Production: 8.609590<br />colour: Production","DATE: 2004-08-01<br />Production: 8.580168<br />colour: Production","DATE: 2004-09-01<br />Production: 8.533263<br />colour: Production","DATE: 2004-10-01<br />Production: 8.550628<br />colour: Production","DATE: 2004-11-01<br />Production: 8.598404<br />colour: Production","DATE: 2004-12-01<br />Production: 8.614320<br />colour: Production","DATE: 2005-01-01<br />Production: 8.602637<br />colour: Production","DATE: 2005-02-01<br />Production: 8.612685<br />colour: Production","DATE: 2005-03-01<br />Production: 8.630700<br />colour: Production","DATE: 2005-04-01<br />Production: 8.623893<br />colour: Production","DATE: 2005-05-01<br />Production: 8.629807<br />colour: Production","DATE: 2005-06-01<br />Production: 8.601902<br />colour: Production","DATE: 2005-07-01<br />Production: 8.566555<br />colour: Production","DATE: 2005-08-01<br />Production: 8.556029<br />colour: Production","DATE: 2005-09-01<br />Production: 8.346168<br />colour: Production","DATE: 2005-10-01<br />Production: 8.423981<br />colour: Production","DATE: 2005-11-01<br />Production: 8.488176<br />colour: Production","DATE: 2005-12-01<br />Production: 8.514790<br />colour: Production","DATE: 2006-01-01<br />Production: 8.526747<br />colour: Production","DATE: 2006-02-01<br />Production: 8.523573<br />colour: Production","DATE: 2006-03-01<br />Production: 8.522579<br />colour: Production","DATE: 2006-04-01<br />Production: 8.533460<br />colour: Production","DATE: 2006-05-01<br />Production: 8.546946<br />colour: Production","DATE: 2006-06-01<br />Production: 8.549273<br />colour: Production","DATE: 2006-07-01<br />Production: 8.535819<br />colour: Production","DATE: 2006-08-01<br />Production: 8.525161<br />colour: Production","DATE: 2006-09-01<br />Production: 8.523374<br />colour: Production","DATE: 2006-10-01<br />Production: 8.538563<br />colour: Production","DATE: 2006-11-01<br />Production: 8.529912<br />colour: Production","DATE: 2006-12-01<br />Production: 8.553718<br />colour: Production","DATE: 2007-01-01<br />Production: 8.538563<br />colour: Production","DATE: 2007-02-01<br />Production: 8.540519<br />colour: Production","DATE: 2007-03-01<br />Production: 8.540714<br />colour: Production","DATE: 2007-04-01<br />Production: 8.552560<br />colour: Production","DATE: 2007-05-01<br />Production: 8.558527<br />colour: Production","DATE: 2007-06-01<br />Production: 8.532082<br />colour: Production","DATE: 2007-07-01<br />Production: 8.524764<br />colour: Production","DATE: 2007-08-01<br />Production: 8.511175<br />colour: Production","DATE: 2007-09-01<br />Production: 8.497399<br />colour: Production","DATE: 2007-10-01<br />Production: 8.521584<br />colour: Production","DATE: 2007-11-01<br />Production: 8.523970<br />colour: Production","DATE: 2007-12-01<br />Production: 8.539150<br />colour: Production","DATE: 2008-01-01<br />Production: 8.539933<br />colour: Production","DATE: 2008-02-01<br />Production: 8.546364<br />colour: Production","DATE: 2008-03-01<br />Production: 8.554296<br />colour: Production","DATE: 2008-04-01<br />Production: 8.552560<br />colour: Production","DATE: 2008-05-01<br />Production: 8.545392<br />colour: Production","DATE: 2008-06-01<br />Production: 8.544419<br />colour: Production","DATE: 2008-07-01<br />Production: 8.551981<br />colour: Production","DATE: 2008-08-01<br />Production: 8.517793<br />colour: Production","DATE: 2008-09-01<br />Production: 8.287528<br />colour: Production","DATE: 2008-10-01<br />Production: 8.463370<br />colour: Production","DATE: 2008-11-01<br />Production: 8.532673<br />colour: Production","DATE: 2008-12-01<br />Production: 8.537584<br />colour: Production","DATE: 2009-01-01<br />Production: 8.545586<br />colour: Production","DATE: 2009-02-01<br />Production: 8.563886<br />colour: Production","DATE: 2009-03-01<br />Production: 8.560061<br />colour: Production","DATE: 2009-04-01<br />Production: 8.571303<br />colour: Production","DATE: 2009-05-01<br />Production: 8.589886<br />colour: Production","DATE: 2009-06-01<br />Production: 8.569596<br />colour: Production","DATE: 2009-07-01<br />Production: 8.593784<br />colour: Production","DATE: 2009-08-01<br />Production: 8.597482<br />colour: Production","DATE: 2009-09-01<br />Production: 8.623174<br />colour: Production","DATE: 2009-10-01<br />Production: 8.616858<br />colour: Production","DATE: 2009-11-01<br />Production: 8.593228<br />colour: Production","DATE: 2009-12-01<br />Production: 8.603738<br />colour: Production","DATE: 2010-01-01<br />Production: 8.594895<br />colour: Production","DATE: 2010-02-01<br />Production: 8.622094<br />colour: Production","DATE: 2010-03-01<br />Production: 8.615227<br />colour: Production","DATE: 2010-04-01<br />Production: 8.592672<br />colour: Production","DATE: 2010-05-01<br />Production: 8.594339<br />colour: Production","DATE: 2010-06-01<br />Production: 8.590444<br />colour: Production","DATE: 2010-07-01<br />Production: 8.575085<br />colour: Production","DATE: 2010-08-01<br />Production: 8.602820<br />colour: Production","DATE: 2010-09-01<br />Production: 8.633375<br />colour: Production","DATE: 2010-10-01<br />Production: 8.636042<br />colour: Production","DATE: 2010-11-01<br />Production: 8.626227<br />colour: Production","DATE: 2010-12-01<br />Production: 8.631771<br />colour: Production","DATE: 2011-01-01<br />Production: 8.611958<br />colour: Production","DATE: 2011-02-01<br />Production: 8.595265<br />colour: Production","DATE: 2011-03-01<br />Production: 8.633731<br />colour: Production","DATE: 2011-04-01<br />Production: 8.623713<br />colour: Production","DATE: 2011-05-01<br />Production: 8.634976<br />colour: Production","DATE: 2011-06-01<br />Production: 8.628556<br />colour: Production","DATE: 2011-07-01<br />Production: 8.601534<br />colour: Production","DATE: 2011-08-01<br />Production: 8.642062<br />colour: Production","DATE: 2011-09-01<br />Production: 8.633019<br />colour: Production","DATE: 2011-10-01<br />Production: 8.683047<br />colour: Production","DATE: 2011-11-01<br />Production: 8.705994<br />colour: Production","DATE: 2011-12-01<br />Production: 8.718009<br />colour: Production","DATE: 2012-01-01<br />Production: 8.728588<br />colour: Production","DATE: 2012-02-01<br />Production: 8.743213<br />colour: Production","DATE: 2012-03-01<br />Production: 8.752581<br />colour: Production","DATE: 2012-04-01<br />Production: 8.751474<br />colour: Production","DATE: 2012-05-01<br />Production: 8.759355<br />colour: Production","DATE: 2012-06-01<br />Production: 8.744329<br />colour: Production","DATE: 2012-07-01<br />Production: 8.768885<br />colour: Production","DATE: 2012-08-01<br />Production: 8.756368<br />colour: Production","DATE: 2012-09-01<br />Production: 8.794522<br />colour: Production","DATE: 2012-10-01<br />Production: 8.849371<br />colour: Production","DATE: 2012-11-01<br />Production: 8.865312<br />colour: Production","DATE: 2012-12-01<br />Production: 8.868695<br />colour: Production","DATE: 2013-01-01<br />Production: 8.865453<br />colour: Production","DATE: 2013-02-01<br />Production: 8.874168<br />colour: Production","DATE: 2013-03-01<br />Production: 8.883779<br />colour: Production","DATE: 2013-04-01<br />Production: 8.905716<br />colour: Production","DATE: 2013-05-01<br />Production: 8.899185<br />colour: Production","DATE: 2013-06-01<br />Production: 8.892474<br />colour: Production","DATE: 2013-07-01<br />Production: 8.925587<br />colour: Production","DATE: 2013-08-01<br />Production: 8.927181<br />colour: Production","DATE: 2013-09-01<br />Production: 8.966739<br />colour: Production","DATE: 2013-10-01<br />Production: 8.956738<br />colour: Production","DATE: 2013-11-01<br />Production: 8.977020<br />colour: Production","DATE: 2013-12-01<br />Production: 8.978660<br />colour: Production","DATE: 2014-01-01<br />Production: 8.996776<br />colour: Production","DATE: 2014-02-01<br />Production: 9.004668<br />colour: Production","DATE: 2014-03-01<br />Production: 9.023529<br />colour: Production","DATE: 2014-04-01<br />Production: 9.050876<br />colour: Production","DATE: 2014-05-01<br />Production: 9.064736<br />colour: Production","DATE: 2014-06-01<br />Production: 9.075894<br />colour: Production","DATE: 2014-07-01<br />Production: 9.087721<br />colour: Production","DATE: 2014-08-01<br />Production: 9.097284<br />colour: Production","DATE: 2014-09-01<br />Production: 9.114490<br />colour: Production","DATE: 2014-10-01<br />Production: 9.133999<br />colour: Production","DATE: 2014-11-01<br />Production: 9.140347<br />colour: Production","DATE: 2014-12-01<br />Production: 9.165657<br />colour: Production","DATE: 2015-01-01<br />Production: 9.146655<br />colour: Production","DATE: 2015-02-01<br />Production: 9.157994<br />colour: Production","DATE: 2015-03-01<br />Production: 9.167746<br />colour: Production","DATE: 2015-04-01<br />Production: 9.175542<br />colour: Production","DATE: 2015-05-01<br />Production: 9.156306<br />colour: Production","DATE: 2015-06-01<br />Production: 9.143880<br />colour: Production","DATE: 2015-07-01<br />Production: 9.153241<br />colour: Production","DATE: 2015-08-01<br />Production: 9.149422<br />colour: Production","DATE: 2015-09-01<br />Production: 9.156623<br />colour: Production","DATE: 2015-10-01<br />Production: 9.148359<br />colour: Production","DATE: 2015-11-01<br />Production: 9.141205<br />colour: Production","DATE: 2015-12-01<br />Production: 9.135078<br />colour: Production","DATE: 2016-01-01<br />Production: 9.127067<br />colour: Production","DATE: 2016-02-01<br />Production: 9.111624<br />colour: Production","DATE: 2016-03-01<br />Production: 9.116030<br />colour: Production","DATE: 2016-04-01<br />Production: 9.090768<br />colour: Production","DATE: 2016-05-01<br />Production: 9.086363<br />colour: Production","DATE: 2016-06-01<br />Production: 9.068201<br />colour: Production","DATE: 2016-07-01<br />Production: 9.066585<br />colour: Production","DATE: 2016-08-01<br />Production: 9.069813<br />colour: Production","DATE: 2016-09-01<br />Production: 9.052868<br />colour: Production","DATE: 2016-10-01<br />Production: 9.082848<br />colour: Production","DATE: 2016-11-01<br />Production: 9.094031<br />colour: Production","DATE: 2016-12-01<br />Production: 9.084210<br />colour: Production","DATE: 2017-01-01<br />Production: 9.090881<br />colour: Production","DATE: 2017-02-01<br />Production: 9.115370<br />colour: Production","DATE: 2017-03-01<br />Production: 9.123038<br />colour: Production","DATE: 2017-04-01<br />Production: 9.116140<br />colour: Production","DATE: 2017-05-01<br />Production: 9.125327<br />colour: Production","DATE: 2017-06-01<br />Production: 9.117128<br />colour: Production","DATE: 2017-07-01<br />Production: 9.131946<br />colour: Production","DATE: 2017-08-01<br />Production: 9.132379<br />colour: Production","DATE: 2017-09-01<br />Production: 9.160730<br />colour: Production","DATE: 2017-10-01<br />Production: 9.176577<br />colour: Production","DATE: 2017-11-01<br />Production: 9.218804<br />colour: Production","DATE: 2017-12-01<br />Production: 9.208639<br />colour: Production","DATE: 2018-01-01<br />Production: 9.210340<br />colour: Production","DATE: 2018-02-01<br />Production: 9.236203<br />colour: Production","DATE: 2018-03-01<br />Production: 9.255887<br />colour: Production","DATE: 2018-04-01<br />Production: 9.259035<br />colour: Production","DATE: 2018-05-01<br />Production: 9.252825<br />colour: Production","DATE: 2018-06-01<br />Production: 9.272376<br />colour: Production","DATE: 2018-07-01<br />Production: 9.296151<br />colour: Production","DATE: 2018-08-01<br />Production: 9.340579<br />colour: Production","DATE: 2018-09-01<br />Production: 9.345133<br />colour: Production","DATE: 2018-10-01<br />Production: 9.350798<br />colour: Production","DATE: 2018-11-01<br />Production: 9.383032<br />colour: Production","DATE: 2018-12-01<br />Production: 9.387984<br />colour: Production","DATE: 2019-01-01<br />Production: 9.381854<br />colour: Production","DATE: 2019-02-01<br />Production: 9.363233<br />colour: Production","DATE: 2019-03-01<br />Production: 9.385218<br />colour: Production","DATE: 2019-04-01<br />Production: 9.404673<br />colour: Production","DATE: 2019-05-01<br />Production: 9.405331<br />colour: Production","DATE: 2019-06-01<br />Production: 9.410502<br />colour: Production","DATE: 2019-07-01<br />Production: 9.383957<br />colour: Production","DATE: 2019-08-01<br />Production: 9.431803<br />colour: Production","DATE: 2019-09-01<br />Production: 9.440181<br />colour: Production","DATE: 2019-10-01<br />Production: 9.457591<br />colour: Production","DATE: 2019-11-01<br />Production: 9.472705<br />colour: Production","DATE: 2019-12-01<br />Production: 9.471165<br />colour: Production","DATE: 2020-01-01<br />Production: 9.461099<br />colour: Production","DATE: 2020-02-01<br />Production: 9.460632<br />colour: Production","DATE: 2020-03-01<br />Production: 9.456810<br />colour: Production","DATE: 2020-04-01<br />Production: 9.385218<br />colour: Production","DATE: 2020-05-01<br />Production: 9.181323<br />colour: Production","DATE: 2020-06-01<br />Production: 9.253974<br />colour: Production","DATE: 2020-07-01<br />Production: 9.306014<br />colour: Production","DATE: 2020-08-01<br />Production: 9.266626<br />colour: Production","DATE: 2020-09-01<br />Production: 9.298901<br />colour: Production","DATE: 2020-10-01<br />Production: 9.254931<br />colour: Production","DATE: 2020-11-01<br />Production: 9.323312<br />colour: Production","DATE: 2020-12-01<br />Production: 9.321166<br />colour: Production","DATE: 2021-01-01<br />Production: 9.318028<br />colour: Production","DATE: 2021-02-01<br />Production: 9.201905<br />colour: Production","DATE: 2021-03-01<br />Production: 9.337061<br />colour: Production","DATE: 2021-04-01<br />Production: 9.334150<br />colour: Production","DATE: 2021-05-01<br />Production: 9.340491<br />colour: Production","DATE: 2021-06-01<br />Production: 9.338382<br />colour: Production","DATE: 2021-07-01<br />Production: 9.340667<br />colour: Production","DATE: 2021-08-01<br />Production: 9.330432<br />colour: Production","DATE: 2021-09-01<br />Production: 9.298443<br />colour: Production","DATE: 2021-10-01<br />Production: 9.355652<br />colour: Production","DATE: 2021-11-01<br />Production: 9.374328<br />colour: Production","DATE: 2021-12-01<br />Production: 9.365462<br />colour: Production","DATE: 2022-01-01<br />Production: 9.348362<br />colour: Production","DATE: 2022-02-01<br />Production: 9.328834<br />colour: Production","DATE: 2022-03-01<br />Production: 9.376363<br />colour: Production","DATE: 2022-04-01<br />Production: 9.373309<br />colour: Production","DATE: 2022-05-01<br />Production: 9.370246<br />colour: Production","DATE: 2022-06-01<br />Production: 9.375855<br />colour: Production","DATE: 2022-07-01<br />Production: 9.378732<br />colour: Production","DATE: 2022-08-01<br />Production: 9.391411<br />colour: Production","DATE: 2022-09-01<br />Production: 9.419385<br />colour: Production","DATE: 2022-10-01<br />Production: 9.423676<br />colour: Production","DATE: 2022-11-01<br />Production: 9.423514<br />colour: Production","DATE: 2022-12-01<br />Production: 9.404096<br />colour: Production"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(0,0,255,0.7)","dash":"solid"},"hoveron":"points","name":"Production","legendgroup":"Production","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11170,11201,11231,11262,11292,11323,11354,11382,11413,11443,11474,11504,11535,11566,11596,11627,11657,11688,11719,11747,11778,11808,11839,11869,11900,11931,11961,11992,12022,12053,12084,12112,12143,12173,12204,12234,12265,12296,12326,12357,12387,12418,12449,12478,12509,12539,12570,12600,12631,12662,12692,12723,12753,12784,12815,12843,12874,12904,12935,12965,12996,13027,13057,13088,13118,13149,13180,13208,13239,13269,13300,13330,13361,13392,13422,13453,13483,13514,13545,13573,13604,13634,13665,13695,13726,13757,13787,13818,13848,13879,13910,13939,13970,14000,14031,14061,14092,14123,14153,14184,14214,14245,14276,14304,14335,14365,14396,14426,14457,14488,14518,14549,14579,14610,14641,14669,14700,14730,14761,14791,14822,14853,14883,14914,14944,14975,15006,15034,15065,15095,15126,15156,15187,15218,15248,15279,15309,15340,15371,15400,15431,15461,15492,15522,15553,15584,15614,15645,15675,15706,15737,15765,15796,15826,15857,15887,15918,15949,15979,16010,16040,16071,16102,16130,16161,16191,16222,16252,16283,16314,16344,16375,16405,16436,16467,16495,16526,16556,16587,16617,16648,16679,16709,16740,16770,16801,16832,16861,16892,16922,16953,16983,17014,17045,17075,17106,17136,17167,17198,17226,17257,17287,17318,17348,17379,17410,17440,17471,17501,17532,17563,17591,17622,17652,17683,17713,17744,17775,17805,17836,17866,17897,17928,17956,17987,18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327],"y":[1.03276128742763,0.97407463292261898,1.01996878018357,1.0546021853871499,0.84299089106042202,0.89547586415392599,0.85553824427512704,0.82074885089748795,0.88798751207342796,0.88517945443281498,0.81230222752423897,0.82215291758885001,0.84867399096494001,0.71730253882689399,0.66084245895034499,0.60655229319252102,0.61903278080725199,0.60780031219816399,0.68174729802189205,0.84210438318578695,0.85148210811721203,0.79095166879619205,0.83660948418042702,0.84305775666039595,0.89596119165353005,0.95070202928806802,0.84929797071193203,0.84390016205024798,0.97347898613556905,1.04555379467168,1.14196565820193,0.96848679108967595,0.80499219504589203,0.92698909199977797,0.94196571771358595,0.95288616669334802,0.94960999884292296,0.91107648855025403,0.908268371397982,0.94888849702114397,1.01466462502001,1.0469720711242201,1.1361509254631099,1.1157566044551599,1.1663027131960599,1.2735829926786799,1.1560062439632901,1.3550560537613201,1.31419656582019,1.5488299710237701,1.5762870816472401,1.53291738650978,1.34368178269423,1.5039002156107399,1.6146646250200101,1.7285492307225401,1.5814353054433199,1.62152893784186,1.7628705567851299,1.90680758198015,2.1510141679407102,2.0667706533725601,1.8645865754789399,1.7884555712732499,1.9017161178799,2.11918876086609,1.91606868359615,2.0789391213579602,2.2747553651519099,2.2243370549941299,2.3082684904213,2.3213729577830202,2.1921998068251498,1.9318394788769599,1.83244932730996,1.9697348696069801,1.8765990889105,1.81404058576136,1.92792519146389,2.0416821176066202,2.0502340295999102,1.9971920018710501,2.19390836955822,2.4402496395081199,2.3101404891739401,2.5189902948927099,2.94945401028242,2.7678627518310299,2.9946959638597601,2.8627145767263,3.17753506278182,3.16942290948931,3.54009365944929,3.96844429976499,4.3681748309720101,3.8714510073241,3.5137063087714799,3.1400936594492901,2.1157566044551599,1.5467862870854401,1.3915756485431801,1.2867678693089299,1.35186501695298,1.5494540102824199,1.5950078049541101,2.1028791091515799,2.1806552590750798,2.1669266334313901,2.1828393369687,2.2031201962932601,2.4423061135840598,2.4112324686090898,2.4761311232290102,2.3315417041747901,2.47518087351538,2.6134166655260298,2.6879876310967501,2.2799446303522601,2.3597503604918799,2.4811374387685898,2.2439937560367098,2.4951639040362599,2.59124951383032,2.6243370549941298,2.8511700289762301,2.8764432023699902,3.0255851335114299,3.3297973092398401,3.5257836589964602,3.2043681557872401,2.9772231026641598,2.9497235007159999,2.7709828291009599,2.4711388091597999,2.9076444511626498,3.1313573478748098,3.1174208017185898,3.0726990858413998,3.3407176987079401,3.2390299967436298,3.2720750465827502,2.6998440199411702,2.5860486590563698,2.7475818925064699,3.0099845091151001,2.8617644027547802,2.6907956292257,2.7741031444175399,2.8648986546199202,3.0418096781430899,2.8720750465827498,3.0135553012424001,2.91606868359615,2.86957888954815,3.06164477813671,3.2770671226053301,3.3799966633796399,3.1928238460838099,3.00717627293951,2.9200902302552398,3.0708268490421302,3.0418096781430899,3.2009359993763198,3.16942290948931,3.1120124879265698,3.2100270437209999,3.28767567097908,3.06302653684397,2.9504569177670401,2.8443059542010198,2.5129486063262099,2.1207176630009501,1.66209053746765,1.4919869985419101,1.55006383166467,1.48517939492116,1.8605304988326801,1.8692242595708199,1.8555383037867901,1.4702028097834801,1.5351014644034,1.4068643128218501,1.44478801487121,1.2995320598235001,1.1556942838456199,0.99557511607613902,1.05304214675218,1.1962558834714101,1.4131045322835301,1.5319812681101399,1.5079564112803201,1.26607576277852,1.3946958448364399,1.5051482941280401,1.4620905374676501,1.5425896974605799,1.6723522981782799,1.6477379915886201,1.68517939492116,1.57878314129913,1.51382787486083,1.50764433213933,1.43650552297953,1.5653665947964199,1.4736349661943999,1.6010495259815201,1.6967239426712299,1.79095172830785,1.8893470219218,2.0196569390892201,1.92324495653566,1.99732563955267,2.1394696201906398,2.0917317476253401,2.2986257312601399,2.1453979336361702,2.1778472609461299,2.32489021586664,2.0377534824735202,1.5890796105319001,1.4168487029136301,1.6783152011226301,1.7853354940033099,1.9126790996621701,1.99407180557779,1.66926681040716,1.8193596868530499,1.8277692114050501,1.7304038851327099,1.68705151269711,1.6904836691080301,1.75153406840813,1.90514829412804,1.6087364305978,1.44935471778408,0.63900156099082195,0.58783153201459504,1.1132321956128799,1.22527305437045,1.2564743031631,1.32948523009885,1.2549142645281399,1.1446036369306201,1.4146646250200099,1.5138846057025299,1.6754786752683,1.9100695296355299,1.8458658738126701,1.98377545536834,2.1213555936033401,2.2923557868839901,2.2646717204328399,2.1372855422970201,2.3410296588256099,2.59697926391976,2.0648986546199199,2.3466458931301499,2.75039012868206,2.98658357252061,3.1288611908402002,3.2591264564869999,3.5778471419228102,3.2998441389644899,2.9545313502822199,2.7940719246011101,2.4801871998752598,2.6998440199411702,2.5132606854671899,2.50421229475173],"text":["DATE: 2000-08-01<br />Price: 1.0327613<br />colour: Price","DATE: 2000-09-01<br />Price: 0.9740746<br />colour: Price","DATE: 2000-10-01<br />Price: 1.0199688<br />colour: Price","DATE: 2000-11-01<br />Price: 1.0546022<br />colour: Price","DATE: 2000-12-01<br />Price: 0.8429909<br />colour: Price","DATE: 2001-01-01<br />Price: 0.8954759<br />colour: Price","DATE: 2001-02-01<br />Price: 0.8555382<br />colour: Price","DATE: 2001-03-01<br />Price: 0.8207489<br />colour: Price","DATE: 2001-04-01<br />Price: 0.8879875<br />colour: Price","DATE: 2001-05-01<br />Price: 0.8851795<br />colour: Price","DATE: 2001-06-01<br />Price: 0.8123022<br />colour: Price","DATE: 2001-07-01<br />Price: 0.8221529<br />colour: Price","DATE: 2001-08-01<br />Price: 0.8486740<br />colour: Price","DATE: 2001-09-01<br />Price: 0.7173025<br />colour: Price","DATE: 2001-10-01<br />Price: 0.6608425<br />colour: Price","DATE: 2001-11-01<br />Price: 0.6065523<br />colour: Price","DATE: 2001-12-01<br />Price: 0.6190328<br />colour: Price","DATE: 2002-01-01<br />Price: 0.6078003<br />colour: Price","DATE: 2002-02-01<br />Price: 0.6817473<br />colour: Price","DATE: 2002-03-01<br />Price: 0.8421044<br />colour: Price","DATE: 2002-04-01<br />Price: 0.8514821<br />colour: Price","DATE: 2002-05-01<br />Price: 0.7909517<br />colour: Price","DATE: 2002-06-01<br />Price: 0.8366095<br />colour: Price","DATE: 2002-07-01<br />Price: 0.8430578<br />colour: Price","DATE: 2002-08-01<br />Price: 0.8959612<br />colour: Price","DATE: 2002-09-01<br />Price: 0.9507020<br />colour: Price","DATE: 2002-10-01<br />Price: 0.8492980<br />colour: Price","DATE: 2002-11-01<br />Price: 0.8439002<br />colour: Price","DATE: 2002-12-01<br />Price: 0.9734790<br />colour: Price","DATE: 2003-01-01<br />Price: 1.0455538<br />colour: Price","DATE: 2003-02-01<br />Price: 1.1419657<br />colour: Price","DATE: 2003-03-01<br />Price: 0.9684868<br />colour: Price","DATE: 2003-04-01<br />Price: 0.8049922<br />colour: Price","DATE: 2003-05-01<br />Price: 0.9269891<br />colour: Price","DATE: 2003-06-01<br />Price: 0.9419657<br />colour: Price","DATE: 2003-07-01<br />Price: 0.9528862<br />colour: Price","DATE: 2003-08-01<br />Price: 0.9496100<br />colour: Price","DATE: 2003-09-01<br />Price: 0.9110765<br />colour: Price","DATE: 2003-10-01<br />Price: 0.9082684<br />colour: Price","DATE: 2003-11-01<br />Price: 0.9488885<br />colour: Price","DATE: 2003-12-01<br />Price: 1.0146646<br />colour: Price","DATE: 2004-01-01<br />Price: 1.0469721<br />colour: Price","DATE: 2004-02-01<br />Price: 1.1361509<br />colour: Price","DATE: 2004-03-01<br />Price: 1.1157566<br />colour: Price","DATE: 2004-04-01<br />Price: 1.1663027<br />colour: Price","DATE: 2004-05-01<br />Price: 1.2735830<br />colour: Price","DATE: 2004-06-01<br />Price: 1.1560062<br />colour: Price","DATE: 2004-07-01<br />Price: 1.3550561<br />colour: Price","DATE: 2004-08-01<br />Price: 1.3141966<br />colour: Price","DATE: 2004-09-01<br />Price: 1.5488300<br />colour: Price","DATE: 2004-10-01<br />Price: 1.5762871<br />colour: Price","DATE: 2004-11-01<br />Price: 1.5329174<br />colour: Price","DATE: 2004-12-01<br />Price: 1.3436818<br />colour: Price","DATE: 2005-01-01<br />Price: 1.5039002<br />colour: Price","DATE: 2005-02-01<br />Price: 1.6146646<br />colour: Price","DATE: 2005-03-01<br />Price: 1.7285492<br />colour: Price","DATE: 2005-04-01<br />Price: 1.5814353<br />colour: Price","DATE: 2005-05-01<br />Price: 1.6215289<br />colour: Price","DATE: 2005-06-01<br />Price: 1.7628706<br />colour: Price","DATE: 2005-07-01<br />Price: 1.9068076<br />colour: Price","DATE: 2005-08-01<br />Price: 2.1510142<br />colour: Price","DATE: 2005-09-01<br />Price: 2.0667707<br />colour: Price","DATE: 2005-10-01<br />Price: 1.8645866<br />colour: Price","DATE: 2005-11-01<br />Price: 1.7884556<br />colour: Price","DATE: 2005-12-01<br />Price: 1.9017161<br />colour: Price","DATE: 2006-01-01<br />Price: 2.1191888<br />colour: Price","DATE: 2006-02-01<br />Price: 1.9160687<br />colour: Price","DATE: 2006-03-01<br />Price: 2.0789391<br />colour: Price","DATE: 2006-04-01<br />Price: 2.2747554<br />colour: Price","DATE: 2006-05-01<br />Price: 2.2243371<br />colour: Price","DATE: 2006-06-01<br />Price: 2.3082685<br />colour: Price","DATE: 2006-07-01<br />Price: 2.3213730<br />colour: Price","DATE: 2006-08-01<br />Price: 2.1921998<br />colour: Price","DATE: 2006-09-01<br />Price: 1.9318395<br />colour: Price","DATE: 2006-10-01<br />Price: 1.8324493<br />colour: Price","DATE: 2006-11-01<br />Price: 1.9697349<br />colour: Price","DATE: 2006-12-01<br />Price: 1.8765991<br />colour: Price","DATE: 2007-01-01<br />Price: 1.8140406<br />colour: Price","DATE: 2007-02-01<br />Price: 1.9279252<br />colour: Price","DATE: 2007-03-01<br />Price: 2.0416821<br />colour: Price","DATE: 2007-04-01<br />Price: 2.0502340<br />colour: Price","DATE: 2007-05-01<br />Price: 1.9971920<br />colour: Price","DATE: 2007-06-01<br />Price: 2.1939084<br />colour: Price","DATE: 2007-07-01<br />Price: 2.4402496<br />colour: Price","DATE: 2007-08-01<br />Price: 2.3101405<br />colour: Price","DATE: 2007-09-01<br />Price: 2.5189903<br />colour: Price","DATE: 2007-10-01<br />Price: 2.9494540<br />colour: Price","DATE: 2007-11-01<br />Price: 2.7678628<br />colour: Price","DATE: 2007-12-01<br />Price: 2.9946960<br />colour: Price","DATE: 2008-01-01<br />Price: 2.8627146<br />colour: Price","DATE: 2008-02-01<br />Price: 3.1775351<br />colour: Price","DATE: 2008-03-01<br />Price: 3.1694229<br />colour: Price","DATE: 2008-04-01<br />Price: 3.5400937<br />colour: Price","DATE: 2008-05-01<br />Price: 3.9684443<br />colour: Price","DATE: 2008-06-01<br />Price: 4.3681748<br />colour: Price","DATE: 2008-07-01<br />Price: 3.8714510<br />colour: Price","DATE: 2008-08-01<br />Price: 3.5137063<br />colour: Price","DATE: 2008-09-01<br />Price: 3.1400937<br />colour: Price","DATE: 2008-10-01<br />Price: 2.1157566<br />colour: Price","DATE: 2008-11-01<br />Price: 1.5467863<br />colour: Price","DATE: 2008-12-01<br />Price: 1.3915756<br />colour: Price","DATE: 2009-01-01<br />Price: 1.2867679<br />colour: Price","DATE: 2009-02-01<br />Price: 1.3518650<br />colour: Price","DATE: 2009-03-01<br />Price: 1.5494540<br />colour: Price","DATE: 2009-04-01<br />Price: 1.5950078<br />colour: Price","DATE: 2009-05-01<br />Price: 2.1028791<br />colour: Price","DATE: 2009-06-01<br />Price: 2.1806553<br />colour: Price","DATE: 2009-07-01<br />Price: 2.1669266<br />colour: Price","DATE: 2009-08-01<br />Price: 2.1828393<br />colour: Price","DATE: 2009-09-01<br />Price: 2.2031202<br />colour: Price","DATE: 2009-10-01<br />Price: 2.4423061<br />colour: Price","DATE: 2009-11-01<br />Price: 2.4112325<br />colour: Price","DATE: 2009-12-01<br />Price: 2.4761311<br />colour: Price","DATE: 2010-01-01<br />Price: 2.3315417<br />colour: Price","DATE: 2010-02-01<br />Price: 2.4751809<br />colour: Price","DATE: 2010-03-01<br />Price: 2.6134167<br />colour: Price","DATE: 2010-04-01<br />Price: 2.6879876<br />colour: Price","DATE: 2010-05-01<br />Price: 2.2799446<br />colour: Price","DATE: 2010-06-01<br />Price: 2.3597504<br />colour: Price","DATE: 2010-07-01<br />Price: 2.4811374<br />colour: Price","DATE: 2010-08-01<br />Price: 2.2439938<br />colour: Price","DATE: 2010-09-01<br />Price: 2.4951639<br />colour: Price","DATE: 2010-10-01<br />Price: 2.5912495<br />colour: Price","DATE: 2010-11-01<br />Price: 2.6243371<br />colour: Price","DATE: 2010-12-01<br />Price: 2.8511700<br />colour: Price","DATE: 2011-01-01<br />Price: 2.8764432<br />colour: Price","DATE: 2011-02-01<br />Price: 3.0255851<br />colour: Price","DATE: 2011-03-01<br />Price: 3.3297973<br />colour: Price","DATE: 2011-04-01<br />Price: 3.5257837<br />colour: Price","DATE: 2011-05-01<br />Price: 3.2043682<br />colour: Price","DATE: 2011-06-01<br />Price: 2.9772231<br />colour: Price","DATE: 2011-07-01<br />Price: 2.9497235<br />colour: Price","DATE: 2011-08-01<br />Price: 2.7709828<br />colour: Price","DATE: 2011-09-01<br />Price: 2.4711388<br />colour: Price","DATE: 2011-10-01<br />Price: 2.9076445<br />colour: Price","DATE: 2011-11-01<br />Price: 3.1313573<br />colour: Price","DATE: 2011-12-01<br />Price: 3.1174208<br />colour: Price","DATE: 2012-01-01<br />Price: 3.0726991<br />colour: Price","DATE: 2012-02-01<br />Price: 3.3407177<br />colour: Price","DATE: 2012-03-01<br />Price: 3.2390300<br />colour: Price","DATE: 2012-04-01<br />Price: 3.2720750<br />colour: Price","DATE: 2012-05-01<br />Price: 2.6998440<br />colour: Price","DATE: 2012-06-01<br />Price: 2.5860487<br />colour: Price","DATE: 2012-07-01<br />Price: 2.7475819<br />colour: Price","DATE: 2012-08-01<br />Price: 3.0099845<br />colour: Price","DATE: 2012-09-01<br />Price: 2.8617644<br />colour: Price","DATE: 2012-10-01<br />Price: 2.6907956<br />colour: Price","DATE: 2012-11-01<br />Price: 2.7741031<br />colour: Price","DATE: 2012-12-01<br />Price: 2.8648987<br />colour: Price","DATE: 2013-01-01<br />Price: 3.0418097<br />colour: Price","DATE: 2013-02-01<br />Price: 2.8720750<br />colour: Price","DATE: 2013-03-01<br />Price: 3.0135553<br />colour: Price","DATE: 2013-04-01<br />Price: 2.9160687<br />colour: Price","DATE: 2013-05-01<br />Price: 2.8695789<br />colour: Price","DATE: 2013-06-01<br />Price: 3.0616448<br />colour: Price","DATE: 2013-07-01<br />Price: 3.2770671<br />colour: Price","DATE: 2013-08-01<br />Price: 3.3799967<br />colour: Price","DATE: 2013-09-01<br />Price: 3.1928238<br />colour: Price","DATE: 2013-10-01<br />Price: 3.0071763<br />colour: Price","DATE: 2013-11-01<br />Price: 2.9200902<br />colour: Price","DATE: 2013-12-01<br />Price: 3.0708268<br />colour: Price","DATE: 2014-01-01<br />Price: 3.0418097<br />colour: Price","DATE: 2014-02-01<br />Price: 3.2009360<br />colour: Price","DATE: 2014-03-01<br />Price: 3.1694229<br />colour: Price","DATE: 2014-04-01<br />Price: 3.1120125<br />colour: Price","DATE: 2014-05-01<br />Price: 3.2100270<br />colour: Price","DATE: 2014-06-01<br />Price: 3.2876757<br />colour: Price","DATE: 2014-07-01<br />Price: 3.0630265<br />colour: Price","DATE: 2014-08-01<br />Price: 2.9504569<br />colour: Price","DATE: 2014-09-01<br />Price: 2.8443060<br />colour: Price","DATE: 2014-10-01<br />Price: 2.5129486<br />colour: Price","DATE: 2014-11-01<br />Price: 2.1207177<br />colour: Price","DATE: 2014-12-01<br />Price: 1.6620905<br />colour: Price","DATE: 2015-01-01<br />Price: 1.4919870<br />colour: Price","DATE: 2015-02-01<br />Price: 1.5500638<br />colour: Price","DATE: 2015-03-01<br />Price: 1.4851794<br />colour: Price","DATE: 2015-04-01<br />Price: 1.8605305<br />colour: Price","DATE: 2015-05-01<br />Price: 1.8692243<br />colour: Price","DATE: 2015-06-01<br />Price: 1.8555383<br />colour: Price","DATE: 2015-07-01<br />Price: 1.4702028<br />colour: Price","DATE: 2015-08-01<br />Price: 1.5351015<br />colour: Price","DATE: 2015-09-01<br />Price: 1.4068643<br />colour: Price","DATE: 2015-10-01<br />Price: 1.4447880<br />colour: Price","DATE: 2015-11-01<br />Price: 1.2995321<br />colour: Price","DATE: 2015-12-01<br />Price: 1.1556943<br />colour: Price","DATE: 2016-01-01<br />Price: 0.9955751<br />colour: Price","DATE: 2016-02-01<br />Price: 1.0530421<br />colour: Price","DATE: 2016-03-01<br />Price: 1.1962559<br />colour: Price","DATE: 2016-04-01<br />Price: 1.4131045<br />colour: Price","DATE: 2016-05-01<br />Price: 1.5319813<br />colour: Price","DATE: 2016-06-01<br />Price: 1.5079564<br />colour: Price","DATE: 2016-07-01<br />Price: 1.2660758<br />colour: Price","DATE: 2016-08-01<br />Price: 1.3946958<br />colour: Price","DATE: 2016-09-01<br />Price: 1.5051483<br />colour: Price","DATE: 2016-10-01<br />Price: 1.4620905<br />colour: Price","DATE: 2016-11-01<br />Price: 1.5425897<br />colour: Price","DATE: 2016-12-01<br />Price: 1.6723523<br />colour: Price","DATE: 2017-01-01<br />Price: 1.6477380<br />colour: Price","DATE: 2017-02-01<br />Price: 1.6851794<br />colour: Price","DATE: 2017-03-01<br />Price: 1.5787831<br />colour: Price","DATE: 2017-04-01<br />Price: 1.5138279<br />colour: Price","DATE: 2017-05-01<br />Price: 1.5076443<br />colour: Price","DATE: 2017-06-01<br />Price: 1.4365055<br />colour: Price","DATE: 2017-07-01<br />Price: 1.5653666<br />colour: Price","DATE: 2017-08-01<br />Price: 1.4736350<br />colour: Price","DATE: 2017-09-01<br />Price: 1.6010495<br />colour: Price","DATE: 2017-10-01<br />Price: 1.6967239<br />colour: Price","DATE: 2017-11-01<br />Price: 1.7909517<br />colour: Price","DATE: 2017-12-01<br />Price: 1.8893470<br />colour: Price","DATE: 2018-01-01<br />Price: 2.0196569<br />colour: Price","DATE: 2018-02-01<br />Price: 1.9232450<br />colour: Price","DATE: 2018-03-01<br />Price: 1.9973256<br />colour: Price","DATE: 2018-04-01<br />Price: 2.1394696<br />colour: Price","DATE: 2018-05-01<br />Price: 2.0917317<br />colour: Price","DATE: 2018-06-01<br />Price: 2.2986257<br />colour: Price","DATE: 2018-07-01<br />Price: 2.1453979<br />colour: Price","DATE: 2018-08-01<br />Price: 2.1778473<br />colour: Price","DATE: 2018-09-01<br />Price: 2.3248902<br />colour: Price","DATE: 2018-10-01<br />Price: 2.0377535<br />colour: Price","DATE: 2018-11-01<br />Price: 1.5890796<br />colour: Price","DATE: 2018-12-01<br />Price: 1.4168487<br />colour: Price","DATE: 2019-01-01<br />Price: 1.6783152<br />colour: Price","DATE: 2019-02-01<br />Price: 1.7853355<br />colour: Price","DATE: 2019-03-01<br />Price: 1.9126791<br />colour: Price","DATE: 2019-04-01<br />Price: 1.9940718<br />colour: Price","DATE: 2019-05-01<br />Price: 1.6692668<br />colour: Price","DATE: 2019-06-01<br />Price: 1.8193597<br />colour: Price","DATE: 2019-07-01<br />Price: 1.8277692<br />colour: Price","DATE: 2019-08-01<br />Price: 1.7304039<br />colour: Price","DATE: 2019-09-01<br />Price: 1.6870515<br />colour: Price","DATE: 2019-10-01<br />Price: 1.6904837<br />colour: Price","DATE: 2019-11-01<br />Price: 1.7515341<br />colour: Price","DATE: 2019-12-01<br />Price: 1.9051483<br />colour: Price","DATE: 2020-01-01<br />Price: 1.6087364<br />colour: Price","DATE: 2020-02-01<br />Price: 1.4493547<br />colour: Price","DATE: 2020-03-01<br />Price: 0.6390016<br />colour: Price","DATE: 2020-04-01<br />Price: 0.5878315<br />colour: Price","DATE: 2020-05-01<br />Price: 1.1132322<br />colour: Price","DATE: 2020-06-01<br />Price: 1.2252731<br />colour: Price","DATE: 2020-07-01<br />Price: 1.2564743<br />colour: Price","DATE: 2020-08-01<br />Price: 1.3294852<br />colour: Price","DATE: 2020-09-01<br />Price: 1.2549143<br />colour: Price","DATE: 2020-10-01<br />Price: 1.1446036<br />colour: Price","DATE: 2020-11-01<br />Price: 1.4146646<br />colour: Price","DATE: 2020-12-01<br />Price: 1.5138846<br />colour: Price","DATE: 2021-01-01<br />Price: 1.6754787<br />colour: Price","DATE: 2021-02-01<br />Price: 1.9100695<br />colour: Price","DATE: 2021-03-01<br />Price: 1.8458659<br />colour: Price","DATE: 2021-04-01<br />Price: 1.9837755<br />colour: Price","DATE: 2021-05-01<br />Price: 2.1213556<br />colour: Price","DATE: 2021-06-01<br />Price: 2.2923558<br />colour: Price","DATE: 2021-07-01<br />Price: 2.2646717<br />colour: Price","DATE: 2021-08-01<br />Price: 2.1372855<br />colour: Price","DATE: 2021-09-01<br />Price: 2.3410297<br />colour: Price","DATE: 2021-10-01<br />Price: 2.5969793<br />colour: Price","DATE: 2021-11-01<br />Price: 2.0648987<br />colour: Price","DATE: 2021-12-01<br />Price: 2.3466459<br />colour: Price","DATE: 2022-01-01<br />Price: 2.7503901<br />colour: Price","DATE: 2022-02-01<br />Price: 2.9865836<br />colour: Price","DATE: 2022-03-01<br />Price: 3.1288612<br />colour: Price","DATE: 2022-04-01<br />Price: 3.2591265<br />colour: Price","DATE: 2022-05-01<br />Price: 3.5778471<br />colour: Price","DATE: 2022-06-01<br />Price: 3.2998441<br />colour: Price","DATE: 2022-07-01<br />Price: 2.9545314<br />colour: Price","DATE: 2022-08-01<br />Price: 2.7940719<br />colour: Price","DATE: 2022-09-01<br />Price: 2.4801872<br />colour: Price","DATE: 2022-10-01<br />Price: 2.6998440<br />colour: Price","DATE: 2022-11-01<br />Price: 2.5132607<br />colour: Price","DATE: 2022-12-01<br />Price: 2.5042123<br />colour: Price"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(0,255,0,0.7)","dash":"solid"},"hoveron":"points","name":"Price","legendgroup":"Price","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":48.146118721461193,"r":7.3059360730593621,"b":44.56621004566211,"l":43.105022831050235},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Healthcare Index ~ Oil Price + Oil Production","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[10762.15,19734.849999999999],"tickmode":"array","ticktext":["2000","2005","2010","2015","2020"],"tickvals":[10957,12784,14610,16436,18262],"categoryorder":"array","categoryarray":["2000","2005","2010","2015","2020"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Date","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.14358787679314111,9.9169482916651273],"tickmode":"array","ticktext":["2.5","5.0","7.5"],"tickvals":[2.5,5,7.5000000000000009],"categoryorder":"array","categoryarray":["2.5","5.0","7.5"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Value","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Variables","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"17c1624b5a511":{"x":{},"y":{},"colour":{},"type":"scatter"},"17c16116811eb":{"x":{},"y":{},"colour":{}},"17c164770643a":{"x":{},"y":{},"colour":{}}},"cur_data":"17c1624b5a511","visdat":{"17c1624b5a511":["function (y) ","x"],"17c16116811eb":["function (y) ","x"],"17c164770643a":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="linear-models" class="level3">
+<h3 class="anchored" data-anchor-id="linear-models">Linear Models</h3>
+<div class="epigrafe">
+<p>In FIT 1 we can observe the first linear model where the Index is the predictor variable and Oil Production and Oil Price are the independent variables. The variable Oil Price has a p-value higher than the significance level of 0.05, so it is not significant.</p>
+<p>In FIT 2 we can see the second linear model where the Index is the predictor variable and Oil Production is the independent variable. The model has good R-squared and RMSE values.</p>
+</div>
+<div class="tabs-container-linear">
+<div class="tab-linear" onclick="toggleTabLinear('tab1')">
+FIT 1
+</div>
+<div class="tab-linear" onclick="toggleTabLinear('tab2')">
+FIT 2
+</div>
+</div>
+<div id="tab1" class="tab-content-linear active">
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Index <span class="sc">~</span> ., <span class="at">data =</span> dd)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Index ~ ., data = dd)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.31006 -0.08638 -0.00920  0.09889  0.32938 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -7.657e+00  4.832e-01 -15.846   &lt;2e-16 ***
+DATE         1.186e-04  9.838e-06  12.061   &lt;2e-16 ***
+Production   1.157e+00  6.800e-02  17.020   &lt;2e-16 ***
+Price        8.583e-04  1.334e-02   0.064    0.949    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1269 on 265 degrees of freedom
+Multiple R-squared:  0.9624,    Adjusted R-squared:  0.962 
+F-statistic:  2262 on 3 and 265 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</div>
+<div id="tab2" class="tab-content-linear">
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fit_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Index <span class="sc">~</span> Production, <span class="at">data =</span> dd)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Index ~ Production, data = dd)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.42988 -0.11657 -0.00471  0.14154  0.62106 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -12.66791    0.30355  -41.73   &lt;2e-16 ***
+Production    1.92556    0.03416   56.37   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1815 on 267 degrees of freedom
+Multiple R-squared:  0.9225,    Adjusted R-squared:  0.9222 
+F-statistic:  3177 on 1 and 267 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>R^2: 0.9224835 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>RMSE: 0.180819</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="stationarity" class="level3">
+<h3 class="anchored" data-anchor-id="stationarity">Stationarity</h3>
+<div class="epigrafe">
+<p>The ACF plot shows high autocorrelation in the lags, so the time series is not stationary. Evaluating the results of the Augmented Dickey-Fuller test, the p-value is higher than the significance level of 0.05. Therefore, we cannot reject the null hypothesis that the time series is stationary.</p>
+</div>
+<div class="tabs-container-volatility">
+<div class="tab-volatility" onclick="toggleTabVolatility('tab3')">
+PLOTS
+</div>
+<div class="tab-volatility" onclick="toggleTabVolatility('tab4')">
+AUGMENTED DICKEY-FULLER TEST
+</div>
+</div>
+<div id="tab3" class="tab-content-volatility active">
+<p><strong>Time Series, ACF Plot and PACF Plot</strong></p>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lm.residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit_2)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>lm.residuals <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="9_health_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</div>
+<div id="tab4" class="tab-content-volatility">
+<p><strong>Augmented Dickey-Fuller Test</strong></p>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>adf_test <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(lm.residuals)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(adf_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Augmented Dickey-Fuller Test
+
+data:  lm.residuals
+Dickey-Fuller = -2.6337, Lag order = 6, p-value = 0.309
+alternative hypothesis: stationary</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="differencing" class="level3">
+<h3 class="anchored" data-anchor-id="differencing">Differencing</h3>
+<div class="epigrafe">
+<p>We apply the first difference to the residuals of the linear model to obtain a stationary time series. We can observe the volatility of the residuals and two main volatility clusters in the data points near 100 and near 250.</p>
+<p>In the acf plot, we can observe that the differenced residuals look stationary.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lm.residuals <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="9_health_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="model-selection" class="level3">
+<h3 class="anchored" data-anchor-id="model-selection">Model Selection</h3>
+<div class="epigrafe">
+<p>Based on the ACF and PACF plot for the first difference on residuals, we define:</p>
+<p><span class="math inline">\(p = 2\)</span></p>
+<p><span class="math inline">\(d = 1\)</span></p>
+<p><span class="math inline">\(q = 2\)</span></p>
+<p>Next we will run the model diagnostics on the models that have the minimum AIC, minimum BIC and the auto.arima() results.</p>
+</div>
+<div class="tabs-container-model-selection">
+<div class="tab-model-selection" onclick="toggleTabModelSelection('tab5')">
+MODEL PARAMETERS
+</div>
+<div class="tab-model-selection" onclick="toggleTabModelSelection('tab6')">
+MODEL SUMMARY
+</div>
+<div class="tab-model-selection" onclick="toggleTabModelSelection('tab7')">
+AUTO.ARIMA()
+</div>
+</div>
+<div id="tab5" class="tab-content-model-selection active">
+<p><strong>Model Parameters</strong></p>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>xt <span class="ot">&lt;-</span> lm.residuals</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>d_value <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>q_value <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>rows <span class="ot">&lt;-</span> (p_value<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>(d_value<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>(q_value<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>ls <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">6</span><span class="sc">*</span>rows),<span class="at">nrow=</span>rows) </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (p <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span>p_value<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(q <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span>q_value<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(d <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span>d_value)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(p<span class="dv">-1</span><span class="sc">+</span>d<span class="sc">+</span>q<span class="dv">-1</span><span class="sc">&lt;=</span><span class="dv">8</span>) <span class="co">#usual threshold</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        model<span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt,<span class="at">order=</span><span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>),<span class="at">include.drift=</span><span class="cn">TRUE</span>) </span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        ls[i,]<span class="ot">=</span> <span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>,model<span class="sc">$</span>aic,model<span class="sc">$</span>bic,model<span class="sc">$</span>aicc)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        i<span class="ot">=</span>i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print(i)</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ls)</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(temp)</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(temp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"p"</span>,<span class="st">"d"</span>,<span class="st">"q"</span>,<span class="st">"AIC"</span>,<span class="st">"BIC"</span>,<span class="st">"AICc"</span>)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a><span class="co">#temp</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">p</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">d</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">q</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">AIC</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">BIC</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">AICc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-181.9296</td>
+<td style="text-align: right;">-171.1454</td>
+<td style="text-align: right;">-181.8390</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-605.0585</td>
+<td style="text-align: right;">-597.8765</td>
+<td style="text-align: right;">-605.0132</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-398.3793</td>
+<td style="text-align: right;">-384.0005</td>
+<td style="text-align: right;">-398.2278</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-607.4171</td>
+<td style="text-align: right;">-596.6441</td>
+<td style="text-align: right;">-607.3261</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-488.8055</td>
+<td style="text-align: right;">-470.8320</td>
+<td style="text-align: right;">-488.5774</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-614.1934</td>
+<td style="text-align: right;">-599.8294</td>
+<td style="text-align: right;">-614.0413</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-616.8152</td>
+<td style="text-align: right;">-602.4364</td>
+<td style="text-align: right;">-616.6637</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-605.8417</td>
+<td style="text-align: right;">-595.0688</td>
+<td style="text-align: right;">-605.7508</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-615.9225</td>
+<td style="text-align: right;">-597.9489</td>
+<td style="text-align: right;">-615.6943</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-612.7719</td>
+<td style="text-align: right;">-598.4079</td>
+<td style="text-align: right;">-612.6198</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-619.1369</td>
+<td style="text-align: right;">-597.5686</td>
+<td style="text-align: right;">-618.8162</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-612.6320</td>
+<td style="text-align: right;">-594.6771</td>
+<td style="text-align: right;">-612.4030</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-615.5707</td>
+<td style="text-align: right;">-597.5971</td>
+<td style="text-align: right;">-615.3425</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-612.6000</td>
+<td style="text-align: right;">-598.2361</td>
+<td style="text-align: right;">-612.4479</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-616.8600</td>
+<td style="text-align: right;">-595.2918</td>
+<td style="text-align: right;">-616.5394</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-612.4744</td>
+<td style="text-align: right;">-594.5194</td>
+<td style="text-align: right;">-612.2454</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-617.1683</td>
+<td style="text-align: right;">-592.0053</td>
+<td style="text-align: right;">-616.7391</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-610.6323</td>
+<td style="text-align: right;">-589.0864</td>
+<td style="text-align: right;">-610.3105</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<div id="tab6" class="tab-content-model-selection">
+<p><strong>Model Summary</strong></p>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   p d q       AIC       BIC      AICc
+11 1 0 2 -619.1369 -597.5686 -618.8162</code></pre>
+</div>
+</div>
+<hr>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>BIC),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  p d q       AIC       BIC      AICc
+7 1 0 0 -616.8152 -602.4364 -616.6637</code></pre>
+</div>
+</div>
+<hr>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AICc),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   p d q       AIC       BIC      AICc
+11 1 0 2 -619.1369 -597.5686 -618.8162</code></pre>
+</div>
+</div>
+</div>
+<div id="tab7" class="tab-content-model-selection">
+<p><strong>auto.arima()</strong></p>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the exogenous variable</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fit_auto_arima <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(xt)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_auto_arima)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: xt 
+ARIMA(0,1,2) 
+
+Coefficients:
+          ma1      ma2
+      -0.1443  -0.1808
+s.e.   0.0599   0.0601
+
+sigma^2 = 0.005789:  log likelihood = 311.03
+AIC=-616.06   AICc=-615.97   BIC=-605.29
+
+Training set error measures:
+                      ME       RMSE        MAE       MPE     MAPE     MASE
+Training set 0.001749108 0.07565713 0.04849242 -92.46969 165.3897 0.982097
+                    ACF1
+Training set 0.006260783</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="model-diagnostics" class="level3">
+<h3 class="anchored" data-anchor-id="model-diagnostics">Model Diagnostics</h3>
+<div class="epigrafe">
+<p>Comparing the results of the model diagnostics, we can observe that the ARIMA(0, 1, 2) model is the best. The lag values in the ACF plot are within the confidence bands, so the residuals are stationary. The standard residuals plotted in the Normal Q-Q plot show the similarity to normality. The p-values for the Ljung-Box statistic confirm that the residuals are stationary.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>AIC <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>p</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>d</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>q</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p1, d1, q1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="9_health_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>BIC <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>BIC),]</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> BIC<span class="sc">$</span>p</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> BIC<span class="sc">$</span>d</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>q2 <span class="ot">&lt;-</span> BIC<span class="sc">$</span>q</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p2, d2, q2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="9_health_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p3, d3, q3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="9_health_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="residuals" class="level3">
+<h3 class="anchored" data-anchor-id="residuals">Residuals</h3>
+<div class="epigrafe">
+<p>We plot the residuals and the residuals squared of the arima model using the ACF and PACF plot to determine the parameters for the GARCH model.</p>
+<p>The values that will be used to assess the model are the following:</p>
+<p><span class="math inline">\(p = 2\)</span></p>
+<p><span class="math inline">\(q = 2\)</span></p>
+</div>
+<p><strong>Residuals ACF</strong></p>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>arima_model <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt,<span class="at">order=</span><span class="fu">c</span>(p3, d3, q3),<span class="at">include.drift =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>arima.res <span class="ot">&lt;-</span> <span class="fu">residuals</span>(arima_model)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(arima.res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="9_health_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Residuals^2 ACF</strong></p>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(arima.res<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="9_health_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Residuals^2 PACF</strong></p>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(arima.res<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="9_health_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="garch-model" class="level3">
+<h3 class="anchored" data-anchor-id="garch-model">GARCH Model</h3>
+<div class="epigrafe">
+<p>After running the GARCH models possibilities we observe that the model with the lowest AIC is GARCH(2, 1). The summary of the model shows that the beta1 component is not significant, therefore we decide to remove that component and test the GARCH(2, 0) model. For the second model, all the components are significant and the resulting AIC is lower compared to the AIC value of the GARCH(2, 1) model.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">list</span>() <span class="do">## set counter</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (p <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) {</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (q <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) {</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>model[[cc]] <span class="ot">&lt;-</span> <span class="fu">garch</span>(arima.res,<span class="at">order=</span><span class="fu">c</span>(q,p),<span class="at">trace=</span>F)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">&lt;-</span> cc <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>GARCH_AIC <span class="ot">&lt;-</span> <span class="fu">sapply</span>(model, AIC)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>model[[<span class="fu">which</span>(GARCH_AIC <span class="sc">==</span> <span class="fu">min</span>(GARCH_AIC))]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+garch(x = arima.res, order = c(q, p), trace = F)
+
+Coefficient(s):
+      a0        a1        a2        b1  
+0.001584  0.615018  0.352375  0.054949  </code></pre>
+</div>
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">garchFit</span>(<span class="sc">~</span><span class="fu">garch</span>(<span class="dv">2</span>,<span class="dv">1</span>), arima.res, <span class="at">trace =</span> F))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Title:
+ GARCH Modelling 
+
+Call:
+ garchFit(formula = ~garch(2, 1), data = arima.res, trace = F) 
+
+Mean and Variance Equation:
+ data ~ garch(2, 1)
+&lt;environment: 0x1468f8b70&gt;
+ [data = arima.res]
+
+Conditional Distribution:
+ norm 
+
+Coefficient(s):
+         mu        omega       alpha1       alpha2        beta1  
+-0.00067147   0.00159063   0.60321079   0.34242147   0.05552829  
+
+Std. Errors:
+ based on Hessian 
+
+Error Analysis:
+         Estimate  Std. Error  t value Pr(&gt;|t|)    
+mu     -0.0006715   0.0030947   -0.217 0.828229    
+omega   0.0015906   0.0004020    3.957 7.59e-05 ***
+alpha1  0.6032108   0.1614972    3.735 0.000188 ***
+alpha2  0.3424215   0.1663042    2.059 0.039494 *  
+beta1   0.0555283   0.0804259    0.690 0.489925    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Log Likelihood:
+ 355.6375    normalized:  1.322073 
+
+Description:
+ Fri Nov 24 21:03:47 2023 by user:  
+
+
+Standardised Residuals Tests:
+                                  Statistic      p-Value
+ Jarque-Bera Test   R    Chi^2  299.9580955 0.000000e+00
+ Shapiro-Wilk Test  R    W        0.9299812 5.822042e-10
+ Ljung-Box Test     R    Q(10)   13.1885075 2.133223e-01
+ Ljung-Box Test     R    Q(15)   20.7110813 1.463171e-01
+ Ljung-Box Test     R    Q(20)   25.7487013 1.742728e-01
+ Ljung-Box Test     R^2  Q(10)    4.2661075 9.345449e-01
+ Ljung-Box Test     R^2  Q(15)    6.5497598 9.689622e-01
+ Ljung-Box Test     R^2  Q(20)    7.8949092 9.925405e-01
+ LM Arch Test       R    TR^2     4.1707538 9.801542e-01
+
+Information Criterion Statistics:
+      AIC       BIC       SIC      HQIC 
+-2.606971 -2.540154 -2.607645 -2.580137 </code></pre>
+</div>
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">garchFit</span>(<span class="sc">~</span><span class="fu">garch</span>(<span class="dv">2</span>,<span class="dv">0</span>), arima.res, <span class="at">trace =</span> F))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Title:
+ GARCH Modelling 
+
+Call:
+ garchFit(formula = ~garch(2, 0), data = arima.res, trace = F) 
+
+Mean and Variance Equation:
+ data ~ garch(2, 0)
+&lt;environment: 0x144eacc38&gt;
+ [data = arima.res]
+
+Conditional Distribution:
+ norm 
+
+Coefficient(s):
+         mu        omega       alpha1       alpha2  
+-0.00067147   0.00175460   0.62633625   0.36708371  
+
+Std. Errors:
+ based on Hessian 
+
+Error Analysis:
+         Estimate  Std. Error  t value Pr(&gt;|t|)    
+mu     -0.0006715   0.0030949   -0.217 0.828242    
+omega   0.0017546   0.0003995    4.392 1.12e-05 ***
+alpha1  0.6263362   0.1649098    3.798 0.000146 ***
+alpha2  0.3670837   0.1510851    2.430 0.015113 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Log Likelihood:
+ 355.1695    normalized:  1.320333 
+
+Description:
+ Fri Nov 24 21:03:47 2023 by user:  
+
+
+Standardised Residuals Tests:
+                                  Statistic      p-Value
+ Jarque-Bera Test   R    Chi^2  292.1773247 0.000000e+00
+ Shapiro-Wilk Test  R    W        0.9317016 8.352486e-10
+ Ljung-Box Test     R    Q(10)   12.9777373 2.249192e-01
+ Ljung-Box Test     R    Q(15)   20.1338720 1.668571e-01
+ Ljung-Box Test     R    Q(20)   25.3332902 1.889764e-01
+ Ljung-Box Test     R^2  Q(10)    3.7881051 9.564000e-01
+ Ljung-Box Test     R^2  Q(15)    6.0161276 9.794756e-01
+ Ljung-Box Test     R^2  Q(20)    7.4781188 9.947960e-01
+ LM Arch Test       R    TR^2     3.7655229 9.873054e-01
+
+Information Criterion Statistics:
+      AIC       BIC       SIC      HQIC 
+-2.610926 -2.557473 -2.611360 -2.589459 </code></pre>
+</div>
+</div>
+</section>
+<section id="model-equation" class="level3">
+<h3 class="anchored" data-anchor-id="model-equation">Model Equation</h3>
+<div class="epigrafe">
+<p><span class="math inline">\(Y_{t} = \mu - 0.00067 + \omega \times 0.00175 + \alpha_1 \times \varepsilon_{t-1}^2 + \alpha_2 \times \varepsilon_{t-2}^2 + \varepsilon_t\)</span></p>
+<p><span class="math inline">\(\mu - 0.00067 + \omega \times 0.00175 + \alpha_1 \times 0.62634 + \alpha_2 \times 0.36708\)</span></p>
+</div>
+</section>
+<section id="forecast-plot" class="level3">
+<h3 class="anchored" data-anchor-id="forecast-plot">Forecast Plot</h3>
+<div class="epigrafe">
+<p>Below we can observe the Forcast Plot with the predictions from the ARIMA(0, 1, 2) + GARCH(2, 0) model.</p>
+</div>
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>final.fit <span class="ot">&lt;-</span> <span class="fu">garchFit</span>(<span class="sc">~</span><span class="fu">garch</span>(<span class="dv">2</span>,<span class="dv">0</span>), arima.res, <span class="at">trace =</span> F)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">predict</span>(final.fit, <span class="at">n.ahead =</span> <span class="dv">100</span>, <span class="at">plot=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="9_health_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
