@@ -1,0 +1,849 @@
+---
+title: "Healthcare Index"
+format: html
+---
+
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+```{css, echo = FALSE}
+.tabs-container-linear {
+  display: flex;
+}
+
+.tab-linear {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.tab-linear:hover {
+  background-color: #f1f1f1;
+}
+
+.tab-content-linear {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+}
+
+.tab-content-linear.active {
+  display: block;
+}
+```
+
+```{css, echo = FALSE}
+.tabs-container-volatility {
+  display: flex;
+}
+
+.tab-volatility {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.tab-volatility:hover {
+  background-color: #f1f1f1;
+}
+
+.tab-content-volatility {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+}
+
+.tab-content-volatility.active {
+  display: block;
+}
+```
+
+```{css, echo = FALSE}
+.tabs-container-model-selection {
+  display: flex;
+}
+
+.tab-model-selection {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.tab-model-selection:hover {
+  background-color: #f1f1f1;
+}
+
+.tab-content-model-selection {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+}
+
+.tab-content-model-selection.active {
+  display: block;
+}
+```
+
+<script>
+
+function toggleTabLinear(tabName) {
+  var tabs = document.querySelectorAll('.tab-content-linear');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+
+  var selectedTab = document.getElementById(tabName);
+  selectedTab.classList.add("active");
+}
+
+function toggleTabVolatility(tabName) {
+  var tabs = document.querySelectorAll('.tab-content-volatility');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+
+  var selectedTab = document.getElementById(tabName);
+  selectedTab.classList.add("active");
+}
+
+function toggleTabModelSelection(tabName) {
+  var tabs = document.querySelectorAll('.tab-content-model-selection');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+
+  var selectedTab = document.getElementById(tabName);
+  selectedTab.classList.add("active");
+}
+
+</script>
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+library(vars)
+library(dplyr)
+library(car)
+library(fGarch)
+```
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+merge_dataframes <- function(dataframes_list) {
+  # Perform inner join using the first data frame as the base
+  df_complete <- dataframes_list[[1]]
+  
+  # Iterate over the remaining data frames and merge
+  for (i in 2:length(dataframes_list)) {
+    df_complete <- merge(df_complete, dataframes_list[[i]], by = 'date2', all.x = TRUE)
+  }
+  
+  return(df_complete)
+}
+```
+
+
+### Data Cleaning and Merge Datasets
+
+::: {.epigrafe}
+
+We created a new dataset that contains the information for the Healthcare Index, Oil Production and Oil price. Index and Production variables have been transformed in order to have a closer scale to the Price variable.
+
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Read csv
+df_healthcare_index <- read.csv('../data/viz_healthcare_index.csv')
+
+# Change data type
+df_healthcare_index$date <- as.Date(df_healthcare_index$date)
+
+# Create a sequence of dates from start_date to end_date
+start_date <- as.Date(min(df_healthcare_index$date))  
+end_date <- as.Date(max(df_healthcare_index$date))   
+
+# Create date sequence
+date_range <- seq(start_date, end_date, by = "1 day")
+
+# Create a dataset with the date range
+date_dataset <- data.frame(Date = date_range)
+
+# Merge dataframes
+df_healthcare_index <- merge(df_healthcare_index, date_dataset, by.x = "date", by.y = "Date", all = TRUE)
+
+# Check for missing values
+# is.na(df_oil_price$adjusted)
+
+# Extract rows with missing values
+df_na_rows <- df_healthcare_index[which(rowSums(is.na(df_healthcare_index)) > 0),]
+
+# Extract columns with missing values
+df_na_cols <- df_healthcare_index[, which(colSums(is.na(df_healthcare_index)) > 0)]
+
+# Modify data
+imputed_time_series <- na_ma(df_healthcare_index, k = 4, weighting = "exponential")
+
+# Add modified data
+df_healthcare_index <- data.frame(imputed_time_series)
+
+# Change data type
+df_healthcare_index$date <- as.Date(df_healthcare_index$date,format = "%m/%d/%y")
+
+# Create Date separte terms columns
+df_healthcare_index_monthly <- df_healthcare_index %>%
+  mutate(Year = lubridate::year(date),
+         Month = lubridate::month(date),
+         Day = lubridate::day(date))
+
+# Group by Year Month and get the maximum day
+df_healthcare_index_monthly <- df_healthcare_index_monthly %>%
+  group_by(Year, Month) %>%
+  summarize(Max_Day = max(Day))
+
+# Create Date
+df_healthcare_index_monthly <- df_healthcare_index_monthly %>%
+  mutate(date = make_date(Year, Month, Max_Day))
+
+# Merge datasets
+df_healthcare_index_monthly <- merge(df_healthcare_index_monthly, df_healthcare_index, by = "date", all.x = TRUE)
+
+# Keep relevant columns
+df_healthcare_index_monthly <-  df_healthcare_index_monthly %>% dplyr::select("date", "adjusted")
+
+# Rename columns
+names(df_healthcare_index_monthly) <- c('Date', 'Index')
+
+# Save ts as a new file
+write.csv(df_healthcare_index_monthly, '../data/df_healthcare_index_monthly.csv', row.names = FALSE)
+
+# ---------------------------------------------------------------------------------------------------------------------------------
+
+# Import dataset
+df_healthcare_index_monthly <- as.data.frame(read_csv('../data/df_healthcare_index_monthly.csv'))
+
+# Filter information
+df_healthcare_index_monthly <- df_healthcare_index_monthly %>% filter(year(Date) >= 2000 & year(Date) <= 2022)
+
+# Create Date
+df_healthcare_index_monthly <- df_healthcare_index_monthly %>%
+  mutate(date2 = make_date(year(Date), month(Date), 01))
+
+# Import dataset
+df_oil_production <- as.data.frame(read_csv('../data/viz_us_oil_production.csv'))
+
+# Filter information
+df_oil_production <- df_oil_production %>% filter(year(Date) >= 2000 & year(Date) <= 2022)
+
+# Create Date
+df_oil_production <- df_oil_production %>%
+  mutate(date2 = make_date(year(Date), month(Date), 01))
+
+# Import dataset
+df_oil_price <- as.data.frame(read_csv('../data/df_oil_price_monthly.csv'))
+
+# Create Date
+df_oil_price <- df_oil_price %>%
+  mutate(date2 = make_date(year(date), month(date), 01))
+
+df_healthcare_index_monthly$date2 <- as.Date(df_healthcare_index_monthly$date2)
+
+df_oil_production$date2 <- as.Date(df_oil_production$date2)
+
+df_oil_price$date2 <- as.Date(df_oil_price$date2)
+
+# List of minimum dates
+dates <- c(min(df_healthcare_index_monthly$date2), min(df_oil_production$date2),min(df_oil_price$date2))
+
+min_date <- max(dates)
+
+# Filter starting date
+df_healthcare_index_monthly <- df_healthcare_index_monthly %>% filter(date2 >= min_date)
+
+# Filter starting date
+df_oil_production <- df_oil_production %>% filter(date2 >= min_date)
+
+# Filter starting date
+df_oil_price <- df_oil_price %>% filter(date2 >= min_date)
+
+# Keep relevant columns
+df_healthcare_index_monthly <- df_healthcare_index_monthly %>% dplyr::select('date2', 'Index')
+
+# Convert to Log
+df_healthcare_index_monthly$Index <- log(df_healthcare_index_monthly$Index)
+
+# Keep relevant columns
+df_oil_production <- df_oil_production %>% dplyr::select('date2', 'Production')
+
+# Convert to Log
+df_oil_production$Production <- log(df_oil_production$Production)
+
+# Keep relevant columns
+df_oil_price <- df_oil_price %>% dplyr::select('date2', 'adjusted')
+
+
+
+# List of dataframes
+df_list <- list(df_healthcare_index_monthly, df_oil_production, df_oil_price)
+
+# Combine datasets
+dd <- merge_dataframes(df_list)
+
+# Rename columns
+names(dd) <- c('DATE', 'Index', 'Production', 'Price') 
+
+# Order by Date sort ascending
+dd <- dd %>% dplyr::arrange(DATE)
+
+# # Create the time series object
+# dd.ts <- ts(dd,star=decimal_date(min_date),frequency = 12)
+
+# Show table
+knitr::kable(head(dd))
+```
+
+### Plot
+
+::: {.epigrafe}
+
+In the plot below we can observe the time series for the variables Index, Production and Price from 2020 to 2022.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+plot <- ggplot(dd, aes(x = DATE)) +
+  geom_line(aes(y = Index, color = "Index"), alpha = 0.7) +
+  geom_line(aes(y = Production, color = "Production"), alpha = 0.7) +
+  geom_line(aes(y = Price, color = "Price"), alpha = 0.7) +
+  labs(title = "Healthcare Index ~ Oil Price + Oil Production",
+       x = "Date",
+       y = "Value",
+       color = "Variables") +  # Set legend title
+  scale_color_manual(values = c(Index = "red", Production = "blue", Price = "green")) +
+  theme_minimal()
+
+plot %>% ggplotly()
+
+```
+
+
+### Linear Models
+
+::: {.epigrafe}
+
+In FIT 1 we can observe the first linear model where the Index is the predictor variable and Oil Production and Oil Price are the independent variables. The variable Oil Price has a p-value higher than the significance level of 0.05, so it is not significant. 
+
+In FIT 2 we can see the second linear model where the Index is the predictor variable and Oil Production is the independent variable. The model has good R-squared and RMSE values.
+:::
+
+<div class="tabs-container-linear">
+  <div class="tab-linear" onclick="toggleTabLinear('tab1')">FIT 1</div>
+  <div class="tab-linear" onclick="toggleTabLinear('tab2')">FIT 2</div>
+</div>
+
+<div id="tab1" class="tab-content-linear active">
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+fit_1 <- lm(Index ~ ., data = dd)
+
+summary(fit_1)
+```
+
+</div>
+
+<div id="tab2" class="tab-content-linear">
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+fit_2 <- lm(Index ~ Production, data = dd)
+
+summary(fit_2)
+
+```
+
+***
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+cat("R^2:", summary(fit_2)$r.squared, "\n")
+
+predictions <- predict(fit_2, newdata = dd)
+rmse <- sqrt(mean((dd$Index - predictions)^2))
+
+cat("RMSE:", rmse)
+```
+
+</div>
+
+
+### Stationarity
+
+::: {.epigrafe}
+
+The ACF plot shows high autocorrelation in the lags, so the time series is not stationary. Evaluating the results of the Augmented Dickey-Fuller test, the p-value is higher than the significance level of 0.05. Therefore, we cannot reject the null hypothesis that the time series is stationary.
+:::
+
+<div class="tabs-container-volatility">
+  <div class="tab-volatility" onclick="toggleTabVolatility('tab3')">PLOTS</div>
+  <div class="tab-volatility" onclick="toggleTabVolatility('tab4')">AUGMENTED DICKEY-FULLER TEST</div>
+</div>
+
+<div id="tab3" class="tab-content-volatility active">
+
+**Time Series, ACF Plot and PACF Plot**
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+lm.residuals <- residuals(fit_2)
+
+lm.residuals %>% ggtsdisplay()
+```
+
+</div>
+<div id="tab4" class="tab-content-volatility">
+
+**Augmented Dickey-Fuller Test**
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+
+adf_test <- adf.test(lm.residuals)
+
+print(adf_test)
+
+```
+
+</div>
+
+
+### Differencing
+
+::: {.epigrafe}
+
+We apply the first difference to the residuals of the linear model to obtain a stationary time series. We can observe the volatility of the residuals and two main volatility clusters in the data points near 100 and near 250.
+
+In the acf plot, we can observe that the differenced residuals look stationary. 
+
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+
+lm.residuals %>% diff() %>% ggtsdisplay()
+```
+
+
+### Model Selection
+
+::: {.epigrafe}
+
+Based on the ACF and PACF plot for the first difference on residuals, we define:
+
+$p = 2$
+
+$d = 1$ 
+
+$q = 2$
+
+Next we will run the model diagnostics on the models that have the minimum AIC, minimum BIC and the auto.arima() results.
+
+:::
+
+<div class="tabs-container-model-selection">
+  <div class="tab-model-selection" onclick="toggleTabModelSelection('tab5')">MODEL PARAMETERS</div>
+  <div class="tab-model-selection" onclick="toggleTabModelSelection('tab6')">MODEL SUMMARY</div>
+  <div class="tab-model-selection" onclick="toggleTabModelSelection('tab7')">AUTO.ARIMA()</div>
+</div>
+
+<div id="tab5" class="tab-content-model-selection active">
+
+**Model Parameters**
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+
+xt <- lm.residuals
+
+p_value <- 2
+
+d_value <- 1
+
+q_value <- 2
+
+i <- 1
+
+temp <- data.frame()
+
+rows <- (p_value+1)*(d_value+1)*(q_value+1)
+
+ls <- matrix(rep(NA,6*rows),nrow=rows) 
+
+for (p in 0:p_value+1)
+{
+  for(q in 0:q_value+1)
+  {
+    for(d in 0:d_value)
+    {
+      
+      if(p-1+d+q-1<=8) #usual threshold
+      {
+        
+        model<- Arima(xt,order=c(p-1,d,q-1),include.drift=TRUE) 
+        ls[i,]= c(p-1,d,q-1,model$aic,model$bic,model$aicc)
+        i=i+1
+        #print(i)
+        
+      }
+      
+    }
+  }
+}
+
+temp <- as.data.frame(ls)
+
+temp <- na.omit(temp)
+
+names(temp) <- c("p","d","q","AIC","BIC","AICc")
+
+#temp
+knitr::kable(temp)
+```
+
+</div>
+<div id="tab6" class="tab-content-model-selection">
+
+**Model Summary**
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+temp[which.min(temp$AIC),]
+```
+
+***
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+temp[which.min(temp$BIC),]
+```
+
+***
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+temp[which.min(temp$AICc),]
+```
+
+</div>
+<div id="tab7" class="tab-content-model-selection">
+
+**auto.arima()**
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Assign the exogenous variable
+
+fit_auto_arima <- auto.arima(xt)
+
+summary(fit_auto_arima)
+```
+
+</div>
+
+### Model Diagnostics
+
+:::{.epigrafe}
+
+Comparing the results of the model diagnostics, we can observe that the ARIMA(0, 1, 2) model is the best. The lag values in the ACF plot are within the confidence bands, so the residuals are stationary. The standard residuals plotted in the Normal Q-Q plot show the similarity to normality. The p-values for the Ljung-Box statistic confirm that the residuals are stationary.
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+
+AIC <- temp[which.min(temp$AIC),]
+
+p1 <- AIC$p
+d1 <- AIC$d
+q1 <- AIC$q
+
+model_output <- capture.output(sarima(xt, p1, d1, q1))
+
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+
+BIC <- temp[which.min(temp$BIC),]
+
+p2 <- BIC$p
+d2 <- BIC$d
+q2 <- BIC$q
+
+model_output <- capture.output(sarima(xt, p2, d2, q2))
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+p3 <- 0
+d3 <- 1
+q3 <- 2
+
+model_output <- capture.output(sarima(xt, p3, d3, q3))
+```
+
+### Residuals
+
+:::{.epigrafe}
+
+We plot the residuals and the residuals squared of the arima model using the ACF and PACF plot to determine the parameters for the GARCH model.
+
+The values that will be used to assess the model are the following:
+
+$p = 2$
+
+$q = 2$
+
+:::
+
+**Residuals ACF**
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+arima_model <- Arima(xt,order=c(p3, d3, q3),include.drift = TRUE)
+
+arima.res <- residuals(arima_model)
+
+acf(arima.res)
+```
+
+
+**Residuals^2 ACF**
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+acf(arima.res^2)
+
+```
+
+**Residuals^2 PACF**
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+pacf(arima.res^2)
+
+```
+
+### GARCH Model
+
+:::{.epigrafe}
+
+After running the GARCH models possibilities we observe that the model with the lowest AIC is GARCH(2, 1). The summary of the model shows that the beta1 component is not significant, therefore we decide to remove that component and test the GARCH(2, 0) model.
+For the second model, all the components are significant and the resulting AIC is lower compared to the AIC value of the GARCH(2, 1) model.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+model <- list() ## set counter
+cc <- 1
+for (p in 1:2) {
+  for (q in 1:2) {
+  
+model[[cc]] <- garch(arima.res,order=c(q,p),trace=F)
+cc <- cc + 1
+}
+} 
+
+GARCH_AIC <- sapply(model, AIC)
+
+model[[which(GARCH_AIC == min(GARCH_AIC))]]
+
+summary(garchFit(~garch(2,1), arima.res, trace = F))
+
+summary(garchFit(~garch(2,0), arima.res, trace = F))
+```
+
+### Model Equation
+
+:::{.epigrafe}
+
+$Y_{t} = \mu - 0.00067 + \omega \times 0.00175 + \alpha_1 \times \varepsilon_{t-1}^2 + \alpha_2 \times \varepsilon_{t-2}^2 + \varepsilon_t$
+
+$\mu - 0.00067 + \omega \times 0.00175 + \alpha_1 \times 0.62634 + \alpha_2 \times 0.36708$
+
+:::
+
+### Forecast Plot
+
+:::{.epigrafe}
+
+Below we can observe the Forcast Plot with the predictions from the ARIMA(0, 1, 2) + GARCH(2, 0) model.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+final.fit <- garchFit(~garch(2,0), arima.res, trace = F)
+
+plot <- predict(final.fit, n.ahead = 100, plot=TRUE)
+```
