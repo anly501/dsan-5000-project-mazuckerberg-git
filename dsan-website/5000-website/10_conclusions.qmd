@@ -1,0 +1,77 @@
+---
+title: "Conclusions"
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
+---
+
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+
+.tableau {
+    margin-left: 85px;
+    width: 85%;
+    border: 1.5px solid #87c8b5; 
+    background-color: #f9f9f9; 
+}
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
+
+## Key Findings
+
+::: {.justify}
+...
+
+:::
+
+::: {.tableau}
+
+``` {=html}
+<div class='tableauPlaceholder' id='viz1701868912261'><noscript><a href='#'><img alt='Sentiment Analysis for Publishers by Category over time ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;DS&#47;DSAN5000-LithiumSentimentAnalysis&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='DSAN5000-LithiumSentimentAnalysis&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;DS&#47;DSAN5000-LithiumSentimentAnalysis&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1701868912261');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+```
+
+:::
+
+## Future Analysis
+
+::: {.justify}
+The main limitations were overcome at the beginning of the study. Data collection can be challenging in such a young industry. Although data paradigms are different than in the past, the availability of sources has increased, lithium is considered white gold, and information plays a key role in the decision-making process.
+
+The main limitations are related to the production of lithium batteries. Composition to minimize environmental impact, while maintaining low cost and high efficiency, is what differentiates a producer from others. Future points of analysis are needed to draw more significant conclusions. Assessing the impact of resource variability in the lithium battery production model may be key to understanding the most advantaged and disadvantaged players.
+
+The inclusion of other data sources allows the investigation to draw different conclusions. Evaluate data to identify environmental impacts using Geographic Information Systems (GIS) to locate key mining areas. Based on these locations, incorporate weather data such as rainfall and temperature, air quality, and concentrations of key air pollutants, among others. In addition, we can incorporate other approaches to enhance the investigation, such as time series analysis to identify seasonality, trends, autocorrelations, stationarity models to build predictive models and provide accurate results.
+:::

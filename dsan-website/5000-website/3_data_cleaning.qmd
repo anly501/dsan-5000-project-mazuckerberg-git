@@ -1,5 +1,9 @@
 ---
 title: "Data Cleaning"
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
 ---
 ```{css, echo = FALSE}
 .justify {
@@ -19,11 +23,32 @@ title: "Data Cleaning"
     background-color: #f9f9f9; 
     margin: 20px 0px 30px 0px;
 }
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
 ```
 
-### Overview
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
+
 ::: {.justify}
-In this section, we will perform the data cleaning process. In order to improve the quality and accuracy of each dataset collected in the Data Gathering section, we apply several steps.
+In this section, we will perform the Data Cleaning process. Data obtained from real cases are usually not clean. This means that it may be incomplete, missing attributes or significant values, it may contain errors in the values, or it may be inconsistent, affecting the totality of a relevant variable. The data cleaning process is a cycle in which, depending on the analysis being performed, additional steps must be applied to make the information suitable for analysis. The goal of this process is to improve the quality and accuracy of each dataset collected in the Data Gathering section.
+
+Some common steps that are applied in the general Data Cleaning process and in this section include merging datasets, imputing missing data and normalizing and standardizing. This steps depend on the type of data that is being used. Other specific steps need to be applied to text data, depending on the source of the information and the type of analysis we want to develop.
+
+In this section, we will use both R and Python libraries, and we have developed three useful functions that will allow us to make the data cleaning process more efficient and effective. These are all listed below:
 :::
 
 Below are the libraries used in this section:
@@ -59,52 +84,304 @@ library(vars)
 library(dplyr)
 ```
 
-### Global Lithium Production
+``` {python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Python Libraries"
+#| results: 'hide'
+#| warning: false
+
+from datetime import date
+from datetime import date, timedelta
+from newsapi.newsapi_client import NewsApiClient
+import pandas as pd
+
+import json
+from ibm_watson import NaturalLanguageUnderstandingV1
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
+
+import os
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Function stocks_cleaning()"
+
+stocks_cleaning <- function(data_frame){
+
+    symbol <- max(data_frame$symbol)
+
+    # Select relevant columns
+    data_frame <- data.frame(data_frame$date, data_frame$adjusted)
+
+    # Rename columsn
+    names(data_frame) <- c("date", "adjusted")
+
+    # Create a sequence of dates from start_date to end_date
+    start_date <- as.Date(min(data_frame$date))  
+    end_date <- as.Date(max(data_frame$date))
+
+    # Create data range
+    date_range <- seq(start_date, end_date, by = "1 day")
+
+    # Create a dataset with the date range
+    date_dataset <- data.frame(Date = date_range)
+
+    # Merge dataframes
+    data_frame <- merge(data_frame, date_dataset, by.x = "date", by.y = "Date", all = TRUE)
+
+    # Extract rows with missing values
+    df_na_rows <- data_frame[which(rowSums(is.na(data_frame)) > 0),]
+
+    # Extract columns with missing values
+    df_na_cols <- data_frame[, which(colSums(is.na(data_frame)) > 0)]
+
+    # Modify data
+    imputed_time_series <- na_ma(data_frame, k = 4, weighting = "exponential")
+
+    # Add modified data
+    data_frame <- data.frame(imputed_time_series)
+
+    # Change data type
+    data_frame$date <- as.Date(data_frame$date,format = "%m/%d/%y")
+
+    names(data_frame) <- c("date", symbol)
+
+    return(data_frame)
+}
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Function merge_dataframes()"
+
+merge_dataframes <- function(dataframes_list) {
+  # Perform inner join using the first data frame as the base
+  df_complete <- dataframes_list[[1]]
+  
+  # Iterate over the remaining data frames and merge
+  for (i in 2:length(dataframes_list)) {
+    df_complete <- merge(df_complete, dataframes_list[[i]], by = "date", all.x = TRUE)
+  }
+  
+  return(df_complete)
+}
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Function merge_dataframes_2()"
+
+merge_dataframes_2 <- function(dataframes_list) {
+  # Perform inner join using the first data frame as the base
+  df_complete <- dataframes_list[[1]]
+  
+  # Iterate over the remaining data frames and merge
+  for (i in 2:length(dataframes_list)) {
+    df_complete <- merge(df_complete, dataframes_list[[i]], by = "Quarter Ended", all.x = TRUE)
+  }
+  
+  return(df_complete)
+}
+```
+
+
+## Global Lithium Production
 
 ::: {.justify}
 The Global Lithium Production dataset was downloaded from the Our World in Data website as a csv file. Very few steps were applied to this dataset due to the quality of the original data.
 :::
 
 ``` {r}
-#| echo: false
+#| echo: true
 #| message: false
 #| warning: false
+#| code-summary: "Data Cleaning"
+#| code-fold: true
+
+# Read csv file
+df_production <- read.csv("../../data/00-raw-data/lithium-production.csv")
+
+# Filter code column 
+df_production <- df_production %>% filter(nchar(Code) == 3)
+
+# Change column names
+names(df_production) <- c('Country', 'Code', 'Year', 'Production')
 
 # Save dataframe as a new file
+write.csv(df_production, '../../data/01-modified-data/clean_lithium-production.csv', row.names = FALSE)
+
+# Read cleaned file
 df_production <- read.csv('../../data/01-modified-data/clean_lithium-production.csv')
 
+# View data
 knitr::kable(head(df_production, 5))
 ```
 
-[View dataset](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_lithium-production.csv)
+[Dataset - Github](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_lithium-production.csv)
 
-> [Data Cleaning - Global Lithium Production](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_1_lithium_production.html)
-
-
-### Lithium Companies Stocks
+## Lithium Companies Financial Reports
 
 ::: {.justify}
 
-Add description
+Description...
 :::
 
 ``` {r}
-#| echo: false
+#| echo: true
 #| message: false
 #| warning: false
+#| code-summary: "Data Cleaning - Stocks Data"
+#| code-fold: true
+
+df_list <- list()
+
+start <- "2000-01-01"
+end <- "2022-12-31"
+
+tickers_Lithium <- c("ALB", "LTHM", "SGML", "PLL")
+tickers_EV <- c("TSLA", "F", "LI", "ON", "RIVN", "XPEV", "LVWR", "AEHR")
+tickers_Batteries <- c("BYDDF", "6752.T")
+
+tickers <- append(tickers_Lithium, tickers_EV)
+
+tickers <- append(tickers, tickers_Batteries)
+
+for(i in tickers){
+    df <- tq_get(i, get = "stock.prices", from = start, to = end)
+
+    df <- stocks_cleaning(df)
+
+    df_list <- append(df_list, list(df))
+}
+
+# Merge datasets
+df_companies <- merge_dataframes(df_list)
 
 # Save dataframe as a new file
+write.csv(df_companies, '../../data/01-modified-data/clean_lithium-companies.csv', row.names = FALSE)
+
+# Read cleaned file
 df_companies <- read.csv('../../data/01-modified-data/clean_lithium-companies.csv')
 
+# View data
 knitr::kable(tail(df_companies, 5))
 ```
 
-[View dataset](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_lithium-companies.csv)
 
-> [Data Cleaning - Lithium Companies Stocks](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_2_lithium_companies.html)
+[Dataset - Github](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_lithium-companies.csv)
 
 
-### Resource Price
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-summary: "Data Cleaning - Financial Data"
+#| code-fold: true
+
+# Read csv file
+df_companies2 <- read_excel('../../data/00-raw-data/Lithium_Companies.xlsx', sheet = "Sheet1")
+
+# Remove NAs
+df_companies2 <- na.omit(df_companies2)
+
+# Read xlsx file
+file <- '../../data/00-raw-data/Lithium_Companies.xlsx'
+
+sheet_names <- excel_sheets(file)
+
+sheet_names <- sheet_names[2:length(sheet_names)]
+
+companies_list <- list()
+
+# Print the list of sheet names
+for(i in (2:length(sheet_names))){
+  name <- unlist(strsplit(sheet_names[i], " "))
+  companies_list <- append(companies_list, name[1])
+}
+
+# Function to read and merge data for a company
+read_and_merge <- function(company_name) {
+  # Read Income Statement and Balance Sheet sheets
+  income_sheet <- read_excel(file, sheet = paste0(company_name, " Income Statement"))
+  balance_sheet <- read_excel(file, sheet = paste0(company_name, " Balance Sheet"))
+
+  income_sheet$'Quarter Ended' <- as.Date(income_sheet$'Quarter Ended')
+  balance_sheet$'Quarter Ended' <- as.Date(balance_sheet$'Quarter Ended')
+
+  # Merge by "Quarter Ended"
+  merged_data <- merge(income_sheet, balance_sheet, by = "Quarter Ended")
+
+  merged_data <- merged_data %>% mutate(Company = company_name)
+
+  return(merged_data)
+
+}
+
+# Initialize an empty list to store dataframes
+merged_data_list <- list()
+
+# Loop through each company, read and merge data, and store in the list
+for (i in companies_list) {
+  merged_data <- read_and_merge(i)
+  merged_data_list[[i]] <- merged_data
+}
+
+df <- as.data.frame(matrix(NA, 1, 4))
+
+names(df) <- c('Quarter Ended', 'Company', 'KPI', 'Value')
+
+for(i in merged_data_list){
+  temp <- gather(i, key = "KPI", value = "Value", c(-'Quarter Ended',-Company))
+
+  df <- union(df, temp)
+}
+
+df$'Quarter Ended' <- as.Date(df$'Quarter Ended')
+
+df$Year <- year(df$'Quarter Ended')
+
+df$Quarter <- quarter(df$'Quarter Ended')
+
+df$Value <- as.numeric(sub("-", "0", df$Value))
+
+df <- df %>%
+  group_by(Company, KPI, Year, Quarter) %>%
+  summarise(Value = sum(Value, na.rm = TRUE))
+
+# Save dataframe as a new file
+write.csv(df, '../../data/01-modified-data/clean_companies_finance.csv', row.names = FALSE)
+
+# Read cleaned file
+df_companies_2 <- read.csv('../../data/01-modified-data/clean_companies_finance.csv')
+
+# Pivot the data from long to wide format
+df_companies_2 <- df_companies_2 %>%
+  pivot_wider(
+    id_cols = c(Company, Year, Quarter),
+    names_from = KPI,
+    values_from = Value
+  )
+
+# View data
+knitr::kable(head(df_companies_2, 5))
+```
+
+
+[Dataset - Github](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_companies_finance.csv)
+
+## Resources Prices
 
 ::: {.justify}
 
@@ -112,9 +389,43 @@ Add description
 :::
 
 ``` {r}
-#| echo: false
+#| echo: true
 #| message: false
 #| warning: false
+#| code-summary: "Data Cleaning"
+#| code-fold: true
+
+df_commodity_price <- read_excel("../../data/00-raw-data/commodity_price.xlsx")
+
+df_commodity_price <- df_commodity_price %>%
+  pivot_longer(cols = -c('...1'), 
+               names_to = "Month_Year",
+               values_to = "Price")
+
+df_commodity_price <- df_commodity_price %>% filter(!is.na(Price) & Price != "")
+
+df_commodity_price$Month_Year <- as.yearmon(df_commodity_price$Month_Year, format = "%b %Y")
+
+df_commodity_price$Month_Year <- format(df_commodity_price$Month_Year, "%m-%Y")
+
+df_commodity_price$Month_Year <- paste("01-", df_commodity_price$Month_Year, sep = "")
+
+df_commodity_price$Month_Year <- as.Date(df_commodity_price$Month_Year, format = "%d-%m-%Y")
+
+names(df_commodity_price) <- c('Commodity', 'DATE', 'Price')
+
+df_commodity_price <- df_commodity_price %>% filter(Commodity %in% c("Lithium", "Aluminum", "Cobalt", "Copper", "Nickel", "Zinc"))
+
+df_commodity_price <- pivot_wider(df_commodity_price, id_cols = DATE, names_from = Commodity, values_from = Price)
+
+#df_commodity_price <- df_commodity_price %>% select(Commodity, DATE, Price)
+
+#names(df_commodity_price) <- c('DATE', 'Price')
+
+df_commodity_price <- na.omit(df_commodity_price)
+
+# Save dataframe as a new file
+write.csv(df_commodity_price, '../../data/01-modified-data/clean_resources-price.csv', row.names = FALSE)
 
 # Save dataframe as a new file
 df_resources <- read.csv('../../data/01-modified-data/clean_resources-price.csv')
@@ -122,22 +433,241 @@ df_resources <- read.csv('../../data/01-modified-data/clean_resources-price.csv'
 knitr::kable(head(df_resources, 5))
 ```
 
-[View dataset](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_resources-price.csv)
+[Dataset - Github](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_resources-price.csv)
 
-> [Data Cleaning - Commodity Price](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_4_commodity_price.html)
+## Electric Vehicles
 
-### Lithium News Sentiment Analysis
+::: {.justify}
 
+Data Fields:
+
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-summary: "Data Cleaning"
+#| code-fold: true
+
+# Read csv file
+df_vehicles <- read.csv("../../data/00-raw-data/EV_cars.csv")
+
+# Rename columns
+names(df_vehicles) <- c('Battery', 'CarName', 'Car_name_link', 'Efficiency', 'FastCharge', 'Price', 'Range', 'TopSpeed', 'Acceleration')
+
+# Extract Car Brand
+df_vehicles$Brand <- str_extract(df_vehicles$CarName, "^[^\\s]+")
+
+# Select relevant columns
+df_vehicles <- df_vehicles %>% dplyr::select('CarName', 'Brand', 'Battery', 'Efficiency', 'FastCharge', 'Price', 'Range', 'TopSpeed', 'Acceleration')
+
+df_brands <- data.frame(
+  Brand = c("Tesla", "BYD", "MG", "BMW", "Volvo", "Citroen", "Renault", "Hyundai", "Kia", "Rolls-Royce",
+            "Hongqi", "Fiat", "CUPRA", "Dacia", "Opel", "Audi", "Toyota", "Smart", "Volkswagen", "Peugeot",
+            "Skoda", "Mini", "Jeep", "Nissan", "Mercedes", "Zeekr", "Polestar", "Lucid", "Honda", "Lotus",
+            "Subaru", "Fisker", "Mazda", "Maxus", "Lexus", "Ford", "XPENG", "ORA", "NIO", "VinFast",
+            "Jaguar", "SsangYong", "Genesis", "Aiways", "Porsche", "Maserati", "DS", "Seres", "e.Go", "Elaris", "Abarth"),
+  Continent = c("North America", "Asia", "Europe", "Europe", "Europe", "Europe", "Europe", "Asia", "Asia", "Europe",
+                "Asia", "Europe", "Europe", "Europe", "Europe", "Europe", "Asia", "Europe", "Europe", "Europe",
+                "Europe", "Europe", "Europe", "Asia", "Europe", "Asia", "North America", "Europe", "North America", "Asia", "Europe",
+                "North America", "North America", "Asia", "Europe", "Asia", "Asia", "Asia", "North America", "Europe", "Asia",
+                "North America", "North America", "Europe", "Asia", "North America", "Europe", "Europe", "Europe", "Europe", "Europe")
+)
+
+df_vehicles <- merge(df_vehicles, df_brands)
+
+# Save dataframe as a new file
+write.csv(df_vehicles, '../../data/01-modified-data/clean_vehicles.csv', row.names = FALSE)
+
+# Save dataframe as a new file
+df_vehicles <- read.csv('../../data/01-modified-data/clean_vehicles.csv')
+
+knitr::kable(head(df_vehicles, 5))
+```
+
+
+[Dataset - Github](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_resources-price.csv)
+
+## Lithium News Sentiment Analysis
 
 ::: {.justify}
 
 Add description
 :::
 
+```{python}
+#| echo: true
+#| eval: false
+#| message: false
+#| warning: false
+#| code-summary: "Data Cleaning - News Sources"
+#| code-fold: true
+
+date = date.today()
+date_past = date - timedelta(days=20)
+
+f = open('./auth.k','r', encoding="utf-8")
+ak = f.readlines()
+f.close()
+
+newsapi = NewsApiClient(api_key=ak[0])
+
+sources = newsapi.get_sources()
+
+sources = pd.DataFrame(sources['sources'])
+
+sources = sources[(sources['language'] == 'en') & (sources['country'] == 'us') & ~sources['category'].isin(['sports', 'entertainment', 'health'])]
+```
+
+```{python}
+#| echo: true
+#| eval: false
+#| message: false
+#| warning: false
+#| code-summary: "Data Cleaning - News Articles"
+#| code-fold: true
+
+df_sources = ', '.join(sources['id'].astype(str))
+
+df_domains = ', '.join(sources['url'].astype(str))
+
+all_articles_1 = newsapi.get_everything(q='lithium',
+                                      sources=str(df_sources),
+                                      domains=str(df_domains),
+                                      from_param=date_past,
+                                      to=date,
+                                      language='en',
+                                      sort_by='relevancy')
+
+all_articles_2 = newsapi.get_everything(q='"lithium batteries"',
+                                      sources=str(df_sources),
+                                      domains=str(df_domains),
+                                      from_param=date_past,
+                                      to=date,
+                                      language='en',
+                                      sort_by='relevancy')
+
+all_articles_3 = newsapi.get_everything(q='"electric vehicles"',
+                                      sources=str(df_sources),
+                                      domains=str(df_domains),
+                                      from_param=date_past,
+                                      to=date,
+                                      language='en',
+                                      sort_by='relevancy')
+
+df_articles_1 = pd.DataFrame(all_articles_1['articles'])
+
+df_articles_2 = pd.DataFrame(all_articles_2['articles'])
+
+df_articles_3 = pd.DataFrame(all_articles_3['articles'])
+
+
+df_articles = pd.concat([df_articles_1, df_articles_2, df_articles_3], ignore_index=True)
+
+df_articles[['id', 'name']] = df_articles['source'].apply(lambda x: pd.Series([x['id'], x['name']]))
+
+df_articles_save = pd.DataFrame(df_articles, columns=[
+                                                'id', 
+                                                'name', 
+                                                'author', 
+                                                'title',
+                                                'description',
+                                                'url',
+                                                'urlToImage', 
+                                                'content', 
+                                                'publishedAt'])
+
+# We have previously save the results
+# df_articles_save.to_csv('../../data/01-modified-data/clean_articles.csv', index=False)
+```
+
+```{python}
+#| echo: true
+#| eval: false
+#| message: false
+#| warning: false
+#| code-summary: "Data Cleaning - News Articles Sentiment Analysis"
+#| code-fold: true
+
+df_content = pd.DataFrame(df_articles, columns=['source', 'content', 'publishedAt'])
+df_content['source'] = df_content['source'].apply(lambda x: x['id'])
+
+f = open('./auth2.k','r', encoding="utf-8")
+ak2 = f.readlines()
+f.close()
+
+ak2 = ak2[0]
+
+authenticator = IAMAuthenticator(apikey = ak2)
+natural_language_understanding = NaturalLanguageUnderstandingV1(
+    version='2020-08-01',
+    authenticator=authenticator
+)
+
+natural_language_understanding.set_service_url('https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/8b0909d1-3768-4c54-b80d-b9817610e36d')
+
+#IBM Watson
+i = 0
+ibm_source = []
+ibm_date = []
+ibm_score = []
+ibm_label = []
+ibm_content = []
+
+for index, row in df_content.iterrows():
+    response = natural_language_understanding.analyze(
+    text=row['content'], language = 'en',
+    features=Features(sentiment=SentimentOptions())).get_result()
+
+    s = row['source']
+    ibm_source.append(s)
+    d = row['publishedAt']
+    ibm_date.append(d)
+    c = row['content']
+    ibm_content.append(c)
+    x = response['sentiment']['document']['score']
+    x = round(x, 4)
+    ibm_score.append(x)
+    y = response['sentiment']['document']['label']
+    ibm_label.append(y)
+    # print(response['sentiment']['document']['score'])
+    # print(response['sentiment']['document']['label'])
+    # print(json.dumps(response, indent=2))
+
+    i=i+1   
+
+results = {"id": ibm_source, "ibm_date": ibm_date, "ibm_score": ibm_score, "ibm_label": ibm_label, "ibm_content": ibm_content}
+
+results = pd.DataFrame(results)
+
+date = date.today()
+
+name = '../' + str(date) + '_results.csv'
+
+results.to_csv(name, index=False)
+
+results = results.merge(sources, how='left')
+
+results = pd.DataFrame(results, columns=['name', 'category', 'ibm_score', 'ibm_label', 'ibm_date', 'ibm_content'])
+
+results = results.rename(columns={'ibm_date': 'date'})
+
+results['date'] = pd.to_datetime(results['date'])
+
+results['date'] = results['date'].dt.date
+
+# We have previously save the results
+# results.to_csv('../../data/01-modified-data/clean_sentiment_analysis.csv', index=False)
+```
+
 ``` {r}
 #| echo: false
 #| message: false
 #| warning: false
+#| code-summary: "Data Cleaning"
+#| code-fold: true
 
 # Save dataframe as a new file
 df_sentiment <- read.csv('../../data/01-modified-data/clean_sentiment_analysis.csv')
@@ -145,6 +675,4 @@ df_sentiment <- read.csv('../../data/01-modified-data/clean_sentiment_analysis.c
 knitr::kable(head(df_sentiment, 5))
 ```
 
-[View dataset](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_sentiment_analysis.csv)
-
-> [Data Cleaning - Lithium News Sentiment Analysis](https://mazuckerberg.georgetown.domains/DSAN_5000/3_data_cleaning/3_5_news_api.html)
+[Dataset - Github](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_sentiment_analysis.csv)
