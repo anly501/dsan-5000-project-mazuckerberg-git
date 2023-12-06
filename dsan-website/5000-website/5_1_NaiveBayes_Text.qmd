@@ -1,0 +1,273 @@
+---
+title: "Naive Bayes"
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+import numpy as np
+from sklearn.metrics import accuracy_score
+
+import nltk;
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
+nltk.download('stopwords')
+nltk.download([
+    "names",
+    "stopwords",
+    "state_union",
+    "twitter_samples",
+    "movie_reviews",
+    "averaged_perceptron_tagger",
+    "vader_lexicon",
+    "punkt",])
+
+import string 
+
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from cleantext import clean
+```
+
+## Prepare Data for Naïve Bayes
+
+::: {.epigrafe}
+Overview of NB labeled text.
+
+:::
+
+**Dataset**
+
+```{python}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Code"
+
+# Read csv
+df = pd.read_csv('../../data/01-modified-data/clean_sentiment_analysis.csv')
+
+# Rename columns
+df = df.rename(columns={'ibm_label': 'label', 'ibm_content': 'text', 'ibm_score': 'sentiment'})
+
+# Print dataframe
+df
+```
+
+**Shape**
+
+```{python}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Code"
+
+# Print shape
+print(df.shape)
+```
+
+## Naïve Bayes (NB) with Labeled Text Data
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Clean Text Data"
+
+
+new_text=""
+
+for index, row in df.iterrows():
+    for character in df.at[index, 'text']:
+        if character in string.printable:
+            new_text+=character
+    df.at[index, 'text'] = new_text
+    new_text=""
+
+
+# Convert from string labels to integers
+labels=[]; #y1=[]; y2=[]
+y1=[]
+for label in df["label"]:
+    if label not in labels:
+        labels.append(label)
+        print("index =",len(labels)-1,": label =",label)
+    for i in range(0,len(labels)):
+        if(label==labels[i]):
+            y1.append(i)
+y1=np.array(y1)
+
+# Convert dataframe to list of strings
+corpus=df["text"].to_list()
+y2=df["sentiment"].to_numpy()
+
+print("number of text chunks = ",len(corpus))
+print(corpus[0:3])
+
+# Vectorize the text data
+# minDF = 0.01 means "ignore terms that appear in less than 1% of the documents". 
+# minDF = 5 means "ignore terms that appear in less than 5 documents".
+vectorizer=CountVectorizer(min_df=0.0001)   
+
+# RUN COUNT VECTORIZER ON OUR COURPUS 
+Xs  =  vectorizer.fit_transform(corpus)   
+X = np.array(Xs.todense())
+
+#CONVERT TO ONE-HOT VECTORS
+maxs=np.max(X,axis=0)
+X=np.ceil(X/maxs)
+
+# DOUBLE CHECK 
+print(X.shape,y1.shape,y2.shape)
+print("DATA POINT-0:",X[0,0:10],"y1 =",y1[0],"  y2 =",y2[0])
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Data Partitioning"
+
+# Partition of dataset into training and test set
+test_ratio=0.2
+x_train, x_test, y_train, y_test = train_test_split(X, y1, test_size=test_ratio, random_state=0)
+y_train=y_train.flatten()
+y_test=y_test.flatten()
+
+print("x_train.shape		:",x_train.shape)
+print("y_train.shape		:",y_train.shape)
+
+print("X_test.shape		:",x_test.shape)
+print("y_test.shape		:",y_test.shape)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Create functions"
+
+def report(y,ypred):
+      # Accuracy compute 
+      print("Accuracy:",accuracy_score(y, ypred)*100)
+      print("Number of mislabeled points out of a total %d points = %d"
+            % (y.shape[0], (y != ypred).sum()))
+
+def print_model_summary():
+      # Label predictions for training and test set
+      yp_train = model.predict(x_train)
+      yp_test = model.predict(x_test)
+
+      print("ACCURACY CALCULATION\n")
+
+      print("TRAINING SET:")
+      report(y_train,yp_train)
+
+      print("\nTEST SET (UNTRAINED DATA):")
+      report(y_test,yp_test)
+
+      print("\nCHECK FIRST 20 PREDICTIONS")
+      print("TRAINING SET:")
+      print(y_train[0:20])
+      print(yp_train[0:20])
+      print("ERRORS:",yp_train[0:20]-y_train[0:20])
+
+      print("\nTEST SET (UNTRAINED DATA):")
+      print(y_test[0:20])
+      print(yp_test[0:20])
+      print("ERRORS:",yp_test[0:20]-y_test[0:20])
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Create functions"
+
+# Model 
+model = MultinomialNB()
+
+# Train model 
+model.fit(x_train,y_train)
+
+# Show summary using previous function
+print_model_summary()
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Results"
+
+import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+y_pred = model.predict(x_test)
+
+# Print model summary
+def print_model_summary():
+    # print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
+    print("Classification Report:")
+    print(metrics.classification_report(y_test, y_pred))
+    cm = metrics.confusion_matrix(y_test, y_pred)
+    sns.heatmap(cm, annot=True, fmt='g', cmap='Blues', xticklabels=model.classes_, yticklabels=model.classes_)
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.title('Confusion Matrix')
+    plt.show()
+
+# Show summary
+print_model_summary()
+```
