@@ -1,0 +1,497 @@
+---
+title: "Naive Bayes"
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+```
+
+```{css, echo = FALSE}
+.tabs-container-model-selection {
+  display: flex;
+}
+
+.tab-model-selection {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 20px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.tab-model-selection:hover {
+  background-color: #f1f1f1;
+  color: #87c8b5; 
+}
+
+.tab-content-model-selection {
+  padding: 10px;
+  border: 1px solid #ccc;
+  display: none;
+}
+
+.tab-content-model-selection.active {
+  display: block;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
+
+<script>
+
+function toggleTabModelSelection(tabName) {
+  var tabs = document.querySelectorAll('.tab-content-model-selection');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+
+  var selectedTab = document.getElementById(tabName);
+  selectedTab.classList.add("active");
+}
+
+</script>
+
+## Introduction
+
+::: {.justify}
+Naive Bayes Classification is a category within Bayes' Theorem that contains a collection of algorithms. The main purpose of using this type of algorithms is to classify data into predefined classes or categories. For this reason, Naive Bayes is considered a type of supervised learning, as the models are trained on labeled data, meaning that the data has been pre-classified. The main advantages of these algorithms are that they are simple, efficient,  and useful in various applications, including record label data and text-labeled data.  As the name implies, these methods are "naive", meaning that they assume that the features used are independent in order to simplify the models and be computationally efficient. This assumption is usually not true in real-world cases, but the models perform well in practice.
+
+Naive Bayes is based on the principles of probability and statistics, therefore, to understand how the algorithms work, we first need an introduction to Bayes' theorem. *"Bayes' theorem finds the probability of an event occurring given the probability of another event that has already occurred."* To understand the function, we try to find the probability of the event $A$, given that the event $B$, which is the evidence, is true. The probability of $A$ is the prior of $A$, that is, the probability of the event before the evidence is seen. 
+
+**Bayes' Thorem:**
+
+$P(A|B) = \frac{P(B|A)  \cdot  P(A)}{P(B)}$
+
+$P(A)$: Probability of $A$
+
+$P(A|B)$: Poterior probability of $B$
+
+The algorithm uses the theorem to compute the probability that a data point belongs to a particular class given its features. It combines the prior knowledge with the new evidence. In summary, Naive Bayes classifies data by evaluating the likelihood of each class based on the observed features.
+:::
+
+## Objectives
+
+::: {.justify}
+
+Through this section we will focus in two analysis. First, we will use the record labeled data we have collected, cleaned, and explored in the previous sections. The data we will use is the Electric Vehicle Specifications dataset. With this analysis the goal is to understand if there is an existing pattern or relationship between different characteristics in order to classify them into the continent of origin. This is very useful to learn the manufacturing specifications and gain insights to draw conclusions about the desires for each market.
+
+The second dataset we will use is the sentiment analysis results on the Lithium News data. The goal of this analysis is to understand if Naive Bayes classification algorithms are able to perform a similar procedure to identify sentiment analysis labels based on a reduced data set. This is very useful because sentiment analysis algorithms can be biased based on the connotations of certain words depending on the environment. By using Naive Bayes with trained data from a specific topic, the bias is reduced and the predictions should be more accurate. A third analysis is performed on the same dataset. The goal is to see if we can classify the articles into specific categories based on the vocabulary used, which are originally the publisher's categories. Within these categories we find General, Business, Science and Technology.
+:::
+
+## Methods
+
+::: {.justify}
+
+Within the Naive Bayes algorithms we can find Gaussian, Multinomial and Bernoulli. Each one is different from the others because they can handle specific characteristics of the data and have different applications. The choice of the appropriate model is crucial because it improves the results, the performance and the accuracy of the classifier. The following explanations aim to summarize the main differences between the algorithms for a better understanding of the following application and analysis.
+
+*Gaussian Naive Bayes:*
+This first model is usually used when the features in the data set are continuous. The features typically follow a normal (Gaussian) distribution, and statistics such as the mean and standard deviation for each class are used to model the distribution.
+
+*Multinomial Naive Bayes:*
+This second model is used when the features in the data set are discrete. The algorithm considers the frequency of occurrence of the feature within each class. An example of application is text data to perform natural language processing tasks such as text classification.
+
+*Bernoulli Naive Bayes:*
+The third model is used for features that have a binary value. The algorithm focuses on whether the classification is yes or no, or true or false. This model is usually used in document classification tasks.
+:::
+
+## Analysis
+
+::: {.justify}
+The analysis for this section includes three tabs, which we will observe below. As explained above, we will perform Gaussian Naive Bayes Classification on the Electric Vehicles Characteristics dataset, Multinimial Naive Bayes Classification on the Lithium News sentiment analysis results, and Lithium News publisher categories.
+
+In this case, we used Python libraries to develop the analysis and effective visualizations to show the results. The libraries required and functions created for the analysis are listed below.
+:::
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| code-fold: true
+#| code-summary: "R Libraries"
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+library(corrplot)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Python Libraries"
+#| results: 'hide'
+#| warning: false
+
+
+import pandas as pd
+import numpy as np 
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import scipy
+import sklearn 
+from scipy.stats import spearmanr
+
+# Gaussian Naive Bayes
+from sklearn.naive_bayes import GaussianNB
+
+# Multinomial Naive Bayes
+from sklearn.naive_bayes import MultinomialNB
+
+
+# Split the data
+from sklearn.model_selection import train_test_split
+
+# Performance Metrics
+from sklearn.metrics import accuracy_score, classification_report
+
+import random
+
+# Features Text Data
+from sklearn.feature_extraction.text import CountVectorizer
+
+from sklearn import metrics
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Fuction print_model_summary()"
+#| warning: false
+
+def print_model_summary(y_test, y_pred):
+    print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
+    print("\n")
+    print("Classification Report:")
+    print("\n")
+    print(metrics.classification_report(y_test, y_pred))
+    
+    cm = metrics.confusion_matrix(y_test, y_pred)
+    sns.heatmap(cm, annot=True, fmt='g', cmap='Blues', xticklabels=model.classes_, yticklabels=model.classes_)
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.title('Confusion Matrix')
+    plt.show()
+```
+
+
+<br> 
+
+<div class="tabs-container-model-selection">
+  <div class="tab-model-selection" onclick="toggleTabModelSelection('tab1')">EV Characteristics</div>
+  <div class="tab-model-selection" onclick="toggleTabModelSelection('tab2')">Lithium News Sentiments</div>
+  <div class="tab-model-selection" onclick="toggleTabModelSelection('tab3')">Lithium News Categories</div>
+</div>
+
+<div id="tab1" class="tab-content-model-selection active">
+
+### Data Selection
+
+::: {.justify}
+
+Based on the data available for analysis, we will use the numeric features; Battery, Efficiency, FastCharge, Price, Range, TopSpeed and Acceleration to predict the Continent where they were manufactured.
+For practical purposes, we converted the target feature; Continent, to be numeric. 
+
+- Asia = 0
+- Europe = 2
+- North America = 3
+:::
+
+``` {python, output='df'}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| warning: false
+#| code-summary: "{python}"
+
+# Save dataframe as a new file
+df_vehicles = pd.read_csv('../../data/01-modified-data/clean_vehicles.csv')
+
+df_vehicles = df_vehicles.dropna()
+
+x = df_vehicles.columns[df_vehicles.dtypes != 'object']
+
+x = df_vehicles[x]
+
+y = pd.Categorical(df_vehicles['Continent']).codes
+
+df_vehicles.head(5).to_csv('../../data/02-visualization-data/df_vehicles.csv', index=False)
+```
+
+``` {r}
+#| echo: false
+
+# Read csv file
+df_vehicles <- read.csv('../../data/02-visualization-data/df_vehicles.csv')
+
+knitr::kable(df_vehicles)
+```
+
+### Results
+
+::: {.justify}
+
+With the goal of having an efficient and reproducible analysis, we created a function to train the Gaussian Naive Bayes model. This is useful for creating the model, fitting it, creating the test sets, and observing the performance of each set.
+
+To split the data, we considered 20% of the total records for the test set and the remaining 80% for training.
+After applying the function to the analysis, we can see that we get an accuracy value for the training set and the test set. The accuracy value for the training set is approximately 0.57 while the test set is approximately 0.63. 
+:::
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| warning: false
+#| code-summary: "Fuction train_GNB_model()"
+#| results: 'hide'
+
+def train_GNB_model(x_train,y_train,x_test,y_test,i_print=False):
+
+    # INSERT CODE HERE  
+    gnb_model = GaussianNB()
+
+    gnb_model.fit(x_train, y_train)
+
+    y_train_pred = gnb_model.predict(x_train)
+    y_test_pred = gnb_model.predict(x_test)
+
+    train_accuracy = accuracy_score(y_train, y_train_pred)
+    test_accuracy = accuracy_score(y_test, y_test_pred)
+
+    if i_print == True:
+        print(train_accuracy*100, test_accuracy*100)
+
+    return train_accuracy, test_accuracy
+```
+
+``` {python}
+#| echo: true
+#| eval: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+print("Train Set Accuracy:", train_GNB_model(x_train,y_train,x_test,y_test,i_print=False)[0])
+print("Test Set Accuracy:", train_GNB_model(x_train,y_train,x_test,y_test,i_print=False)[1])
+```
+
+``` {python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Results"
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+print("Train Set Accuracy:", train_GNB_model(x_train,y_train,x_test,y_test,i_print=False)[0])
+print("Test Set Accuracy:", train_GNB_model(x_train,y_train,x_test,y_test,i_print=False)[1])
+```
+
+### Conclusion
+
+::: {.justify}
+
+Based on the results obtained, we can observe that the accuracy of the training set is lower than the accuracy of the test set. Considering the small number of data points used for this analysis, the results are considered good. So far, we can observe that the values for the analyzed features are useful to determine the class to which they belong.
+
+For future analysis, it would be useful to include additional data points so that the analysis is well balanced. We can also consider adding another target label to understand, for example, if we can target the country where the electric vehicles are manufactured.
+:::
+
+
+</div>
+<div id="tab2" class="tab-content-model-selection">
+
+### Data Selection
+
+::: {.justify}
+
+For this section...
+:::
+
+``` {python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+df_sentiment = pd.read_csv('../../data/01-modified-data/clean_sentiment_analysis.csv')
+
+# Rename columns
+df_sentiment = df_sentiment.rename(columns={'ibm_label': 'label', 'ibm_content': 'text', 'ibm_score': 'sentiment'})
+
+df_sentiment = df_sentiment[['label', 'text']]
+
+vectorizer = CountVectorizer()
+
+x1 = vectorizer.fit_transform(df_sentiment['text'])
+y1 = df_sentiment['label']
+
+x1_train, x1_test, y1_train, y1_test = train_test_split(x1, y1, test_size=0.2, random_state=42)
+
+model = MultinomialNB()
+
+model = model.fit(x1_train, y1_train)
+
+y1_pred = model.predict(x1_test)
+
+df_sentiment.head(5).to_csv('../../data/02-visualization-data/df_sentiment.csv', index=False)
+```
+
+``` {r}
+#| echo: false
+
+# Read csv file
+df_sentiment <- read.csv('../../data/02-visualization-data/df_sentiment.csv')
+
+knitr::kable(df_sentiment)
+```
+
+### Results
+
+::: {.justify}
+
+For this section...
+:::
+
+``` {python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+# Show summary
+print_model_summary(y1_test, y1_pred)
+```
+
+</div>
+<div id="tab3" class="tab-content-model-selection">
+
+### Data Selection
+
+::: {.justify}
+
+For this section...
+:::
+
+``` {python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{python}"
+#| warning: false
+
+df_sentiment = pd.read_csv('../../data/01-modified-data/clean_sentiment_analysis.csv')
+
+# Rename columns
+df_sentiment = df_sentiment.rename(columns={'ibm_label': 'label', 'ibm_content': 'text', 'ibm_score': 'sentiment'})
+
+df_sentiment = df_sentiment[['category', 'text']]
+
+vectorizer = CountVectorizer()
+
+x2 = vectorizer.fit_transform(df_sentiment['text'])
+y2 = df_sentiment['category']
+
+x2_train, x2_test, y2_train, y2_test = train_test_split(x2, y2, test_size=0.2, random_state=42)
+
+model = MultinomialNB()
+
+model = model.fit(x2_train, y2_train)
+
+y2_pred = model.predict(x2_test)
+
+df_sentiment.head(5).to_csv('../../data/02-visualization-data/df_sentiment_2.csv', index=False)
+```
+
+``` {r}
+#| echo: false
+
+# Read csv file
+df_sentiment_2 <- read.csv('../../data/02-visualization-data/df_sentiment_2.csv')
+
+knitr::kable(df_sentiment_2)
+```
+
+### Results
+
+::: {.justify}
+
+For this section...
+:::
+
+``` {python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{python}"
+#| warning: false
+
+# Show summary
+print_model_summary(y2_test, y2_pred)
+```
+
+</div>
