@@ -11,17 +11,17 @@ bibliography: ../Personal/reference.bib
     text-indent: 20px; 
 }
 
+/* Modified Version: */
 .epigrafe {
     text-align: justify !important;
-    text-indent: 20px; 
-    border: 1.5px solid #87c8b5; 
+    /* border: 1.5px solid #87c8b5;  */
     padding-top: 15px;
     padding-bottom: 5px;
     padding-right: 15px;
     padding-left: 15px;
     font-size: 14px;
     background-color: #f9f9f9; 
-    margin: 20px 0px 30px 0px;
+    margin: 20px 0px 20px 0px;
 }
 
 h2 {
@@ -244,6 +244,10 @@ def print_model_summary(y_test, y_pred):
 
 <div id="tab1" class="tab-content-model-selection active">
 
+::: {.epigrafe}
+***Electric Vehicles Characteristics ~ Record Labeled Data***
+:::
+
 ### Data Selection
 
 ::: {.justify}
@@ -364,11 +368,17 @@ For future analysis, it would be useful to include additional data points so tha
 </div>
 <div id="tab2" class="tab-content-model-selection">
 
+::: {.epigrafe}
+***Lithium News Sentiments ~ Text Labeled Data***
+:::
+
 ### Data Selection
 
 ::: {.justify}
 
-For this section...
+The relevant data for this analysis is the article content which appears as *text* and the label assigned by the IBM sentiment analysis algorithm. This data requires additional data cleaning as the text needs to be vectorized. This means that we will produce a sparse representation of the counts for the tokens.
+The next step is to divide the feature array and target array in the train and test set. With the sets created we run the model to obtain results.
+
 :::
 
 ``` {python}
@@ -377,6 +387,7 @@ For this section...
 #| code-fold: true
 #| code-summary: "{python}"
 
+# Read csv file
 df_sentiment = pd.read_csv('../../data/01-modified-data/clean_sentiment_analysis.csv')
 
 # Rename columns
@@ -413,7 +424,7 @@ knitr::kable(df_sentiment)
 
 ::: {.justify}
 
-For this section...
+Below we can observe that after running the model we obtain an accuracy of approximately 0.61. We can also observe the Classification Report which show additional relevant metric used to evaluate the performance of the model. The F1 metric measures the model's accuracy by combining the precision and recall scores by category.
 :::
 
 ``` {python}
@@ -429,6 +440,10 @@ print_model_summary(y1_test, y1_pred)
 
 </div>
 <div id="tab3" class="tab-content-model-selection">
+
+::: {.epigrafe}
+***Lithium News Categories ~ Text Labeled Data***
+:::
 
 ### Data Selection
 
