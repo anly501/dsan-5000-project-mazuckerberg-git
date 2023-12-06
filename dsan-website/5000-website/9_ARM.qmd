@@ -1,0 +1,37 @@
+---
+title: "ARM"
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
+---
+
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
