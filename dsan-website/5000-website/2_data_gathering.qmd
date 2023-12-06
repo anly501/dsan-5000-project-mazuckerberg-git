@@ -1,12 +1,15 @@
 ---
 title: "Data Gathering"
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
 ---
 ```{css, echo = FALSE}
 .justify {
 text-align: justify !important;
 text-indent: 20px;
 }
-
 
 .epigrafe {
 text-align: justify !important;
@@ -17,29 +20,61 @@ font-size: 14px;
 background-color: #f9f9f9;
 margin: 20px 0px 30px 0px;
 }
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+
+img.right-align {
+  float: right; /* Float the image to the right */
+  margin: 10px 0px 0px 25px; /* Add margin to create space around the image */
+  width: 250px; /* Adjust the width as needed */
+}
+
+
+.clear-float {
+  clear: both; /* Clear the float after the image */
+}
 ```
 
-```{r}
+``` {r}
 #| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
 
-x = 3
+x<-1
+
 ```
 
 ***
 
-<p align="center">
+## Global Lithium Production
+
+<!-- <p align="center">
     <img src="./images/our_world_in_data.png" alt="" width="200">
-</p>
+</p> -->
 
-### Global Lithium Production
+<div class="clear-float">
 
-[**Source**](https://ourworldindata.org/grapher/lithium-production)
+![](./images/our_world_in_data.png){.right-align width="25%"}
 
 ::: {.justify}
 The Global Lithium Production dataset was extracted from the Our World in Data website. The Energy Institute Statistical Review of World Energy analyzes data on world energy markets from the previous year, and Our World in Data consolidates data originally derived from the reports produced. The dataset provides information on global lithium production, including data for major producing countries and aggregations at the regional, continental, and global levels. Lithium production is measured in metric tons. The dataset covers the period from 1995 to 2022.
 
+
+
 While the dataset includes global data, this analysis will focus specifically on the evolution of lithium production, with a strong emphasis on the U.S. This approach allows for a more in-depth analysis of the growth and fluctuations of this resource, while assessing the impact on the economy.
+
+**Source:** [Lithium Production](https://ourworldindata.org/grapher/lithium-production)
+
 :::
+
+</div>
 
 <!-- ::: {.justify}
 ***
@@ -77,60 +112,89 @@ In recent years, the main source of lithium demand has come from electric vehicl
 This information is useful in two ways. On the one hand, it would be interesting to perform the same steps on raw data sets instead of using the analysis already done. On the other hand, this information serves as a key dataset for our assessment of future trends and the application of machine learning models.
 ::: -->
 
-***
+## Lithium Companies
 
-<br>
+<div class="clear-float">
+
+![](./images/yahoo_finance.png){.right-align width="27%"}
 
 ::: {.justify}
-### Commodity Price
 
-* [Uranium](https://data.imf.org/?sk=471dddf8-d8a7-499a-81ba-5b332c01f8b9)
-* Crude Oil
-* Natural Gas
-* Coal
-* Renewable Energy
-* Biofuels
-* Electricity.
+Lithium-related companies play a key role in the performance of the industry. Using Yahoo Finance and other financial sources, we have compiled a dataset of market and financial information for the key companies in the industry. For this analysis, we focus on stock market data, income statements and balance sheets for the most recent dates available. 
 
-The commodity datasets play a key role in the goal of comparing lithium to other energy sources. This initial analysis focuses primarily on price comparisons, with future analyses to include consumption patterns. The commodities included in the analysis are ...s.
+This analysis will focus on 3 main production models; lithium production, electric vehicle production and lithium-ion batteries. We will look at Albemarle Corporation, Livent Corporation, Piedmont Lithium Inc. and Sigma Lithium Corporation. These companies are four of the most important companies in the world within the lithium production model. The first three companies were founded in the USA, while the last one was founded in Canada. Other major companies are located in Australia, Chile and China. The second model is electric vehicle production, and within this market we have well-known companies and some new ones. The six companies from the US that will be considered are Tesla, Inc, Ford Motor Company, ON Semiconductor Corp, Rivian Automotive, Inc, LiveWire Group Inc and AEHR Test Systems. The emerging market in this production model is China and in this case we will consider Li Auto Inc. and XPeng Inc. The third manufacturing companies we will analyze are BYD CO., LTD - China and Panasonic Holdings Corporation - Japan. Both companies are located in Asia and their main activity is lithium-ion batteries.
 
+**Source:** [Yahoo Finance](https://finance.yahoo.com/)
+:::
+
+</div>
+
+
+## Resources Prices
+
+<div class="clear-float">
+
+![](./images/IMF.png){.right-align width="17%"}
+
+::: {.justify}
+
+The International Monetary Fund is a useful resource with a variety of economic and market datasets, and for this project we will use it to collect data on the key resources needed to produce lithium-ion batteries. These include aluminum, cobalt, copper, nickel, zinc, and lithium. The emergence of mining operations for the different resources is a key aspect that drives the prices of each resource. By analyzing this data, we can be able to identify patterns and trends, correlations between resources, and compare how demand for each resource is driving prices. 
+
+The composition of the lithium-ion battery depends on the manufacturer. In general terms, the lithium cells consist of a 5-20% of cobalt, 5-10% nickel, 15% aluminum, 10% copper, 5-10% lithium, 15% organic chemicals, and 7% of plastics. The composition also depends on the end use of the battery as it affects the performance and life of the battery.
+
+**Source:** [Primary Commodity Price System](https://data.imf.org/?sk=471dddf8-d8a7-499a-81ba-5b332c01f8b9&sid=1547558078595)
 
 :::
 
-***
+</div>
 
-<br>
-<p align="center">
-    <img src="./images/news_api.png" alt="" width="200">
-</p>
+## Electric Vehicles
+
+<div class="clear-float">
+
+![](./images/kaggle.png){.right-align width="25%"}
 
 ::: {.justify}
-### Lithium News
-**Source: **
-[News API | Python](https://newsapi.org/)
+As the popularity of electric vehicles continues to grow, understanding their specifications becomes critical. Using a Kaggle dataset, we focus on key quantitative attributes that are essential for a comprehensive understanding of electric vehicle characteristics. The dataset includes details such as the vehicle make and model listed in *car name*. The most important quantitative characteristics are the capacity of the vehicle's battery, the energy efficiency rating, the fast-charging capability in minutes, the price of the vehicle in Germany, the driving range on a single charge, the maximum speed per hour, and the acceleration time from 0 to 100 kilometers per hour. The source of the information is listed in the *car name link*. The ability to analyze and compare these attributes enables both consumers and industry stakeholders to make informed decisions. This dataset facilitates research to understand which are the most influential factors and if there is a relationship between them.
 
+**Source:** [Electric Vehicle Specifications and Prices](https://www.kaggle.com/datasets/fatihilhan/electric-vehicle-specifications-and-prices/)
+
+:::
+
+</div>
+
+## Lithium News
+
+<div class="clear-float">
+
+![](./images/news_api.png){.right-align width="26%"}
+
+::: {.justify}
 The Lithium News dataset is an essential resource for the project to understand the media perspective on the evolution of the lithium market. The News API allows the collection of text data from news articles related to lithium. This platform aggregates information from a variety of media sources. Given the focus of the project, the text data collection is primarily focused on U.S. media resources that have published articles in English. This approach ensures that the dataset provides relevant insights to address the project's questions.
 
 The date range for the API is variable, depending on the amount of data available at the time the scraping is done. To optimize data collection and maximize the date range for article collection, a special function has been developed to adjust the number of days. This approach allows for the most current and broadest data collection.
+
+**Source:** [News API | Python](https://newsapi.org/)
 :::
 
-***
+</div>
 
-<br>
-<p align="center">
-    <img src="./images/IBM_developer.png" alt="" width="200">
-</p>
+
+## Lithium News - Sentiment Analysis
+
+<div class="clear-float">
+
+![](./images/IBM_developer.png){.right-align width="30%"}
 
 ::: {.justify}
-### Lithium News - Sentiment Analysis
-**Source: **
-[IBM Watson API | Python](https://developer.ibm.com/tutorials/use-the-watson-core-nlp-library-to-perform-sentiment-analysis/)
-
 The Sentiment Analysis Dataset for the Lithium News is a crucial step in the analytical process of the project. It enriches the Lithium News dataset collected in the previous section. To improve our understanding of the lithium market perspective, we perform a sentiment analysis on the content of the news articles.
 
 To do this, we will use the IBM Watson API, a tool designed to perform sentiment analysis on text data. The API allows us to process and analyze the text data and provide insights into the sentiment and tone of the articles.
 
 The main objective of this analysis is to understand how the perspective on the lithium market has evolved. By evaluating the results obtained on the media news, we aim to determine whether the news articles have shown a bias towards a more positive or negative perspective. This allows us to identify potential shifts in sentiment that could impact the industry in the future.
+
+**Source:** [IBM Watson API | Python](https://developer.ibm.com/tutorials/use-the-watson-core-nlp-library-to-perform-sentiment-analysis/)
 :::
 
-***
+</div>
+
