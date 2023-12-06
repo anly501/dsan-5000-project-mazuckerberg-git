@@ -1,10 +1,21 @@
 ---
 title: "Data Exploration"
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
 ---
 ```{css, echo = FALSE}
 .justify {
     text-align: justify !important;
     text-indent: 20px; 
+}
+
+.tableau {
+    margin-left: 85px;
+    width: 85%;
+    border: 1.5px solid #87c8b5; 
+    background-color: #f9f9f9; 
 }
 
 .epigrafe {
@@ -19,21 +30,42 @@ title: "Data Exploration"
     background-color: #f9f9f9; 
     margin: 20px 0px 30px 0px;
 }
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
 ```
 
-### Overview
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
+
 ::: {.justify}
-.
+After cleaning the data gathered, we can begin the process of exploratory data analysis. This analysis is valuable for gaining an understanding of the data and seeking data trends, relationships between variables, anomalies or outliers, and other findings. In most cases, this type of analysis is beneficial to improve the data cleaning and apply additional measures if necessary. Based on the initial analysis of the data, we can confirm our assumptions and proceed to develop hypotheses to guide the investigation.
+
+As a start to this analysis, it's crucial to know about two primary types of analysis: graphical techniques and quantitative techniques. Among the graphical techniques, we find univariate visualizations such as box plots, histograms, and line graphs, while in the bivariate analysis, we find the scatter plot, and heatmaps, among others. The quantitative techniques require technical knowledge of more complex algorithms. The most simple quantitative techniques are the summary statistics we usually use for the box plot and the distribution visualizations. More advanced methods involve clustering and dimensionality reduction, which will be explained and applied in subsequent sections.
+
+In this section, we use both R and Python to develop visualizations. The libraries required and functions created for the analysis are listed below:
 :::
 
 Below are the libraries used in this section:
 ``` {r}
 #| echo: true
 #| message: false
-#| code-fold: true
-#| code-summary: "R Libraries"
 #| results: 'hide'
 #| warning: false
+#| code-fold: true
+#| code-summary: "R Libraries"
 
 library(tidyverse)
 library(ggplot2)
@@ -44,18 +76,20 @@ library(tseries)
 library(fpp2)
 library(fma)
 library(lubridate)
-library(tidyverse)
 library(TSstudio)
 library(quantmod)
 library(tidyquant)
 library(plotly)
-library(ggplot2)
 library(gridExtra)
 library(readxl)
 library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+library(corrplot)
 ```
 
-```{python}
+``` {python}
 #| echo: true
 #| message: false
 #| code-fold: true
@@ -63,47 +97,411 @@ library(zoo)
 #| results: 'hide'
 #| warning: false
 
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from cleantext import clean
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Function generate_word_cloud()"
+#| results: 'hide'
+#| warning: false
+
+def generate_word_cloud(my_text, title="Word Cloud"):
+    from wordcloud import WordCloud, STOPWORDS
+    import matplotlib.pyplot as plt
+    
+    # Define a function to plot word cloud
+    def plot_cloud(wordcloud, title):
+        # Set figure size
+        plt.figure(figsize=(30, 20))
+        # Display image
+        plt.imshow(wordcloud) 
+        # No axis details
+        plt.axis("off")
+        # Add title
+        plt.title(title, fontsize=100)
+
+    # Generate word cloud
+    wordcloud = WordCloud(
+        width=2000,
+        height=1000, 
+        random_state=1, 
+        # background_color='salmon', 
+        colormap='Pastel1', 
+        collocations=False,
+        stopwords=STOPWORDS
+    ).generate(my_text)
+
+    plot_cloud(wordcloud, title)
+    plt.show()
+```
+
+
+## Global Lithium Production
+
+::: {.justify}
+
+In the first visualization we can observe a map plot done using Tableau Software. Using the controls to change the years of visualization we can observe the evolution of the global lithium production and how the total production is distributed along the main producing countries. As it was explained earlier, the data includes information since 1995 as this resource is very innovative.
+:::
+
+::: {.tableau}
+
+``` {=html}
+<div class='tableauPlaceholder' id='viz1701810184959' style='position: relative'><noscript><a href='#'><img alt='Global Lithium Production - 2022 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;DS&#47;DSAN5000-GlobalLithiumProduction&#47;GlobalLithiumProduction&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='DSAN5000-GlobalLithiumProduction&#47;GlobalLithiumProduction' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;DS&#47;DSAN5000-GlobalLithiumProduction&#47;GlobalLithiumProduction&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1701810184959');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='90%';vizElement.style.height=(divElement.offsetWidth*0.65)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+```
+:::
+
+## Lithium Companies
+
+::: {.justify}
+
+Add description
+:::
+
+``` {r, fig.width = 8, fig.height = 5}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+# Read cleaned file
+df_companies <- read.csv('../../data/01-modified-data/clean_lithium-companies.csv')
+
+df_companies_1 <- df_companies %>% dplyr::select('date', 'ALB', 'LTHM', 'SGML')
+
+df_companies_1 <- gather(df_companies_1, key = "stock", value = "price", -date)
+
+# Change data type
+df_companies_1$date <- as.Date(df_companies_1$date)
+
+# Create ggplot line plot
+viz_companies_1 <- ggplot(df_companies_1, aes(x = date, y = price, color = stock)) +
+  geom_line() +
+  labs(title = "Stock Prices - Lithium Production Companies",
+       x = "Date",
+       y = "Stock Price") +
+  scale_color_discrete(name = "Stock")
+
+# Show plot
+viz_companies_1 %>% ggplotly()
+```
+
+``` {r, fig.width = 8, fig.height = 5}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+df_companies_2 <- df_companies %>% dplyr::select('date', 'TSLA', 'F', 'LI', 'ON', 'RIVN', 'XPEV', 'LVWR', 'AEHR')
+
+df_companies_2 <- gather(df_companies_2, key = "stock", value = "price", -date)
+
+# Change data type
+df_companies_2$date <- as.Date(df_companies_2$date)
+
+# Create ggplot line plot
+viz_companies_2 <- ggplot(df_companies_2, aes(x = date, y = price, color = stock)) +
+  geom_line() +
+  labs(title = "Stock Prices - Electric Vehicles Production Companies",
+       x = "Date",
+       y = "Stock Price") +
+  scale_color_discrete(name = "Stock")
+
+# Show plot
+viz_companies_2 %>% ggplotly()
+```
+
+``` {r, fig.width = 8, fig.height = 5}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+df_companies_3 <- df_companies %>% dplyr::select('date', 'BYDDF', 'X6752.T')
+
+df_companies_3 <- gather(df_companies_3, key = "stock", value = "price", -date)
+
+# Change data type
+df_companies_3$date <- as.Date(df_companies_3$date)
+
+# Create ggplot line plot
+viz_companies_3 <- ggplot(df_companies_3, aes(x = date, y = price, color = stock)) +
+  geom_line() +
+  labs(title = "Stock Prices - Lithium Batteries Production Companies",
+       x = "Date",
+       y = "Stock Price") +
+  scale_color_discrete(name = "Stock")
+
+# Show plot
+viz_companies_3 %>% ggplotly()
+```
+
+
+``` {r, fig.width = 8, fig.height = 5}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+# Read cleaned file
+df_companies_finance <- read.csv('../../data/01-modified-data/clean_companies_finance.csv')
+
+# Pivot the data from long to wide format
+df_companies_finance <- df_companies_finance %>%
+  pivot_wider(
+    id_cols = c(Company, Year, Quarter),
+    names_from = KPI,
+    values_from = Value
+  )
+
+df_companies_finance <- df_companies_finance %>% dplyr::select('Company', 'Year', 'Quarter', 'Inventory')
+
+df_companies_finance$date <- as.Date(paste0(df_companies_finance$Year,"-",(df_companies_finance$Quarter) * 3,"-01"))
+
+# Create ggplot line plot
+viz_companies_4 <- ggplot(df_companies_finance, aes(x = date, y = Inventory, color = Company)) +
+  geom_line() +
+  labs(title = "",
+       x = "Date",
+       y = "Inventories") +
+  scale_color_discrete(name = "Company")
+
+# Show plot
+viz_companies_4 %>% ggplotly()
+```
+
+## Resources Prices
+
+::: {.justify}
+
+Add description
+
+:::
+
+``` {r, fig.width = 6, fig.height = 3}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+# Read csv file
+df_resources <- read.csv("../../data/01-modified-data/clean_resources-price.csv")
+
+# Edit datatypes
+df_resources$DATE <- as.Date(df_resources$DATE)
+
+# Create correlation matrix
+correlation_matrix <- cor(df_resources[, -1], use = "complete.obs")
+
+correlation_matrix <- reshape2::melt(correlation_matrix)
+
+ggplot(correlation_matrix, aes(x = Var1, y = Var2, fill = value)) +
+geom_tile(color = "white") +
+scale_fill_gradient2(low = "blue", mid = "yellow", high = "red", midpoint = 0) +
+theme_minimal() +
+labs(title = "Resources Correlation Plot")
+```
+
+## Electric Vehicles
+
+::: {.justify}
+
+Add description
+:::
+
+``` {r, fig.width = 6, fig.height = 3}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+# Save dataframe as a new file
+df_vehicles <- read.csv('../../data/01-modified-data/clean_vehicles.csv')
+
+df_vehicles <- df_vehicles %>% dplyr::select('Battery', 'Efficiency', 'FastCharge', 'Price', 'Range', 'TopSpeed', 'Acceleration')
+
+# Create correlation matrix
+correlation_matrix2 <- cor(df_vehicles, use = "complete.obs")
+
+correlation_matrix2 <- reshape2::melt(correlation_matrix2)
+
+ggplot(correlation_matrix2, aes(x = Var1, y = Var2, fill = value)) +
+geom_tile(color = "white") +
+scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+theme_minimal() +
+labs(title = "Resources Correlation Plot")
 
 ```
 
-### Global Lithium Production
+## Lithium News Sentiment Analysis
 
 ::: {.justify}
 
 Add description
 :::
 
-> [Exploratory Data Analysis - Global Lithium Production](https://mazuckerberg.georgetown.domains/DSAN_5000/4_eda/4_1_lithium_production.html)
+**WordCloud - Positive Sentiment**
 
-### Global Lithium Demand
+``` {python, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
 
-::: {.justify}
+# Save dataframe as a new file
+df_sentiment = pd.read_csv('../../data/01-modified-data/clean_sentiment_analysis.csv')
 
-Add description
-:::
+df_sentiment = df_sentiment[df_sentiment['ibm_label'] == "positive"]
 
-<br>
+complete_text = ""
 
-> [Exploratory Data Analysis - Global Lithium Demand](https://mazuckerberg.georgetown.domains/DSAN_5000/4_eda/4_3_lithium_demand.html)
+for i in df_sentiment['ibm_content']:
+    text=i
+    if not pd.isna(text):
 
-### Commodity Price
+        text = clean(text,
+                fix_unicode=True,               # fix various unicode errors
+                to_ascii=True,                  # transliterate to closest ASCII representation
+                lower=True,                     # lowercase text
+                no_line_breaks=False,           # fully strip line breaks as opposed to only normalizing them
+                no_urls=True,                  # replace all URLs with a special token
+                no_emails=True,                # replace all email addresses with a special token
+                no_phone_numbers=True,         # replace all phone numbers with a special token
+                no_numbers=True,               # replace all numbers with a special token
+                no_digits=True,                # replace all digits with a special token
+                no_currency_symbols=True,      # replace all currency symbols with a special token
+                no_punct=False,                 # remove punctuations
+                replace_with_punct="",          # instead of removing punctuations you may replace them
+                replace_with_url="",
+                replace_with_email="",
+                replace_with_phone_number="",
+                replace_with_number="",
+                replace_with_digit="0",
+                replace_with_currency_symbol="",
+                lang="en"                       # set to 'de' for German special handling
+            )
+        
+        text = text.replace('... [ chars]', ' ')
+        text = text.replace('<ul>', ' ')
+        text = text.replace('<li>', ' ')
 
-::: {.justify}
+        complete_text = complete_text+text
 
-Add description
-:::
+generate_word_cloud(complete_text, "WordCloud - Positive Sentiment\n")
+```
 
-<br>
 
-> [Exploratory Data Analysis - Commodity Price](https://mazuckerberg.georgetown.domains/DSAN_5000/4_eda/4_4_commodity_price.html)
+**WordCloud - Neutral Sentiment**
 
-### Lithium News
+``` {python, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
 
-::: {.justify}
+# Save dataframe as a new file
+df_sentiment = pd.read_csv('../../data/01-modified-data/clean_sentiment_analysis.csv')
 
-Add description
-:::
+df_sentiment = df_sentiment[df_sentiment['ibm_label'] == "neutral"]
 
-<br>
+complete_text = ""
 
-> [Exploratory Data Analysis - Lithium News](https://mazuckerberg.georgetown.domains/DSAN_5000/4_eda/4_5_news_api.html)
+for i in df_sentiment['ibm_content']:
+    text=i
+    if not pd.isna(text):
+
+        text = clean(text,
+                fix_unicode=True,               # fix various unicode errors
+                to_ascii=True,                  # transliterate to closest ASCII representation
+                lower=True,                     # lowercase text
+                no_line_breaks=False,           # fully strip line breaks as opposed to only normalizing them
+                no_urls=True,                  # replace all URLs with a special token
+                no_emails=True,                # replace all email addresses with a special token
+                no_phone_numbers=True,         # replace all phone numbers with a special token
+                no_numbers=True,               # replace all numbers with a special token
+                no_digits=True,                # replace all digits with a special token
+                no_currency_symbols=True,      # replace all currency symbols with a special token
+                no_punct=False,                 # remove punctuations
+                replace_with_punct="",          # instead of removing punctuations you may replace them
+                replace_with_url="",
+                replace_with_email="",
+                replace_with_phone_number="",
+                replace_with_number="",
+                replace_with_digit="0",
+                replace_with_currency_symbol="",
+                lang="en"                       # set to 'de' for German special handling
+            )
+        
+        text = text.replace('... [ chars]', ' ')
+        text = text.replace('<ul>', ' ')
+        text = text.replace('<li>', ' ')
+
+        complete_text = complete_text+text
+
+generate_word_cloud(complete_text, "WordCloud - Neutral Sentiment\n")
+```
+
+
+**WordCloud - Negative Sentiment**
+
+``` {python, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+# Save dataframe as a new file
+df_sentiment = pd.read_csv('../../data/01-modified-data/clean_sentiment_analysis.csv')
+
+df_sentiment = df_sentiment[df_sentiment['ibm_label'] == "negative"]
+
+complete_text = ""
+
+for i in df_sentiment['ibm_content']:
+    text=i
+    if not pd.isna(text):
+
+        text = clean(text,
+                fix_unicode=True,               # fix various unicode errors
+                to_ascii=True,                  # transliterate to closest ASCII representation
+                lower=True,                     # lowercase text
+                no_line_breaks=False,           # fully strip line breaks as opposed to only normalizing them
+                no_urls=True,                  # replace all URLs with a special token
+                no_emails=True,                # replace all email addresses with a special token
+                no_phone_numbers=True,         # replace all phone numbers with a special token
+                no_numbers=True,               # replace all numbers with a special token
+                no_digits=True,                # replace all digits with a special token
+                no_currency_symbols=True,      # replace all currency symbols with a special token
+                no_punct=False,                 # remove punctuations
+                replace_with_punct="",          # instead of removing punctuations you may replace them
+                replace_with_url="",
+                replace_with_email="",
+                replace_with_phone_number="",
+                replace_with_number="",
+                replace_with_digit="0",
+                replace_with_currency_symbol="",
+                lang="en"                       # set to 'de' for German special handling
+            )
+        
+        text = text.replace('... [ chars]', ' ')
+        text = text.replace('<ul>', ' ')
+        text = text.replace('<li>', ' ')
+
+        complete_text = complete_text+text
+
+generate_word_cloud(complete_text, "WordCloud - Negative Sentiment\n")
+```
