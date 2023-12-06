@@ -1,0 +1,501 @@
+---
+title: "Data Clustering"
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
+---
+
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x <- 1
+
+```
+
+## Introduction
+::: {.justify}
+
+The purpose of this section is to evaluate the financial information for the lithium companies and understand how they relate to each other. As mentioned in the previous sections, the data sets consist of three types of companies, with each group differing in their manufacturing process. The companies specialize in lithium production, lithium battery production, and electric vehicle production.
+
+All companies in the lithium industry have grown actively in recent years. However, their performance is correlated with the type of production they are developing. 
+
+Clustering analysis allows us to group similar companies together to evaluate their relationship and discover patterns over time. We also want to find the most important outliers and how they have changed in recent years to assess the main reasons for these changes.
+:::
+
+Below there is the list of all the packages and libraries that were imported to do the analysis:
+
+```{python}
+#| echo: true
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| code-fold: true
+#| code-summary: "Libraries"
+
+# Import Data
+import pandas as pd
+
+# Data Cleaning
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+
+# PCA analysis
+from sklearn.decomposition import PCA
+
+# t-SNE analysis
+from sklearn.manifold import TSNE
+
+# Visualize Results
+import matplotlib.pyplot as plt
+
+# Clustering
+import matplotlib.pyplot as plt
+import sklearn
+import sklearn.cluster
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+
+# UTILITY PLOTTING FUNCTION
+def plot(X,color_vector):
+    fig, ax = plt.subplots()
+    ax.scatter(X[:,0], X[:,1],c=color_vector, alpha=0.5) #, c=y
+    ax.set(xlabel='Feature-1 (x_1)', ylabel='Feature-2 (x_2)',
+    title='Cluster data')
+    ax.grid()
+    # fig.savefig("test.png")
+    plt.show()
+```
+
+
+## Theory
+::: {.justify}
+
+The machine learning clustering algorithms that will be used in this section are K-Means, Density-based spatial clustering of applications with noise (DBSCAN) and Hierarchical or Agglomerative Clustering. These algorithms have a similar output but the method to get the result is different.
+
+To create the k-means model that will be applied to the analysis, we will use the k-means clustering function from the Sklearn package. The most important parameter for creating this model is the number of clusters. The first centroids are randomly located in the resulting space, and the algorithms calculate the distance of each point to the nearest algorithm that assigns this new label. After a certain number of iterations, they will converge, resulting in no significant difference. To choose the optimal number of clusters for this method, we will use the silhoutte metric explained in the hyperparameter tuning section.
+
+To create the DBSCAN model, we will use the dbscan function from the Sklearn package. DBSCAN model groups the data point by density in the space. Similarly to k-means, in every iteration the distance from the points to the centroids is calculated in order to assign the points to the clusters. The function has a different parameter, eps, which is the calculation of the number of clusters: $eps = 0.25$ x $(clusters - 1)$.
+This model do not assign outlier points to the clusters which this is a disadvantage.
+
+*add Hierarchical*
+To create the hierarchical clustering, we will use the agglomerative function from the Sklearn package. This model focuses on creating a hierarchy of clusters and merging them on each iteration. 
+
+*add Elbow*
+
+*add silhouette*
+
+:::
+
+
+## Methods
+::: {.justify}
+
+There are several steps to the methodology for this section. The first is to select the data to be used for the clustering analysis. This data should not contain any labels for this analysis, as we want to find a relationship between the companies without knowing the actual relationship.
+
+The next step is to find the optimal number of clusters per algorithm in the hyperparameter tuning. For this analysis we use a function developed during the course, where the input parameters are the data itself, the algorithm to be evaluated, the maximum number of clusters, and a boolean parameter to show the output or not. This step is explained in detail in the Hyperparameter Tuning section.
+
+With the optimal number of clusters, we will apply the final model to the data and plot the results to find insights and draw conclusions.
+:::
+
+### Data selection
+::: {.justify}
+
+*If you have not done so already, create either a numeric record feature dataset AND/OR a text feature dataset from your existing data.*
+
+For this analysis we will use the output dataset we obtained dimensionality reduction. 
+
+
+:::
+
+**Companies Financial Data**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+# Read csv
+df = pd.read_csv('../../data/01-modified-data/clean_companies_finance.csv')
+
+df_2019 = df[(df['Year'] == 2019) & (df['Quarter'] == 4)]
+
+df_2019 = df_2019.pivot(index=['Company'], columns='KPI', values='Value')
+
+df_2019.reset_index(inplace=True)
+
+df_2019 = df_2019.fillna(0)
+
+# df_2019.head(15)
+
+numeric_cols = df_2019.columns[df_2019.dtypes != 'object']
+X_2019 = df_2019[numeric_cols]
+
+target_col = df_2019.columns[df_2019.dtypes == 'object']
+Y = df_2019[target_col]
+Y , _ = pd.factorize(Y.Company)
+Y_2019 = Y.astype(int)
+
+# Standardize the data
+scaler = StandardScaler()
+X_2019 = scaler.fit_transform(X_2019)
+
+n_components = 9
+
+pca = PCA(n_components = n_components)
+X1_2019 = pca.fit_transform(X_2019)
+
+results_2019 = pd.DataFrame({'X1': X1_2019[:, 0], 'X2': X1_2019[:, 1], 'Y': Y_2019})
+
+results_2019
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+df_2022 = df[(df['Year'] == 2022) & (df['Quarter'] == 4)]
+
+df_2022 = df_2022.pivot(index=['Company'], columns='KPI', values='Value')
+
+df_2022.reset_index(inplace=True)
+
+df_2022 = df_2022.fillna(0)
+
+#df_2022.head(15)
+
+numeric_cols = df_2022.columns[df_2022.dtypes != 'object']
+X_2022 = df_2022[numeric_cols]
+
+target_col = df_2022.columns[df_2022.dtypes == 'object']
+Y = df_2022[target_col]
+Y , _ = pd.factorize(Y.Company)
+Y_2022 = Y.astype(int)
+
+# Standardize the data
+scaler = StandardScaler()
+X_2022 = scaler.fit_transform(X_2022)
+
+n_components = 9
+
+pca = PCA(n_components = n_components)
+X1_2022 = pca.fit_transform(X_2022)
+
+results_2022 = pd.DataFrame({'X1': X1_2022[:, 0], 'X2': X1_2022[:, 1], 'Y': Y_2022})
+
+results_2022
+```
+
+### Hyper-parameter tuning
+::: {.justify}
+
+*For each of the three clustering algorithms, perform any relevant parameter tuning in an attempt to achieve the optimal clustering results*
+
+*Explore different choices of distance metric for the algorithm. Which distance metric seems to works best in which cases and why?*
+:::
+
+**Silhouette Score Function**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+def maximize_silhouette(X,algo="birch",nmax=20,i_plot=False):
+
+    # PARAM
+    i_print=False
+
+    #FORCE CONTIGUOUS
+    X=np.ascontiguousarray(X)
+
+    # LOOP OVER HYPER-PARAM
+    params=[]; 
+    sil_scores=[]
+    sil_max=-10
+
+    for param in range(2,nmax+1):
+        if(algo=="birch"):
+            model = sklearn.cluster.Birch(n_clusters=param).fit(X)
+            labels=model.predict(X)
+
+        if(algo=="ag"):
+            model = sklearn.cluster.AgglomerativeClustering(n_clusters=param).fit(X)
+            labels=model.labels_
+
+        if(algo=="dbscan"):
+            param=0.25*(param-1)
+            model = sklearn.cluster.DBSCAN(eps=param).fit(X)
+            labels=model.labels_
+
+        if(algo=="kmeans"):
+            model = sklearn.cluster.KMeans(n_clusters=param).fit(X)
+            labels=model.predict(X)
+
+        try:
+            sil_scores.append(sklearn.metrics.silhouette_score(X,labels))
+            params.append(param)
+        except:
+            continue
+
+        if(i_print): print(param,sil_scores[-1])
+
+        if(sil_scores[-1]>sil_max):
+             opt_param=param
+             sil_max=sil_scores[-1]
+             opt_labels=labels
+
+    print("OPTIMAL PARAMETER =",opt_param)
+
+    if(i_plot):
+        fig, ax = plt.subplots()
+        ax.plot(params, sil_scores, "-o")
+        ax.set(xlabel='Hyper-parameter', ylabel='Silhouette')
+        plt.show()
+
+    return opt_labels
+```
+
+
+**K-MEANS**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+opt_labels_kmeans = maximize_silhouette(X1_2019, algo="kmeans", nmax=9, i_plot=True)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+opt_labels_kmeans = maximize_silhouette(X1_2022, algo="kmeans", nmax=9, i_plot=True)
+```
+
+**DBSCAN**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+#opt_labels_dbscan = maximize_silhouette(X1_2019, algo="dbscan", nmax=9, i_plot=True)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+#opt_labels_dbscan = maximize_silhouette(X1_2022, algo="dbscan", nmax=9, i_plot=True)
+```
+
+**Hierarchical**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+opt_labels_ag = maximize_silhouette(X1_2019, algo="ag", nmax=9, i_plot=True)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+opt_labels_ag = maximize_silhouette(X1_2022, algo="ag", nmax=9, i_plot=True)
+```
+
+### Final Models
+::: {.justify}
+
+*Re-do the analysis one last time with the optimal parameter choice to get your “final results”*
+::: 
+
+
+**K-MEANS**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+clusters_kmeans = 2
+
+model_kmeans = sklearn.cluster.KMeans(n_clusters=clusters_kmeans).fit(X1_2019)
+
+labels_kmeans = model_kmeans.predict(X1_2019)
+
+plot(X1_2019,labels_kmeans)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+clusters_kmeans = 2
+
+model_kmeans = sklearn.cluster.KMeans(n_clusters=clusters_kmeans).fit(X1_2022)
+
+labels_kmeans = model_kmeans.predict(X1_2022)
+
+plot(X1_2022, labels_kmeans)
+```
+
+**DBSCAN**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+model_DBSCAN = sklearn.cluster.DBSCAN(eps=2).fit(X1_2019)
+
+labels_DBSCAN = model_DBSCAN.labels_
+
+plot(X1_2019, labels_DBSCAN)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+model_DBSCAN = sklearn.cluster.DBSCAN(eps=2).fit(X1_2022)
+
+labels_DBSCAN = model_DBSCAN.labels_
+
+plot(X1_2022, labels_DBSCAN)
+```
+
+**HIERARCHICAL**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+clusters_ag = 2
+
+model_ag = sklearn.cluster.AgglomerativeClustering(n_clusters=clusters_ag).fit(X1_2019)
+
+labels_ag = model_ag.labels_
+
+plot(X1_2019, labels_ag)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+clusters_ag = 2
+
+model_ag = sklearn.cluster.AgglomerativeClustering(n_clusters=clusters_ag).fit(X1_2022)
+
+labels_ag = model_ag.labels_
+
+plot(X1_2022, labels_ag)
+```
+
+## Results
+::: {.justify}
+
+*Discuss, illustrate, and compare the results of your various clustering analysis methods*
+
+*Which method seemed to work the best and why, which was easier to use or preferable*
+
+*Did the clustering results provide any new insights into your data?*
+:::
+
+
+## Conclusions
+::: {.justify}
+
+*Summarize & wrap-up the report*
+
+*Key and important findings and how these findings affect real-life and real people*
+:::
+
+<!-- 
+<br>
+
+***
+
+
+### References:
+
+::: {#refs}
+::: -->
