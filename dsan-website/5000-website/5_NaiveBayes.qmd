@@ -376,7 +376,7 @@ For future analysis, it would be useful to include additional data points so tha
 
 ::: {.justify}
 
-The relevant data for this analysis is the article content which appears as *text* and the label assigned by the IBM sentiment analysis algorithm. This data requires additional data cleaning as the text needs to be vectorized. This means that we will produce a sparse representation of the counts for the tokens.
+The relevant data for this analysis is the article content which appears as *text* and the *label* assigned by the IBM sentiment analysis algorithm. This data requires additional data cleaning as the text needs to be vectorized. This means that we will produce a sparse representation of the counts for the tokens.
 The next step is to divide the feature array and target array in the train and test set. With the sets created we run the model to obtain results.
 
 :::
@@ -424,7 +424,7 @@ knitr::kable(df_sentiment)
 
 ::: {.justify}
 
-Below we can observe that after running the model we obtain an accuracy of approximately 0.61. We can also observe the Classification Report which show additional relevant metric used to evaluate the performance of the model. The F1 metric measures the model's accuracy by combining the precision and recall scores by category.
+Below we can observe that after running the model we obtain an accuracy of approximately 0.61. We can also observe the Classification Report which show additional relevant metric used to evaluate the performance of the model. The F1 metric measures the model's accuracy by combining the precision and recall scores by label. The negative sentiment is the one that has the higher performance compared to neutral and positive. 
 :::
 
 ``` {python}
@@ -438,6 +438,12 @@ Below we can observe that after running the model we obtain an accuracy of appro
 print_model_summary(y1_test, y1_pred)
 ```
 
+### Conclusions
+
+::: {.justify}
+The most important to take into consideration based on the results obtained are the False Positives and False Negatives for the negative and positive sentiments. This means that the cases we want to minimize are classifying a positive as a negative or a negative as a positive. That will be misleading to make future decisions.
+:::
+
 </div>
 <div id="tab3" class="tab-content-model-selection">
 
@@ -449,7 +455,7 @@ print_model_summary(y1_test, y1_pred)
 
 ::: {.justify}
 
-For this section...
+The relevant data for this analysis is the article content which appears as *text* and the *category* the publisher belongs to. Below we can see some examples of three articles that belong to a Technology source and one article that belongs to a general source. We applied the same steps for the text data cleaning as in the *Lithium News Sentiments Analysis*
 :::
 
 ``` {python}
@@ -495,7 +501,7 @@ knitr::kable(df_sentiment_2)
 
 ::: {.justify}
 
-For this section...
+Below we can observe that after running the model we obtain an accuracy of approximately 0.61. We can also observe the Classification Report which show additional relevant metric used to evaluate the performance of the model. The F1 metric measures the model's accuracy by combining the precision and recall scores by category. The general category is the one with the highest score, followed by the business one.
 :::
 
 ``` {python}
@@ -508,5 +514,11 @@ For this section...
 # Show summary
 print_model_summary(y2_test, y2_pred)
 ```
+
+### Conclusions
+
+::: {.justify}
+The results obtained are useful to better understand the use of vocabulary for certain publications. This can be applied to improve writing and use the correct vocabulary to attract future readers for the publishers. In this investigation, we can dive in the classifications done in order to understand which terms are more frequent by category while including the sentiment analysis label to detect patterns.
+:::
 
 </div>
