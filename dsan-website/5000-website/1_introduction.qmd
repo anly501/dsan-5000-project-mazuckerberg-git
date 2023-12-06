@@ -1,15 +1,50 @@
 ---
 title: "Introduction"
-format: html
-engine: knitr
-bibliography: ../reference.bib
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
 ---
 ```{css, echo = FALSE}
 .justify {
-  text-align: justify
+text-align: justify !important;
+text-indent: 20px;
+}
+
+
+.epigrafe {
+text-align: justify !important;
+text-indent: 20px;
+border: 1.5px solid #87c8b5;
+padding: 15px;
+font-size: 14px;
+background-color: #f9f9f9;
+margin: 20px 0px 30px 0px;
+}
+
+.foto {
+text-align: right !important;
+font-size: 12px;
+}
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
 }
 ```
-### Overview
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
 
 ::: {.justify}
 Growing concern about global warming has led to increased environmental awareness through the responsible use of finite resources in technological innovation. Lithium, the "white gold" of the 20th century, is now emerging as a critical element in enabling sustainable energy solutions. 
@@ -20,12 +55,16 @@ The U.S. used to rely on other countries such as Australia or the Lithium Triang
 
 In the next figure we can observe the distribution of total global lithium production among the main lithium producing countries until 2020:
 :::
+
 <p align="center">
   <a href="https://www.visualcapitalist.com/sp/charted-lithium-production-by-country-1995-2020/">
     <img src="./images/producing_countries.png" alt="" width="600">
  </a>
 </p>
 
+::: {.foto}
+*Credit: Visual Capitalist*
+:::
 
 ::: {.justify}
 
@@ -36,30 +75,50 @@ Analysis of the resource production stages is often limited, as most of the exis
 On the opposite side, lithium is considered a key technological component for reducing air pollution in cities and creating lifestyles with low carbon footprints.  For lithium-exporting countries, especially those in the lithium triangle, this creates economic opportunities and raises expectations for economic growth and improved living conditions for local groups. They have a positive impact on local communities by providing opportunities to improve the quality of life through program that improve access to health, education, business development, infrastructure and employment.[see. @petavratzi2022impacts, pp.687] Employment opportunities play a central role. Although lithium mining is not particularly labor-intensive, some companies offer job training to help the local population become qualified to work in their operations.
 :::
 
-### Goal
-::: {.justify}
-In order to overcome the challenges of lithium mining and reduce its environmental impact, it is important to consider a variety of strategies. These include improving sustainability, reducing the amount of energy and water used in the extraction process, and minimizing the amount of waste generated.
+<p align="center">
+  <a href="https://www.npr.org/2022/09/24/1123564599/chile-lithium-mining-atacama-desert">
+    <img src="./images/lithium_chile_2.png" alt="Credit: Paz Olivares Droguett for NPR" width=100%>
+ </a>
+</p>
 
-The aim of this project is to analyze the sustainability of lithium mining for battery manufacturing. The main topics of interest that will be addressed are the evolution of lithium production and price analysis, socio-economic impacts and perspective evolution, positive and negative environmental impacts implementing geographic information and strategies to optimize lithium-ion battery production.
+::: {.foto}
+*Credit: Paz Olivares Droguett for NPR*
 :::
 
-### Questions:
+## Goal
+::: {.justify}
+Given the growing industry and appeal of this resource, it is important to understand how the industry has evolved over the past few years from a variety of perspectives. This includes evaluating the major producers, key companies in the market, resource performance, and news.
+
+The goal of this project is to analyze the most recent data collected from various aspects of the industry and find insights and future points of improvement. This analysis is necessary to conduct a study of environmental impacts and actions that can improve the quality of life from various perspectives.
+:::
+
+## Questions:
 1. How has the distribution of the total global lithium production among the main lithium producing countries evolved over the past two decades?
 
-2. How does lithium production volume correlate with changes in lithium demand, and can data-driven models help in predicting demand fluctuations?
+2. How have the main lithium related companies performed in the stocks market over the past two decades and how do they compare between each other?
 
-3. How has public sentiment and opinion evolved regarding the increasing demand for lithium, and can text analysis reveal whether it is viewed positively due to sustainability or negatively due to environmental concerns?
+3. How does the lithium price correlate with the complementary resources used to produce lithium batteries?
 
-4. To what extent can the use of geographic information (GIS) assist in identifying and mitigating the environmental and social impacts associated with lithium mining and extraction?
+4. Can we use machine learning to predict sentiment analysis in text data and recognize categories?
 
-5. How have environmental regulations and sustainability initiatives impacted the lithium mining industry, and can data analysis quantify their impact on production?
+5. Do lithium related companies have a similar financial performance and is there a clear relationship between them? How did COVID affect these companies and relationships?
 
-6. Has the price of lithium limited battery manufacturing growth in the past, and can data analysis reveal price trends and their impact on the industry?
+6. Does the financial data of the main lithium related companies differentiate enough to distinct them?
 
-7. What is the historical relationship between lithium prices and battery manufacturing costs, and can data-driven models help identify opportunities for cost optimization?
+7. Is there a pattern in the electrical vehicles characteristics in order to predict where they were manufactured?
 
-8. How do government policies and incentives affect lithium production and its role in battery manufacturing?
+8. How has public sentiment and opinion evolved regarding the increasing demand for lithium, and can text analysis reveal whether there is a pattern of sentiment by source of data?
 
-9. How can data analytics quantify the impact of lithium production on the demand for and prices for other resources?
+9. Are there specific terminologies that drive the sentiment of publications?
 
-10. How can machine learning algorithms help predict future trends and challenges in the lithium mining and battery manufacturing industries, to promote sustainable practices and growth?
+10. What conclusions can we draw based on the industry analysis and are there specific concerns arising?
+
+
+<br>
+
+***
+
+***References:***
+
+::: {#refs}
+:::
