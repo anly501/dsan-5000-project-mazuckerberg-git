@@ -1,3 +1,397 @@
 ---
 title: "Dimensionality Reduction"
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
 ---
+
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
+
+
+## Introduction
+::: {.justify}
+
+The objective of this section is to use the dimensionality reduction technique to evaluate the financial statements of lithium companies. This allows for complex analyses and comparisons between companies to discover patterns and insights. 
+
+The results obtained will later be applied to clustering analysis. Since the number of features is high, dimensionality reduction allows to reduce the risk of overfitting, thus improving the performance of other machine learning algorithms.
+:::
+
+Below there is the list of all the packages and libraries that were imported to do the analysis:
+
+```{python}
+#| echo: true
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| code-fold: true
+#| code-summary: "Libraries"
+
+# Import Data
+import pandas as pd
+
+# Data Cleaning
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+
+# PCA analysis
+from sklearn.decomposition import PCA
+
+# t-SNE analysis
+from sklearn.manifold import TSNE
+
+# Visualize Results
+import matplotlib.pyplot as plt
+```
+
+## Data selection
+::: {.justify}
+
+As explained earlier, the dataset has 12 rows and 79 columns. The 12 rows correspond to the companies to be analyzed. The 79 columns contain the variables from the quarterly financial report that make up the companies' income statement and balance sheet. 
+
+For this analysis, we want to compare the results of the dimensionality reduction techniques and see how they differ over time. We have filtered the data so that Q4 2019 is the first data frame and Q4 2022 is the second data frame. This analysis is important to understand how the dimensionality reduction changed and was affected by COVID.
+:::
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+# Read csv
+df = pd.read_csv('../../data/01-modified-data/clean_companies_finance.csv')
+```
+
+**Financial Information for 2019 Companies**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+df_2019 = df[(df['Year'] == 2019) & (df['Quarter'] == 4)]
+
+df_2019 = df_2019.pivot(index=['Company'], columns='KPI', values='Value')
+
+df_2019.reset_index(inplace=True)
+
+df_2019 = df_2019.fillna(0)
+
+df_2019.head(15)
+```
+
+<br>
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+shape = df_2019.shape
+
+print(f"Shape: {shape}")
+```
+
+**Financial Information for 2022 Companies**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+df_2022 = df[(df['Year'] == 2022) & (df['Quarter'] == 4)]
+
+df_2022 = df_2022.pivot(index=['Company'], columns='KPI', values='Value')
+
+df_2022.reset_index(inplace=True)
+
+df_2022 = df_2022.fillna(0)
+
+df_2022.head(15)
+```
+
+<br>
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+shape = df_2022.shape
+
+print(f"Shape: {shape}")
+```
+
+## Code Implementation
+::: {.justify}
+
+To apply dimensionality reduction, the first step was to select the dataset to use. Once the data was imported, we selected the subset based on the data science objectives. 
+
+The next step is to compute the optimal number of PCA components, which is explained in detail below. With this optimal value, we apply the PCA analysis to both of the datasets and evaluate the results.
+
+We use the same subsets for the t-SNE algorithm to evaluate the output for the datasets. 
+:::
+
+### PCA Number of Components
+
+::: {.justify}
+
+For the PCA analysis, we calculated the optimal number of components where the cumulative explained variance reaches a plateau. This means that an additional component does not improve the explained variance. In this case, the value chosen for the number of components is 9.
+
+:::
+
+**Cumulative Explained Variance by Number of Components Plot**
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: 'hide'
+#| code-fold: true
+#| code-summary: "{python}"
+
+numeric_cols = df_2019.columns[df_2019.dtypes != 'object']
+X_2019 = df_2019[numeric_cols]
+
+target_col = df_2019.columns[df_2019.dtypes == 'object']
+Y = df_2019[target_col]
+Y , _ = pd.factorize(Y.Company)
+Y_2019 = Y.astype(int)
+
+# Standardize the data
+scaler = StandardScaler()
+X_2019 = scaler.fit_transform(X_2019)
+
+n_components_test = 12
+
+pca = PCA(n_components = n_components_test)
+X1_2019 = pca.fit_transform(X_2019)
+
+# Plotting the cumulative explained variance
+plt.plot(range(1, len(pca.explained_variance_ratio_) + 1), np.cumsum(pca.explained_variance_ratio_))
+
+# Add a cross at x = 9
+threshold_component = 9
+threshold_variance = np.cumsum(pca.explained_variance_ratio_)[threshold_component - 1]
+plt.scatter(threshold_component, threshold_variance, marker='x', c='red', label=f'Component {threshold_component}')
+
+plt.xlabel('Number of Components')
+plt.ylabel('Cumulative Explained Variance')
+plt.legend()
+plt.show()
+```
+
+### PCA Analysis
+
+::: {.justify}
+
+In order to perform the PCA analysis on the subset data frames, we first cleaned the data. The first step was to separate the labels from the features. Since the target variable is the company name, we converted them to numerical factors. 
+
+The next step was to transform the X-variables using the StandardScaler() function. This is important because even though all the information is in the same unit, US dollars, they have different scales. Therefore, we use it to transform the data using the mean and standard deviation. 
+
+We then apply the PCA model using the calculated number of components and save the results in a data frame. This is useful for plotting the results and matching them to the original labels.
+:::
+
+**PCA Financial Information Analysis for 2019 Companies**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+#| code-fold: true
+#| code-summary: "{python}"
+
+numeric_cols = df_2019.columns[df_2019.dtypes != 'object']
+X_2019 = df_2019[numeric_cols]
+
+target_col = df_2019.columns[df_2019.dtypes == 'object']
+Y = df_2019[target_col]
+Y , _ = pd.factorize(Y.Company)
+Y_2019 = Y.astype(int)
+
+# Standardize the data
+scaler = StandardScaler()
+X_2019 = scaler.fit_transform(X_2019)
+
+n_components = 9
+
+pca = PCA(n_components = n_components)
+X1_2019 = pca.fit_transform(X_2019)
+
+results_2019 = pd.DataFrame({'X1': X1_2019[:, 0], 'X2': X1_2019[:, 1], 'Y': Y_2019})
+
+scatter = plt.scatter(X1_2019[:, 0], X1_2019[:, 1], c=Y_2019, cmap='tab10')
+
+# Add custom labels for each point
+for i, txt in enumerate(df_2019[target_col].Company):
+    plt.annotate(txt, (X1_2019[i, 0], X1_2019[i, 1]), textcoords="offset points", xytext=(0,10), ha='center')
+```
+
+**PCA Financial Information Analysis for 2022 Companies**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+#| code-fold: true
+#| code-summary: "{python}"
+
+numeric_cols = df_2022.columns[df_2022.dtypes != 'object']
+X_2022 = df_2022[numeric_cols]
+
+target_col = df_2022.columns[df_2022.dtypes == 'object']
+Y = df_2022[target_col]
+Y , _ = pd.factorize(Y.Company)
+Y_2022 = Y.astype(int)
+
+# Standardize the data
+scaler = StandardScaler()
+X_2022 = scaler.fit_transform(X_2022)
+
+n_components = 9
+
+pca = PCA(n_components = n_components)
+X1_2022 = pca.fit_transform(X_2022)
+
+results_2022 = pd.DataFrame({'X1': X1_2022[:, 0], 'X2': X1_2022[:, 1], 'Y': Y_2022})
+
+scatter = plt.scatter(X1_2022[:, 0], X1_2022[:, 1], c=Y_2022, cmap='tab10')
+
+# Add custom labels for each point
+for i, txt in enumerate(df_2022[target_col].Company):
+    plt.annotate(txt, (X1_2022[i, 0], X1_2022[i, 1]), textcoords="offset points", xytext=(0,10), ha='center')
+```
+
+### t-SNE Analysis
+
+::: {.justify}
+
+The procedure for the t-SNE is the same, but the model used is different. This is because the hyperparameter used to tune the model is the perplexity.
+
+The perplexity value is similar to the number of components in the PCA model. A low perplexity considers fewer neighbors in the analysis. A higher perplexity considers more neighbors and focuses the analysis on the local relationships.
+
+In this case, we chose a perplexity of 10, which can be clearly seen in the results of the t-SNE plot, as the data points of the output are more spread out.
+
+:::
+
+**t-SNE Financial Information Analysis for 2019 Companies**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+#| code-fold: true
+#| code-summary: "{python}"
+
+perplexity = 10
+
+tsne = TSNE(n_components=2, learning_rate='auto', init='random', perplexity=perplexity, random_state=42)
+
+tsne_2019 = tsne.fit_transform(X_2019)
+
+scatter_tsne_2019 = plt.scatter(tsne_2019[:,0],tsne_2019[:,1], c=Y_2019, alpha=0.5)
+
+# Add custom labels for each point
+for i, txt in enumerate(df_2019[target_col].Company):
+    plt.annotate(txt, (tsne_2019[i, 0], tsne_2019[i, 1]), textcoords="offset points", xytext=(0,10), ha='center')
+```
+
+**t-SNE Financial Information Analysis for 2022 Companies**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+#| code-fold: true
+#| code-summary: "{python}"
+
+perplexity = 10
+
+tsne = TSNE(n_components=2, learning_rate='auto', init='random', perplexity=perplexity, random_state=42)
+
+tsne_2022 = tsne.fit_transform(X_2022)
+
+scatter_tsne_2022 = plt.scatter(tsne_2022[:,0],tsne_2022[:,1], c=Y_2022, alpha=0.5)
+
+# Add custom labels for each point
+for i, txt in enumerate(df_2022[target_col].Company):
+    plt.annotate(txt, (tsne_2022[i, 0], tsne_2022[i, 1]), textcoords="offset points", xytext=(0,10), ha='center')
+```
+
+
+## Project Report
+::: {.justify}
+
+When interpreting the above results, it is important to keep in mind that the lithium market has evolved very rapidly in recent years and, like other manufacturing and transportation industries, has been affected by COVID.
+
+The first analysis performed was the application of the PCA model to the Q4 2019 financial information for the lithium companies. We can see that the majority of the companies have very similar values for the variables, with the exception of Ford and BYD CO., LTD - China. We can also see that Tesla and XPeng Inc. are further away from the higher concentration of companies. 
+
+The second analysis performed was the application of the PCA model to the Q4 2022 financial information for the lithium companies. After 3 years, we can observe that the same companies seem to have more outliers, but this time the distribution has changed. This could be due to the relevant characteristics included in this analysis compared to the first one. 
+
+The third analysis performed was the application of the t-SNE model to the Q4 2019 financial information for the lithium companies. As previously explained, the model's perplexity is very low and the output data points are spread out from each other. This output does not have much explanation rather than plotting the closest companies. 
+
+The final analysis performed was the application of the t-SNE model to the Q4 2022 financial information for the lithium companies. This analysis is very helpful to compare the results with the previous output. Here we can see that the results have been rearranged and that the local relationships between the companies have changed.
+
+The t-SNE results are clearer to understand the relationship compared to PCA. On the other hand, PCA allows us to visualize the possible clusterings that can be done on the data. This analysis will be explained in the following section "Clustering".
+
+:::
+
+<!-- 
+<br>
+
+***
+
+
+### References:
+
+::: {#refs}
+::: -->
