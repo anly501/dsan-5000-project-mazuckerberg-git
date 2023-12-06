@@ -1,0 +1,493 @@
+---
+title: "Decision Trees"
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
+---
+
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
+
+## Introduction
+::: {.justify}
+To continue with the previous analysis, we will build a decision tree model for the electric vehicles information.
+
+Below we can observe the libraries imported and the functions created that will be used in this section.
+:::
+
+```{python}
+#| echo: true
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| code-fold: true
+#| code-summary: "Libraries"
+
+# Import Data
+import pandas as pd
+
+# Data Cleaning
+import numpy as np
+
+# Visualization
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Split Dataset
+from sklearn.model_selection import train_test_split
+
+# Random Classifier
+from collections import Counter
+
+# Sklearn Decision Tree Model
+from sklearn import tree
+
+# Show Results
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
+# Metrics
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| code-fold: true
+#| code-summary: "Function: random_classifier()"
+
+## RANDOM CLASSIFIER 
+def random_classifier(y_data):
+    ypred=[];
+    max_label=np.max(y_data); #print(max_label)
+    for i in range(0,len(y_data)):
+        ypred.append(int(np.floor((max_label+1)*np.random.uniform(0,1))))
+
+    print("-----RANDOM CLASSIFIER-----")
+    print("count of prediction:",Counter(ypred).values()) # counts the elements' frequency
+    print("probability of prediction:",np.fromiter(Counter(ypred).values(), dtype=float)/len(y_data)) # counts the elements' frequency
+    print("accuracy",accuracy_score(y_data, ypred))
+    print("percision, recall, fscore,",precision_recall_fscore_support(y_data, ypred))
+
+```
+
+
+```{python}
+#| echo: true
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| code-fold: true
+#| code-summary: "Function: confusion_plot()"
+
+def confusion_plot(actual, pred):
+
+    matrix = confusion_matrix(actual, pred)
+
+    TP = matrix[0,0]
+    FN = matrix[0,1]
+    FP = matrix[1,0]
+    TN = matrix[1,1]
+
+    ACCURACY = (TP+TN)/(TP+FP+FN+TN)
+    NEGATIVE_RECALL = TN/(TN+FP)
+    NEGATIVE_PRECISION = TN/(TN+FN)
+    POSITIVE_RECALL = TP/(TP+FN)
+    POSITIVE_PRECISION = TP/(TP+FP)
+
+    print('ACCURACY: ', ACCURACY)
+    print('NEGATIVE RECALL (Y=0): ', NEGATIVE_RECALL)
+    print('NEGATIVE PRECISION (Y=0): ', NEGATIVE_PRECISION)
+    print('POSITIVE RECALL (Y=1): ', POSITIVE_RECALL)
+    print('POSITIVE PRECISION (Y=1): ', POSITIVE_PRECISION)
+    
+    print(matrix)
+
+    cm = confusion_matrix(actual, pred)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+    disp.plot()
+```
+
+
+```{python}
+#| echo: true
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| code-fold: true
+#| code-summary: "Function: plot_tree()"
+
+def plot_tree(model, X, Y, labels):
+    model_X_Y = model.fit(X, Y)
+    
+    fig = plt.figure(figsize=(25,20))
+    _ = tree.plot_tree(model_X_Y, 
+                        feature_names=X.columns,
+                        class_names=labels,
+                        filled=True)
+
+    plt.show()
+```
+
+
+## Methods 
+::: {.justify}
+
+In Machine Learning, decision trees are classified as non-parametric supervised learning method used for both classification and regression models.
+
+The goal of decision trees is to create a model that predicts the output value of the target variables based on different set of rules. This can be better understood as a set of questions where the first one, the root node, is a very general questions, and based on the answer the trajectory to make the next question. After several questions you can get to the final value.
+
+To go from one inner node to another, there may be two possible paths, which we identify as binary split as it divides values into two subsets, or more tan two possible paths, which we identify as multi way split as it uses as many partitions as distinct values.
+
+There are different types of decision trees, but in this analysis we will focus in binary classifier, where the output of each node is true or false.
+
+Decision trees have several advantages such as that they are simple to understand and easy to interpret. This is due to the visualization of the tree that can be created in order to understand the logic and the conditions behind it. It also required minimal data preparation compared to other models. As it was explained before, they can handle both numerical and categorical data and combine them in a way to handle multi-outut problems.
+
+One of the main disadvantages of the decision trees is that they tend to overfit, but there are several techniques that can be applied to reduce this, such as pruning or setting a maximum depth. The predictions done by the decision trees are local, this means that if we want to extrapolate to new values, they might not perform well. Lastly, we need to consider that if the dataset is not well balanced, the performance might be poor too because the results will tend to be biased.
+:::
+
+### Class distribution
+::: {.justify}
+The data that will be used for this analysis is the electric vehicle characteristics information. 
+
+
+:::
+
+**Original Data**
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+# Read csv
+df_vehicles = pd.read_csv('../../data/01-modified-data/clean_vehicles.csv')
+
+df_vehicles.head(5)
+
+df_vehicles.shape
+```
+
+**Data Cleaning**
+
+::: {.justify}
+After cleaning the data, we can see that we have...
+
+:::
+
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+df_vehicles = df_vehicles.dropna()
+
+df_vehicles.head(5)
+
+df_vehicles.shape
+```
+
+**Data Exploration**
+
+::: {.justify}
+The next step is to divide the target column from the original data set. The target column is ...
+
+:::
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+labels = df_vehicles['Continent'].unique()
+
+df_vehicles['target'] = df_vehicles['Continent']
+
+length_0 = len(df_vehicles[df_vehicles['target'] == 'North America'])
+length_1 = len(df_vehicles[df_vehicles['target'] == 'Europe'])
+length_2 = len(df_vehicles[df_vehicles['target'] == 'Asia'])
+
+total = df_vehicles.shape[0]
+
+print('\n', 'Number of points with target = North America: ', length_0, length_0/total, '\n', 'Number of points with target = Europe: ', length_1, length_1/total, '\n', 'Number of points with target = Asia: ', length_2, length_2/total)
+```
+
+
+::: {.justify}
+In the correlation plot below, we can see the Pearson correlation between all the variables. There are some that are highly positively correlated and some that don’t have any correlation at all.
+
+:::
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+target_column = 'target'
+
+Y = df_vehicles[target_column]
+Y = pd.Categorical(df_vehicles['Continent']).codes
+
+X = df_vehicles[['Battery', 'Efficiency', 'FastCharge', 'Price', 'Range', 'TopSpeed', 'Acceleration']]
+
+df_vehicles = df_vehicles[['Battery', 'Efficiency', 'FastCharge', 'Price', 'Range', 'TopSpeed', 'Acceleration']]
+
+corr = df_vehicles.corr()
+
+sns.set_theme(style="white")
+f, ax = plt.subplots(figsize=(20, 20))
+cmap = sns.diverging_palette(230, 20, as_cmap=True)
+
+sns.heatmap(corr,  cmap=cmap, vmin=-1, vmax=1, center=0,
+        square=True, linewidths=.5, cbar_kws={"shrink": .5})
+
+plt.show()
+```
+
+## Random Classifier Model
+
+::: {.justify}
+Before building a decision tree model, we decided to test a baseline model to compare results in the next steps. The baseline model that will be used is a random classifier, since there are no criteria for assigning labels. The goal of comparing the random classifier with the decision tree is to see if the performance of our model is better than the performance of assigning a random label.
+
+We can see that we get an accuracy very low.
+:::
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+X_array = X
+Y_array = Y
+
+x_train, x_test, y_train, y_test = train_test_split(X_array, Y_array, test_size=0.2, random_state=0)
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+print("\nMULTI-CLASS:  NON-UNIFORM LOAD")
+random_classifier(Y_array)
+```
+
+
+## Decision Tree Model
+::: {.justify}
+
+Now that we have the random classifier model, we can build the decision tree model. To evaluate the results, we use the confusion matrix function that we built at the beginning of this section.
+
+For the training set, we get very good results because the accuracy is equal to 1, so the other performance metrics, positive and negative recalls and precisions, are also equal to 1. For the test set, we get an accuracy of 0.66 approximately, which compared to the random classifier is performing better but it could be improved.
+
+:::
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+model = tree.DecisionTreeClassifier()
+model = model.fit(x_train, y_train)
+
+yp_train = model.predict(x_train)
+yp_test = model.predict(x_test)
+```
+
+
+**Train Results**
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+confusion_plot(y_train,yp_train)
+```
+
+**Test Results**
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+
+confusion_plot(y_test,yp_test)
+```
+
+**Tree Plot**
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+plot_tree(tree.DecisionTreeClassifier(), x_train, y_train, labels)
+```
+
+## Model tuning:
+::: {.justify}
+
+To get the best decision tree model, we can tune the hyperparameters of the model. There are two types of hyperparameters that can be tuned. First, the min_samples, which is the minimum number of samples needed to split an internal node. The second is the max_depth, which is the maximum depth of the tree. 
+
+Below, we apply the hypertuning process to the max_depth parameter. Considering the low number of data points for the analysis the test and train metric values vary through the number of layers in decision tree. Therefore, for this analysis we choose a maximum depth equal to 4.
+
+:::
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+test_results=[]
+train_results=[]
+
+for num_layer in range(1,20):
+    model = tree.DecisionTreeClassifier(max_depth=num_layer)
+    model = model.fit(x_train,y_train)
+
+    yp_train=model.predict(x_train)
+    yp_test=model.predict(x_test)
+
+    # print(y_pred.shape)
+    test_results.append([num_layer,accuracy_score(y_test, yp_test),recall_score(y_test, yp_test,average='micro')])
+    train_results.append([num_layer,accuracy_score(y_train, yp_train),recall_score(y_train, yp_train,average='micro')])
+
+test_results = pd.DataFrame(test_results, columns= ("num_layer", "accuracy_score", "recall_score"))
+train_results = pd.DataFrame(train_results, columns= ("num_layer", "accuracy_score", "recall_score"))
+
+# ACCURACY
+
+sns.scatterplot(data=test_results, x='num_layer', y='accuracy_score', label='Test Results', color='red')
+sns.lineplot(data=test_results, x='num_layer', y='accuracy_score', color='red')
+
+sns.scatterplot(data=train_results, x='num_layer', y='accuracy_score', label='Train Results', color='blue')
+sns.lineplot(data=train_results, x='num_layer', y='accuracy_score', color='blue')
+
+plt.xlabel('Number of layers in decision tree (max_depth)')
+plt.ylabel('ACCURACY: Training (blue) and Test (red)')
+
+plt.show()
+
+# RECALL
+
+sns.scatterplot(data=test_results, x='num_layer', y='recall_score', label='Test Results', color='red')
+sns.lineplot(data=test_results, x='num_layer', y='recall_score', color='red')
+
+sns.scatterplot(data=train_results, x='num_layer', y='recall_score', label='Train Results', color='blue')
+sns.lineplot(data=train_results, x='num_layer', y='recall_score', color='blue')
+
+plt.xlabel('Number of layers in decision tree (max_depth)')
+plt.ylabel('RECALL : Training (blue) and Test (red)')
+
+plt.show()
+```
+
+## Final results
+::: {.justify}
+
+Afer running the final results we can observe that the shape of the decision tree has changed, but the performance metric values are the same as the original model.
+
+:::
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+best_max_depth = 3
+
+model = tree.DecisionTreeClassifier(max_depth=best_max_depth)
+model = model.fit(x_train,y_train)
+
+yp_train=model.predict(x_train)
+yp_test=model.predict(x_test)
+
+print("------TRAINING------")
+confusion_plot(y_train,yp_train)
+
+print("------TEST------")
+confusion_plot(y_test,yp_test)
+```
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+plot_tree(model,X,Y, labels)
+```
+
+## Conclusions
+::: {.justify}
+
+...
+
+:::
