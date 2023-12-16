@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Time Series - R_6_bus_passengers_PC</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Time Series</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://mazuckerberg.georgetown.domains/" rel="" target="">
+ <span class="menu-text">Home | About me</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R_6_bus_passengers_PC</li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../1_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../3_data_sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Sources</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../4_data_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Visualization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../5_exploratory_data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploratory Data Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../6_ARMA_ARIMA_SARIMA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARMA/ARIMA/SARIMA Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../7_ARIMAX_SARIMAX_VAR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARIMAX/SARIMAX/VAR</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../9_Financial_Time_Series_Models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Financial Time Series Models (ARCH/GARCH)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../10_Deep_Learning_TS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Learning for TS</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../11_Conclusions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Viz Examples</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sarima-pre-covid" id="toc-sarima-pre-covid" class="nav-link active" data-scroll-target="#sarima-pre-covid">SARIMA Pre-COVID</a></li>
+  <li><a href="#sarima-complete" id="toc-sarima-complete" class="nav-link" data-scroll-target="#sarima-complete">SARIMA complete</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">R_6_bus_passengers_PC</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="sarima-pre-covid" class="level1">
+<h1>SARIMA Pre-COVID</h1>
+<div class="cell">
+<details>
+<summary>Plot ACF</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ts_bus_passengers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'../data/ts_bus_passengers_PC.csv'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ts_bus_passengers <span class="ot">&lt;-</span> <span class="fu">ts</span>(ts_bus_passengers<span class="sc">$</span>x,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2002-01-01"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Plot</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>acf_plot <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(ts_bus_passengers <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag=</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">diff</span>(), <span class="at">main=</span><span class="st">"ACF Plot for Bus Passengers"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF Plot</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>pacf_plot <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(ts_bus_passengers <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag=</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">diff</span>(), <span class="at">main=</span><span class="st">"PACF Plot for Bus Passengers"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_plot, pacf_plot, <span class="at">nrow=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Model Parameter Assesing</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>xt <span class="ot">&lt;-</span> ts_bus_passengers</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#write a funtion</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>SARIMA.c <span class="ot">=</span> <span class="cf">function</span>(p1,p2,q1,q2,P1,P2,Q1,Q2,data){</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    D <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    ls <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">9</span><span class="sc">*</span>n),<span class="at">nrow=</span>n)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (p <span class="cf">in</span> p1<span class="sc">:</span>p2)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span>(q <span class="cf">in</span> q1<span class="sc">:</span>q2)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span>(P <span class="cf">in</span> P1<span class="sc">:</span>P2)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span>(Q <span class="cf">in</span> Q1<span class="sc">:</span>Q2)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                {</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span>(p<span class="sc">+</span>d<span class="sc">+</span>q<span class="sc">+</span>P<span class="sc">+</span>D<span class="sc">+</span>Q<span class="sc">&lt;=</span><span class="dv">12</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                    {</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                        </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                        model<span class="ot">&lt;-</span> <span class="fu">Arima</span>(data,<span class="at">order=</span><span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>),<span class="at">seasonal =</span> <span class="fu">c</span>(P<span class="dv">-1</span>,D,Q<span class="dv">-1</span>))</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                        ls[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>,P<span class="dv">-1</span>,D,Q<span class="dv">-1</span>,model<span class="sc">$</span>aic,model<span class="sc">$</span>bic, model<span class="sc">$</span>aicc)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>                        i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                        <span class="co">#print(i)</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                    }</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        }   </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ls)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(temp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"p"</span>,<span class="st">"d"</span>,<span class="st">"q"</span>,<span class="st">"P"</span>,<span class="st">"D"</span>,<span class="st">"Q"</span>,<span class="st">"AIC"</span>,<span class="st">"BIC"</span>,<span class="st">"AICc"</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(temp)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    temp</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">#knitr::kable(temp)</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">SARIMA.c</span>(<span class="at">p1=</span><span class="dv">1</span>,<span class="at">p2=</span><span class="dv">3</span>,<span class="at">q1=</span><span class="dv">1</span>,<span class="at">q2=</span><span class="dv">3</span>,<span class="at">P1=</span><span class="dv">1</span>,<span class="at">P2=</span><span class="dv">2</span>,<span class="at">Q1=</span><span class="dv">1</span>,<span class="at">Q2=</span><span class="dv">2</span>,<span class="at">data =</span> xt)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co">#knitr::kable(temp)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Minimum AIC:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   p d q P D Q      AIC      BIC     AICc
+28 2 1 0 1 1 1 7178.541 7195.107 7178.845</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Minimum BIC:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   p d q P D Q      AIC      BIC     AICc
+28 2 1 0 1 1 1 7178.541 7195.107 7178.845</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Minimum AICc:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   p d q P D Q      AIC      BIC     AICc
+28 2 1 0 1 1 1 7178.541 7195.107 7178.845</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>auto.arima()</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(xt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: xt 
+ARIMA(2,1,0)(0,1,1)[12] 
+
+Coefficients:
+          ar1      ar2     sma1
+      -0.8643  -0.5413  -0.7719
+s.e.   0.0595   0.0607   0.0699
+
+sigma^2 = 1.277e+14:  log likelihood = -3589.24
+AIC=7186.49   AICc=7186.69   BIC=7199.74</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Model Diagnostics - parameters with best AIC</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p_autoarima <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>d_autoarima <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>q_autoarima <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>P_autoarima <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>D_autoarima <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>Q_autoarima <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Model diagnostics for best AIC</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p_autoarima, d_autoarima, q_autoarima, P_autoarima, D_autoarima, Q_autoarima, s))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Model Diagnostics - parameters with best AIC</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>AIC <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>p</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>d</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>q</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>P1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>P</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>D</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>Q</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Model diagnostics for best AIC</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p1, d1, q1, P1, D1, Q1, s))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Model Fitting</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> best_model<span class="sc">$</span>p</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> best_model<span class="sc">$</span>d</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> best_model<span class="sc">$</span>q</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> best_model<span class="sc">$</span>P</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> best_model<span class="sc">$</span>D</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>Q <span class="ot">&lt;-</span> best_model<span class="sc">$</span>Q</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt, <span class="at">order=</span><span class="fu">c</span>(p, d, q), <span class="at">seasonal=</span><span class="fu">c</span>(P,D,Q))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xt, <span class="at">col=</span><span class="st">"black"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">fitted</span>(model), <span class="at">col=</span><span class="st">"green"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"xt"</span>, <span class="st">"AIC"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"green"</span>), <span class="at">lty =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Fitted Model Summary</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt, <span class="at">order=</span><span class="fu">c</span>(p, d, q), <span class="at">seasonal=</span><span class="fu">c</span>(P,D,Q))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: xt 
+ARIMA(2,1,0)(1,1,1)[12] 
+
+Coefficients:
+          ar1      ar2    sar1     sma1
+      -0.8359  -0.5033  0.2854  -0.9323
+s.e.   0.0613   0.0627  0.0915   0.1125
+
+sigma^2 = 1.185e+14:  log likelihood = -3584.27
+AIC=7178.54   AICc=7178.85   BIC=7195.11
+
+Training set error measures:
+                  ME     RMSE     MAE        MPE     MAPE     MASE       ACF1
+Training set -229696 10450443 8044010 -0.1033261 1.832543 0.624418 0.02112963</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Forecast Plot</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>forecast_fit <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit,<span class="dv">36</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to save plot</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">"../images/6_bus_passengers_PC.png"</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(forecast_fit)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot as a PNG image</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(plot, <span class="at">filename =</span> file_path, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Show plot</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Benchmark Models Plot</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(xt) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">meanf</span>(xt, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Mean"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">naive</span>(xt, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Naïve"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">snaive</span>(xt, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Seasonal naïve"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(forecast_fit, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Fit"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Forecasts for Oil Price"</span>) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Price"</span>) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">colour=</span><span class="fu">guide_legend</span>(<span class="at">title=</span><span class="st">"Forecast"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="sarima-complete" class="level1">
+<h1>SARIMA complete</h1>
+<div class="cell">
+<details>
+<summary>Plot ACF</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ts_bus_passengers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'../data/ts_bus_passengers_2.csv'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ts_bus_passengers <span class="ot">&lt;-</span> <span class="fu">ts</span>(ts_bus_passengers<span class="sc">$</span>x,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2002-01-01"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">6</span>, <span class="at">repr.plot.height =</span> <span class="dv">6</span>) </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Plot</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>acf_plot <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(ts_bus_passengers <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag=</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">diff</span>(), <span class="at">main=</span><span class="st">"ACF Plot for Bus Passengers"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF Plot</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>pacf_plot <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(ts_bus_passengers <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag=</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">diff</span>(), <span class="at">main=</span><span class="st">"PACF Plot for Bus Passengers"</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_plot, pacf_plot, <span class="at">nrow=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Model Parameter Assesing</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>xt <span class="ot">&lt;-</span> ts_bus_passengers</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#write a funtion</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>SARIMA.c <span class="ot">=</span> <span class="cf">function</span>(p1,p2,q1,q2,P1,P2,Q1,Q2,data){</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    D <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    ls <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">9</span><span class="sc">*</span>n),<span class="at">nrow=</span>n)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (p <span class="cf">in</span> p1<span class="sc">:</span>p2)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span>(q <span class="cf">in</span> q1<span class="sc">:</span>q2)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span>(P <span class="cf">in</span> P1<span class="sc">:</span>P2)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span>(Q <span class="cf">in</span> Q1<span class="sc">:</span>Q2)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>                {</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span>(p<span class="sc">+</span>d<span class="sc">+</span>q<span class="sc">+</span>P<span class="sc">+</span>D<span class="sc">+</span>Q<span class="sc">&lt;=</span><span class="dv">12</span>)</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>                    {</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>                        </span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>                        model<span class="ot">&lt;-</span> <span class="fu">Arima</span>(data,<span class="at">order=</span><span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>),<span class="at">seasonal =</span> <span class="fu">c</span>(P<span class="dv">-1</span>,D,Q<span class="dv">-1</span>))</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>                        ls[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>,P<span class="dv">-1</span>,D,Q<span class="dv">-1</span>,model<span class="sc">$</span>aic,model<span class="sc">$</span>bic, model<span class="sc">$</span>aicc)</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>                        i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>                        <span class="co">#print(i)</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>                    }</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>        }   </span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ls)</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(temp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"p"</span>,<span class="st">"d"</span>,<span class="st">"q"</span>,<span class="st">"P"</span>,<span class="st">"D"</span>,<span class="st">"Q"</span>,<span class="st">"AIC"</span>,<span class="st">"BIC"</span>,<span class="st">"AICc"</span>)</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(temp)</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>    temp</span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">#knitr::kable(temp)</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">SARIMA.c</span>(<span class="at">p1=</span><span class="dv">1</span>,<span class="at">p2=</span><span class="dv">3</span>,<span class="at">q1=</span><span class="dv">1</span>,<span class="at">q2=</span><span class="dv">3</span>,<span class="at">P1=</span><span class="dv">1</span>,<span class="at">P2=</span><span class="dv">2</span>,<span class="at">Q1=</span><span class="dv">1</span>,<span class="at">Q2=</span><span class="dv">2</span>,<span class="at">data =</span> xt)</span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="co">#knitr::kable(temp)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Minimum AIC:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   p d q P D Q      AIC      BIC     AICc
+12 0 1 2 1 1 1 9075.497 9093.064 9075.744</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Minimum BIC:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  p d q P D Q      AIC     BIC     AICc
+2 0 1 0 0 1 1 9083.194 9090.22 9083.243</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Minimum AICc:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   p d q P D Q      AIC      BIC     AICc
+12 0 1 2 1 1 1 9075.497 9093.064 9075.744</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>auto.arima()</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(xt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: xt 
+ARIMA(0,1,2)(0,0,2)[12] 
+
+Coefficients:
+          ma1      ma2    sma1    sma2
+      -0.0993  -0.2085  0.4745  0.2579
+s.e.   0.0644   0.0655  0.0635  0.0586
+
+sigma^2 = 5.77e+14:  log likelihood = -4787.27
+AIC=9584.53   AICc=9584.77   BIC=9602.34</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Model Diagnostics - parameters with best AIC</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>p_autoarima <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>d_autoarima <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>q_autoarima <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>P_autoarima <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>D_autoarima <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>Q_autoarima <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Model diagnostics for best AIC</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p_autoarima, d_autoarima, q_autoarima, P_autoarima, D_autoarima, Q_autoarima, s))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Model Diagnostics - parameters with best AIC</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>AIC <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>p</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>d</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>q</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>P1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>P</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>D</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>Q</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Model diagnostics for best AIC</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p1, d1, q1, P1, D1, Q1, s))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Model Diagnostics - parameters with best BIC</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>BIC <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>BIC),]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> BIC<span class="sc">$</span>p</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> BIC<span class="sc">$</span>d</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>q2 <span class="ot">&lt;-</span> BIC<span class="sc">$</span>q</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>P2 <span class="ot">&lt;-</span> BIC<span class="sc">$</span>P</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>D2 <span class="ot">&lt;-</span> BIC<span class="sc">$</span>D</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>Q2 <span class="ot">&lt;-</span> BIC<span class="sc">$</span>Q</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Model diagnostics for best BIC</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p2, d2, q2, P2, D2, Q2, s))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Model Fitting</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>BIC),]</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> best_model<span class="sc">$</span>p</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> best_model<span class="sc">$</span>d</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> best_model<span class="sc">$</span>q</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> best_model<span class="sc">$</span>P</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> best_model<span class="sc">$</span>D</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>Q <span class="ot">&lt;-</span> best_model<span class="sc">$</span>Q</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt, <span class="at">order=</span><span class="fu">c</span>(p, d, q), <span class="at">seasonal=</span><span class="fu">c</span>(P,D,Q))</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xt, <span class="at">col=</span><span class="st">"black"</span>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">fitted</span>(model), <span class="at">col=</span><span class="st">"green"</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"xt"</span>, <span class="st">"BIC"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"green"</span>), <span class="at">lty =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Fitted Model Summary</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt, <span class="at">order=</span><span class="fu">c</span>(p, d, q), <span class="at">seasonal=</span><span class="fu">c</span>(P,D,Q))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: xt 
+ARIMA(0,1,0)(0,1,1)[12] 
+
+Coefficients:
+         sma1
+      -0.9123
+s.e.   0.0565
+
+sigma^2 = 4.281e+14:  log likelihood = -4539.6
+AIC=9083.19   AICc=9083.24   BIC=9090.22
+
+Training set error measures:
+                  ME     RMSE      MAE        MPE     MAPE      MASE
+Training set -256385 20127811 13355958 -0.3000752 4.038958 0.4965774
+                    ACF1
+Training set -0.06193991</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Forecast Plot</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>forecast_fit <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit,<span class="dv">36</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to save plot</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">"../images/6_bus_passengers_PC.png"</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(forecast_fit)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot as a PNG image</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(plot, <span class="at">filename =</span> file_path, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Show plot</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Benchmark Models Plot</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(xt) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">meanf</span>(xt, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Mean"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">naive</span>(xt, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Naïve"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">snaive</span>(xt, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Seasonal naïve"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(forecast_fit, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Fit"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Forecasts for Oil Price"</span>) <span class="sc">+</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Price"</span>) <span class="sc">+</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">colour=</span><span class="fu">guide_legend</span>(<span class="at">title=</span><span class="st">"Forecast"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="R_6_bus_passengers_PC_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -140,12 +140,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../2_about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About Data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../3_data_sources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Sources</span></a>
   </div>
@@ -172,12 +166,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../7_ARIMAX_SARIMAX_VAR.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ARIMAX/SARIMAX/VAR</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../8_Spectral_Analysis_Filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spectral Analysis and Filtering (Optional)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -218,17 +206,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot">Plot</a></li>
   <li><a href="#log-plot" id="toc-log-plot" class="nav-link" data-scroll-target="#log-plot">Log Plot</a></li>
   <li><a href="#linear-model" id="toc-linear-model" class="nav-link" data-scroll-target="#linear-model">Linear Model</a></li>
-  <li><a href="#acf-plot" id="toc-acf-plot" class="nav-link" data-scroll-target="#acf-plot">ACF Plot</a></li>
-  <li><a href="#pacf-plot" id="toc-pacf-plot" class="nav-link" data-scroll-target="#pacf-plot">PACF Plot</a></li>
+  <li><a href="#autocorrelation-plots" id="toc-autocorrelation-plots" class="nav-link" data-scroll-target="#autocorrelation-plots">Autocorrelation Plots</a></li>
   <li><a href="#differencing" id="toc-differencing" class="nav-link" data-scroll-target="#differencing">Differencing</a></li>
   <li><a href="#model-parameters" id="toc-model-parameters" class="nav-link" data-scroll-target="#model-parameters">Model Parameters</a></li>
-  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model Selection</a></li>
   <li><a href="#model-summary" id="toc-model-summary" class="nav-link" data-scroll-target="#model-summary">Model Summary</a></li>
-  <li><a href="#auto.arima" id="toc-auto.arima" class="nav-link" data-scroll-target="#auto.arima">auto.arima()</a></li>
   <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation">Cross Validation</a></li>
   <li><a href="#model-diagnostics" id="toc-model-diagnostics" class="nav-link" data-scroll-target="#model-diagnostics">Model Diagnostics</a></li>
   <li><a href="#model-equation-with-latex" id="toc-model-equation-with-latex" class="nav-link" data-scroll-target="#model-equation-with-latex">Model Equation with Latex</a></li>
   <li><a href="#forecast-plot" id="toc-forecast-plot" class="nav-link" data-scroll-target="#forecast-plot">Forecast Plot</a></li>
+  <li><a href="#benchmark-models" id="toc-benchmark-models" class="nav-link" data-scroll-target="#benchmark-models">Benchmark Models</a></li>
   </ul>
 </nav>
     </div>
@@ -455,31 +441,24 @@ F-statistic: 34.01 on 1 and 214 DF,  p-value: 2e-08</code></pre>
 </div>
 </div>
 </section>
-<section id="acf-plot" class="level3">
-<h3 class="anchored" data-anchor-id="acf-plot">ACF Plot</h3>
+<section id="autocorrelation-plots" class="level3">
+<h3 class="anchored" data-anchor-id="autocorrelation-plots">Autocorrelation Plots</h3>
 <div class="cell">
 <details>
 <summary>{r}</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>res.fit <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">residuals</span>(fit.reg),<span class="at">star=</span><span class="fu">decimal_date</span>(min_date),<span class="at">frequency =</span> <span class="dv">12</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF Plot</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(res.fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>acf_plot <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(res.fit, <span class="at">main=</span><span class="st">"ACF Plot for Residuals"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF Plot</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>pacf_plot <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(res.fit, <span class="at">main=</span><span class="st">"PACF Plot for Residuals"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_plot, pacf_plot, <span class="at">nrow=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="768"></p>
-</div>
-</div>
-</section>
-<section id="pacf-plot" class="level3">
-<h3 class="anchored" data-anchor-id="pacf-plot">PACF Plot</h3>
-<div class="cell">
-<details>
-<summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF Plot</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(res.fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 </section>
@@ -488,34 +467,45 @@ F-statistic: 34.01 on 1 and 214 DF,  p-value: 2e-08</code></pre>
 <div class="epigrafe">
 <p>In the first plot display we observe the first ordinary difference over the residuals of the fit. The ACF plot shows that there is high autocorrelation for 12 and 24 lags. Therefore, we decide to apply the first seasonal difference to the residuals of the fit. The ACF plot shows that there is high autocorrelation at the first lags, but it quickly tends to be stationary as the lag values are contained within the confidence bands. Finally, we applied both the ordinary and seasonal first differences, but by looking at the ACF plot, we can see that there is high autocorrelation at several lags. Therefore, don’t use both differencing approaches.</p>
 </div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">diff()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">diff(12)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">diff() + diff(12)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <details>
-<summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordinary Differencing</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>res.fit <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>First Ordinary Difference</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordinary Differencing</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>res.fit <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<details>
+<summary>First Seasonal Difference</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seasonal Differencing</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>res.fit <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell">
 <details>
-<summary>First Seasonal Difference</summary>
+<summary>First Ordinary + Seasonal Difference</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordinary and Seasonal Differencing</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>res.fit <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>res.fit <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<div class="cell">
-<details>
-<summary>First Ordinary and Seasonal Difference</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordinary and Seasonal Differencing</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>res.fit <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="768"></p>
+</div>
 </div>
 </div>
 </section>
@@ -523,494 +513,72 @@ F-statistic: 34.01 on 1 and 214 DF,  p-value: 2e-08</code></pre>
 <h3 class="anchored" data-anchor-id="model-parameters">Model Parameters</h3>
 <div class="epigrafe">
 <p>Based on the ACF and PACF plot for the first seasonal difference on residuals, we define:</p>
-<p><span class="math inline">\(p = 3\)</span> - <span class="math inline">\(P = 2\)</span></p>
-<p><span class="math inline">\(d = 0\)</span> - <span class="math inline">\(D = 1\)</span></p>
-<p><span class="math inline">\(q = 0\)</span> - <span class="math inline">\(Q = 2\)</span></p>
+<p><span class="math inline">\(p = 3\)</span> <span class="math inline">\(P = 2\)</span></p>
+<p><span class="math inline">\(d = 0\)</span> <span class="math inline">\(D = 1\)</span></p>
+<p><span class="math inline">\(q = 0\)</span> <span class="math inline">\(Q = 2\)</span></p>
 </div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Parameters</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">auto.arima()</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
 <details>
 <summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>xt <span class="ot">&lt;-</span> res.fit</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#write a funtion</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>SARIMA.c <span class="ot">=</span> <span class="cf">function</span>(p1,p2,q1,q2,P1,P2,Q1,Q2,data){</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    D <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="dv">40</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    ls <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">9</span><span class="sc">*</span>n),<span class="at">nrow=</span>n)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (p <span class="cf">in</span> p1<span class="sc">:</span>p2)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span>(q <span class="cf">in</span> q1<span class="sc">:</span>q2)</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span>(P <span class="cf">in</span> P1<span class="sc">:</span>P2)</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>            {</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span>(Q <span class="cf">in</span> Q1<span class="sc">:</span>Q2)</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>                {</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span>(p<span class="sc">+</span>d<span class="sc">+</span>q<span class="sc">+</span>P<span class="sc">+</span>D<span class="sc">+</span>Q<span class="sc">&lt;=</span><span class="dv">12</span>)</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>                    {</span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>                        </span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>                        model<span class="ot">&lt;-</span> <span class="fu">Arima</span>(data,<span class="at">order=</span><span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>),<span class="at">seasonal =</span> <span class="fu">c</span>(P<span class="dv">-1</span>,D,Q<span class="dv">-1</span>))</span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>                        ls[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>,P<span class="dv">-1</span>,D,Q<span class="dv">-1</span>,model<span class="sc">$</span>aic,model<span class="sc">$</span>bic, model<span class="sc">$</span>aicc)</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>                        i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>                        <span class="co">#print(i)</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>                    }</span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>                }</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>        }   </span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ls)</span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(temp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"p"</span>,<span class="st">"d"</span>,<span class="st">"q"</span>,<span class="st">"P"</span>,<span class="st">"D"</span>,<span class="st">"Q"</span>,<span class="st">"AIC"</span>,<span class="st">"BIC"</span>,<span class="st">"AICc"</span>)</span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(temp)</span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>    temp</span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">#knitr::kable(temp)</span></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">SARIMA.c</span>(<span class="at">p1=</span><span class="dv">1</span>,<span class="at">p2=</span><span class="dv">3</span>,<span class="at">q1=</span><span class="dv">1</span>,<span class="at">q2=</span><span class="dv">3</span>,<span class="at">P1=</span><span class="dv">1</span>,<span class="at">P2=</span><span class="dv">2</span>,<span class="at">Q1=</span><span class="dv">1</span>,<span class="at">Q2=</span><span class="dv">2</span>,<span class="at">data =</span> xt)</span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>xt <span class="ot">&lt;-</span> res.fit</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#write a funtion</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>SARIMA.c <span class="ot">=</span> <span class="cf">function</span>(p1,p2,q1,q2,P1,P2,Q1,Q2,data){</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    D <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    ls <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">9</span><span class="sc">*</span>n),<span class="at">nrow=</span>n)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (p <span class="cf">in</span> p1<span class="sc">:</span>p2)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span>(q <span class="cf">in</span> q1<span class="sc">:</span>q2)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span>(P <span class="cf">in</span> P1<span class="sc">:</span>P2)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span>(Q <span class="cf">in</span> Q1<span class="sc">:</span>Q2)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                {</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span>(p<span class="sc">+</span>d<span class="sc">+</span>q<span class="sc">+</span>P<span class="sc">+</span>D<span class="sc">+</span>Q<span class="sc">&lt;=</span><span class="dv">12</span>)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>                    {</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>                        </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>                        model<span class="ot">&lt;-</span> <span class="fu">Arima</span>(data,<span class="at">order=</span><span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>),<span class="at">seasonal =</span> <span class="fu">c</span>(P<span class="dv">-1</span>,D,Q<span class="dv">-1</span>))</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>                        ls[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(p<span class="dv">-1</span>,d,q<span class="dv">-1</span>,P<span class="dv">-1</span>,D,Q<span class="dv">-1</span>,model<span class="sc">$</span>aic,model<span class="sc">$</span>bic, model<span class="sc">$</span>aicc)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>                        i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>                        <span class="co">#print(i)</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>                    }</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>        }   </span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ls)</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(temp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"p"</span>,<span class="st">"d"</span>,<span class="st">"q"</span>,<span class="st">"P"</span>,<span class="st">"D"</span>,<span class="st">"Q"</span>,<span class="st">"AIC"</span>,<span class="st">"BIC"</span>,<span class="st">"AICc"</span>)</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(temp)</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    temp</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">#knitr::kable(temp)</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">SARIMA.c</span>(<span class="at">p1=</span><span class="dv">1</span>,<span class="at">p2=</span><span class="dv">3</span>,<span class="at">q1=</span><span class="dv">1</span>,<span class="at">q2=</span><span class="dv">3</span>,<span class="at">P1=</span><span class="dv">1</span>,<span class="at">P2=</span><span class="dv">2</span>,<span class="at">Q1=</span><span class="dv">1</span>,<span class="at">Q2=</span><span class="dv">2</span>,<span class="at">data =</span> xt)</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(temp)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;" data-quarto-table-cell-role="th">p</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">d</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">q</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">P</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">D</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Q</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">AIC</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">BIC</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">AICc</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7369.881</td>
-<td style="text-align: right;">7373.199</td>
-<td style="text-align: right;">7369.900</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7367.156</td>
-<td style="text-align: right;">7373.793</td>
-<td style="text-align: right;">7367.216</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7368.978</td>
-<td style="text-align: right;">7375.614</td>
-<td style="text-align: right;">7369.037</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7364.466</td>
-<td style="text-align: right;">7374.420</td>
-<td style="text-align: right;">7364.586</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7350.861</td>
-<td style="text-align: right;">7357.497</td>
-<td style="text-align: right;">7350.921</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7345.849</td>
-<td style="text-align: right;">7355.803</td>
-<td style="text-align: right;">7345.969</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7349.326</td>
-<td style="text-align: right;">7359.281</td>
-<td style="text-align: right;">7349.446</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7338.160</td>
-<td style="text-align: right;">7351.432</td>
-<td style="text-align: right;">7338.361</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7337.662</td>
-<td style="text-align: right;">7347.616</td>
-<td style="text-align: right;">7337.782</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7328.027</td>
-<td style="text-align: right;">7341.300</td>
-<td style="text-align: right;">7328.228</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7333.542</td>
-<td style="text-align: right;">7346.814</td>
-<td style="text-align: right;">7333.743</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7320.894</td>
-<td style="text-align: right;">7337.485</td>
-<td style="text-align: right;">7321.197</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7339.665</td>
-<td style="text-align: right;">7346.301</td>
-<td style="text-align: right;">7339.725</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7330.838</td>
-<td style="text-align: right;">7340.793</td>
-<td style="text-align: right;">7330.958</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7337.465</td>
-<td style="text-align: right;">7347.419</td>
-<td style="text-align: right;">7337.585</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7316.007</td>
-<td style="text-align: right;">7329.280</td>
-<td style="text-align: right;">7316.208</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7306.634</td>
-<td style="text-align: right;">7316.588</td>
-<td style="text-align: right;">7306.754</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7257.735</td>
-<td style="text-align: right;">7271.007</td>
-<td style="text-align: right;">7257.936</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7297.568</td>
-<td style="text-align: right;">7310.841</td>
-<td style="text-align: right;">7297.769</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7249.039</td>
-<td style="text-align: right;">7265.629</td>
-<td style="text-align: right;">7249.342</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7295.581</td>
-<td style="text-align: right;">7308.853</td>
-<td style="text-align: right;">7295.782</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7246.489</td>
-<td style="text-align: right;">7263.079</td>
-<td style="text-align: right;">7246.792</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7281.790</td>
-<td style="text-align: right;">7298.380</td>
-<td style="text-align: right;">7282.093</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7240.026</td>
-<td style="text-align: right;">7259.934</td>
-<td style="text-align: right;">7240.452</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7318.217</td>
-<td style="text-align: right;">7328.171</td>
-<td style="text-align: right;">7318.337</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7289.109</td>
-<td style="text-align: right;">7302.381</td>
-<td style="text-align: right;">7289.310</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7313.182</td>
-<td style="text-align: right;">7326.455</td>
-<td style="text-align: right;">7313.383</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7276.028</td>
-<td style="text-align: right;">7292.619</td>
-<td style="text-align: right;">7276.331</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7301.527</td>
-<td style="text-align: right;">7314.800</td>
-<td style="text-align: right;">7301.728</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7251.212</td>
-<td style="text-align: right;">7267.802</td>
-<td style="text-align: right;">7251.515</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7290.058</td>
-<td style="text-align: right;">7306.648</td>
-<td style="text-align: right;">7290.361</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7243.912</td>
-<td style="text-align: right;">7263.821</td>
-<td style="text-align: right;">7244.338</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7290.051</td>
-<td style="text-align: right;">7306.642</td>
-<td style="text-align: right;">7290.354</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7248.463</td>
-<td style="text-align: right;">7268.372</td>
-<td style="text-align: right;">7248.890</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7282.730</td>
-<td style="text-align: right;">7302.638</td>
-<td style="text-align: right;">7283.156</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">7241.908</td>
-<td style="text-align: right;">7265.135</td>
-<td style="text-align: right;">7242.480</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</section>
-<section id="model-selection" class="level3">
-<h3 class="anchored" data-anchor-id="model-selection">Model Selection</h3>
-<div class="epigrafe">
-<p>Based on all the combinations, we observe that model 24 has the lowest AIC, BIC and AICc, with:</p>
-<p><span class="math inline">\(p = 1\)</span> - <span class="math inline">\(P = 1\)</span></p>
-<p><span class="math inline">\(d = 0\)</span> - <span class="math inline">\(D = 1\)</span></p>
-<p><span class="math inline">\(q = 2\)</span> - <span class="math inline">\(Q = 1\)</span></p>
 </div>
 <div class="cell">
 <details>
 <summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check best model with AIC</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check best model with AIC</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   p d q P D Q      AIC      BIC     AICc
@@ -1018,8 +586,8 @@ F-statistic: 34.01 on 1 and 214 DF,  p-value: 2e-08</code></pre>
 </div>
 <details>
 <summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check best model with BIC</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>BIC),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check best model with BIC</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>BIC),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   p d q P D Q      AIC      BIC     AICc
@@ -1027,77 +595,32 @@ F-statistic: 34.01 on 1 and 214 DF,  p-value: 2e-08</code></pre>
 </div>
 <details>
 <summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check best model with AICc</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AICc),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check best model with AICc</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AICc),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   p d q P D Q      AIC      BIC     AICc
 24 1 0 2 1 1 1 7240.026 7259.934 7240.452</code></pre>
 </div>
 </div>
-</section>
-<section id="model-summary" class="level3">
-<h3 class="anchored" data-anchor-id="model-summary">Model Summary</h3>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
 <details>
 <summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>AIC <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>p</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>d</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>q</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>P1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>P</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>D</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>Q</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt, <span class="at">order=</span><span class="fu">c</span>(p1, d1, q1), <span class="at">seasonal=</span><span class="fu">c</span>(P1, D1, Q1))</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Series: xt 
-ARIMA(1,0,2)(1,1,1)[12] 
-
-Coefficients:
-         ar1      ma1     ma2    sar1     sma1
-      0.9790  -0.8660  0.2807  0.2446  -0.9400
-s.e.  0.0282   0.0696  0.0767  0.0842   0.1083
-
-sigma^2 = 1.334e+14:  log likelihood = -3614.01
-AIC=7240.03   AICc=7240.45   BIC=7259.93
-
-Training set error measures:
-                    ME     RMSE     MAE         MPE     MAPE      MASE
-Training set -892685.9 11088051 8428585 -0.07640613 124.2668 0.6331264
-                     ACF1
-Training set -0.001287048</code></pre>
-</div>
-</div>
-</section>
-<section id="auto.arima" class="level3">
-<h3 class="anchored" data-anchor-id="auto.arima">auto.arima()</h3>
-<div class="epigrafe">
-<p>Using the function auto.arima() we obtain the following parameters:</p>
-<p><span class="math inline">\(p = 1\)</span> - <span class="math inline">\(P = 0\)</span></p>
-<p><span class="math inline">\(d = 0\)</span> - <span class="math inline">\(D = 1\)</span></p>
-<p><span class="math inline">\(q = 0\)</span> - <span class="math inline">\(Q = 2\)</span></p>
-<p>We can observe that these parameters are different than the ones obtained by performing the parameter selection, therefore we use cross-validation to determine which model is performing better.</p>
-</div>
-<div class="cell">
-<details>
-<summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the exogenous variable</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>xreg <span class="ot">&lt;-</span> dd.ts[, <span class="st">"oil_price"</span>]</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>fit_auto_arima <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(dd.ts[, <span class="st">"bus_passengers"</span>], <span class="at">xreg =</span> xreg)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>q2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>P2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>D2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>Q2 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_auto_arima)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the exogenous variable</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>xreg <span class="ot">&lt;-</span> dd.ts[, <span class="st">"oil_price"</span>]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>fit_auto_arima <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(dd.ts[, <span class="st">"bus_passengers"</span>], <span class="at">xreg =</span> xreg)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>q2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>P2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>D2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>Q2 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_auto_arima)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Series: dd.ts[, "bus_passengers"] 
@@ -1118,6 +641,95 @@ Training set -2113747 13433027 10654542 -0.5820241 2.450645 0.8270612
 Training set -0.2587463</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-summary" class="level3">
+<h3 class="anchored" data-anchor-id="model-summary">Model Summary</h3>
+<div class="epigrafe">
+<p>Based on all the combinations, we observe that model 24 has the lowest AIC, BIC and AICc, with:</p>
+<p><span class="math inline">\(p = 1\)</span> - <span class="math inline">\(P = 1\)</span></p>
+<p><span class="math inline">\(d = 0\)</span> - <span class="math inline">\(D = 1\)</span></p>
+<p><span class="math inline">\(q = 2\)</span> - <span class="math inline">\(Q = 1\)</span></p>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">auto.arima()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">AIC</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>AIC <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>p</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>d</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>q</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>P1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>P</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>D</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>Q</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt, <span class="at">order=</span><span class="fu">c</span>(p1, d1, q1), <span class="at">seasonal=</span><span class="fu">c</span>(P1, D1, Q1))</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: xt 
+ARIMA(1,0,2)(1,1,1)[12] 
+
+Coefficients:
+         ar1      ma1     ma2    sar1     sma1
+      0.9790  -0.8660  0.2807  0.2446  -0.9400
+s.e.  0.0282   0.0696  0.0767  0.0842   0.1083
+
+sigma^2 = 1.334e+14:  log likelihood = -3614.01
+AIC=7240.03   AICc=7240.45   BIC=7259.93
+
+Training set error measures:
+                    ME     RMSE     MAE         MPE     MAPE      MASE
+Training set -892685.9 11088051 8428585 -0.07640613 124.2668 0.6331264
+                     ACF1
+Training set -0.001287048</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>AIC <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>p</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>d</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>q</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>P1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>P</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>D</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>Q</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt, <span class="at">order=</span><span class="fu">c</span>(p1, d1, q1), <span class="at">seasonal=</span><span class="fu">c</span>(P1, D1, Q1))</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: xt 
+ARIMA(1,0,2)(1,1,1)[12] 
+
+Coefficients:
+         ar1      ma1     ma2    sar1     sma1
+      0.9790  -0.8660  0.2807  0.2446  -0.9400
+s.e.  0.0282   0.0696  0.0767  0.0842   0.1083
+
+sigma^2 = 1.334e+14:  log likelihood = -3614.01
+AIC=7240.03   AICc=7240.45   BIC=7259.93
+
+Training set error measures:
+                    ME     RMSE     MAE         MPE     MAPE      MASE
+Training set -892685.9 11088051 8428585 -0.07640613 124.2668 0.6331264
+                     ACF1
+Training set -0.001287048</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="cross-validation" class="level3">
 <h3 class="anchored" data-anchor-id="cross-validation">Cross Validation</h3>
@@ -1127,50 +739,50 @@ Training set -0.2587463</code></pre>
 <div class="cell">
 <details>
 <summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> xt</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">12</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>rmse1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>,n<span class="sc">-</span>k,<span class="dv">12</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>rmse2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>,n<span class="sc">-</span>k,<span class="dv">12</span>)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">tsp</span>(x)[<span class="dv">1</span>]<span class="sc">+</span>(k<span class="dv">-2</span>)<span class="sc">/</span><span class="dv">12</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># for(i in 1:(n-k))</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># {</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   xtrain &lt;- window(x, end = st + i/12)</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   xtest &lt;- window(x, start = st + (i+1)/12, end = st + (i+12)/12)</span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Model 1: ARIMA(1,0,2)(1,1,1)[12]</span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Model 2: ARIMA(1,0,0)(0,1,2)[12]</span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   fit &lt;- Arima(xtrain, order=c(p1,d1,q1), seasonal=list(order=c(P1,D1,Q1), period=12),</span></span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co">#                 include.drift=FALSE, method="ML")</span></span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   fcast &lt;- forecast(fit, h=12)</span></span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   fit2 &lt;- Arima(xtrain, order=c(p2,d2,q2), seasonal=list(order=c(P2,D2,Q2), period=12),</span></span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="co">#                 include.drift=FALSE, method="ML")</span></span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="co">#   fcast2 &lt;- forecast(fit2, h=12)</span></span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="co">#   rmse1[i,1:length(xtest)]  &lt;- sqrt((fcast$mean-xtest)^2)</span></span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   rmse2[i,1:length(xtest)] &lt;- sqrt((fcast2$mean-xtest)^2)</span></span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(1:4, colMeans(rmse1,na.rm=TRUE), type="l", col=2, xlab="horizon", ylab="RMSE")</span></span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="co"># lines(1:4, colMeans(rmse2,na.rm=TRUE), type="l",col=3)</span></span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a><span class="co"># legend("topleft",legend=c("fit1: Best Model","fit2: auto.arima model"),col=2:3,lty=1)</span></span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- best_model$p</span></span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a><span class="co"># d &lt;- best_model$d</span></span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a><span class="co"># q &lt;- best_model$q</span></span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a><span class="co"># P &lt;- best_model$P</span></span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a><span class="co"># D &lt;- best_model$D</span></span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Q &lt;- best_model$Q</span></span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a><span class="co"># model &lt;- Arima(xt, order=c(p, d, q), seasonal=c(P,D,Q))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> xt</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>rmse1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>,n<span class="sc">-</span>k,<span class="dv">12</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>rmse2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>,n<span class="sc">-</span>k,<span class="dv">12</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">tsp</span>(x)[<span class="dv">1</span>]<span class="sc">+</span>(k<span class="dv">-2</span>)<span class="sc">/</span><span class="dv">12</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># for(i in 1:(n-k))</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># {</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   xtrain &lt;- window(x, end = st + i/12)</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   xtest &lt;- window(x, start = st + (i+1)/12, end = st + (i+12)/12)</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Model 1: ARIMA(1,0,2)(1,1,1)[12]</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Model 2: ARIMA(1,0,0)(0,1,2)[12]</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   fit &lt;- Arima(xtrain, order=c(p1,d1,q1), seasonal=list(order=c(P1,D1,Q1), period=12),</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co">#                 include.drift=FALSE, method="ML")</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   fcast &lt;- forecast(fit, h=12)</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   fit2 &lt;- Arima(xtrain, order=c(p2,d2,q2), seasonal=list(order=c(P2,D2,Q2), period=12),</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co">#                 include.drift=FALSE, method="ML")</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="co">#   fcast2 &lt;- forecast(fit2, h=12)</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="co">#   rmse1[i,1:length(xtest)]  &lt;- sqrt((fcast$mean-xtest)^2)</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   rmse2[i,1:length(xtest)] &lt;- sqrt((fcast2$mean-xtest)^2)</span></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(1:4, colMeans(rmse1,na.rm=TRUE), type="l", col=2, xlab="horizon", ylab="RMSE")</span></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="co"># lines(1:4, colMeans(rmse2,na.rm=TRUE), type="l",col=3)</span></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="co"># legend("topleft",legend=c("fit1: Best Model","fit2: auto.arima model"),col=2:3,lty=1)</span></span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- best_model$p</span></span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a><span class="co"># d &lt;- best_model$d</span></span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a><span class="co"># q &lt;- best_model$q</span></span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a><span class="co"># P &lt;- best_model$P</span></span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a><span class="co"># D &lt;- best_model$D</span></span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Q &lt;- best_model$Q</span></span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a><span class="co"># model &lt;- Arima(xt, order=c(p, d, q), seasonal=c(P,D,Q))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -1180,27 +792,56 @@ Training set -0.2587463</code></pre>
 <p>After using cross validation, we can confirm that the best model is the first one: ARIMA(1,0,2)(1,1,1)[12]. In addition, the performance metric values, AIC, BIC and AICc, have lower values compared to the auto.arima(). Therefore, we procede to plot the model diagnostics.</p>
 <p>Here we can observe that the residuals plot looks like white noise. The standard residuals are approximately normal as they lie on the normal curve in the Q-Q plot. The ACF plot for residuals shows almost no autocorrelation left and the p values for Ljung-Box are close to the significance band.</p>
 </div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">auto.arima()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">AIC</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
 <details>
 <summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> best_model<span class="sc">$</span>p</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> best_model<span class="sc">$</span>d</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> best_model<span class="sc">$</span>q</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> best_model<span class="sc">$</span>P</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> best_model<span class="sc">$</span>D</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>Q <span class="ot">&lt;-</span> best_model<span class="sc">$</span>Q</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p1, d1, q1, P1, D1, Q1, s))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>AIC <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>p</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>d</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>q</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>P1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>P</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>D</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> AIC<span class="sc">$</span>Q</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">Arima</span>(xt, <span class="at">order=</span><span class="fu">c</span>(p1, d1, q1), <span class="at">seasonal=</span><span class="fu">c</span>(P1, D1, Q1))</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p1, d1, q1, P1, D1, Q1, s))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
 <details>
 <summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Arima</span>(dd.ts[, <span class="st">"bus_passengers"</span>], <span class="at">order=</span><span class="fu">c</span>(p, d, q), <span class="at">seasonal=</span><span class="fu">c</span>(P,D,Q) , <span class="at">xreg =</span> xreg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> temp[<span class="fu">which.min</span>(temp<span class="sc">$</span>AIC),]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> best_model<span class="sc">$</span>p</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> best_model<span class="sc">$</span>d</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> best_model<span class="sc">$</span>q</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> best_model<span class="sc">$</span>P</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> best_model<span class="sc">$</span>D</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>Q <span class="ot">&lt;-</span> best_model<span class="sc">$</span>Q</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">sarima</span>(xt, p1, d1, q1, P1, D1, Q1, s))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>{r}</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Arima</span>(dd.ts[, <span class="st">"bus_passengers"</span>], <span class="at">order=</span><span class="fu">c</span>(p, d, q), <span class="at">seasonal=</span><span class="fu">c</span>(P,D,Q) , <span class="at">xreg =</span> xreg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="model-equation-with-latex" class="level3">
@@ -1216,22 +857,45 @@ x_t &amp;= 0.9790 x_{t-1} - 0.8660 w_{t-1} + 0.2807 w_{t-2} + 0.2446 x_{t-12} - 
 <div class="cell">
 <details>
 <summary>{r}</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>forecast_fit <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit,<span class="dv">36</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to save plot</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">"../images/7_SARIMAX_bus.png"</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(forecast_fit)</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot as a PNG image</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(plot, <span class="at">filename =</span> file_path, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Show plot</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>forecast_fit <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit,<span class="dv">36</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to save plot</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">"../images/7_SARIMAX_bus.png"</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(forecast_fit)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot as a PNG image</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(plot, <span class="at">filename =</span> file_path, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Show plot</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="768"></p>
+<p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="benchmark-models" class="level3">
+<h3 class="anchored" data-anchor-id="benchmark-models">Benchmark Models</h3>
+<div class="cell">
+<details>
+<summary>Benchmark Models Plot</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(xt) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">meanf</span>(xt, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Mean"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">naive</span>(xt, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Naïve"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">snaive</span>(xt, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Seasonal naïve"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(forecast_fit, <span class="at">h=</span><span class="dv">11</span>),</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">series=</span><span class="st">"Fit"</span>, <span class="at">PI=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Forecasts for Oil Price"</span>) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Price"</span>) <span class="sc">+</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">colour=</span><span class="fu">guide_legend</span>(<span class="at">title=</span><span class="st">"Forecast"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="7_SARIMAX_bus_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 
