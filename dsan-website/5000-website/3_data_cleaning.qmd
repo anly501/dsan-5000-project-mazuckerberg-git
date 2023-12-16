@@ -200,7 +200,9 @@ merge_dataframes_2 <- function(dataframes_list) {
 ## Global Lithium Production
 
 ::: {.justify}
-The Global Lithium Production dataset was downloaded from the Our World in Data website as a csv file. Very few steps were applied to this dataset due to the quality of the original data.
+The Global Lithium Production dataset was downloaded from the Our World in Data website as a csv file. Very few steps were applied to this dataset due to the quality of the original data. The cleaned dataset contains 224 rows and 4 columns. 
+
+The access link to the cleaned dataset can be found below the table.
 :::
 
 ``` {r}
@@ -235,7 +237,9 @@ knitr::kable(head(df_production, 5))
 
 ::: {.justify}
 
-Description...
+We collected stock data for relevant lithium-related companies from January 1, 2000 to December 31, 2022. Using the stocks_cleaning() and merge_dataframes() functions defined at the beginning of this section facilitated the systematic cleaning and organization of the data. This process resulted in the creation of a consolidated dataset that set the stage for subsequent analyses. The cleaned dataset consists of 8398 rows and 15 columns.
+
+The link to the cleaned dataset can be found below the table.
 :::
 
 ``` {r}
@@ -279,9 +283,14 @@ df_companies <- read.csv('../../data/01-modified-data/clean_lithium-companies.cs
 knitr::kable(tail(df_companies, 5))
 ```
 
-
 [Dataset - Github](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_lithium-companies.csv)
 
+
+::: {.justify}
+The data cleaning process involved obtaining financial data from Yahoo Finance for prominent lithium-related companies. Income statements and balance sheets for these companies were downloaded, compiled into an Excel spreadsheet, and subjected to several cleaning steps. These steps included identifying sheet names, importing and merging data frames, and renaming columns. In addition, the data was transformed into a wide format for better visualization. The resulting cleaned dataset contains 382 rows and 82 columns, ready for further analysis and insight.
+
+The link to the cleaned dataset can be found below the table.
+:::
 
 ``` {r}
 #| echo: true
@@ -385,7 +394,9 @@ knitr::kable(head(df_companies_2, 5))
 
 ::: {.justify}
 
-Add description
+To clean the resource price data, we imported an Excel file from the IMF. The steps were straightforward and included filtering out NA values, formatting the date column, renaming columns, and filtering for relevant variables. The resulting cleaned dataset of 127 rows and 7 columns is now ready for further analysis and comparison, providing a refined and accurate representation of commodity price information.
+
+The access link to the cleaned dataset can be found below the table.
 :::
 
 ``` {r}
@@ -438,10 +449,9 @@ knitr::kable(head(df_resources, 5))
 ## Electric Vehicles
 
 ::: {.justify}
+In the data cleaning process for the electric vehicle dataset, we imported the CSV file and performed simple steps. This included renaming columns, creating a new column to store the brand name, and selecting relevant columns. To enhance the dataset, we created a new dataframe that associated each brand with its continent. We then merged the datasets, creating a refined dataset that encapsulates relevant information for future analysis. The cleaned dataset contains 360 rows and 10 columns.
 
-Data Fields:
-
-
+The access link to the cleaned dataset can be found below the table.
 :::
 
 ``` {r}
@@ -487,14 +497,17 @@ df_vehicles <- read.csv('../../data/01-modified-data/clean_vehicles.csv')
 knitr::kable(head(df_vehicles, 5))
 ```
 
-
 [Dataset - Github](https://github.com/anly501/dsan-5000-project-mazuckerberg-git/blob/main/data/01-modified-data/clean_resources-price.csv)
 
 ## Lithium News Sentiment Analysis
 
 ::: {.justify}
 
-Add description
+In the data cleaning process for the news article text data, we carefully edited our dataset. After extracting available sources from the News API, we applied filters to retain articles that were in English, had the U.S. as a country, and fell into the general, business, technology, and science categories. We then used the News API to collect articles containing the terms "lithium," "lithium batteries," and "electric vehicles". The resulting dataframe included key details such as name, author, title, description, URL, content, and date. 
+
+Using the IBM Watson API, we performed sentiment analysis, which required an IBM developer key. The output provided valuable information such as source, date, score, label, and content. We merged this sentiment-analyzed data with the original source dataframe, adding the name and category of each source. The final dataset was then saved to a CSV file, setting the stage for comprehensive future analysis.
+
+The access link to the cleaned dataset can be found below the table.
 :::
 
 ```{python}

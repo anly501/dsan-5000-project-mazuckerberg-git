@@ -83,14 +83,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="../site_libs/plotly-binding-4.10.2/plotly.js"></script>
-<script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
-<script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
-<link href="../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
-<script src="../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 </head>
@@ -176,14 +168,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_1_NaiveBayes.html" class="sidebar-item-text sidebar-link">
+  <a href="../5_NaiveBayes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Naïve Bayes</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../5_clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Clustering</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -194,19 +180,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../7_decision_trees.html" class="sidebar-item-text sidebar-link">
+  <a href="../7_clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clustering</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../8_decision_trees.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Decision Trees</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../8_ARM.html" class="sidebar-item-text sidebar-link">
+  <a href="../9_ARM.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ARM</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../9_conclusions.html" class="sidebar-item-text sidebar-link">
+  <a href="../10_conclusions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Conclusions</span></a>
   </div>
 </li>
@@ -266,63 +258,116 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">DATE</th>
-<th style="text-align: right;">Uranium</th>
-<th style="text-align: right;">Natural Gas</th>
+<th style="text-align: right;">Aluminum</th>
+<th style="text-align: right;">Cobalt</th>
+<th style="text-align: right;">Copper</th>
+<th style="text-align: right;">Nickel</th>
+<th style="text-align: right;">Zinc</th>
+<th style="text-align: right;">Lithium</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">2012-01-01</td>
-<td style="text-align: right;">52.31250</td>
-<td style="text-align: right;">3.254</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2012-02-01</td>
-<td style="text-align: right;">52.05556</td>
-<td style="text-align: right;">3.436</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2012-03-01</td>
-<td style="text-align: right;">51.28889</td>
-<td style="text-align: right;">3.717</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2012-04-01</td>
-<td style="text-align: right;">51.30000</td>
-<td style="text-align: right;">3.874</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2012-05-01</td>
-<td style="text-align: right;">51.88889</td>
-<td style="text-align: right;">3.718</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">2012-06-01</td>
-<td style="text-align: right;">50.83333</td>
-<td style="text-align: right;">3.518</td>
+<td style="text-align: right;">1885.513</td>
+<td style="text-align: right;">28831.91</td>
+<td style="text-align: right;">7428.289</td>
+<td style="text-align: right;">16603.68</td>
+<td style="text-align: right;">1855.934</td>
+<td style="text-align: right;">63643.22</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">2012-07-01</td>
-<td style="text-align: right;">50.35556</td>
-<td style="text-align: right;">3.291</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2012-08-01</td>
-<td style="text-align: right;">49.25000</td>
-<td style="text-align: right;">3.606</td>
+<td style="text-align: right;">1876.250</td>
+<td style="text-align: right;">28394.08</td>
+<td style="text-align: right;">7584.261</td>
+<td style="text-align: right;">16128.41</td>
+<td style="text-align: right;">1847.750</td>
+<td style="text-align: right;">63568.83</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">2012-09-01</td>
-<td style="text-align: right;">47.72500</td>
-<td style="text-align: right;">3.797</td>
+<td style="text-align: left;">2012-08-01</td>
+<td style="text-align: right;">1843.327</td>
+<td style="text-align: right;">29050.36</td>
+<td style="text-align: right;">7510.432</td>
+<td style="text-align: right;">15703.99</td>
+<td style="text-align: right;">1816.318</td>
+<td style="text-align: right;">63682.98</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">2012-09-01</td>
+<td style="text-align: right;">2064.120</td>
+<td style="text-align: right;">29221.25</td>
+<td style="text-align: right;">8087.743</td>
+<td style="text-align: right;">17287.96</td>
+<td style="text-align: right;">2009.850</td>
+<td style="text-align: right;">64069.57</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">2012-10-01</td>
-<td style="text-align: right;">44.61111</td>
-<td style="text-align: right;">3.750</td>
+<td style="text-align: right;">1974.304</td>
+<td style="text-align: right;">26896.74</td>
+<td style="text-align: right;">8062.033</td>
+<td style="text-align: right;">17168.74</td>
+<td style="text-align: right;">1903.959</td>
+<td style="text-align: right;">64650.80</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2012-11-01</td>
+<td style="text-align: right;">1948.830</td>
+<td style="text-align: right;">23563.41</td>
+<td style="text-align: right;">7711.227</td>
+<td style="text-align: right;">16335.36</td>
+<td style="text-align: right;">1912.398</td>
+<td style="text-align: right;">64970.67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2012-12-01</td>
+<td style="text-align: right;">2086.763</td>
+<td style="text-align: right;">23976.00</td>
+<td style="text-align: right;">7966.487</td>
+<td style="text-align: right;">17448.50</td>
+<td style="text-align: right;">2040.429</td>
+<td style="text-align: right;">64966.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013-01-01</td>
+<td style="text-align: right;">2037.607</td>
+<td style="text-align: right;">25518.09</td>
+<td style="text-align: right;">8053.739</td>
+<td style="text-align: right;">17494.07</td>
+<td style="text-align: right;">2031.409</td>
+<td style="text-align: right;">65091.61</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2013-02-01</td>
+<td style="text-align: right;">2053.595</td>
+<td style="text-align: right;">25441.33</td>
+<td style="text-align: right;">8060.925</td>
+<td style="text-align: right;">17690.10</td>
+<td style="text-align: right;">2128.688</td>
+<td style="text-align: right;">64976.63</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013-03-01</td>
+<td style="text-align: right;">1911.283</td>
+<td style="text-align: right;">25316.97</td>
+<td style="text-align: right;">7652.375</td>
+<td style="text-align: right;">16731.70</td>
+<td style="text-align: right;">1929.150</td>
+<td style="text-align: right;">65155.51</td>
 </tr>
 </tbody>
 </table>
@@ -334,13 +379,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>      DATE               Uranium       Natural Gas   
- Min.   :2012-01-01   Min.   :18.57   Min.   :1.680  
- 1st Qu.:2014-09-23   1st Qu.:25.57   1st Qu.:2.309  
- Median :2017-06-16   Median :32.14   Median :2.680  
- Mean   :2017-06-16   Mean   :32.71   Mean   :2.818  
- 3rd Qu.:2020-03-08   3rd Qu.:38.26   3rd Qu.:3.354  
- Max.   :2022-12-01   Max.   :52.31   Max.   :4.702  </code></pre>
+<pre><code>      DATE               Aluminum        Cobalt          Copper     
+ Min.   :2012-06-01   Min.   :1460   Min.   :22276   Min.   : 4472  
+ 1st Qu.:2015-01-16   1st Qu.:1742   1st Qu.:28745   1st Qu.: 5828  
+ Median :2017-09-01   Median :1871   Median :32100   Median : 6713  
+ Mean   :2017-08-31   Mean   :1973   Mean   :41195   Mean   : 6816  
+ 3rd Qu.:2020-04-16   3rd Qu.:2081   3rd Qu.:52590   3rd Qu.: 7565  
+ Max.   :2022-12-01   Max.   :3498   Max.   :90782   Max.   :10231  
+     Nickel           Zinc         Lithium      
+ Min.   : 8298   Min.   :1520   Min.   : 62377  
+ 1st Qu.:11664   1st Qu.:2026   1st Qu.: 66030  
+ Median :14101   Median :2414   Median : 87823  
+ Mean   :14992   Mean   :2488   Mean   :122254  
+ 3rd Qu.:17331   3rd Qu.:2892   3rd Qu.:120041  
+ Max.   :33924   Max.   :4371   Max.   :490008  </code></pre>
 </div>
 </div>
 <p><strong>Histograms Visualization</strong></p>
@@ -348,93 +400,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Description</p>
 </div>
 <div class="cell">
-<details>
-<summary>Histogram Visualization Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_resources <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(df_resources, </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">cols =</span> <span class="sc">-</span>DATE,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">names_to =</span> <span class="st">"Resources"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">values_to =</span> <span class="st">"Prices"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>uranium <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_resources[df_resources<span class="sc">$</span>Resources <span class="sc">==</span> <span class="st">"Uranium"</span>,]) <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> Prices), <span class="at">color =</span> <span class="st">"pink"</span>, <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Price"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Resource Distributions"</span>, <span class="at">subtitle =</span> <span class="st">"Uranium"</span>) <span class="sc">+</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                <span class="fu">theme</span>(</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="st">"cm"</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                )</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>natural_gas <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_resources[df_resources<span class="sc">$</span>Resources <span class="sc">==</span> <span class="st">"Natural Gas"</span>,]) <span class="sc">+</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> Prices), <span class="at">color =</span> <span class="st">"pink"</span>, <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Price"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">subtitle =</span> <span class="st">"Natural Gas"</span>) <span class="sc">+</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                <span class="fu">theme</span>(</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="st">"cm"</span>)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                )</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">wrap_plots</span>(uranium, natural_gas, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>plots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="4_4_commodity_price_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="768"></p>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #| echo: true</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># #| message: false</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># #| code-fold: true</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># #| code-summary: "Histogram Visualization Code"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># #| warning: false</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># df_resources &lt;- pivot_longer(df_resources, </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                         cols = -DATE,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                         names_to = "Resources",</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                         values_to = "Prices")</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># uranium &lt;- ggplot(df_resources[df_resources$Resources == "Uranium",]) +</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#                 geom_histogram(aes(x = Prices), color = "pink", bins = 30, fill = "darkred") +</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#                 labs(x = "Price", y = "Frequency", title = "Resource Distributions", subtitle = "Uranium") +</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#                 theme_minimal() +</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#                 theme(</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.subtitle = element_text(hjust = 0.5, size = 14),</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#                 axis.title.x = element_text(size = 10),</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#                 axis.title.y = element_text(size = 10),</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.margin = margin(1, 1, 1, 1, "cm")</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#                 )</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># natural_gas &lt;- ggplot(df_resources[df_resources$Resources == "Natural Gas",]) +</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#                 geom_histogram(aes(x = Prices), color = "pink", bins = 30, fill = "darkred") +</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#                 labs(x = "Price", y = "Frequency", subtitle = "Natural Gas") +</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#                 theme_minimal() +</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#                 theme(</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.subtitle = element_text(hjust = 0.5, size = 14),</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#                 axis.title.x = element_text(size = 10),</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#                 axis.title.y = element_text(size = 10),</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.margin = margin(1, 1, 1, 1, "cm")</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#                 )</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># plots &lt;- wrap_plots(uranium, natural_gas, nrow = 2)</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co"># plots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Boxplot Visualization</strong></p>
 <div class="epigrafe">
 <p>Description</p>
 </div>
 <div class="cell">
-<details>
-<summary>Boxplot Visualization Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>box <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_resources[df_resources<span class="sc">$</span>Resources <span class="sc">==</span> <span class="st">"Uranium"</span>,]) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Prices)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Price"</span>, <span class="at">title =</span> <span class="st">"Resource Distributions"</span>, <span class="at">subtitle =</span> <span class="st">"Uranium"</span>) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="st">"cm"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># box &lt;- ggplotly(box, width = 300, height = 600)</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>box</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="4_4_commodity_price_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
-</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #| echo: true</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># #| message: false</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># #| code-fold: true</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># #| code-summary: "Boxplot Visualization Code"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># #| warning: false</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># box &lt;- ggplot(df_resources[df_resources$Resources == "Uranium",]) +</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#             geom_boxplot(aes(y = Prices)) +</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#             labs(x = "", y = "Price", title = "Resource Distributions", subtitle = "Uranium") +</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#             theme_minimal() +</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#             theme(</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#             plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#             plot.subtitle = element_text(hjust = 0.5, size = 14),</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#             axis.title.x = element_text(size = 10),</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#             axis.title.y = element_text(size = 10),</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#             plot.margin = margin(1, 1, 1, 1, "cm")</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#             )</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># # box &lt;- ggplotly(box, width = 300, height = 600)</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># box</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<details>
-<summary>Boxplot Visualization Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>box <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(df_resources[df_resources<span class="sc">$</span>Resources <span class="sc">==</span> <span class="st">"Natural Gas"</span>,]) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Prices)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Price"</span>, <span class="at">title =</span> <span class="st">"Resource Distributions"</span>, <span class="at">subtitle =</span> <span class="st">"Natural Gas"</span>) <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">theme</span>(</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="st">"cm"</span>))</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># box &lt;- ggplotly(box, width = 300, height = 600)</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>box</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="4_4_commodity_price_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #| echo: true</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># #| message: false</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># #| code-fold: true</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># #| code-summary: "Boxplot Visualization Code"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># #| warning: false</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># box &lt;-  ggplot(df_resources[df_resources$Resources == "Natural Gas",]) +</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                 geom_boxplot(aes(y = Prices)) +</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                 labs(x = "", y = "Price", title = "Resource Distributions", subtitle = "Natural Gas") +</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                 theme_minimal() +</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#                 theme(</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.subtitle = element_text(hjust = 0.5, size = 14),</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#                 axis.title.x = element_text(size = 10),</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#                 axis.title.y = element_text(size = 10),</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.margin = margin(1, 1, 1, 1, "cm"))</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># # box &lt;- ggplotly(box, width = 300, height = 600)</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># box</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Time Series Visualization</strong></p>
 <div class="epigrafe">
@@ -444,23 +496,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Time Series Visualization Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_resources) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> DATE, <span class="at">y =</span> Prices), <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Price"</span>, <span class="at">title =</span> <span class="st">"Resources Prices"</span>) <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="st">"cm"</span>))<span class="sc">+</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">facet_grid</span>(Resources <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free"</span>)    </span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- ggplot(df_resources) +</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#         geom_line(aes(x = DATE, y = Prices), color = "darkred") + </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#         labs(x = "Date", y = "Price", title = "Resources Prices") +</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#         theme_minimal() +</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#         theme(</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                 axis.title.x = element_text(size = 10),</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                 axis.title.y = element_text(size = 10),</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                 plot.margin = margin(1, 1, 1, 1, "cm"))+</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#         facet_grid(Resources ~ ., scales = "free")    </span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#ggplotly(p, width = 650, height = 400)</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># #ggplotly(p, width = 650, height = 400)</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplotly(p)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>Correlation Analysis</strong></p>
+<div class="epigrafe">
+<p>Description</p>
+<p>Mention Trends</p>
+</div>
+<div class="cell">
+<details>
+<summary>Time Series Visualization Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(df_resources[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot heatmap using corrplot</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(correlation_matrix, <span class="at">method =</span> <span class="st">"color"</span>, <span class="at">type =</span> <span class="st">"upper"</span>, <span class="at">tl.cex =</span> <span class="fl">0.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-47f7e1ad4c62432520b1" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-47f7e1ad4c62432520b1">{"x":{"data":[{"x":[15340,15371,15400,15431,15461,15492,15522,15553,15584,15614,15645,15675,15706,15737,15765,15796,15826,15857,15887,15918,15949,15979,16010,16040,16071,16102,16130,16161,16191,16222,16252,16283,16314,16344,16375,16405,16436,16467,16495,16526,16556,16587,16617,16648,16679,16709,16740,16770,16801,16832,16861,16892,16922,16953,16983,17014,17045,17075,17106,17136,17167,17198,17226,17257,17287,17318,17348,17379,17410,17440,17471,17501,17532,17563,17591,17622,17652,17683,17713,17744,17775,17805,17836,17866,17897,17928,17956,17987,18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327],"y":[3.254,3.4359999999999999,3.7170000000000001,3.8740000000000001,3.718,3.5179999999999998,3.2909999999999999,3.6059999999999999,3.7970000000000002,3.75,3.4060000000000001,3.3370000000000002,3.2330000000000001,3.4710000000000001,3.698,3.5720000000000001,3.4780000000000002,3.6099999999999999,3.4100000000000001,3.5659999999999998,3.5750000000000002,3.298,3.2090000000000001,3.2090000000000001,3.2610000000000001,3.2429999999999999,3.4209999999999998,3.5329999999999999,3.6059999999999999,3.6240000000000001,3.605,3.4489999999999998,3.4100000000000001,3.246,2.956,2.738,2.1360000000000001,2.0129999999999999,2.3599999999999999,2.3149999999999999,2.5169999999999999,2.6560000000000001,2.702,2.5550000000000002,2.3370000000000002,2.2519999999999998,2.1699999999999999,1.9690000000000001,1.9219999999999999,1.7290000000000001,1.782,1.994,2.1680000000000001,2.3279999999999998,2.2050000000000001,2.0910000000000002,2.1699999999999999,2.1840000000000002,2.157,2.137,2.319,2.2210000000000001,2.2639999999999998,2.2810000000000001,2.331,2.3250000000000002,2.1629999999999998,2.29,2.6040000000000001,2.4929999999999999,2.468,2.4100000000000001,2.4359999999999999,2.544,2.4620000000000002,2.5920000000000001,2.7330000000000001,2.8490000000000002,2.762,2.7810000000000001,2.7589999999999999,2.7959999999999998,2.6699999999999999,2.3500000000000001,2.1280000000000001,2.1619999999999999,2.3519999999999999,2.6110000000000002,2.7709999999999999,2.6909999999999998,2.6080000000000001,2.5880000000000001,2.4609999999999999,2.5129999999999999,2.4849999999999999,2.4849999999999999,2.4940000000000002,2.3580000000000001,2.3239999999999998,1.8,1.6799999999999999,1.883,2.1000000000000001,2.085,2.1219999999999999,2.0910000000000002,2.0209999999999999,2.0630000000000002,2.1600000000000001,2.3159999999999998,2.625,2.7770000000000001,2.79,2.9350000000000001,3.032,3.0590000000000002,3.0800000000000001,3.093,3.2799999999999998,3.2040000000000002,3.141,3.3300000000000001,3.9630000000000001,4.0209999999999999,4.0309999999999997,4.702,4.6189999999999998,4.0339999999999998,3.617,3.5920000000000001,3.6280000000000001,3.2599999999999998],"text":["DATE: 2012-01-01<br />Prices:  3.25400","DATE: 2012-02-01<br />Prices:  3.43600","DATE: 2012-03-01<br />Prices:  3.71700","DATE: 2012-04-01<br />Prices:  3.87400","DATE: 2012-05-01<br />Prices:  3.71800","DATE: 2012-06-01<br />Prices:  3.51800","DATE: 2012-07-01<br />Prices:  3.29100","DATE: 2012-08-01<br />Prices:  3.60600","DATE: 2012-09-01<br />Prices:  3.79700","DATE: 2012-10-01<br />Prices:  3.75000","DATE: 2012-11-01<br />Prices:  3.40600","DATE: 2012-12-01<br />Prices:  3.33700","DATE: 2013-01-01<br />Prices:  3.23300","DATE: 2013-02-01<br />Prices:  3.47100","DATE: 2013-03-01<br />Prices:  3.69800","DATE: 2013-04-01<br />Prices:  3.57200","DATE: 2013-05-01<br />Prices:  3.47800","DATE: 2013-06-01<br />Prices:  3.61000","DATE: 2013-07-01<br />Prices:  3.41000","DATE: 2013-08-01<br />Prices:  3.56600","DATE: 2013-09-01<br />Prices:  3.57500","DATE: 2013-10-01<br />Prices:  3.29800","DATE: 2013-11-01<br />Prices:  3.20900","DATE: 2013-12-01<br />Prices:  3.20900","DATE: 2014-01-01<br />Prices:  3.26100","DATE: 2014-02-01<br />Prices:  3.24300","DATE: 2014-03-01<br />Prices:  3.42100","DATE: 2014-04-01<br />Prices:  3.53300","DATE: 2014-05-01<br />Prices:  3.60600","DATE: 2014-06-01<br />Prices:  3.62400","DATE: 2014-07-01<br />Prices:  3.60500","DATE: 2014-08-01<br />Prices:  3.44900","DATE: 2014-09-01<br />Prices:  3.41000","DATE: 2014-10-01<br />Prices:  3.24600","DATE: 2014-11-01<br />Prices:  2.95600","DATE: 2014-12-01<br />Prices:  2.73800","DATE: 2015-01-01<br />Prices:  2.13600","DATE: 2015-02-01<br />Prices:  2.01300","DATE: 2015-03-01<br />Prices:  2.36000","DATE: 2015-04-01<br />Prices:  2.31500","DATE: 2015-05-01<br />Prices:  2.51700","DATE: 2015-06-01<br />Prices:  2.65600","DATE: 2015-07-01<br />Prices:  2.70200","DATE: 2015-08-01<br />Prices:  2.55500","DATE: 2015-09-01<br />Prices:  2.33700","DATE: 2015-10-01<br />Prices:  2.25200","DATE: 2015-11-01<br />Prices:  2.17000","DATE: 2015-12-01<br />Prices:  1.96900","DATE: 2016-01-01<br />Prices:  1.92200","DATE: 2016-02-01<br />Prices:  1.72900","DATE: 2016-03-01<br />Prices:  1.78200","DATE: 2016-04-01<br />Prices:  1.99400","DATE: 2016-05-01<br />Prices:  2.16800","DATE: 2016-06-01<br />Prices:  2.32800","DATE: 2016-07-01<br />Prices:  2.20500","DATE: 2016-08-01<br />Prices:  2.09100","DATE: 2016-09-01<br />Prices:  2.17000","DATE: 2016-10-01<br />Prices:  2.18400","DATE: 2016-11-01<br />Prices:  2.15700","DATE: 2016-12-01<br />Prices:  2.13700","DATE: 2017-01-01<br />Prices:  2.31900","DATE: 2017-02-01<br />Prices:  2.22100","DATE: 2017-03-01<br />Prices:  2.26400","DATE: 2017-04-01<br />Prices:  2.28100","DATE: 2017-05-01<br />Prices:  2.33100","DATE: 2017-06-01<br />Prices:  2.32500","DATE: 2017-07-01<br />Prices:  2.16300","DATE: 2017-08-01<br />Prices:  2.29000","DATE: 2017-09-01<br />Prices:  2.60400","DATE: 2017-10-01<br />Prices:  2.49300","DATE: 2017-11-01<br />Prices:  2.46800","DATE: 2017-12-01<br />Prices:  2.41000","DATE: 2018-01-01<br />Prices:  2.43600","DATE: 2018-02-01<br />Prices:  2.54400","DATE: 2018-03-01<br />Prices:  2.46200","DATE: 2018-04-01<br />Prices:  2.59200","DATE: 2018-05-01<br />Prices:  2.73300","DATE: 2018-06-01<br />Prices:  2.84900","DATE: 2018-07-01<br />Prices:  2.76200","DATE: 2018-08-01<br />Prices:  2.78100","DATE: 2018-09-01<br />Prices:  2.75900","DATE: 2018-10-01<br />Prices:  2.79600","DATE: 2018-11-01<br />Prices:  2.67000","DATE: 2018-12-01<br />Prices:  2.35000","DATE: 2019-01-01<br />Prices:  2.12800","DATE: 2019-02-01<br />Prices:  2.16200","DATE: 2019-03-01<br />Prices:  2.35200","DATE: 2019-04-01<br />Prices:  2.61100","DATE: 2019-05-01<br />Prices:  2.77100","DATE: 2019-06-01<br />Prices:  2.69100","DATE: 2019-07-01<br />Prices:  2.60800","DATE: 2019-08-01<br />Prices:  2.58800","DATE: 2019-09-01<br />Prices:  2.46100","DATE: 2019-10-01<br />Prices:  2.51300","DATE: 2019-11-01<br />Prices:  2.48500","DATE: 2019-12-01<br />Prices:  2.48500","DATE: 2020-01-01<br />Prices:  2.49400","DATE: 2020-02-01<br />Prices:  2.35800","DATE: 2020-03-01<br />Prices:  2.32400","DATE: 2020-04-01<br />Prices:  1.80000","DATE: 2020-05-01<br />Prices:  1.68000","DATE: 2020-06-01<br />Prices:  1.88300","DATE: 2020-07-01<br />Prices:  2.10000","DATE: 2020-08-01<br />Prices:  2.08500","DATE: 2020-09-01<br />Prices:  2.12200","DATE: 2020-10-01<br />Prices:  2.09100","DATE: 2020-11-01<br />Prices:  2.02100","DATE: 2020-12-01<br />Prices:  2.06300","DATE: 2021-01-01<br />Prices:  2.16000","DATE: 2021-02-01<br />Prices:  2.31600","DATE: 2021-03-01<br />Prices:  2.62500","DATE: 2021-04-01<br />Prices:  2.77700","DATE: 2021-05-01<br />Prices:  2.79000","DATE: 2021-06-01<br />Prices:  2.93500","DATE: 2021-07-01<br />Prices:  3.03200","DATE: 2021-08-01<br />Prices:  3.05900","DATE: 2021-09-01<br />Prices:  3.08000","DATE: 2021-10-01<br />Prices:  3.09300","DATE: 2021-11-01<br />Prices:  3.28000","DATE: 2021-12-01<br />Prices:  3.20400","DATE: 2022-01-01<br />Prices:  3.14100","DATE: 2022-02-01<br />Prices:  3.33000","DATE: 2022-03-01<br />Prices:  3.96300","DATE: 2022-04-01<br />Prices:  4.02100","DATE: 2022-05-01<br />Prices:  4.03100","DATE: 2022-06-01<br />Prices:  4.70200","DATE: 2022-07-01<br />Prices:  4.61900","DATE: 2022-08-01<br />Prices:  4.03400","DATE: 2022-09-01<br />Prices:  3.61700","DATE: 2022-10-01<br />Prices:  3.59200","DATE: 2022-11-01<br />Prices:  3.62800","DATE: 2022-12-01<br />Prices:  3.26000"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(139,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[15340,15371,15400,15431,15461,15492,15522,15553,15584,15614,15645,15675,15706,15737,15765,15796,15826,15857,15887,15918,15949,15979,16010,16040,16071,16102,16130,16161,16191,16222,16252,16283,16314,16344,16375,16405,16436,16467,16495,16526,16556,16587,16617,16648,16679,16709,16740,16770,16801,16832,16861,16892,16922,16953,16983,17014,17045,17075,17106,17136,17167,17198,17226,17257,17287,17318,17348,17379,17410,17440,17471,17501,17532,17563,17591,17622,17652,17683,17713,17744,17775,17805,17836,17866,17897,17928,17956,17987,18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327],"y":[52.3125,52.0555555555556,51.288888888888899,51.299999999999997,51.8888888888889,50.8333333333333,50.355555555555597,49.25,47.725000000000001,44.6111111111111,41.5,43.6666666666667,42.75,43.40625,42.28125,41.412500000000001,40.604999999999997,39.9375,38.022222222222197,34.994162640901799,34.453286749482402,34.848495589161899,35.592003105590003,34.593297101449302,35.214988972904798,35.546739130434801,34.7028554175293,32.744565217391298,28.539855072463801,28.2254572118702,28.4002047889099,30.829321946169799,34.371829710144901,35.751732829237497,40.597373188405797,36.948251417769299,35.897727272727302,38.1875,39.318181818181799,38.840909090909101,35.690476190476197,36.045454545454497,36.2826086956522,36.095238095238102,37.056818181818201,37.238636363636402,35.964285714285701,35.163043478260903,34.690476190476197,34.007142857142902,30.1065217391304,27.816666666666698,27.954545454545499,27.352272727272702,25.845238095238098,25.902173913043502,24.875,21.488095238095202,18.568181818181799,19.215909090909101,22.170454545454501,25.149999999999999,24.6413043478261,23.25,21.6413043478261,19.75,20.3642857142857,20.406521739130401,20.428571428571399,20.234090909090899,22.345454545454501,24.6904761904762,23.369565217391301,21.762499999999999,21.727272727272702,20.845238095238098,21.978260869565201,23.071428571428601,23.4159090909091,26.047826086956501,27.107500000000002,27.508695652173898,28.934090909090902,28.761904761904798,28.710869565217401,28.645,27.202380952380999,25.704545454545499,24.684782608695599,24.475000000000001,25.228260869565201,25.284090909090899,25.4119047619048,24.917391304347799,24.988095238095202,25.625,24.6413043478261,24.6875,24.6613636363636,29.9636363636364,33.511904761904802,33.088636363636397,32.360869565217399,31.376190476190501,29.981818181818198,29.636363636363601,29.485714285714302,29.773913043478299,29.8571428571429,28.662500000000001,28.334782608695701,29.7522727272727,30.257142857142899,32.142105263157902,32.338636363636397,32.147727272727302,45.078125,38.476190476190503,31.099584036972999,36.129303027444998,36.872921185827899,35.8319143167028,45.514701028010897,48.704730916227597,40.891626405048299,40.331517452179,38.939159177770797,39.802308308969103,40.950391934529598,41.303597252349903,40.954064780122202,39.178243936107201],"text":["DATE: 2012-01-01<br />Prices: 52.31250","DATE: 2012-02-01<br />Prices: 52.05556","DATE: 2012-03-01<br />Prices: 51.28889","DATE: 2012-04-01<br />Prices: 51.30000","DATE: 2012-05-01<br />Prices: 51.88889","DATE: 2012-06-01<br />Prices: 50.83333","DATE: 2012-07-01<br />Prices: 50.35556","DATE: 2012-08-01<br />Prices: 49.25000","DATE: 2012-09-01<br />Prices: 47.72500","DATE: 2012-10-01<br />Prices: 44.61111","DATE: 2012-11-01<br />Prices: 41.50000","DATE: 2012-12-01<br />Prices: 43.66667","DATE: 2013-01-01<br />Prices: 42.75000","DATE: 2013-02-01<br />Prices: 43.40625","DATE: 2013-03-01<br />Prices: 42.28125","DATE: 2013-04-01<br />Prices: 41.41250","DATE: 2013-05-01<br />Prices: 40.60500","DATE: 2013-06-01<br />Prices: 39.93750","DATE: 2013-07-01<br />Prices: 38.02222","DATE: 2013-08-01<br />Prices: 34.99416","DATE: 2013-09-01<br />Prices: 34.45329","DATE: 2013-10-01<br />Prices: 34.84850","DATE: 2013-11-01<br />Prices: 35.59200","DATE: 2013-12-01<br />Prices: 34.59330","DATE: 2014-01-01<br />Prices: 35.21499","DATE: 2014-02-01<br />Prices: 35.54674","DATE: 2014-03-01<br />Prices: 34.70286","DATE: 2014-04-01<br />Prices: 32.74457","DATE: 2014-05-01<br />Prices: 28.53986","DATE: 2014-06-01<br />Prices: 28.22546","DATE: 2014-07-01<br />Prices: 28.40020","DATE: 2014-08-01<br />Prices: 30.82932","DATE: 2014-09-01<br />Prices: 34.37183","DATE: 2014-10-01<br />Prices: 35.75173","DATE: 2014-11-01<br />Prices: 40.59737","DATE: 2014-12-01<br />Prices: 36.94825","DATE: 2015-01-01<br />Prices: 35.89773","DATE: 2015-02-01<br />Prices: 38.18750","DATE: 2015-03-01<br />Prices: 39.31818","DATE: 2015-04-01<br />Prices: 38.84091","DATE: 2015-05-01<br />Prices: 35.69048","DATE: 2015-06-01<br />Prices: 36.04545","DATE: 2015-07-01<br />Prices: 36.28261","DATE: 2015-08-01<br />Prices: 36.09524","DATE: 2015-09-01<br />Prices: 37.05682","DATE: 2015-10-01<br />Prices: 37.23864","DATE: 2015-11-01<br />Prices: 35.96429","DATE: 2015-12-01<br />Prices: 35.16304","DATE: 2016-01-01<br />Prices: 34.69048","DATE: 2016-02-01<br />Prices: 34.00714","DATE: 2016-03-01<br />Prices: 30.10652","DATE: 2016-04-01<br />Prices: 27.81667","DATE: 2016-05-01<br />Prices: 27.95455","DATE: 2016-06-01<br />Prices: 27.35227","DATE: 2016-07-01<br />Prices: 25.84524","DATE: 2016-08-01<br />Prices: 25.90217","DATE: 2016-09-01<br />Prices: 24.87500","DATE: 2016-10-01<br />Prices: 21.48810","DATE: 2016-11-01<br />Prices: 18.56818","DATE: 2016-12-01<br />Prices: 19.21591","DATE: 2017-01-01<br />Prices: 22.17045","DATE: 2017-02-01<br />Prices: 25.15000","DATE: 2017-03-01<br />Prices: 24.64130","DATE: 2017-04-01<br />Prices: 23.25000","DATE: 2017-05-01<br />Prices: 21.64130","DATE: 2017-06-01<br />Prices: 19.75000","DATE: 2017-07-01<br />Prices: 20.36429","DATE: 2017-08-01<br />Prices: 20.40652","DATE: 2017-09-01<br />Prices: 20.42857","DATE: 2017-10-01<br />Prices: 20.23409","DATE: 2017-11-01<br />Prices: 22.34545","DATE: 2017-12-01<br />Prices: 24.69048","DATE: 2018-01-01<br />Prices: 23.36957","DATE: 2018-02-01<br />Prices: 21.76250","DATE: 2018-03-01<br />Prices: 21.72727","DATE: 2018-04-01<br />Prices: 20.84524","DATE: 2018-05-01<br />Prices: 21.97826","DATE: 2018-06-01<br />Prices: 23.07143","DATE: 2018-07-01<br />Prices: 23.41591","DATE: 2018-08-01<br />Prices: 26.04783","DATE: 2018-09-01<br />Prices: 27.10750","DATE: 2018-10-01<br />Prices: 27.50870","DATE: 2018-11-01<br />Prices: 28.93409","DATE: 2018-12-01<br />Prices: 28.76190","DATE: 2019-01-01<br />Prices: 28.71087","DATE: 2019-02-01<br />Prices: 28.64500","DATE: 2019-03-01<br />Prices: 27.20238","DATE: 2019-04-01<br />Prices: 25.70455","DATE: 2019-05-01<br />Prices: 24.68478","DATE: 2019-06-01<br />Prices: 24.47500","DATE: 2019-07-01<br />Prices: 25.22826","DATE: 2019-08-01<br />Prices: 25.28409","DATE: 2019-09-01<br />Prices: 25.41190","DATE: 2019-10-01<br />Prices: 24.91739","DATE: 2019-11-01<br />Prices: 24.98810","DATE: 2019-12-01<br />Prices: 25.62500","DATE: 2020-01-01<br />Prices: 24.64130","DATE: 2020-02-01<br />Prices: 24.68750","DATE: 2020-03-01<br />Prices: 24.66136","DATE: 2020-04-01<br />Prices: 29.96364","DATE: 2020-05-01<br />Prices: 33.51190","DATE: 2020-06-01<br />Prices: 33.08864","DATE: 2020-07-01<br />Prices: 32.36087","DATE: 2020-08-01<br />Prices: 31.37619","DATE: 2020-09-01<br />Prices: 29.98182","DATE: 2020-10-01<br />Prices: 29.63636","DATE: 2020-11-01<br />Prices: 29.48571","DATE: 2020-12-01<br />Prices: 29.77391","DATE: 2021-01-01<br />Prices: 29.85714","DATE: 2021-02-01<br />Prices: 28.66250","DATE: 2021-03-01<br />Prices: 28.33478","DATE: 2021-04-01<br />Prices: 29.75227","DATE: 2021-05-01<br />Prices: 30.25714","DATE: 2021-06-01<br />Prices: 32.14211","DATE: 2021-07-01<br />Prices: 32.33864","DATE: 2021-08-01<br />Prices: 32.14773","DATE: 2021-09-01<br />Prices: 45.07812","DATE: 2021-10-01<br />Prices: 38.47619","DATE: 2021-11-01<br />Prices: 31.09958","DATE: 2021-12-01<br />Prices: 36.12930","DATE: 2022-01-01<br />Prices: 36.87292","DATE: 2022-02-01<br />Prices: 35.83191","DATE: 2022-03-01<br />Prices: 45.51470","DATE: 2022-04-01<br />Prices: 48.70473","DATE: 2022-05-01<br />Prices: 40.89163","DATE: 2022-06-01<br />Prices: 40.33152","DATE: 2022-07-01<br />Prices: 38.93916","DATE: 2022-08-01<br />Prices: 39.80231","DATE: 2022-09-01<br />Prices: 40.95039","DATE: 2022-10-01<br />Prices: 41.30360","DATE: 2022-11-01<br />Prices: 40.95406","DATE: 2022-12-01<br />Prices: 39.17824"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(139,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y2","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":99.336830716832878,"r":49.484773307446147,"b":79.01968667366144,"l":60.576512618363545},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"<b> Resources Prices <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":21.253632212536321},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[15140.65,19526.349999999999],"tickmode":"array","ticktext":["2012","2014","2016","2018","2020","2022"],"tickvals":[15340,16071,16801,17532,18262,18993],"categoryorder":"array","categoryarray":["2012","2014","2016","2018","2020","2022"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"annotations":[{"text":"Date","x":0.5,"y":0,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835205},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"top","annotationType":"axis","yshift":-21.917808219178088},{"text":"Price","x":0,"y":0.5,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835205},"xref":"paper","yref":"paper","textangle":-90,"xanchor":"right","yanchor":"center","annotationType":"axis","xshift":-16.073059360730596},{"text":"Natural Gas","x":1,"y":0.756341958396753,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.68949771689498},"xref":"paper","yref":"paper","textangle":90,"xanchor":"left","yanchor":"middle"},{"text":"Uranium","x":1,"y":0.24365804160324708,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.68949771689498},"xref":"paper","yref":"paper","textangle":90,"xanchor":"left","yanchor":"middle"}],"yaxis":{"domain":[0.51268391679350589,1],"automargin":true,"type":"linear","autorange":false,"range":[1.5288999999999999,4.8530999999999995],"tickmode":"array","ticktext":["2","3","4"],"tickvals":[2,3,4],"categoryorder":"array","categoryarray":["2","3","4"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0.51268391679350589,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","y0":0.51268391679350589,"y1":1,"x0":0,"x1":23.37899543378996,"xanchor":1,"xsizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":0.48731608320649417},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","y0":0,"y1":0.48731608320649417,"x0":0,"x1":23.37899543378996,"xanchor":1,"xsizemode":"pixel"}],"yaxis2":{"type":"linear","autorange":false,"range":[16.880965909090889,53.999715909090909],"tickmode":"array","ticktext":["20","30","40","50"],"tickvals":[20,30,40,50],"categoryorder":"array","categoryarray":["20","30","40","50"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"domain":[0,0.48731608320649417],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"1645d45e0739a":{"x":{},"y":{},"type":"scatter"}},"cur_data":"1645d45e0739a","visdat":{"1645d45e0739a":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p><img src="4_4_commodity_price_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 

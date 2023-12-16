@@ -116,7 +116,18 @@ df_2019.reset_index(inplace=True)
 
 df_2019 = df_2019.fillna(0)
 
-df_2019.head(15)
+df_2019.head(5).to_csv('../../data/02-visualization-data/df_2019.csv', index=False)
+```
+
+``` {r}
+#| echo: false
+
+# Read csv file
+df_2019 <- read.csv('../../data/02-visualization-data/df_2019.csv')
+
+df_2019 <- t(df_2019)
+
+knitr::kable(head(df_2019, 5))
 ```
 
 <br>
@@ -150,7 +161,18 @@ df_2022.reset_index(inplace=True)
 
 df_2022 = df_2022.fillna(0)
 
-df_2022.head(15)
+df_2022.head(5).to_csv('../../data/02-visualization-data/df_2022.csv', index=False)
+```
+
+``` {r}
+#| echo: false
+
+# Read csv file
+df_2022 <- read.csv('../../data/02-visualization-data/df_2022.csv')
+
+df_2022 <- t(df_2022)
+
+knitr::kable(head(df_2022, 5))
 ```
 
 <br>

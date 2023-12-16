@@ -113,13 +113,9 @@ To create the k-means model that will be applied to the analysis, we will use th
 To create the DBSCAN model, we will use the dbscan function from the Sklearn package. DBSCAN model groups the data point by density in the space. Similarly to k-means, in every iteration the distance from the points to the centroids is calculated in order to assign the points to the clusters. The function has a different parameter, eps, which is the calculation of the number of clusters: $eps = 0.25$ x $(clusters - 1)$.
 This model do not assign outlier points to the clusters which this is a disadvantage.
 
-*add Hierarchical*
 To create the hierarchical clustering, we will use the agglomerative function from the Sklearn package. This model focuses on creating a hierarchy of clusters and merging them on each iteration. 
 
-*add Elbow*
-
-*add silhouette*
-
+There are two methods we can use to evaluate the performance of the models and make decisions about improvements through the hyperparameter tuning technique. For k-means, we can use the elbow method, which consists of determining the optimal number of clusters by observing the inflection point. This means that the marginal value is close to 0, since adding one more cluster does not make a significant difference in performance to justify the complexity. The second method is the silhouette metric, which evaluates the quality of the clusters and the goal is to find the number of clusters that maximizes this value while minimizing the complexity.
 :::
 
 
@@ -128,18 +124,13 @@ To create the hierarchical clustering, we will use the agglomerative function fr
 
 There are several steps to the methodology for this section. The first is to select the data to be used for the clustering analysis. This data should not contain any labels for this analysis, as we want to find a relationship between the companies without knowing the actual relationship.
 
-The next step is to find the optimal number of clusters per algorithm in the hyperparameter tuning. For this analysis we use a function developed during the course, where the input parameters are the data itself, the algorithm to be evaluated, the maximum number of clusters, and a boolean parameter to show the output or not. This step is explained in detail in the Hyperparameter Tuning section.
-
-With the optimal number of clusters, we will apply the final model to the data and plot the results to find insights and draw conclusions.
+The next step is to find the optimal number of clusters per algorithm in the hyperparameter tuning. For this analysis we use a function developed during the course, where the input parameters are the data itself, the algorithm to be evaluated, the maximum number of clusters, and a boolean parameter to show the output or not. This step is explained in detail in the Hyperparameter Tuning section. With the optimal number of clusters, we will apply the final model to the data and plot the results to find insights and draw conclusions.
 :::
 
-### Data selection
+## Data selection
 ::: {.justify}
 
-*If you have not done so already, create either a numeric record feature dataset AND/OR a text feature dataset from your existing data.*
-
-For this analysis we will use the output dataset we obtained dimensionality reduction. 
-
+For this analysis, we will use the financial data of lithium companies. Considering the high number of features in this dataset, we decide to use the output dataset obtained from the dimensionality reduction analysis. This is very helpful because we have reduced the variability while maintaining the quality of the data.
 
 :::
 
@@ -184,7 +175,16 @@ X1_2019 = pca.fit_transform(X_2019)
 
 results_2019 = pd.DataFrame({'X1': X1_2019[:, 0], 'X2': X1_2019[:, 1], 'Y': Y_2019})
 
-results_2019
+results_2019.head(5).to_csv('../../data/02-visualization-data/results_2019.csv', index=False)
+```
+
+``` {r}
+#| echo: false
+
+# Read csv file
+results_2019 <- read.csv('../../data/02-visualization-data/results_2019.csv')
+
+knitr::kable(head(results_2019, 5))
 ```
 
 ```{python}
@@ -223,25 +223,35 @@ X1_2022 = pca.fit_transform(X_2022)
 
 results_2022 = pd.DataFrame({'X1': X1_2022[:, 0], 'X2': X1_2022[:, 1], 'Y': Y_2022})
 
-results_2022
+results_2022.head(5).to_csv('../../data/02-visualization-data/results_2022.csv', index=False)
 ```
 
-### Hyper-parameter tuning
+``` {r}
+#| echo: false
+
+# Read csv file
+results_2022 <- read.csv('../../data/02-visualization-data/results_2022.csv')
+
+knitr::kable(head(results_2022, 5))
+```
+
+## Hyper-parameter tuning
 ::: {.justify}
 
-*For each of the three clustering algorithms, perform any relevant parameter tuning in an attempt to achieve the optimal clustering results*
+As mentioned earlier, hyperparameter tuning is a technique in some machine learning algorithms, such as clustering, where the goal is to optimize the parameters to improve performance. This can be done by iterating different parameters and comparing the results in terms of performance metrics. The hyperparameter we are tuning for clustering is the number of clusters used to group the data points.
 
-*Explore different choices of distance metric for the algorithm. Which distance metric seems to works best in which cases and why?*
+For this analysis, we created a function that aims to maximize the silhouette metric. After running the function on the 2019 and 2022 data and the k-means model, we can see that the optimal number of clusters is 2. When running the function for the DBSCAN, there is a warning, and the output is not displayed. After some research, we find that this is happening because this type of model does not assign outlier values to clusters, causing that the number of clusters identified is equal to 1. The function allows to assess the maximum silhouette for a minimum of two clusters. After running the function using the Hierarchical clustering model, we observe that for both 2019 and 2022 the optimal number of clusters is 2. 
+
+Therefore, based on the results we obtained from evaluating the silhouette function for each clustering method we can proceed to run the final models.
 :::
 
-**Silhouette Score Function**
 
 ```{python}
 #| echo: true
 #| message: false
 #| warning: false
 #| code-fold: true
-#| code-summary: "{python}"
+#| code-summary: "Function maximize_silhouette()"
 
 def maximize_silhouette(X,algo="birch",nmax=20,i_plot=False):
 
@@ -365,10 +375,10 @@ opt_labels_ag = maximize_silhouette(X1_2019, algo="ag", nmax=9, i_plot=True)
 opt_labels_ag = maximize_silhouette(X1_2022, algo="ag", nmax=9, i_plot=True)
 ```
 
-### Final Models
+## Final Models
 ::: {.justify}
 
-*Re-do the analysis one last time with the optimal parameter choice to get your “final results”*
+Below, we can find the plots for each clustering method and for each dataset being analyzed. In the results section we will analyze the visualizations and insights we can observe.
 ::: 
 
 
@@ -472,21 +482,23 @@ plot(X1_2022, labels_ag)
 
 ## Results
 ::: {.justify}
+The first clustering method was k-means for 2019 data. Here we can observe the two clusters that were identified. The yellow points are closer together compared to the purple ones which are far from the cluster and far from each other. Comparing this plot to the 2022 data plot we can observe there is one point that was classified to the other cluster. In addition, we can observe that the location of the clusters was shifted down. 
 
-*Discuss, illustrate, and compare the results of your various clustering analysis methods*
+The second clustering method was DBSCAN applied for 2019 and 2022 data. As it was explained earlier, this clustering method is identifying only one cluster because there are two outlier points that cannot be classified as to a cluster. This approach is very useful for datasets that contain more that 2 clusters because outliers can be easily identified instead to be classified to a cluster. On the other hand, for this specific case, it was a disadvantage because there was waste of time while trying to troubleshoot the code.
 
-*Which method seemed to work the best and why, which was easier to use or preferable*
+The third method is Hierarchical clustering. When we apply the selected model to the two datasets, we can observe that the results are very similar to the k-means model, therefore the conclusions are the same. 
 
-*Did the clustering results provide any new insights into your data?*
+In gerenal terms, both k-means and Hierarchical clustering suggests that there is a clear difference in the financial performance of the companies during this years.
 :::
 
 
 ## Conclusions
 ::: {.justify}
+As a summary for the analysis done, we first selected the data we wanted to use, then we used the function to maximize the silhouette metric to find the optimal number of clusters for each model and finally plotted the results and found insights. 
 
-*Summarize & wrap-up the report*
+Clustering can be very useful to identify similar data points without having existing labels. For this analysis we took an additional step increasing the complexity of the analysis as we did two different data sets with the goal to understand how the clusters have changed over time. This allows to get additional insights of the data analyzed.
 
-*Key and important findings and how these findings affect real-life and real people*
+In future analysis it would be useful to create a function that automatically builds visualizations that allow to compare the clusters over a certain period of time in order to understand how the relationship between the data changes.
 :::
 
 <!-- 

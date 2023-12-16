@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Science &amp; Analytics - Data Gathering Python</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Data Science &amp; Analytics</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://mazuckerberg.georgetown.domains/" rel="" target="">
+ <span class="menu-text">Home | About me</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Data Gathering Python</li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://github.com/anly501/dsan-5000-project-mazuckerberg-git" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://github.com/anly501/dsan-5000-project-mazuckerberg-git/tree/main/data" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../1_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../2_data_gathering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Gathering</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../3_data_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Cleaning</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../4_data_exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Exploration</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../5_NaiveBayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Naïve Bayes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../6_clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clustering</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../7_dimensionality_reduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dimensionality reduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../8_decision_trees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Decision Trees</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../9_ARM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARM</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../10_conclusions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusions</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lithium-news" id="toc-lithium-news" class="nav-link active" data-scroll-target="#lithium-news">Lithium News</a></li>
+  <li><a href="#ibm-watson---sentiment-analysis" id="toc-ibm-watson---sentiment-analysis" class="nav-link" data-scroll-target="#ibm-watson---sentiment-analysis">IBM Watson - Sentiment Analysis</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Gathering Python</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date, timedelta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="lithium-news" class="level2">
+<h2 class="anchored" data-anchor-id="lithium-news">Lithium News</h2>
+<div class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> newsapi.newsapi_client <span class="im">import</span> NewsApiClient</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> date.today()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(date)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>date_past <span class="op">=</span> date.today() <span class="op">-</span> timedelta(days<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(date_past)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'auth.k'</span>,<span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>ak <span class="op">=</span> f.readlines()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>f.close()</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#newsapi = NewsApiClient(api_key=ak[0])</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>newsapi <span class="op">=</span> NewsApiClient(api_key<span class="op">=</span><span class="st">'6c4d77d5f3ab45749cf47b85c1032fe6'</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>sources <span class="op">=</span> newsapi.get_sources()</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>sources <span class="op">=</span> pd.DataFrame(sources[<span class="st">'sources'</span>])</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>sources <span class="op">=</span> sources[(sources[<span class="st">'language'</span>] <span class="op">==</span> <span class="st">'en'</span>) <span class="op">&amp;</span> (sources[<span class="st">'country'</span>] <span class="op">==</span> <span class="st">'us'</span>) <span class="op">&amp;</span> <span class="op">~</span>sources[<span class="st">'category'</span>].isin([<span class="st">'sports'</span>, <span class="st">'entertainment'</span>, <span class="st">'health'</span>])]</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>df_sources <span class="op">=</span> <span class="st">', '</span>.join(sources[<span class="st">'id'</span>].astype(<span class="bu">str</span>))</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>df_domains <span class="op">=</span> <span class="st">', '</span>.join(sources[<span class="st">'url'</span>].astype(<span class="bu">str</span>))</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>all_articles <span class="op">=</span> newsapi.get_everything(q<span class="op">=</span><span class="st">'lithium'</span>,</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                                      sources<span class="op">=</span><span class="bu">str</span>(df_sources),</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                                      domains<span class="op">=</span><span class="bu">str</span>(df_domains),</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>                                      from_param<span class="op">=</span>date_past,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>                                      to<span class="op">=</span>date,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>                                      language<span class="op">=</span><span class="st">'en'</span>,</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>                                      sort_by<span class="op">=</span><span class="st">'relevancy'</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>df_articles <span class="op">=</span> pd.DataFrame(all_articles[<span class="st">'articles'</span>])</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>df_articles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2023-11-02
+2023-10-18</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="61">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">author</th>
+<th data-quarto-table-cell-role="th">title</th>
+<th data-quarto-table-cell-role="th">description</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">urlToImage</th>
+<th data-quarto-table-cell-role="th">publishedAt</th>
+<th data-quarto-table-cell-role="th">content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>{'id': 'wired', 'name': 'Wired'}</td>
+<td>Grace Browne, Matt Reynolds</td>
+<td>Here’s the Truth Behind the Biggest (and Dumbe...</td>
+<td>Yes, charging your phone overnight is bad for ...</td>
+<td>https://www.wired.com/story/how-to-improve-bat...</td>
+<td>https://media.wired.com/photos/653b8f898ed7be7...</td>
+<td>2023-10-27T11:00:00Z</td>
+<td>In lithium-ion batteries, thats no longer the ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>{'id': 'the-verge', 'name': 'The Verge'}</td>
+<td>Andrew J. Hawkins</td>
+<td>Ford hits the brakes on $12 billion in EV spen...</td>
+<td>Ford is pausing about $12 billion in spending ...</td>
+<td>https://www.theverge.com/2023/10/26/23934172/f...</td>
+<td>https://cdn.vox-cdn.com/thumbor/LpKbkjEO0XFAxX...</td>
+<td>2023-10-27T00:16:44Z</td>
+<td>Ford hits the brakes on $12 billion in EV spen...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>{'id': 'ars-technica', 'name': 'Ars Technica'}</td>
+<td>Jonathan M. Gitlin</td>
+<td>A giant battery gives this new school bus a 30...</td>
+<td>The Type-D school bus uses a 387 kWh lithium i...</td>
+<td>https://arstechnica.com/cars/2023/10/this-elec...</td>
+<td>https://cdn.arstechnica.net/wp-content/uploads...</td>
+<td>2023-10-31T11:00:53Z</td>
+<td>Enlarge/ GreenPower has given its class-D elec...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>{'id': 'business-insider', 'name': 'Business I...</td>
+<td>Nathan Rennolds</td>
+<td>China's led the EV race – but it may be runnin...</td>
+<td>The world has woken up to China's control over...</td>
+<td>https://www.businessinsider.com/electric-cars-...</td>
+<td>https://i.insider.com/652eba9496f7540cd05e9155...</td>
+<td>2023-10-22T09:43:12Z</td>
+<td>Wuling Hongguang Mini EVs on display at the Sh...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>{'id': 'the-next-web', 'name': 'The Next Web'}</td>
+<td>Ioanna Lykiardopoulou</td>
+<td>Startup bags €8.5M to bolster Europe’s EV batt...</td>
+<td>In a big boost to sustainable mobility, 130 mi...</td>
+<td>https://thenextweb.com/news/startup-to-bolster...</td>
+<td>https://img-cdn.tnwcdn.com/image/tnw-blurple?f...</td>
+<td>2023-10-24T04:03:53Z</td>
+<td>In a big boost to sustainable mobility, 130 mi...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>{'id': 'the-next-web', 'name': 'The Next Web'}</td>
+<td>Siôn Geschwindt</td>
+<td>Norway’s AutoStore unveils next-gen electric w...</td>
+<td>Norwegian tech company AutoStore today unveile...</td>
+<td>https://thenextweb.com/news/norway-autostore-u...</td>
+<td>https://img-cdn.tnwcdn.com/image/tnw-blurple?f...</td>
+<td>2023-10-23T04:00:52Z</td>
+<td>Norwegian tech company AutoStore today unveile...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>{'id': 'business-insider', 'name': 'Business I...</td>
+<td>Sonam Sheth,Jessica Orwig</td>
+<td>Humans have launched so much to space that it'...</td>
+<td>Researchers traced the metals back to rockets ...</td>
+<td>https://www.businessinsider.com/rocket-satelli...</td>
+<td>https://i.insider.com/6530534796f7540cd05fff1c...</td>
+<td>2023-10-18T23:13:29Z</td>
+<td>When something enters Earth's atmosphere, it's...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>{'id': 'engadget', 'name': 'Engadget'}</td>
+<td>Andrew Tarantola</td>
+<td>NASA's John Mather keeps redefining our unders...</td>
+<td>Space isn't hard only on account of the rocket...</td>
+<td>https://www.engadget.com/inside-the-star-facto...</td>
+<td>https://s.yimg.com/ny/api/res/1.2/pcPe4lUVbQVQ...</td>
+<td>2023-10-22T14:30:46Z</td>
+<td>Space isn't hard only on account of the rocket...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>{'id': 'business-insider', 'name': 'Business I...</td>
+<td>Jenny McGrath</td>
+<td>Why we don't have fusion power plants yet, and...</td>
+<td>Trying to create a fusion reaction on Earth is...</td>
+<td>https://www.businessinsider.com/why-no-fusion-...</td>
+<td>https://i.insider.com/6531858096f7540cd060d9a2...</td>
+<td>2023-10-29T12:19:01Z</td>
+<td>The National Spherical Torus Experiment-Upgrad...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>{'id': 'time', 'name': 'Time'}</td>
+<td>Eliana Dockterman</td>
+<td>Britney Spears Feared Her Family Would Kill He...</td>
+<td>The pop star writes in her new memoir, The Wom...</td>
+<td>https://time.com/6326001/britney-spears-book-f...</td>
+<td>https://api.time.com/wp-content/uploads/2023/1...</td>
+<td>2023-10-19T20:32:08Z</td>
+<td>In her new book, The Woman in Me, Britney Spea...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>{'id': 'time', 'name': 'Time'}</td>
+<td>Moises Mendez II</td>
+<td>‘She Should Have Taken My Side.’ Britney Spear...</td>
+<td>In 'The Woman in Me,' Britney Spears writes ca...</td>
+<td>https://time.com/6326006/britney-spears-jamie-...</td>
+<td>https://api.time.com/wp-content/uploads/2023/1...</td>
+<td>2023-10-19T21:13:59Z</td>
+<td>The rocky relationship between Britney Spears ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>{'id': 'cbs-news', 'name': 'CBS News'}</td>
+<td>Kate Gibson</td>
+<td>Feds warn against using Toos electric scooters...</td>
+<td>The U.S. Consumer Product Safety Commission sa...</td>
+<td>https://www.cbsnews.com/news/product-recall-el...</td>
+<td>https://assets2.cbsnewsstatic.com/hub/i/r/2023...</td>
+<td>2023-10-23T19:46:00Z</td>
+<td>Riders of Toos Elite 60-volt electric scooters...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>{'id': 'next-big-future', 'name': 'Next Big Fu...</td>
+<td>Brian Wang</td>
+<td>Better EV Batteries and a Glut of Batteries Sh...</td>
+<td>CATL’s new Shenxing ultra-fast charging iron L...</td>
+<td>https://www.nextbigfuture.com/2023/10/better-e...</td>
+<td>https://nextbigfuture.s3.amazonaws.com/uploads...</td>
+<td>2023-10-25T15:47:05Z</td>
+<td>Brian Wang is a Futurist Thought Leader and a ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>{'id': 'new-scientist', 'name': 'New Scientist'}</td>
+<td>Jeremy Hsu</td>
+<td>Cheap salty solution cools computers and boost...</td>
+<td>Water containing a cheap lithium bromide salt ...</td>
+<td>https://www.newscientist.com/article/2400457-c...</td>
+<td>https://images.newscientist.com/wp-content/upl...</td>
+<td>2023-10-31T15:00:23Z</td>
+<td>Passive cooling could be more efficient using ...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>{'id': 'fortune', 'name': 'Fortune'}</td>
+<td>Matthew Perrone, The Associated Press</td>
+<td>E-cigarettes pose a new environmental dilemma—...</td>
+<td>Communities are experimenting with new ways to...</td>
+<td>https://fortune.com/2023/10/19/e-cigarettes-po...</td>
+<td>https://content.fortune.com/wp-content/uploads...</td>
+<td>2023-10-19T14:46:55Z</td>
+<td>With the growing popularity of&nbsp;disposable e-ci...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>{'id': 'fortune', 'name': 'Fortune'}</td>
+<td>Hannah Schoenbaum, The Associated Press</td>
+<td>Toyota literally doubles down on EVs in North ...</td>
+<td>Toyota's first U.S. automotive battery plant, ...</td>
+<td>https://fortune.com/2023/10/31/toyota-electric...</td>
+<td>https://content.fortune.com/wp-content/uploads...</td>
+<td>2023-10-31T20:37:05Z</td>
+<td>Toyota will invest an additional $8 billion in...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>{'id': 'new-scientist', 'name': 'New Scientist'}</td>
+<td>Matthew Sparkes</td>
+<td>What are solid-state batteries and why do we n...</td>
+<td>Batteries containing solid electrolytes have m...</td>
+<td>https://www.newscientist.com/article/2398896-w...</td>
+<td>https://images.newscientist.com/wp-content/upl...</td>
+<td>2023-10-24T11:54:42Z</td>
+<td>Solid-state batteries could be lighter and mor...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>{'id': 'the-verge', 'name': 'The Verge'}</td>
+<td>Andrew J. Hawkins</td>
+<td>Redwood Materials is recycling its first stati...</td>
+<td>Redwood Materials will decommission and recycl...</td>
+<td>https://www.theverge.com/2023/11/2/23943267/re...</td>
+<td>https://cdn.vox-cdn.com/thumbor/UUXd9_9UhChk9E...</td>
+<td>2023-11-02T13:00:00Z</td>
+<td>Redwood Materials is recycling its first stati...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>{'id': 'newsweek', 'name': 'Newsweek'}</td>
+<td>Thomas Kika</td>
+<td>'Urgent' Warning Issued for Electric Scooter A...</td>
+<td>A battery malfunction in one of the scooters w...</td>
+<td>https://www.newsweek.com/urgent-warning-issued...</td>
+<td>https://d.newsweek.com/en/full/2298354/electri...</td>
+<td>2023-10-23T20:49:19Z</td>
+<td>U.S. consumers are being strongly warned again...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>HANNAH SCHOENBAUM /REPORT FOR AMERICA Associat...</td>
+<td>Toyota more than doubles investment and job cr...</td>
+<td>Toyota will invest an additional $8 billion in...</td>
+<td>https://abcnews.go.com/Technology/wireStory/to...</td>
+<td>https://i.abcnewsfe.com/a/5ace85e3-724d-46db-8...</td>
+<td>2023-10-31T13:42:59Z</td>
+<td>RALEIGH, N.C. -- Toyota will invest an additio...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>{'id': 'fortune', 'name': 'Fortune'}</td>
+<td>James K. Glassman</td>
+<td>How the West can help Ukraine win its economic...</td>
+<td>'Right now, Ukraine’s allies can help most by ...</td>
+<td>https://fortune.com/2023/10/31/west-ukraine-ec...</td>
+<td>https://content.fortune.com/wp-content/uploads...</td>
+<td>2023-10-31T11:15:22Z</td>
+<td>Since Russian President Vladimir Putin invaded...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>{'id': 'breitbart-news', 'name': 'Breitbart Ne...</td>
+<td>John Hayward, John Hayward</td>
+<td>Taliban to Formally Join China’s Belt and Road...</td>
+<td>The Taliban plans to formally join China’s Bel...</td>
+<td>https://www.breitbart.com/asia/2023/10/19/tali...</td>
+<td>https://media.breitbart.com/media/2023/10/Tali...</td>
+<td>2023-10-19T15:47:29Z</td>
+<td>Haji Nooruddin Azizi, the acting commerce mini...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>YURI KAGEYAMA AP business writer</td>
+<td>Japanese automaker Toyota's profits zoom on ch...</td>
+<td>Toyota’s profit in the latest quarter jumped n...</td>
+<td>https://abcnews.go.com/International/wireStory...</td>
+<td>https://i.abcnewsfe.com/a/0b9f4a7b-034e-4653-9...</td>
+<td>2023-11-01T06:22:34Z</td>
+<td>TOKYO -- Toyotas July-September profit jumped ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>MATTHEW PERRONE AP health writer</td>
+<td>Communities can't recycle or trash disposable ...</td>
+<td>Communities across the U.S. are confronting a ...</td>
+<td>https://abcnews.go.com/Health/wireStory/commun...</td>
+<td>https://i.abcnewsfe.com/a/1e51aec8-b5f5-4031-b...</td>
+<td>2023-10-19T12:22:30Z</td>
+<td>WASHINGTON -- With the growing popularity of d...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>YURI KAGEYAMA AP business writer</td>
+<td>G-7 nations back strong supply chains for ener...</td>
+<td>Trade and economy officials from the Group of ...</td>
+<td>https://abcnews.go.com/International/wireStory...</td>
+<td>https://i.abcnewsfe.com/a/1ad16d9a-8471-4838-9...</td>
+<td>2023-10-29T08:06:27Z</td>
+<td>TOKYO -- Trade and economy officials from the ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>{'id': 'new-scientist', 'name': 'New Scientist'}</td>
+<td>James Dinneen</td>
+<td>Desert plant collects water from air by excret...</td>
+<td>An evergreen desert shrub common in the Middle...</td>
+<td>https://www.newscientist.com/article/2400273-d...</td>
+<td>https://images.newscientist.com/wp-content/upl...</td>
+<td>2023-10-30T19:00:25Z</td>
+<td>The Athel tamarisk has ingenious ways of survi...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>{'id': 'newsweek', 'name': 'Newsweek'}</td>
+<td>Meghan Gunn</td>
+<td>Five Tech Innovations That Could Help Save the...</td>
+<td>From a paint that cools buildings to a new car...</td>
+<td>https://www.newsweek.com/five-tech-innovations...</td>
+<td>https://d.newsweek.com/en/full/2294547/dr-xiul...</td>
+<td>2023-10-30T16:13:19Z</td>
+<td>Around the world, entrepreneurs are trying to ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>HANNAH SCHOENBAUM /REPORT FOR AMERICA Associat...</td>
+<td>Toyota more than doubles investment and job cr...</td>
+<td>Toyota will invest an additional $8 billion in...</td>
+<td>https://abcnews.go.com/Business/wireStory/toyo...</td>
+<td>https://i.abcnewsfe.com/a/5ace85e3-724d-46db-8...</td>
+<td>2023-10-31T13:42:54Z</td>
+<td>RALEIGH, N.C. -- Toyota will invest an additio...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>YURI KAGEYAMA AP business writer</td>
+<td>Japan's automakers unveil EVs galore at Tokyo ...</td>
+<td>Toyota, Honda, Nissan and other Japanese autom...</td>
+<td>https://abcnews.go.com/Technology/wireStory/ja...</td>
+<td>https://i.abcnewsfe.com/a/946cd347-6904-4e14-9...</td>
+<td>2023-10-25T03:51:22Z</td>
+<td>TOKYO -- TOKYO (AP) We love battery EVs.\r\nTa...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>MATTHEW PERRONE AP health writer</td>
+<td>Communities can't recycle or trash disposable ...</td>
+<td>Communities across the U.S. are confronting a ...</td>
+<td>https://abcnews.go.com/Business/wireStory/comm...</td>
+<td>https://i.abcnewsfe.com/a/1e51aec8-b5f5-4031-b...</td>
+<td>2023-10-19T21:26:36Z</td>
+<td>WASHINGTON -- With the growing popularity of d...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>YURI KAGEYAMA AP business writer</td>
+<td>Japan's automakers unveil EVs galore at Tokyo ...</td>
+<td>Toyota, Honda, Nissan and other Japanese autom...</td>
+<td>https://abcnews.go.com/International/wireStory...</td>
+<td>https://i.abcnewsfe.com/a/946cd347-6904-4e14-9...</td>
+<td>2023-10-25T03:50:32Z</td>
+<td>TOKYO -- TOKYO (AP) We love battery EVs.\r\nTa...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>FATIMA HUSSEIN Associated Press</td>
+<td>Yellen calls for more US-Latin America trade, ...</td>
+<td>Treasury Secretary Janet Yellen wants Latin Am...</td>
+<td>https://abcnews.go.com/US/wireStory/treasury-s...</td>
+<td>https://i.abcnewsfe.com/a/7d503fb7-17af-4773-b...</td>
+<td>2023-11-02T12:22:28Z</td>
+<td>WASHINGTON -- Treasury Secretary Janet Yellen ...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>YURI KAGEYAMA AP business writer</td>
+<td>Japanese automaker Toyota's profits zoom on ch...</td>
+<td>Toyota’s profit in the latest quarter jumped n...</td>
+<td>https://abcnews.go.com/Business/wireStory/japa...</td>
+<td>https://i.abcnewsfe.com/a/0b9f4a7b-034e-4653-9...</td>
+<td>2023-11-01T06:22:38Z</td>
+<td>TOKYO -- Toyotas July-September profit jumped ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>FATIMA HUSSEIN Associated Press</td>
+<td>Treasury Secretary Yellen calls for more US-La...</td>
+<td>Treasury Secretary Janet Yellen wants Latin Am...</td>
+<td>https://abcnews.go.com/Business/wireStory/trea...</td>
+<td>https://i.abcnewsfe.com/a/7d503fb7-17af-4773-b...</td>
+<td>2023-11-02T12:22:34Z</td>
+<td>WASHINGTON -- Treasury Secretary Janet Yellen ...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>YURI KAGEYAMA AP business writer</td>
+<td>G-7 nations back strong supply chains for ener...</td>
+<td>Trade and economy officials from the Group of ...</td>
+<td>https://abcnews.go.com/Business/wireStory/7-na...</td>
+<td>https://i.abcnewsfe.com/a/1ad16d9a-8471-4838-9...</td>
+<td>2023-10-29T08:22:22Z</td>
+<td>TOKYO -- Trade and economy officials from the ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>{'id': 'time', 'name': 'Time'}</td>
+<td>Eliana Dockterman</td>
+<td>Britney Spears Is Suspended Between Girlhood a...</td>
+<td>In her highly anticipated memoir, the pop star...</td>
+<td>https://time.com/6326344/britney-spears-the-wo...</td>
+<td>https://api.time.com/wp-content/uploads/2023/1...</td>
+<td>2023-10-20T21:39:30Z</td>
+<td>Britney Spears knows what it means to be depri...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>{'id': 'abc-news', 'name': 'ABC News'}</td>
+<td>YURI KAGEYAMA AP business writer</td>
+<td>Japan's automakers unveil EVs galore at Tokyo ...</td>
+<td>Toyota, Honda, Nissan and other Japanese autom...</td>
+<td>https://abcnews.go.com/Business/wireStory/japa...</td>
+<td>https://i.abcnewsfe.com/a/946cd347-6904-4e14-9...</td>
+<td>2023-10-25T03:50:36Z</td>
+<td>TOKYO -- TOKYO (AP) We love battery EVs.\r\nTa...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">37</td>
+<td>{'id': 'ars-technica', 'name': 'Ars Technica'}</td>
+<td>Jonathan M. Gitlin</td>
+<td>Honda says making cheap electric vehicles is t...</td>
+<td>The platform was to use GM's Ultium batteries.</td>
+<td>https://arstechnica.com/cars/2023/10/honda-can...</td>
+<td>https://cdn.arstechnica.net/wp-content/uploads...</td>
+<td>2023-10-25T15:25:55Z</td>
+<td>Enlarge/ A GM Ultium battery pack. \r\n75 with...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">38</td>
+<td>{'id': 'breitbart-news', 'name': 'Breitbart Ne...</td>
+<td>John Binder, John Binder</td>
+<td>GM Backtracks on Joe Biden's Green Energy Agen...</td>
+<td>After investing billions to adhere to Presiden...</td>
+<td>https://www.breitbart.com/economy/2023/10/31/g...</td>
+<td>https://media.breitbart.com/media/2023/10/Gett...</td>
+<td>2023-10-31T18:55:02Z</td>
+<td>After investing billions to adhere to Presiden...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">39</td>
+<td>{'id': 'breitbart-news', 'name': 'Breitbart Ne...</td>
+<td>John Binder, John Binder</td>
+<td>UAW Strike: 6.8K Auto Workers Shut Down Stella...</td>
+<td>Nearly 7,000 auto workers at Stellantis' Sterl...</td>
+<td>https://www.breitbart.com/politics/2023/10/23/...</td>
+<td>https://media.breitbart.com/media/2023/10/Gett...</td>
+<td>2023-10-23T22:15:07Z</td>
+<td>Nearly 7,000 auto workers at Stellantis’ Sterl...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">40</td>
+<td>{'id': 'fox-news', 'name': 'Fox News'}</td>
+<td>Associated Press</td>
+<td>US struggles to discard hazardous materials fr...</td>
+<td>E-cigarettes are considered hazardous waste th...</td>
+<td>https://www.foxnews.com/us/us-struggles-discar...</td>
+<td>https://static.foxnews.com/foxnews.com/content...</td>
+<td>2023-10-19T17:55:51Z</td>
+<td>With the growing popularity of disposable e-ci...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">41</td>
+<td>{'id': 'techradar', 'name': 'TechRadar'}</td>
+<td>space2occupy@gmail.com (James Holland)</td>
+<td>Yeedi Cube robot vacuum and mop review: lots o...</td>
+<td>With its 2-in-1 vacuuming and mopping cleaning...</td>
+<td>https://www.techradar.com/home/robot-vacuums/y...</td>
+<td>https://cdn.mos.cms.futurecdn.net/gnPf25Xz3Ui3...</td>
+<td>2023-10-30T13:00:29Z</td>
+<td>Yeedi Cube: One-minute review\r\nThe Yeedi Cub...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42</td>
+<td>{'id': 'nbc-news', 'name': 'NBC News'}</td>
+<td>Chloe Melas</td>
+<td>Britney Spears reflects on her 'traumatizing' ...</td>
+<td>In her upcoming memoir, Britney Spears is shed...</td>
+<td>https://www.nbcnews.com/pop-culture/pop-cultur...</td>
+<td>https://media-cldnry.s-nbcnews.com/image/uploa...</td>
+<td>2023-10-20T04:06:21Z</td>
+<td>Britney Spears is shedding new light onto what...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">43</td>
+<td>{'id': 'fox-news', 'name': 'Fox News'}</td>
+<td>Peter Aitken</td>
+<td>Biden hosts anti-Israel world leader to talk c...</td>
+<td>Chile, Bolivia and Colombia all recalled their...</td>
+<td>https://www.foxnews.com/world/biden-hosts-anti...</td>
+<td>https://static.foxnews.com/foxnews.com/content...</td>
+<td>2023-11-02T08:00:19Z</td>
+<td>President Biden will meet with Chilean Preside...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">44</td>
+<td>{'id': 'breitbart-news', 'name': 'Breitbart Ne...</td>
+<td>John Binder, John Binder</td>
+<td>Joe Biden's Green Energy Flop: Automakers Real...</td>
+<td>American automakers are quickly learning that ...</td>
+<td>https://www.breitbart.com/economy/2023/10/27/j...</td>
+<td>https://media.breitbart.com/media/2023/10/Gett...</td>
+<td>2023-10-27T22:28:20Z</td>
+<td>After investing billions into a green energy a...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">45</td>
+<td>{'id': 'fox-news', 'name': 'Fox News'}</td>
+<td>Kristen Walker</td>
+<td>The latest attempt to take away your gas-power...</td>
+<td>Another government agency has proposed a rule ...</td>
+<td>https://www.foxnews.com/opinion/latest-attempt...</td>
+<td>https://static.foxnews.com/foxnews.com/content...</td>
+<td>2023-10-18T18:00:10Z</td>
+<td>In yet another attempt to regulate the car mar...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">46</td>
+<td>{'id': 'engadget', 'name': 'Engadget'}</td>
+<td>Steve Dent</td>
+<td>This 90-passenger school bus has nearly 300 mi...</td>
+<td>GreenPower has launched the Mega Beast electri...</td>
+<td>https://www.engadget.com/this-90-passenger-sch...</td>
+<td>https://s.yimg.com/ny/api/res/1.2/MZj6YDQcHvJg...</td>
+<td>2023-11-01T04:57:10Z</td>
+<td>Your EV may go a long way between charges, but...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">47</td>
+<td>{'id': 'reuters', 'name': 'Reuters'}</td>
+<td>Joseph White</td>
+<td>GM withdraws 2023 guidance as UAW strike costs...</td>
+<td>General Motors &lt;a href="https://www.reuters.co...</td>
+<td>https://www.reuters.com/business/autos-transpo...</td>
+<td>https://www.reuters.com/resizer/2eWtjHsHlJ4x8o...</td>
+<td>2023-10-24T10:40:38Z</td>
+<td>DETROIT, Oct 24 (Reuters) - General Motors (GM...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">48</td>
+<td>{'id': 'usa-today', 'name': 'USA Today'}</td>
+<td>Nada Hassanein</td>
+<td>Abortion ban medical exceptions often exclude ...</td>
+<td>Pregnant women were more likely to die from me...</td>
+<td>https://www.usatoday.com/story/news/nation/202...</td>
+<td>https://www.usatoday.com/gcdn/authoring/author...</td>
+<td>2023-10-26T11:35:39Z</td>
+<td>More than a dozen states now have&nbsp;near-total&nbsp;a...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sources</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="62">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">description</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">category</th>
+<th data-quarto-table-cell-role="th">language</th>
+<th data-quarto-table-cell-role="th">country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>abc-news</td>
+<td>ABC News</td>
+<td>Your trusted source for breaking news, analysi...</td>
+<td>https://abcnews.go.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>al-jazeera-english</td>
+<td>Al Jazeera English</td>
+<td>News, analysis from the Middle East and worldw...</td>
+<td>http://www.aljazeera.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>ars-technica</td>
+<td>Ars Technica</td>
+<td>The PC enthusiast's resource. Power users and ...</td>
+<td>http://arstechnica.com</td>
+<td>technology</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">8</td>
+<td>associated-press</td>
+<td>Associated Press</td>
+<td>The AP delivers in-depth coverage on the inter...</td>
+<td>https://apnews.com/</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>axios</td>
+<td>Axios</td>
+<td>Axios are a new media company delivering vital...</td>
+<td>https://www.axios.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">16</td>
+<td>bloomberg</td>
+<td>Bloomberg</td>
+<td>Bloomberg delivers business and markets news, ...</td>
+<td>http://www.bloomberg.com</td>
+<td>business</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">17</td>
+<td>breitbart-news</td>
+<td>Breitbart News</td>
+<td>Syndicated news and opinion website providing ...</td>
+<td>http://www.breitbart.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">18</td>
+<td>business-insider</td>
+<td>Business Insider</td>
+<td>Business Insider is a fast-growing business si...</td>
+<td>http://www.businessinsider.com</td>
+<td>business</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>cbs-news</td>
+<td>CBS News</td>
+<td>CBS News: dedicated to providing the best in j...</td>
+<td>http://www.cbsnews.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>cnn</td>
+<td>CNN</td>
+<td>View the latest news and breaking news today f...</td>
+<td>http://us.cnn.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25</td>
+<td>crypto-coins-news</td>
+<td>Crypto Coins News</td>
+<td>Providing breaking cryptocurrency news - focus...</td>
+<td>https://www.ccn.com</td>
+<td>technology</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>engadget</td>
+<td>Engadget</td>
+<td>Engadget is a web magazine with obsessive dail...</td>
+<td>https://www.engadget.com</td>
+<td>technology</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>fortune</td>
+<td>Fortune</td>
+<td>Fortune 500 Daily and Breaking Business News</td>
+<td>http://fortune.com</td>
+<td>business</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">38</td>
+<td>fox-news</td>
+<td>Fox News</td>
+<td>Breaking News, Latest News and Current News fr...</td>
+<td>http://www.foxnews.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">41</td>
+<td>google-news</td>
+<td>Google News</td>
+<td>Comprehensive, up-to-date news coverage, aggre...</td>
+<td>https://news.google.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">55</td>
+<td>hacker-news</td>
+<td>Hacker News</td>
+<td>Hacker News is a social news website focusing ...</td>
+<td>https://news.ycombinator.com</td>
+<td>technology</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">73</td>
+<td>msnbc</td>
+<td>MSNBC</td>
+<td>Breaking news and in-depth analysis of the hea...</td>
+<td>http://www.msnbc.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">76</td>
+<td>national-geographic</td>
+<td>National Geographic</td>
+<td>Reporting our world daily: original nature and...</td>
+<td>http://news.nationalgeographic.com</td>
+<td>science</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">77</td>
+<td>national-review</td>
+<td>National Review</td>
+<td>National Review: Conservative News, Opinion, P...</td>
+<td>https://www.nationalreview.com/</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">78</td>
+<td>nbc-news</td>
+<td>NBC News</td>
+<td>Breaking news, videos, and the latest top stor...</td>
+<td>http://www.nbcnews.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">80</td>
+<td>new-scientist</td>
+<td>New Scientist</td>
+<td>Breaking science and technology news from arou...</td>
+<td>https://www.newscientist.com/section/news</td>
+<td>science</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">82</td>
+<td>newsweek</td>
+<td>Newsweek</td>
+<td>Newsweek provides in-depth analysis, news and ...</td>
+<td>https://www.newsweek.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">83</td>
+<td>new-york-magazine</td>
+<td>New York Magazine</td>
+<td>NYMAG and New York magazine cover the new, the...</td>
+<td>http://nymag.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">84</td>
+<td>next-big-future</td>
+<td>Next Big Future</td>
+<td>Coverage of science and technology that have t...</td>
+<td>https://www.nextbigfuture.com</td>
+<td>science</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">88</td>
+<td>politico</td>
+<td>Politico</td>
+<td>Political news about Congress, the White House...</td>
+<td>https://www.politico.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">91</td>
+<td>recode</td>
+<td>Recode</td>
+<td>Get the latest independent tech news, reviews ...</td>
+<td>http://www.recode.net</td>
+<td>technology</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">92</td>
+<td>reddit-r-all</td>
+<td>Reddit /r/all</td>
+<td>Reddit is an entertainment, social news networ...</td>
+<td>https://www.reddit.com/r/all</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">93</td>
+<td>reuters</td>
+<td>Reuters</td>
+<td>Reuters.com brings you the latest news from ar...</td>
+<td>http://www.reuters.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">102</td>
+<td>techcrunch</td>
+<td>TechCrunch</td>
+<td>TechCrunch is a leading technology media prope...</td>
+<td>https://techcrunch.com</td>
+<td>technology</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">104</td>
+<td>techradar</td>
+<td>TechRadar</td>
+<td>The latest technology news and reviews, coveri...</td>
+<td>http://www.techradar.com</td>
+<td>technology</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">105</td>
+<td>the-american-conservative</td>
+<td>The American Conservative</td>
+<td>Realism and reform. A new voice for a new gene...</td>
+<td>http://www.theamericanconservative.com/</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">107</td>
+<td>the-hill</td>
+<td>The Hill</td>
+<td>The Hill is a top US political website, read b...</td>
+<td>http://thehill.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">109</td>
+<td>the-huffington-post</td>
+<td>The Huffington Post</td>
+<td>The Huffington Post is a politically liberal A...</td>
+<td>http://www.huffingtonpost.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">113</td>
+<td>the-next-web</td>
+<td>The Next Web</td>
+<td>The Next Web is one of the world’s largest onl...</td>
+<td>http://thenextweb.com</td>
+<td>technology</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">116</td>
+<td>the-verge</td>
+<td>The Verge</td>
+<td>The Verge covers the intersection of technolog...</td>
+<td>http://www.theverge.com</td>
+<td>technology</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">117</td>
+<td>the-wall-street-journal</td>
+<td>The Wall Street Journal</td>
+<td>WSJ online coverage of breaking news and curre...</td>
+<td>http://www.wsj.com</td>
+<td>business</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">118</td>
+<td>the-washington-post</td>
+<td>The Washington Post</td>
+<td>Breaking news and analysis on politics, busine...</td>
+<td>https://www.washingtonpost.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">119</td>
+<td>the-washington-times</td>
+<td>The Washington Times</td>
+<td>The Washington Times delivers breaking news an...</td>
+<td>https://www.washingtontimes.com/</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">120</td>
+<td>time</td>
+<td>Time</td>
+<td>Breaking news and analysis from TIME.com. Poli...</td>
+<td>http://time.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">121</td>
+<td>usa-today</td>
+<td>USA Today</td>
+<td>Get the latest national, international, and po...</td>
+<td>http://www.usatoday.com/news</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">122</td>
+<td>vice-news</td>
+<td>Vice News</td>
+<td>Vice News is Vice Media, Inc.'s current affair...</td>
+<td>https://news.vice.com</td>
+<td>general</td>
+<td>en</td>
+<td>us</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">123</td>
+<td>wired</td>
+<td>Wired</td>
+<td>Wired is a monthly American magazine, publishe...</td>
+<td>https://www.wired.com</td>
+<td>technology</td>
+<td>en</td>
+<td>us</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="ibm-watson---sentiment-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="ibm-watson---sentiment-analysis">IBM Watson - Sentiment Analysis</h2>
+<div class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pip install xlsxwriter</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pip install xlrd</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#pip install openpyxl</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_watson <span class="im">import</span> NaturalLanguageUnderstandingV1</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_cloud_sdk_core.authenticators <span class="im">import</span> IAMAuthenticator</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ibm_watson.natural_language_understanding_v1 <span class="im">import</span> Features, SentimentOptions</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_content <span class="op">=</span> pd.DataFrame(df_articles, columns<span class="op">=</span>[<span class="st">'source'</span>, <span class="st">'content'</span>, <span class="st">'publishedAt'</span>])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df_content[<span class="st">'source'</span>] <span class="op">=</span> df_content[<span class="st">'source'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x[<span class="st">'id'</span>])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vieja</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#_4YE1Qj6PFjke1zYsp7Kapgfu5laaaBE1E_ZUw1IiUPa</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Nueva</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#DHHnv30sML61Hn2pt6iHBdMKtj6bxV1PLvzg7j0OSQf3</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>authenticator <span class="op">=</span> IAMAuthenticator(<span class="st">'_4YE1Qj6PFjke1zYsp7Kapgfu5laaaBE1E_ZUw1IiUPa'</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>natural_language_understanding <span class="op">=</span> NaturalLanguageUnderstandingV1(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    version<span class="op">=</span><span class="st">'2020-08-01'</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    authenticator<span class="op">=</span>authenticator</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>natural_language_understanding.set_service_url(<span class="st">'https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/8b0909d1-3768-4c54-b80d-b9817610e36d'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#IBM Watson</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ibm_source <span class="op">=</span> []</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ibm_date <span class="op">=</span> []</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>ibm_score <span class="op">=</span> []</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>ibm_label <span class="op">=</span> []</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>ibm_content <span class="op">=</span> []</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, row <span class="kw">in</span> df_content.iterrows():</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> natural_language_understanding.analyze(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        text<span class="op">=</span>row[<span class="st">'content'</span>], </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        language <span class="op">=</span> <span class="st">'en'</span>, </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        features<span class="op">=</span>Features(sentiment<span class="op">=</span>SentimentOptions())).get_result()</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> row[<span class="st">'source'</span>]</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    ibm_source.append(s)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> row[<span class="st">'publishedAt'</span>]</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    ibm_date.append(d)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> row[<span class="st">'content'</span>]</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    ibm_content.append(c)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> response[<span class="st">'sentiment'</span>][<span class="st">'document'</span>][<span class="st">'score'</span>]</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="bu">round</span>(x, <span class="dv">4</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    ibm_score.append(x)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> response[<span class="st">'sentiment'</span>][<span class="st">'document'</span>][<span class="st">'label'</span>]</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    ibm_label.append(y)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(response['sentiment']['document']['score'])</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(response['sentiment']['document']['label'])</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(json.dumps(response, indent=2))</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    i<span class="op">=</span>i<span class="op">+</span><span class="dv">1</span>   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {<span class="st">"id"</span>: ibm_source, <span class="st">"ibm_date"</span>: ibm_date, <span class="st">"ibm_score"</span>: ibm_score, <span class="st">"ibm_label"</span>: ibm_label, <span class="st">"ibm_content"</span>: ibm_content}</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> results.merge(sources, how<span class="op">=</span><span class="st">'left'</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame(results, columns<span class="op">=</span>[<span class="st">'name'</span>, <span class="st">'category'</span>, <span class="st">'ibm_score'</span>, <span class="st">'ibm_label'</span>, <span class="st">'ibm_date'</span>, <span class="st">'ibm_content'</span>])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> results.rename(columns<span class="op">=</span>{<span class="st">'ibm_date'</span>: <span class="st">'date'</span>})</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>results[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(results[<span class="st">'date'</span>])</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>results[<span class="st">'date'</span>] <span class="op">=</span> results[<span class="st">'date'</span>].dt.date</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="82">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">category</th>
+<th data-quarto-table-cell-role="th">ibm_score</th>
+<th data-quarto-table-cell-role="th">ibm_label</th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">ibm_content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Wired</td>
+<td>technology</td>
+<td>-0.5961</td>
+<td>negative</td>
+<td>2023-10-27</td>
+<td>In lithium-ion batteries, thats no longer the ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>The Verge</td>
+<td>technology</td>
+<td>-0.8783</td>
+<td>negative</td>
+<td>2023-10-27</td>
+<td>Ford hits the brakes on $12 billion in EV spen...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Ars Technica</td>
+<td>technology</td>
+<td>0.2886</td>
+<td>positive</td>
+<td>2023-10-31</td>
+<td>Enlarge/ GreenPower has given its class-D elec...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Business Insider</td>
+<td>business</td>
+<td>0.6452</td>
+<td>positive</td>
+<td>2023-10-22</td>
+<td>Wuling Hongguang Mini EVs on display at the Sh...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>The Next Web</td>
+<td>technology</td>
+<td>0.6209</td>
+<td>positive</td>
+<td>2023-10-24</td>
+<td>In a big boost to sustainable mobility, 130 mi...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>The Next Web</td>
+<td>technology</td>
+<td>0.9080</td>
+<td>positive</td>
+<td>2023-10-23</td>
+<td>Norwegian tech company AutoStore today unveile...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Business Insider</td>
+<td>business</td>
+<td>-0.6760</td>
+<td>negative</td>
+<td>2023-10-18</td>
+<td>When something enters Earth's atmosphere, it's...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Engadget</td>
+<td>technology</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-22</td>
+<td>Space isn't hard only on account of the rocket...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Business Insider</td>
+<td>business</td>
+<td>0.6035</td>
+<td>positive</td>
+<td>2023-10-29</td>
+<td>The National Spherical Torus Experiment-Upgrad...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>Time</td>
+<td>general</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-19</td>
+<td>In her new book, The Woman in Me, Britney Spea...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>Time</td>
+<td>general</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-19</td>
+<td>The rocky relationship between Britney Spears ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>CBS News</td>
+<td>general</td>
+<td>-0.6290</td>
+<td>negative</td>
+<td>2023-10-23</td>
+<td>Riders of Toos Elite 60-volt electric scooters...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>Next Big Future</td>
+<td>science</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-25</td>
+<td>Brian Wang is a Futurist Thought Leader and a ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>New Scientist</td>
+<td>science</td>
+<td>0.6051</td>
+<td>positive</td>
+<td>2023-10-31</td>
+<td>Passive cooling could be more efficient using ...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>Fortune</td>
+<td>business</td>
+<td>-0.8252</td>
+<td>negative</td>
+<td>2023-10-19</td>
+<td>With the growing popularity of&nbsp;disposable e-ci...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>Fortune</td>
+<td>business</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-31</td>
+<td>Toyota will invest an additional $8 billion in...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>New Scientist</td>
+<td>science</td>
+<td>0.8984</td>
+<td>positive</td>
+<td>2023-10-24</td>
+<td>Solid-state batteries could be lighter and mor...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>The Verge</td>
+<td>technology</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-11-02</td>
+<td>Redwood Materials is recycling its first stati...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>Newsweek</td>
+<td>general</td>
+<td>-0.9520</td>
+<td>negative</td>
+<td>2023-10-23</td>
+<td>U.S. consumers are being strongly warned again...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>ABC News</td>
+<td>general</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-31</td>
+<td>RALEIGH, N.C. -- Toyota will invest an additio...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>Fortune</td>
+<td>business</td>
+<td>-0.6701</td>
+<td>negative</td>
+<td>2023-10-31</td>
+<td>Since Russian President Vladimir Putin invaded...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>Breitbart News</td>
+<td>general</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-19</td>
+<td>Haji Nooruddin Azizi, the acting commerce mini...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>ABC News</td>
+<td>general</td>
+<td>0.6487</td>
+<td>positive</td>
+<td>2023-11-01</td>
+<td>TOKYO -- Toyotas July-September profit jumped ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>ABC News</td>
+<td>general</td>
+<td>-0.8907</td>
+<td>negative</td>
+<td>2023-10-19</td>
+<td>WASHINGTON -- With the growing popularity of d...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>ABC News</td>
+<td>general</td>
+<td>0.6301</td>
+<td>positive</td>
+<td>2023-10-29</td>
+<td>TOKYO -- Trade and economy officials from the ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>New Scientist</td>
+<td>science</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-30</td>
+<td>The Athel tamarisk has ingenious ways of survi...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>Newsweek</td>
+<td>general</td>
+<td>0.4480</td>
+<td>positive</td>
+<td>2023-10-30</td>
+<td>Around the world, entrepreneurs are trying to ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>ABC News</td>
+<td>general</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-31</td>
+<td>RALEIGH, N.C. -- Toyota will invest an additio...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>ABC News</td>
+<td>general</td>
+<td>0.5985</td>
+<td>positive</td>
+<td>2023-10-25</td>
+<td>TOKYO -- TOKYO (AP) We love battery EVs.\r\nTa...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>ABC News</td>
+<td>general</td>
+<td>-0.8907</td>
+<td>negative</td>
+<td>2023-10-19</td>
+<td>WASHINGTON -- With the growing popularity of d...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>ABC News</td>
+<td>general</td>
+<td>0.5985</td>
+<td>positive</td>
+<td>2023-10-25</td>
+<td>TOKYO -- TOKYO (AP) We love battery EVs.\r\nTa...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>ABC News</td>
+<td>general</td>
+<td>-0.6795</td>
+<td>negative</td>
+<td>2023-11-02</td>
+<td>WASHINGTON -- Treasury Secretary Janet Yellen ...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>ABC News</td>
+<td>general</td>
+<td>0.6487</td>
+<td>positive</td>
+<td>2023-11-01</td>
+<td>TOKYO -- Toyotas July-September profit jumped ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>ABC News</td>
+<td>general</td>
+<td>-0.6795</td>
+<td>negative</td>
+<td>2023-11-02</td>
+<td>WASHINGTON -- Treasury Secretary Janet Yellen ...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>ABC News</td>
+<td>general</td>
+<td>0.6301</td>
+<td>positive</td>
+<td>2023-10-29</td>
+<td>TOKYO -- Trade and economy officials from the ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>Time</td>
+<td>general</td>
+<td>-0.3817</td>
+<td>negative</td>
+<td>2023-10-20</td>
+<td>Britney Spears knows what it means to be depri...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>ABC News</td>
+<td>general</td>
+<td>0.5985</td>
+<td>positive</td>
+<td>2023-10-25</td>
+<td>TOKYO -- TOKYO (AP) We love battery EVs.\r\nTa...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">37</td>
+<td>Ars Technica</td>
+<td>technology</td>
+<td>-0.7175</td>
+<td>negative</td>
+<td>2023-10-25</td>
+<td>Enlarge/ A GM Ultium battery pack. \r\n75 with...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">38</td>
+<td>Breitbart News</td>
+<td>general</td>
+<td>0.3935</td>
+<td>positive</td>
+<td>2023-10-31</td>
+<td>After investing billions to adhere to Presiden...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">39</td>
+<td>Breitbart News</td>
+<td>general</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-23</td>
+<td>Nearly 7,000 auto workers at Stellantis’ Sterl...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">40</td>
+<td>Fox News</td>
+<td>general</td>
+<td>-0.8252</td>
+<td>negative</td>
+<td>2023-10-19</td>
+<td>With the growing popularity of disposable e-ci...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">41</td>
+<td>TechRadar</td>
+<td>technology</td>
+<td>-0.5295</td>
+<td>negative</td>
+<td>2023-10-30</td>
+<td>Yeedi Cube: One-minute review\r\nThe Yeedi Cub...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42</td>
+<td>NBC News</td>
+<td>general</td>
+<td>-0.5513</td>
+<td>negative</td>
+<td>2023-10-20</td>
+<td>Britney Spears is shedding new light onto what...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">43</td>
+<td>Fox News</td>
+<td>general</td>
+<td>-0.4456</td>
+<td>negative</td>
+<td>2023-11-02</td>
+<td>President Biden will meet with Chilean Preside...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">44</td>
+<td>Breitbart News</td>
+<td>general</td>
+<td>0.3316</td>
+<td>positive</td>
+<td>2023-10-27</td>
+<td>After investing billions into a green energy a...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">45</td>
+<td>Fox News</td>
+<td>general</td>
+<td>0.0000</td>
+<td>neutral</td>
+<td>2023-10-18</td>
+<td>In yet another attempt to regulate the car mar...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">46</td>
+<td>Engadget</td>
+<td>technology</td>
+<td>-0.6099</td>
+<td>negative</td>
+<td>2023-11-01</td>
+<td>Your EV may go a long way between charges, but...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">47</td>
+<td>Reuters</td>
+<td>general</td>
+<td>-0.3458</td>
+<td>negative</td>
+<td>2023-10-24</td>
+<td>DETROIT, Oct 24 (Reuters) - General Motors (GM...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">48</td>
+<td>USA Today</td>
+<td>general</td>
+<td>-0.6586</td>
+<td>negative</td>
+<td>2023-10-26</td>
+<td>More than a dozen states now have&nbsp;near-total&nbsp;a...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,299 @@
+id,ibm_date,ibm_score,ibm_label,ibm_content
+ars-technica,2023-11-13T18:59:10Z,0.0,neutral,"Enlarge/ These are piles of lithium harvested in Bolivia; Exxon's site in Arkansas will look almost entirely unlike this as it will use direct lithium extraction, not evaporation, to harvest the mine… [+1611 chars]"
+abc-news,2023-11-14T20:30:35Z,-0.7716,negative,"NEW YORK -- New York City officials say retailers and food delivery companies must do more to halt the proliferation of unsafe e-bike and e-scooter batteries, after a fire blamed on an electric scoot… [+3372 chars]"
+business-insider,2023-11-13T09:00:02Z,-0.392,negative,"Your fake AirPods may be able to fool others at a glance, but Lumafield used a CT scanner to show what's really going on with counterfeits.Jon Bruner/Lumafield
+<ul>
+<li>There are some major differen… [+3413 chars]"
+ars-technica,2023-11-27T17:16:29Z,-0.5907,negative,"Enlarge/ Alfa Romeo has a new crossover called the Tonale. 
+14 with 
+I don't believe that Jeremy Clarkson was right when he said that you could only be a true petrolhead once you'd owned an Alfa Ro… [+3207 chars]"
+ars-technica,2023-11-21T12:00:43Z,0.0,neutral,"Enlarge/ A Porsche 963, one of the four different kinds of hybrid prototype racing cars built to the LMDh rules, running in IMSA's GTP class at the 2023 Petit Le Mans at Road Atlanta in October.
+0 w… [+4788 chars]"
+ars-technica,2023-11-19T11:30:09Z,0.7773,positive,"Enlarge/ David Brown Automotive makes modernized minis with electric power for well-heeled buyers.
+7 with 
+Have you ever thought: ""I wonder what a $150,000 classic Mini would be like?"" If so, you'r… [+6269 chars]"
+ars-technica,2023-11-24T12:30:46Z,0.6506,positive,"Enlarge/ The new Panamera design features raised wings over the hood and new nose section with central air intake. The Turbo E-Hybrid gets some visual differentiation with air blades, a different Por… [+6340 chars]"
+the-next-web,2023-11-16T13:37:46Z,0.0,neutral,"For UK battery startup NyoBolt, six seems to be the magic number. First, in June it showcased an EV that could be fully charged in just six minutes (a claimed record). And today it unveiled a new kin… [+3589 chars]"
+the-next-web,2023-11-24T12:13:47Z,0.6816,positive,"Sandwiched between Germany, France, and Belgium, the tiny country of Luxembourg is one of Europes smallest, but also its wealthiest its residents enjoy the second-highest per capita income in the wor… [+5041 chars]"
+business-insider,2023-11-27T15:18:07Z,0.3932,positive,"Máximo Tuja for Business Insider
+30 of the top global leaders working toward climate solutions in 2023In a year of record-breaking climate disasters, shifting ESG priorities, and news about a loomin… [+60508 chars]"
+the-next-web,2023-11-10T07:00:50Z,0.838,positive,"Climate tech is receiving a proportionally larger share of what is, undeniably, a muted venture capital investment environment. VC and private equity investment in the sector has, thus far in 2023, f… [+8154 chars]"
+reuters,2023-11-19T23:37:35Z,-0.9164,negative,"BUENOS AIRES, Nov 19 (Reuters) - Argentina elected libertarian outsider Javier Milei as its new president on Sunday, rolling the dice on an outsider with radical views to fix an economy battered by t… [+4185 chars]"
+reuters,2023-11-21T13:41:15Z,-0.4544,negative,"LONDON, Nov 21 (Reuters) - Giant batteries that ensure stable power supply by offsetting intermittent renewable supplies are becoming cheap enough to make developers abandon scores of projects for ga… [+7297 chars]"
+al-jazeera-english,2023-11-09T20:58:07Z,0.0,neutral,"Portugals President Marcelo Rebelo de Sousa has dissolved parliament and called snap elections, two days after the countrys prime minister resigned amid a continuing corruption investigation.
+Rebelo… [+2488 chars]"
+techradar,2023-11-11T05:21:09Z,0.6178,positive,"Researchers have found that adding salt to computer systems can prevent devices from overheating and boost performance by more than 32%. 
+A team at the City University of Hong Kong hope this passive… [+2005 chars]"
+new-york-magazine,2023-11-13T19:46:50Z,0.0,neutral,"Over the weekend, ExxonMobil  the oil-and-gas giant announced it would also become one of the countrys largest producers of lithium, the metal used to power electric vehicles. It turns out that Arkan… [+1952 chars]"
+business-insider,2023-11-13T12:59:10Z,-0.7416,negative,"A Tesla owner said he heard a hissing sound coming from the battery the day before it caught fire in his garage. 
+The vehicle, a Model X, caught alight Friday and took firefighters hours to put out… [+2257 chars]"
+next-big-future,2023-11-24T16:10:03Z,0.0,neutral,"Toyota has published an advanced battery roadmap in September, 2023 which has new iron phosphate batteries and solid state batteries in 2026.
+Toyota’s strategy includes three new liquid electrolyte … [+4124 chars]"
+cbs-news,2023-11-27T18:58:00Z,0.3435,positive,"Amazon
+Don't worry if you missed out on all those Black Friday tool deals. Cyber Monday 2023 is on, and the deals are still hot for Dewalt fans. Dewalt tools is offering big discounts on top sellers… [+6822 chars]"
+vice-news,2023-11-22T14:36:48Z,-0.8138,negative,"Dozens of people have been convinced to quit vaping. Not because of the health concerns or the cost, but in solidarity with the people of the Democratic Republic of Congo.
+I know these are the last … [+3061 chars]"
+politico,2023-11-08T23:15:00Z,0.0,neutral,"Bidens GOP critics, including former President Donald Trump, have latched onto the claim that these programs are a giveaway to Beijing, whose companies dominate the global supply chain for green tech… [+6961 chars]"
+the-wall-street-journal,2023-11-13T13:00:00Z,-0.2816,negative,"Exxon Mobil said Monday it is starting to drill 
+for lithium in Arkansas and aims to become a major U.S. supplier for makers of electric-vehicle batteries by 2030.  The Texas-based oil companys entr… [+452 chars]"
+cbs-news,2023-11-10T19:41:30Z,0.7544,positive,"Walmart
+Planning some end-of-year home improvement projects before guests arrive for Thanksgiving and Christmas? We've found a pretty incredible deal on a tool kit that you're going to need to do th… [+1446 chars]"
+next-big-future,2023-11-23T08:26:30Z,0.753,positive,"Northvolt announced a state-of-the-art sodium-ion battery, developed for the expansion of cost-efficient and sustainable energy storage systems worldwide. The cell has been validated for a best-in-cl… [+2807 chars]"
+fortune,2023-11-15T20:00:00Z,0.0,neutral,"On this weeks episode of Fortunes Leadership Next podcast, co-host Alan Murray talks with chemist Christina Lampe-Önnerud, the CEO of Cadenza Innovation, about her efforts to power the battery indust… [+33594 chars]"
+techradar,2023-11-11T10:00:53Z,-0.404,negative,"The EICMA show tends to only appear on the radar of ardent motorcycle fans, as it's the motor show to attend if you want to catch a glimpse of fresh metal, the occasional concept machine, and the lat… [+7964 chars]"
+fortune,2023-11-14T11:01:44Z,0.0,neutral,"Exxon in early 2023 acquired the rights to 120000 gross acres (48562 gross hectares) of the Smackover formation in southern Arkansas, considered one of the most prolific lithium resources of its type… [+1619 chars]"
+cbs-news,2023-11-28T15:08:00Z,0.6355,positive,"As demand for electric vehicles continues to grow, one start-up company is looking to make the cars even more sustainable – by turning used tires into batteries. 
+Most electric vehicles rely on lith… [+2830 chars]"
+fortune,2023-11-26T20:37:57Z,0.2815,positive,"Battery giants are starting to put their money on new sodium-based technology, a sign that there could be yet another shakeup in the industry thats crucial for the energy transition.Sodium found in r… [+3869 chars]"
+techradar,2023-11-27T14:59:37Z,-0.9474,negative,"Battery swapping technology in electric vehicles is nothing new. In fact, this writer is unfortunately old enough to remember witnessing Renault demonstrating its surprisingly state-of-the-art Fluenc… [+4082 chars]"
+breitbart-news,2023-11-14T21:12:16Z,0.0,neutral,Stellantis is offering to buy out thousands of its American white-collar employees as a result of the company’s transition to electric vehicles (EVs) — a move spurred by tax credits from President Jo… [+3045 chars]
+fortune,2023-11-15T17:09:50Z,-0.416,negative,"The Energy Department is making a push to strengthen the U.S. battery supply chain, announcing up to $3.5 billion for companies that produce batteries and the critical minerals that go into them.Batt… [+4202 chars]"
+cbs-news,2023-11-12T21:12:15Z,0.0,neutral,"Recipients of the 2023 Earthshot Prize Awards were officially chosen last week in Singapore, marking the third annual ceremony where Prince William's climate-focused charity recognized companies that… [+5156 chars]"
+business-insider,2023-11-15T11:16:25Z,-0.7687,negative,"NEW YORK (AP) New York City officials say retailers and food delivery companies must do more to halt the proliferation of unsafe e-bike and e-scooter batteries, after a fire blamed on an electric sco… [+3630 chars]"
+the-verge,2023-11-13T18:04:45Z,0.0,neutral,"ExxonMobil is a lithium company now
+ExxonMobil is a lithium company now
+ / ExxonMobil plans on extracting and producing battery-grade lithium from the Smackover Formation in Arkansas.
+ByEmma Roth,… [+2526 chars]"
+breitbart-news,2023-11-10T18:40:51Z,-0.4535,negative,"A Tesla vehicle caught fire in Plano, Texas, early Friday morning, leading to concerns about electric vehicle battery safety. The owner claims he just had a new battery installed by Elon Musk’s compa… [+3033 chars]"
+newsweek,2023-11-17T12:17:44Z,0.9846,positive,"A robust global mining industry is essential for a growing green economy. Some facts to bear in mind: a solar panel requires aluminum, steel, copper, zinc, and silver. A wind turbine: steel, copper, … [+1518 chars]"
+cbs-news,2023-11-28T14:14:02Z,0.4978,positive,"Cyber Week is here. This week on CBS Mornings, lifestyle expert Gayle Bass discussed deals on household items and holiday gift ideas that may make life easier -- all at exclusive Cyber Week discounts… [+5681 chars]"
+new-york-magazine,2023-11-28T13:31:13Z,0.3768,positive,"In the spirit of disclosure, Im going to admit that I think driving a Tesla Cybertruck would absolutely rule. Its a fast, weird fantasy car  the kind of concept that usually doesnt make its way off t… [+6155 chars]"
+breitbart-news,2023-11-11T16:49:00Z,0.0,neutral,Chinese dictator Xi Jinping will attend the Asia-Pacific Economic Cooperation (APEC) summit in San Francisco next week and is scheduled to be the guest of honor at a dinner attended by hundreds of U.… [+6132 chars]
+newsweek,2023-11-18T09:00:01Z,0.0,neutral,"Homes could soon feature columns of concrete mixed with charcoal that have the ability to store electricity and discharge it when needed by occupants.
+Researchers at the Massachusetts Institute of T… [+8306 chars]"
+abc-news,2023-11-13T18:22:15Z,0.0,neutral,"LITTLE ROCK, Ark. -- Exxon Mobil on Monday announced it's drilling for lithium in southern Arkansas, with the oil giant expected to begin production of the critical material for electric vehicles by … [+1835 chars]"
+fortune,2023-11-22T13:05:21Z,-0.7966,negative,Ford chief executive Jim Farley is downsizing plans for a new low-cost battery cell plant in the automakers home state of Michigan amid a sharp slowdown slump in EV sales.The market for electric vehi… [+3469 chars]
+fortune,2023-11-17T19:24:57Z,-0.8037,negative,"New Teslas are an increasingly common sight on North American roads, but they dont stay new foreverand some get into accidents. If one takes more damage than is worth fixing, insurers might send it t… [+3458 chars]"
+newsweek,2023-11-22T16:03:39Z,-0.3659,negative,"China has shown off its latest anti-drone gun, highlighting the increasing focus on countering the threats posed by drones both large and small in modern warfare.
+China's hand-held innovation, which… [+3065 chars]"
+fortune,2023-11-09T17:52:41Z,0.3846,positive,"American policymakers and automakers just got a big wake-up call with Chinas announcement that it will require a special export license for battery-grade graphite, effectively restricting exports. Wh… [+4077 chars]"
+fortune,2023-11-23T11:11:04Z,0.0,neutral,"Electric vehicle sales are expected to hit a record 9% of all passenger vehicles in the U.S. this year, according to Atlas Public Policy. That will be up from 7.3% of new car sales in 2022.It will be… [+3447 chars]"
+the-verge,2023-11-28T13:00:00Z,0.7454,positive,"Googles new geothermal energy project is up and running
+Googles new geothermal energy project is up and running
+ / A new kind of geothermal plant will feed the power grid that serves two Google dat… [+3950 chars]"
+abc-news,2023-11-15T14:14:30Z,-0.3041,negative,"The Energy Department is making a push to strengthen the U.S. battery supply chain, announcing up to $3.5 billion for companies that produce batteries and the critical minerals that go into them.
+Ba… [+4216 chars]"
+abc-news,2023-11-14T19:50:13Z,-0.7716,negative,"NEW YORK -- New York City officials say retailers and food delivery companies must do more to halt the proliferation of unsafe e-bike and e-scooter batteries, after a fire blamed on an electric scoot… [+3035 chars]"
+newsweek,2023-11-15T00:21:05Z,0.8768,positive,"This Wednesday, November 15, is America Recycles Day, a nationally recognized day dedicated to the importance of recycling.
+It's also the perfect time to develop your understanding of recycling, lea… [+4815 chars]"
+fortune,2023-11-14T12:30:27Z,-0.561,negative,"Economic leaders are looking to the past for some inspiration on how to deal with the presentthe only issue is, no one seems to be able to agree which past era they should be studying. Deutsche Bank … [+4294 chars]"
+abc-news,2023-11-15T17:34:09Z,-0.7607,negative,"RABAT, Morocco -- A mining company controlled by Morocco 's royal family on Wednesday denied claims that operations at a site used to mine minerals for car batteries were causing hazardous levels of … [+2909 chars]"
+next-big-future,2023-11-14T18:11:34Z,0.0,neutral,The NT Times had a recent article discussing laser nuclear fusion. Nextbigfuture has spoken with all of the nuclear fusion companies listed in the NY Times article as they all attended the 2023 Inter… [+10972 chars]
+wired,2023-11-08T20:08:39Z,0.8491,positive,"Its important to recognize the head start that China, and to some extent South Korea, has. It will take a little time to build up the scale and the supply chains and get them as efficient as they are… [+3110 chars]"
+cnn,2023-11-14T14:35:22Z,0.0,neutral,"Editors Note: Sign up for Unlocking the World, CNN Travels weekly newsletter. Get the latest news in aviation, food and drink, where to stay and other travel developments.
+Spotting the tiny Elektra … [+10260 chars]"
+abc-news,2023-11-21T15:50:44Z,0.0,neutral,"DETROIT -- Ford Motor Co. is resuming construction on a Michigan electric vehicle battery plant that the company postponed two months ago during a strike by the United Auto Workers union.
+But the au… [+2854 chars]"
+abc-news,2023-11-21T20:30:36Z,0.0,neutral,"DETROIT -- Ford Motor Co. is resuming construction on a Michigan electric vehicle battery plant that the company postponed two months ago during a strike by the United Auto Workers union.
+But the au… [+3760 chars]"
+abc-news,2023-11-23T13:34:28Z,0.0,neutral,"Electric vehicle sales are expected to hit a record 9% of all passenger vehicles in the U.S. this year, according to Atlas Public Policy. That will be up from 7.3% of new car sales in 2022.
+It will … [+3780 chars]"
+abc-news,2023-11-27T04:30:11Z,-0.5704,negative,MEXICO CITY -- Greenpeace activists have boarded a deep-sea mining ship in the Pacific Ocean between Hawaii and Mexico and said Sunday they'll stay to protest exploration the ship is conducting to su… [+3768 chars]
+abc-news,2023-11-23T13:34:33Z,0.0,neutral,"Electric vehicle sales are expected to hit a record 9% of all passenger vehicles in the U.S. this year, according to Atlas Public Policy. That will be up from 7.3% of new car sales in 2022.
+It will … [+3780 chars]"
+abc-news,2023-11-15T17:34:15Z,-0.7607,negative,"RABAT, Morocco -- A mining company controlled by Morocco 's royal family on Wednesday denied claims that operations at a site used to mine minerals for car batteries were causing hazardous levels of … [+2909 chars]"
+national-geographic,2023-11-16T00:00:00Z,-0.6865,negative,"As a participant in multiple affiliate marketing programs, National Geographic will earn a commission for certain purchases. See full disclaimer below.*
+This year set new records for travel, a trend… [+5010 chars]"
+wired,2023-11-19T12:00:00Z,0.7118,positive,"As the years progress, smartphones continue to get smarter, and that includes how they charge their batteries. Both Android and iOS now come with features that, along with some good battery care tips… [+2490 chars]"
+the-verge,2023-11-13T13:30:00Z,-0.473,negative,"Apple stunned the world when it came out in support of Californias right-to-repair law. But software locks and other obstacles seem to signal that the fight is far from over.
+Nov 13, 2023, 1:30 PM U… [+19903 chars]"
+fortune,2023-11-11T11:00:00Z,0.8039,positive,"In June 2021, Brian Deese, the director of Joe Bidens National Economic Council, planted a flag in the ground. I am excited to lay out our vision for a 21st-century American industrial strategy, he s… [+19426 chars]"
+business-insider,2023-11-23T09:39:11Z,-0.5749,negative,"EVs have an affordability problem.
+There just aren't very many cheap options with the average price hovering just over $50,00 in September, according to Kelley Blue Book data
+.
+Auto execs have poi… [+5759 chars]"
+the-verge,2023-11-14T13:30:00Z,-0.8655,negative,"How to electrify your life when you rent
+How to electrify your life when you rent
+ / Homeowners who want to reduce their carbon footprint by getting rid of polluting appliances have the US governme… [+8933 chars]"
+business-insider,2023-11-09T19:47:46Z,-0.7688,negative,"Car fires have always been dangerous and difficult for firefighters, but highly combustible chemicals in electric car batteries are posing new challenges.
+Not unlike the gasoline tanks in internal-c… [+3052 chars]"
+breitbart-news,2023-11-17T23:11:42Z,0.0,neutral,"Mexican far-left President Andrés Manuel López Obrador held his first-ever meeting in person with Chinese dictator Xi Jinping on Thursday, reaffirming their nations “friendly relations” and agreeing … [+5350 chars]"
+fox-news,2023-11-14T16:07:45Z,-0.7301,negative,The New York Fire Department is warning of the dangers of non-safety certified lithium-ion batteries after an e-scooter battery was determined to be the cause of a fire that claimed the lives of thre… [+3088 chars]
+ars-technica,2023-11-09T19:00:00Z,0.2814,positive,"9 with 
+There's a lot to like about electric vehicles. They're quiet, reliable, and about twice as efficient as the most frugal hybrid, not to mention that whole ""instant torque"" thing. But there's … [+2686 chars]"
+fox-news,2023-11-14T21:57:41Z,-0.828,negative,"New York City officials say retailers and food delivery companies must do more to halt the proliferation of unsafe e-bike and e-scooter batteries, after a fire blamed on an electric scooter's lithium… [+3610 chars]"
+fox-news,2023-11-16T10:00:34Z,-0.4375,negative,"When California Democrat Gov. Gavin Newsom, admitted that clean-up efforts in San Francisco this week were a consequence of ""fancy leaders coming into town,"" he did more than say the quiet part out l… [+5203 chars]"
+cnn,2023-11-23T12:30:30Z,-0.8685,negative,"Electric cars are supposed to be the future, but they still have issues that are keeping away many car buyers. The range is too short. The batteries are too heavy and expensive. They take too long to… [+5336 chars]"
+breitbart-news,2023-11-15T05:16:40Z,0.0,neutral,Rural communities in the Democratic Republic of Congo (DRC) are facing an “environmental catastrophe” as mining for cobalt and other minerals necessary for manufacturing batteries poisons their land … [+7058 chars]
+the-verge,2023-11-22T19:01:33Z,0.0,neutral,"Closeup of an all-electric F-150 Lightning. | Photo by Andrew Hawkins / The Verge
+
+ 
+
+ Ford announced it is cutting production capacity on its upcoming electric vehicle battery plant, amid cooling c… [+1081 chars]"
+fox-news,2023-11-17T09:00:34Z,-0.8433,negative,U.S. energy experts are warning of the economic and national security implications of President Biden's pact with China this week to move towards shutting down fossil fuel production in favor of gree… [+8372 chars]
+fox-news,2023-11-21T17:42:02Z,-0.5446,negative,"U.S. automaker Ford Motor Company is dramatically scaling back an electric vehicle (EV) battery plant under construction in Michigan as its EV business continues to lose billions of dollars.
+In an a… [+6790 chars]"
+techcrunch,2023-11-16T12:40:38Z,0.0,neutral,"Battery cells produced at Toyota’s future North American EV factory will someday contain a little Redwood Materials DNA.
+The two companies announced Thursday that Redwood Materials will supply Toyot… [+2780 chars]"
+the-verge,2023-11-16T13:30:00Z,-0.9134,negative,"The effort to climate-proof our housing is running into a mess of problems, including aging housing stock, out-of-date zoning laws, and NIMBY-ism. Can we build our way to a better future?
+ByAbigail … [+17047 chars]"
+fox-news,2023-11-27T16:46:10Z,0.0,neutral,Greenpeace activists have boarded a deep-sea mining ship in the Pacific Ocean between Hawaii and Mexico and said Sunday they'll stay to protest exploration the ship is conducting to support activity … [+4066 chars]
+fox-news,2023-11-28T10:00:32Z,-0.3309,negative,"The Biden administration and the far-lefts Green New Deal agenda is coming for your gas-powered vehicle, but it turns out their laser focus on electric vehicles (EVs) may actually harm the very envir… [+5930 chars]"
+reuters,2023-11-13T20:17:28Z,0.0,neutral,"WASHINGTON, Nov 13 (Reuters) - Democratic Senator Joe Manchin urged the U.S. Treasury on Monday to adopt the ""strictest possible standards"" to prevent Chinese-produced minerals or Chinese battery com… [+2466 chars]"
+abc-news,2023-11-25T13:24:21Z,-0.6221,negative,"""What the heck is that?!"" a man on a bicycle shouted at me as I zoomed along a bike path in Manhattan on the new Honda Motocompacto scooter.
+The man had a point: the Motocompacto looks like a futuri… [+3258 chars]"
+cnn,2023-11-17T19:14:08Z,-0.8093,negative,"Sign up for CNNs Life, But Greener newsletter. Our limited newsletter series guides you on how to minimize your personal role in the climate crisis and reduce your eco-anxiety.
+As the climate crisis… [+8075 chars]"
+politico,2023-11-27T13:00:00Z,0.7367,positive,"Happy Monday, Illinois. Goodman Theatres A Christmas Carol
+ hits all the right notes for this holiday season.
+TOP TALKER
+BOTTOMS UP: Gov. JB Pritzker posted a pre-Thanksgiving video on social medi… [+11707 chars]"
+wired,2023-11-28T13:00:00Z,0.845,positive,"Earlier this month, one corner of the internet got a little bit greener, thanks to a first-of-its-kind geothermal operation in the northern Nevada desert. Project Red, developed by a geothermal start… [+4358 chars]"
+business-insider,2023-11-13T12:59:10Z,-0.7416,negative,"A Tesla owner said he heard a hissing sound coming from the battery the day before it caught fire in his garage. 
+The vehicle, a Model X, caught alight Friday and took firefighters hours to put out… [+2257 chars]"
+fortune,2023-11-15T17:09:50Z,-0.416,negative,"The Energy Department is making a push to strengthen the U.S. battery supply chain, announcing up to $3.5 billion for companies that produce batteries and the critical minerals that go into them.Batt… [+4202 chars]"
+breitbart-news,2023-11-11T16:49:00Z,0.0,neutral,Chinese dictator Xi Jinping will attend the Asia-Pacific Economic Cooperation (APEC) summit in San Francisco next week and is scheduled to be the guest of honor at a dinner attended by hundreds of U.… [+6132 chars]
+newsweek,2023-11-15T00:21:05Z,0.8768,positive,"This Wednesday, November 15, is America Recycles Day, a nationally recognized day dedicated to the importance of recycling.
+It's also the perfect time to develop your understanding of recycling, lea… [+4815 chars]"
+fortune,2023-11-26T20:37:57Z,0.2815,positive,"Battery giants are starting to put their money on new sodium-based technology, a sign that there could be yet another shakeup in the industry thats crucial for the energy transition.Sodium found in r… [+3869 chars]"
+abc-news,2023-11-15T14:14:30Z,-0.3041,negative,"The Energy Department is making a push to strengthen the U.S. battery supply chain, announcing up to $3.5 billion for companies that produce batteries and the critical minerals that go into them.
+Ba… [+4216 chars]"
+wired,2023-11-25T13:00:00Z,0.0,neutral,"Extending the useful life of EV batteries mitigates the impact of manufacturing them, said Maria Chavez, energy analyst at the Union of Concerned Scientists.
+The whole point of trying to deploy elec… [+3234 chars]"
+the-verge,2023-11-08T13:00:00Z,0.0,neutral,"GM is attracted to these new non-rare earth magnets for its EV motors
+GM is attracted to these new non-rare earth magnets for its EV motors
+ / The automaker is teaming up with a small Minnesota-bas… [+3408 chars]"
+ars-technica,2023-11-28T20:42:14Z,-0.8553,negative,"102 with 
+Pity the poor car dealers. After making record profits in the wake of the pandemic and the collapse of just-in-time inventory chains, they're now complaining that selling electric vehicles… [+3329 chars]"
+business-insider,2023-11-11T05:41:25Z,0.2832,positive,"Lucid AirLucid
+<ul><li>Saudi Arabia's sovereign fund has a 60% stake in Lucid Motors, an EV startup.</li><li>Months after the company went public, the stake was valued at more than $55B, per Bloombe… [+1969 chars]"
+business-insider,2023-11-25T16:41:30Z,-0.8361,negative,"Nissan has announced they will build three new EV models at its Sunderland plant in the UK.Ian Forsyth / Getty
+<ul><li>Nissan announced that it would invest billions in its UK EV business.</li><li>T… [+2163 chars]"
+ars-technica,2023-11-28T12:56:49Z,0.0,neutral,"2 with 
+A prolific espionage hacking group with ties to China spent over two years looting the corporate network of NXP, the Netherlands-based chipmaker whose silicon powers security-sensitive compo… [+6154 chars]"
+business-insider,2023-11-18T17:25:02Z,-0.9129,negative,"Pete Ryan for Business Insider
+<ul><li>Electricians are in high demand as the US transitions to a greener economy.</li><li>More than 73,000 jobs are expected to open each year over the next decade.<… [+4364 chars]"
+business-insider,2023-11-11T20:17:33Z,-0.9692,negative,"Former President Donald Trump.AP Photo/Lynne Sladky
+<ul><li>Former President Trump is working to ramp up his support among energy executives, WaPo reported.</li><li>Trump is a climate crisis skeptic… [+4573 chars]"
+business-insider,2023-11-16T12:55:50Z,-0.7137,negative,"The 2025 Toyota Camry will only be available as a hybrid.Toyota
+<ul><li>Toyota has said that the 2025 Camry will be available exclusively as a hybrid.</li><li>The family sedan has been the best-sell… [+1823 chars]"
+the-next-web,2023-11-27T16:45:11Z,-0.5406,negative,Say the application that has not been attributed to generative AI by now. Anything from your virtual boyfriend/girlfriend to vaccines and the energy transition will apparently be solved by the tech c… [+2503 chars]
+business-insider,2023-11-14T15:52:24Z,-0.853,negative,"Workers at an automotive assembly line.Monty Rakusen/Getty Images
+<ul><li>The UAW union secured historic raises for its 140,000 members after a six-week strike. </li><li>The union now wants to targe… [+2732 chars]"
+business-insider,2023-11-08T18:10:44Z,0.0,neutral,"Elon Musk's Tesla was the most shorted stock in the S&P 500 for four consecutive months before dropping to second in October, behind oil major ExxonMobil, HazelTree reported.Mario Tama/Getty Images
+… [+2993 chars]"
+business-insider,2023-11-18T11:08:01Z,-0.9018,negative,"2021 Ford Mustang Mach-E.Tim Levin/Insider
+<ul><li>These dealers who switched to EVs love their cars.</li><li>But customers are harder to convince.</li><li>Being an EV owner helps these dealers talk… [+2860 chars]"
+business-insider,2023-11-28T11:59:29Z,-0.5714,negative,"The Rivian R1T electric pickup is a key rival to Tesla's Cybertruck.Chicago Tribune/Getty Images
+<ul><li>Rivian has made its R1T electric pickup available to lease in 14 US states.</li><li>The Tesla… [+2769 chars]"
+time,2023-11-14T09:00:00Z,0.6854,positive,The U.S. and Indonesia announced a new defense cooperation agreement on Monday as Washington looks to counter Chinese influence across the Indo-Pacific with efforts to bolster defense and trade agree… [+2022 chars]
+business-insider,2023-11-17T19:14:01Z,0.0,neutral,"A quick Google search for electric vehicles suggests a bump in the road. 
+Some automakers are reporting slower-than-expected demand, and General Motors
+ and Ford
+ are pushing back investments in p… [+3063 chars]"
+business-insider,2023-11-18T09:51:01Z,0.0,neutral,"BYD's Seagull hatchback sells for the equivalent of just over $10,000.Aly Song/Reuters
+<ul><li>China is the world's biggest producer of electric vehicles.</li><li>BYD is expected to overtake Tesla a… [+4954 chars]"
+the-next-web,2023-11-14T08:24:21Z,-0.2948,negative,"While the glittering lights of Europes cities hold the promise of new opportunities, ideas, and fun, they also hold smog and a growing air pollution problem. Not to mention the fact that its hard to … [+8904 chars]"
+techradar,2023-11-13T16:59:30Z,0.2797,positive,"Volvo has been busy teasing the EM90 for a number of months now, releasing images of its boxy silhouette and revealing how the ""zero gravity cushions"" employed in its seats look set to among some of … [+3310 chars]"
+reuters,2023-11-21T13:41:15Z,-0.4544,negative,"LONDON, Nov 21 (Reuters) - Giant batteries that ensure stable power supply by offsetting intermittent renewable supplies are becoming cheap enough to make developers abandon scores of projects for ga… [+7297 chars]"
+new-york-magazine,2023-11-13T19:46:50Z,0.0,neutral,"Over the weekend, ExxonMobil  the oil-and-gas giant announced it would also become one of the countrys largest producers of lithium, the metal used to power electric vehicles. It turns out that Arkan… [+1952 chars]"
+al-jazeera-english,2023-11-27T12:17:43Z,0.9529,positive,"Mozambique has approved an ambitious new energy transition plan until 2050, hoping to attract investments of some $80bn to boost renewable energy capacity and increase electricity availability, a sen… [+1708 chars]"
+business-insider,2023-11-12T11:22:01Z,0.0,neutral,"Elon Musk has started slashing prices on Tesla's electric cars. That's going to come back to burn him.Mike Windle/Getty Images; Jenny Chang-Rodriguez/Insider
+Elon Musk has started an electric-vehicl… [+13782 chars]"
+cbs-news,2023-11-28T15:08:00Z,0.6355,positive,"As demand for electric vehicles continues to grow, one start-up company is looking to make the cars even more sustainable – by turning used tires into batteries. 
+Most electric vehicles rely on lith… [+2830 chars]"
+business-insider,2023-11-16T12:00:02Z,0.6843,positive,"If there was any doubt about Toyota's commitment to electric vehicles, a new deal announced on Thursday should clear things up. 
+Redwood Materials, a battery recycling startup run by Tesla cofounder… [+1548 chars]"
+business-insider,2023-11-27T13:28:45Z,-0.5927,negative,"Mazda's CEO has said that Tesla is the only company seeing real success in a fragile EV landscape, with other electric cars ""not taking off.""
+Masahiro Moro told Fortune
+ that consumers are still no… [+2012 chars]"
+cbs-news,2023-11-28T17:02:00Z,0.0,neutral,"Watch CBS News
+Copyright ©2023 CBS Interactive Inc. All rights reserved.
+Get browser notifications for breaking news, live events, and exclusive reporting.
+Not NowTurn On"
+breitbart-news,2023-11-14T21:12:16Z,0.0,neutral,Stellantis is offering to buy out thousands of its American white-collar employees as a result of the company’s transition to electric vehicles (EVs) — a move spurred by tax credits from President Jo… [+3045 chars]
+fortune,2023-11-28T17:54:35Z,0.0,neutral,"Demand for electric vehicles isnt just slowing for manufacturers. The price of used EV vehicles has tumbled compared to a year ago as well.A new study from iSeeCars, which tracks used car prices, fin… [+2282 chars]"
+new-scientist,2023-11-28T14:23:42Z,0.0,neutral,"Neurath power station in Germany burns lignite, a form of coal
+REUTERS/Wolfgang Rattay
+The COP28 climate summit is set to begin on 30 November in Dubai, a city largely built on the immense oil weal… [+7393 chars]"
+cbs-news,2023-11-13T14:31:36Z,0.0,neutral,"Watch CBS News
+Copyright ©2023 CBS Interactive Inc. All rights reserved.
+Get browser notifications for breaking news, live events, and exclusive reporting.
+Not NowTurn On"
+techradar,2023-11-27T14:59:37Z,-0.9474,negative,"Battery swapping technology in electric vehicles is nothing new. In fact, this writer is unfortunately old enough to remember witnessing Renault demonstrating its surprisingly state-of-the-art Fluenc… [+4082 chars]"
+business-insider,2023-11-19T13:58:18Z,0.0,neutral,"Cadillac has announced that it will be adding a new model, named Optiq, to its portfolio of electric vehicles.
+The company, which is owned by General Motors, said that it will ""act as the entry poin… [+1602 chars]"
+fortune,2023-11-12T15:35:28Z,0.7074,positive,"The worlds biggest producer of iPhones is going to outer space.Two prototype low-Earth orbit satellites made by Hon Hai Precision Industry Co., better known as Foxconn, took off aboard a SpaceX rocke… [+3544 chars]"
+al-jazeera-english,2023-11-13T03:03:21Z,0.0,neutral,"Medan, Indonesia Indonesian President Joko Widodo is in the United States this week for a summit with President Joe Biden at the White House, and later to attend the 30th Asia-Pacific Economic Cooper… [+6163 chars]"
+new-york-magazine,2023-11-28T13:31:13Z,0.3768,positive,"In the spirit of disclosure, Im going to admit that I think driving a Tesla Cybertruck would absolutely rule. Its a fast, weird fantasy car  the kind of concept that usually doesnt make its way off t… [+6155 chars]"
+fortune,2023-11-15T17:09:50Z,-0.416,negative,"The Energy Department is making a push to strengthen the U.S. battery supply chain, announcing up to $3.5 billion for companies that produce batteries and the critical minerals that go into them.Batt… [+4202 chars]"
+fortune,2023-11-08T13:25:17Z,0.0,neutral,"Its being billed by investors as the tale of two EV makers. Armed with wealthy backers, Rivian founder RJ Scaringe and Lucid CEO Peter Rawlinson both floated shares in their car companies in the latt… [+3839 chars]"
+techradar,2023-11-28T17:06:55Z,0.4406,positive,"If you’ve been keeping a close eye on EV news of late, you'll have seen that Tesla is making a pretty penny selling its Supercharger technology to energy providers and businesses keen on accelerating… [+3210 chars]"
+techradar,2023-11-23T13:07:13Z,0.0,neutral,"Tesla has announced that it will enforce a new Supercharger fee at particularly busy EV charging stations, in an attempt to reduce congestion at some of its most in-demand locations. Just in time for… [+2560 chars]"
+business-insider,2023-11-20T18:57:14Z,-0.5621,negative,"As auto manufacturing undergoes an EV revolution, one part of cars remains basically unchanged: the tires.
+That's a problem, because tires are troublesome. Drivers must keep track of their condition… [+5588 chars]"
+cnn,2023-11-15T18:57:56Z,0.0,neutral,"The Toyota Camry, the best-selling car in America, is going hybrid-only.
+The Camry is available in a hybrid version now, but the redesigned 2025 Camry will be offered only as a hybrid car combining … [+4489 chars]"
+abc-news,2023-11-15T18:06:30Z,0.0,neutral,ROME -- The Vatican signed an agreement Wednesday with German carmaker Volkswagen AG to gradually replace its auto fleet with electric vehicles as part of the Vatican's efforts to reduce its carbon e… [+1943 chars]
+breitbart-news,2023-11-10T18:40:51Z,-0.4535,negative,"A Tesla vehicle caught fire in Plano, Texas, early Friday morning, leading to concerns about electric vehicle battery safety. The owner claims he just had a new battery installed by Elon Musk’s compa… [+3033 chars]"
+vice-news,2023-11-22T14:36:48Z,-0.8138,negative,"Dozens of people have been convinced to quit vaping. Not because of the health concerns or the cost, but in solidarity with the people of the Democratic Republic of Congo.
+I know these are the last … [+3061 chars]"
+fortune,2023-11-27T00:12:30Z,0.3214,positive,Tesla CEO Elon Musk doesnt think highly of hybrid vehicles. Last year he dismissed them as a phase and said its time to move on. But Toyota doubled down on themand the move has proved prescient.Hybri… [+2500 chars]
+fortune,2023-11-14T11:01:44Z,0.0,neutral,"Exxon in early 2023 acquired the rights to 120000 gross acres (48562 gross hectares) of the Smackover formation in southern Arkansas, considered one of the most prolific lithium resources of its type… [+1619 chars]"
+cbs-news,2023-11-13T21:50:16Z,-0.7165,negative,"Hyundai said Monday it will raise hourly pay for the South Korean automaker's employees in the U.S., upping wages just weeks after the United Auto Workers union struck new labor contract agreements w… [+3152 chars]"
+fortune,2023-11-14T00:46:47Z,-0.5176,negative,"Stellantis said Monday it will offer buyout or early retirement packages to about 6,400 nonunion U.S. salaried employees as the auto industry faces what the company is calling challenging market cond… [+1256 chars]"
+newsweek,2023-11-15T16:52:28Z,0.0,neutral,"The European Union's executive body initiated a much-needed investigation into car manufacturers that produce battery-powered vehicles in China last month. Specifically, the European Commission is ex… [+3966 chars]"
+fortune,2023-11-22T13:05:21Z,-0.7966,negative,Ford chief executive Jim Farley is downsizing plans for a new low-cost battery cell plant in the automakers home state of Michigan amid a sharp slowdown slump in EV sales.The market for electric vehi… [+3469 chars]
+fortune,2023-11-09T17:52:41Z,0.3846,positive,"American policymakers and automakers just got a big wake-up call with Chinas announcement that it will require a special export license for battery-grade graphite, effectively restricting exports. Wh… [+4077 chars]"
+fortune,2023-11-23T11:11:04Z,0.0,neutral,"Electric vehicle sales are expected to hit a record 9% of all passenger vehicles in the U.S. this year, according to Atlas Public Policy. That will be up from 7.3% of new car sales in 2022.It will be… [+3447 chars]"
+breitbart-news,2023-11-24T18:00:15Z,-0.3591,negative,"Elon Musk’s Tesla has ventured into the car insurance market, promising superior service for owners of the company’s EVs. Despite that promise, the company is now facing significant customer dissatis… [+2898 chars]"
+fortune,2023-11-22T12:11:52Z,0.0,neutral,"New car sales in the European Union rose 14.6% in October, boosted in part by a big jump in sales of fully electric cars, while hybrid electric vehicles accounted for nearly three of every 10 vehicle… [+1472 chars]"
+reuters,2023-11-21T13:03:57Z,0.7511,positive,"In February, Mark Bova purchased a used 2018 Tesla Model S. Before leaving the dealer, he bought insurance from Tesla itself, finding the initial $93 monthly premium really reasonable.
+Sixteen days … [+19171 chars]"
+abc-news,2023-11-09T07:50:29Z,0.9467,positive,"TOKYO -- Honda Motor Co.'s profit jumped 34% in July-September from a year earlier as a weak yen helped boost the Japanese automakers strong overseas earnings thanks to healthy demand, especially in … [+2409 chars]"
+cbs-news,2023-11-28T20:07:10Z,0.0,neutral,"Tesla is scheduled to deliver its first batch of Cybertrucks to customers this week, marking four years since CEO Elon Musk first introduced the steel-clad, electric vehicle to the automotive world.… [+4521 chars]"
+abc-news,2023-11-09T10:22:28Z,-0.6854,negative,"TOKYO -- Nissans profit zoomed up more than 10-fold in July-September from a year earlier, boosted by a weak Japanese yen and strong vehicle sales around the world.
+The Japanese automaker, allied wi… [+2344 chars]"
+abc-news,2023-11-13T18:22:15Z,0.0,neutral,"LITTLE ROCK, Ark. -- Exxon Mobil on Monday announced it's drilling for lithium in southern Arkansas, with the oil giant expected to begin production of the critical material for electric vehicles by … [+1835 chars]"
+cbs-news,2023-11-16T17:18:00Z,0.0,neutral,"Auto industry expert discusses latest GM-UAW tentative agreement 
+Auto industry expert discusses latest GM-UAW tentative agreement04:19
+United Auto Workers union members have voted to approve a new… [+4219 chars]"
+next-big-future,2023-11-24T16:10:03Z,0.0,neutral,"Toyota has published an advanced battery roadmap in September, 2023 which has new iron phosphate batteries and solid state batteries in 2026.
+Toyota’s strategy includes three new liquid electrolyte … [+4124 chars]"
+fortune,2023-11-26T20:37:57Z,0.2815,positive,"Battery giants are starting to put their money on new sodium-based technology, a sign that there could be yet another shakeup in the industry thats crucial for the energy transition.Sodium found in r… [+3869 chars]"
+the-verge,2023-11-16T19:05:00Z,0.0,neutral,"Kia brings EV3 and EV4 concepts to the LA Auto Show and is launching an all-new hybrid Sorento
+Kia brings EV3 and EV4 concepts to the LA Auto Show and is launching an all-new hybrid Sorento
+ / Kias… [+1881 chars]"
+newsweek,2023-11-18T09:00:01Z,0.0,neutral,"Homes could soon feature columns of concrete mixed with charcoal that have the ability to store electricity and discharge it when needed by occupants.
+Researchers at the Massachusetts Institute of T… [+8306 chars]"
+bloomberg,2023-11-17T06:32:53Z,-0.5962,negative,"Nations slow to adopt electric vehicles are likely to end up with a glut of used gasoline cars if they fail to accelerate the shift to electrification, according to a report by London-based think-tan… [+1691 chars]"
+newsweek,2023-11-11T08:00:01Z,-0.5112,negative,"Saturday, November 11, is Veterans Day, a federal holiday that celebrates those who served in the U.S. military. As a federal holiday, many stores, businesses and government building hours will be af… [+3274 chars]"
+newsweek,2023-11-23T08:00:01Z,-0.5492,negative,"The U.S. Postal Service (USPS) lists Thanksgiving, which this year falls on Thursday, November 23, on its federal holiday list in which services will be halted. A USPS spokesperson told Newsweek that… [+3558 chars]"
+newsweek,2023-11-16T02:49:36Z,0.277,positive,"The United States Postal Service (USPS) may be raising its rates on some of its shipping services, but holiday shoppers will be spared the extra cost this season. The higher rates, if approved, won't… [+3596 chars]"
+newsweek,2023-11-13T11:56:18Z,0.0,neutral,"A Chinese state newspaper has mocked American media and politicians' talk of the U.S. helping China with favorable trade deals, saying that Washington has played no role in the economic rise of the c… [+3693 chars]"
+fortune,2023-11-08T12:12:03Z,-0.7996,negative,"Europe endured one of its most tumultuous years since the end of the Second World War in 2022. Russias February invasion of Ukraine ignited humanitarian, political, and economic crises, exacerbating … [+3031 chars]"
+fortune,2023-11-14T13:01:33Z,-0.2909,negative,Elon Musk is something of a notorious workaholic so its unusual that he would pass up a chance at a potentially lucrative deal that could see Tesla enter the worlds third largest car market.Yet the e… [+3550 chars]
+fortune,2023-11-17T19:24:57Z,-0.8037,negative,"New Teslas are an increasingly common sight on North American roads, but they dont stay new foreverand some get into accidents. If one takes more damage than is worth fixing, insurers might send it t… [+3458 chars]"
+fortune,2023-11-17T15:23:29Z,0.0,neutral,Members of the United Auto Workers union were close to approving contract agreements with Stellantis and Ford on Friday with voting at both companies overwhelmingly in favor and only a few factories … [+3525 chars]
+fortune,2023-11-21T22:33:26Z,-0.3476,negative,"New Jersey will prohibit the sale of new gasoline-powered vehicles by 2035 as part of an effort to improve air quality and reduce planet-warming pollutants, officials announced Tuesday.A rule that wi… [+3031 chars]"
+fortune,2023-11-24T15:44:34Z,0.0,neutral,"Organized labor ranks among Elon Musks least favorite things, right up alongside Wall Street short sellers and the mainstream media.The worlds wealthiest man built Tesla into the industrys dominant a… [+2704 chars]"
+msnbc,2023-11-28T11:00:00Z,-0.8177,negative,"Ahead of the United Nations annual climate summit beginning this week, scientists and policy experts are once again ringing alarm bells warning that the current efforts to slow climate change are fal… [+5930 chars]"
+abc-news,2023-11-24T10:15:20Z,0.8501,positive,"LONDON -- Nissan will invest more than 1 billion pounds ($1.3 billion) to update its factory in northeast England to make electric versions of its two best-selling cars, a boost for the British gover… [+2039 chars]"
+the-verge,2023-11-13T18:04:45Z,0.0,neutral,"ExxonMobil is a lithium company now
+ExxonMobil is a lithium company now
+ / ExxonMobil plans on extracting and producing battery-grade lithium from the Smackover Formation in Arkansas.
+ByEmma Roth,… [+2526 chars]"
+newsweek,2023-11-17T10:30:01Z,0.71,positive,"The 2023 LA Auto Show was a little quieter than usual, but it was home to a handful of new vehicle reveals from both the gasoline and electric segment. They include luxury and more family-oriented ri… [+7996 chars]"
+next-big-future,2023-11-22T16:10:45Z,0.0,neutral,"Guided by machine learning, chemists at the Department of Energys Oak Ridge National Laboratory designed a record-setting carbonaceous supercapacitor material that stores four times more energy than … [+9880 chars]"
+abc-news,2023-11-23T13:34:28Z,0.0,neutral,"Electric vehicle sales are expected to hit a record 9% of all passenger vehicles in the U.S. this year, according to Atlas Public Policy. That will be up from 7.3% of new car sales in 2022.
+It will … [+3780 chars]"
+newsweek,2023-11-08T17:32:58Z,0.2649,positive,"An Oregon resident has taken the extreme step of creating their very own reserved on-street parking spot complete with sign and paint job.
+The parking space was discovered by one of their neighbors,… [+3611 chars]"
+newsweek,2023-11-21T12:00:01Z,0.7118,positive,"Maria Tidwell, a code enforcer in Gladewater, Texas, is the kind of civil servant any municipality would want. Energetic and proactive, she began looking for ways to improve the town as soon as she w… [+5653 chars]"
+fortune,2023-11-16T09:51:27Z,-0.5148,negative,"In a tight vote, thousands of United Auto Workers members at General Motors are expected to finish casting ballots Thursday on a tentative contract agreement that could be a giant step toward ending … [+4162 chars]"
+fortune,2023-11-16T19:08:57Z,0.0,neutral,"United Auto Workers union members have voted to approve a new contract with General Motors, making the company the first Detroit automaker to get a ratified deal that could end a contentious labor di… [+4990 chars]"
+fortune,2023-11-27T09:46:37Z,-0.6403,negative,"The negative impact on the climate from passenger vehicles, which is considerable, could have dropped by more than 30% over the past decade if not for the worlds appetite for large cars, a new report… [+4078 chars]"
+newsweek,2023-11-10T07:14:52Z,0.418,positive,"China will tighten reporting controls on strategic rare earth elements, according to its Commerce Ministry, in a move that could choke off America's supply of critical minerals used in the production… [+4637 chars]"
+new-york-magazine,2023-11-24T11:00:46Z,0.0,neutral,"Donald Trump is on pace to win back the White House next year on the strength of his anti-inflation message. Which is a little odd, since the Republican candidates economic platform amounts to a plan… [+15700 chars]"
+abc-news,2023-11-15T17:34:09Z,-0.7607,negative,"RABAT, Morocco -- A mining company controlled by Morocco 's royal family on Wednesday denied claims that operations at a site used to mine minerals for car batteries were causing hazardous levels of … [+2909 chars]"
+fortune,2023-11-14T12:30:27Z,-0.561,negative,"Economic leaders are looking to the past for some inspiration on how to deal with the presentthe only issue is, no one seems to be able to agree which past era they should be studying. Deutsche Bank … [+4294 chars]"
+fortune,2023-11-16T14:05:17Z,0.0,neutral,"President Biden has been touting his economic record in the buildup to the 2024 presidential election, taking a term used to denigrate his economic policies by more conservative columnistsBidenomicsa… [+5023 chars]"
+fortune,2023-11-09T14:46:57Z,0.0,neutral,"President Joe Biden went to Chicago on June 28 to give a landmark speech on Bidenomics, only to learn in private during the trip about a soon-to-close auto factory, news that was a challenge to his v… [+4731 chars]"
+fortune,2023-11-13T13:19:36Z,0.0,neutral,"Indias Narendra Modi is reportedly considering cutting import duties for electric vehicles in a bid to attract a major multi-billion dollar investment by Tesla CEO Elon Musk.For years, the two have w… [+3764 chars]"
+fortune,2023-11-16T12:01:26Z,-0.3547,negative,"When Bill Gates speaks, people listen. His contributions to tackling global problems have been nothing short of extraordinary, from funding cutting-edge vaccine development to supporting an array of … [+6266 chars]"
+abc-news,2023-11-09T07:50:34Z,0.9467,positive,"TOKYO -- Honda Motor Co.'s profit jumped 34% in July-September from a year earlier as a weak yen helped boost the Japanese automakers strong overseas earnings thanks to healthy demand, especially in … [+2409 chars]"
+time,2023-11-14T14:40:35Z,-0.5356,negative,"The world is off track in its efforts to curb global warming in 41 of 42 important measurements and is even heading in the wrong direction in six crucial ways, a new international report calculates.… [+3933 chars]"
+abc-news,2023-11-23T13:34:33Z,0.0,neutral,"Electric vehicle sales are expected to hit a record 9% of all passenger vehicles in the U.S. this year, according to Atlas Public Policy. That will be up from 7.3% of new car sales in 2022.
+It will … [+3780 chars]"
+newsweek,2023-11-08T15:24:30Z,0.0,neutral,"Claudia Conway, the daughter of former Donald Trump adviser Kellyanne Conway, has branded Representative Marjorie Taylor Greene a ""clown"" over the Georgia Republican's criticism of Transportation Sec… [+7569 chars]"
+abc-news,2023-11-17T01:18:35Z,-0.454,negative,"SAN FRANCISCO -- Chinese President Xi Jinping, fresh off his meeting with President Joe Biden, courted Indo-Pacific leaders in a flurry of meetings Thursday at a time of intensifying competition with… [+2397 chars]"

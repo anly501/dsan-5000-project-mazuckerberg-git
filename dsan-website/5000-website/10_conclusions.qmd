@@ -14,19 +14,19 @@ bibliography: ../Personal/reference.bib
 
 .epigrafe {
     text-align: justify !important;
-    text-indent: 20px; 
     border: 1.5px solid #87c8b5; 
     padding-top: 15px;
     padding-bottom: 5px;
     padding-right: 15px;
     padding-left: 15px;
     font-size: 14px;
+    font-weight: bold;
     background-color: #f9f9f9; 
     margin: 20px 0px 30px 0px;
 }
 
 .tableau {
-    margin-left: 85px;
+    margin-left: 80px;
     width: 85%;
     border: 1.5px solid #87c8b5; 
     background-color: #f9f9f9; 
@@ -54,17 +54,111 @@ x<-1
 ## Key Findings
 
 ::: {.justify}
-...
 
+In summary, the goal of this project was to comprehensively examine the latest industry data to gain valuable insights and identify potential opportunities for future improvement. The process began with the examination of six data sets using various machine learning algorithms to extract meaningful insights. Throughout the process, essential steps such as data cleaning, exploration, and the application of algorithms such as Naive Bayes, dimensionality reduction, clustering, and decision tree analysis were critical. With these analyses complete, we can now focus on answering the initial data science questions. The findings from the project provide the basis for informed decisions and possible directions for improvement.
+:::
+
+<br>
+
+::: {.epigrafe}
+1- How has the distribution of the total global lithium production among the main lithium producing countries evolved over the past two decades?
+:::
+
+::: {.justify}
+As we previously analyzed in the exploratory data analysis, there has been a major evolution in global lithium production over the last two decades. In 1995, Australia, the United States and Chile were the major players, and today Australia is a major player, followed by Chile and China with very low values in comparison. This analysis highlights the extraordinary growth of the lithium industry, indicating the robust expansion of the industry thanks to the demand for products that use lithium as a primary resource.
+::: 
+
+::: {.tableau}
+``` {=html}
+<div class='tableauPlaceholder' id='viz1701891817550' style='position: relative'><noscript><a href='#'><img alt='Global Lithium Production Evolution ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;DS&#47;DSAN5000-GlobalLithiumProductionEvolution&#47;GlobalLithiumProductionEvolution&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='DSAN5000-GlobalLithiumProductionEvolution&#47;GlobalLithiumProductionEvolution' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;DS&#47;DSAN5000-GlobalLithiumProductionEvolution&#47;GlobalLithiumProductionEvolution&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1701891817550');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+```
+:::
+
+<br>
+
+::: {.epigrafe}
+2- How have the main lithium related companies performed in the stocks market over the past two decades and how do they compare between each other?
+
+5- Do lithium related companies have a similar financial performance and is there a clear relationship between them? How did COVID affect these companies and relationships?
+
+6- Does the financial data of the main lithium related companies differentiate enough to distinct them?
+:::
+
+::: {.justify}
+Based on the analysis of major lithium-related companies in the stock market over the past two decades, several important conclusions can be drawn. First, Panasonic has proven its market potential by becoming a major player in the lithium battery manufacturing sector. Second, Tesla's market leadership in the electric vehicle segment is evident, with a significant rise in stock prices reflecting its dominant position. In addition, the entry of numerous competitors in recent years suggests a growing industry. It's important to note that the focus has been on major U.S.-based companies, and there are other globally significant players that should be considered for a more complete view of the industry. This is indicative of the growth and expansion of the lithium market.
+
+From the dimensionality reduction and clustering analysis comparing the financial information of lithium-related companies, a notable observation appears. From this perspective, the companies are more closely related, with some exceptions such as BYD, F, TSLA and XPEV, which stand out as outliers. Understanding the key differences between these companies becomes critical as it highlights the most influential variables to consider when evaluating their relationships. This detailed exploration contributes to a broader understanding of the dynamics within the lithium-related industry and helps identify the key factors influencing the financial performance of these companies.
+::: 
+
+<br>
+
+::: {.epigrafe}
+3- How does the lithium price correlate with the complementary resources used to produce lithium batteries?
+:::
+
+::: {.justify}
+To assess the correlation between lithium prices and the complementary resources used in lithium battery production, we used Pearson's correlation coefficient. The results show a significant correlation between lithium prices and zinc, nickel and aluminum. Conversely, the correlation with copper and cobalt is less pronounced. This finding contributes to a deeper understanding of the relationship between these vital resources and highlights their co-variation dynamics in the context of lithium battery production. These results are relevant as battery manufacturing companies are highly dependent on their primary resources and their costs. An increase in production costs leads to an increase in the price of the final product.
+::: 
+
+<br>
+
+::: {.epigrafe}
+4- Can we use machine learning to predict sentiment analysis in text data and recognize categories?
+:::
+
+::: {.justify}
+To address the question of whether machine learning can predict sentiment analysis and recognize categories in text data, we used the IBM Watson API to label news articles related to lithium topics. The articles were labeled as positive with a score close to 1, neutral with a score close to 0, or negative with a score close to -1. The labeled data was then used to construct a Naive Bayes Multinomial Classifier model to assign sentiment labels. The performance of the model, with an accuracy of about 0.60, was affected by the constraint of a relatively small sample size. In particular, the evaluation focused on minimizing false positives and false negatives for positive and negative sentiments. It is important to avoid misclassifying positive sentiments as negative or vice versa, as such misclassifications could lead to misleading decisions in future analyses. In conclusion, while the model demonstrated moderate accuracy, ongoing efforts to refine and expand the dataset could improve its predictive capabilities by adding additional relevant data and by training and testing the model. 
+:::
+
+<br>
+
+::: {.epigrafe}
+7- Is there a pattern in the electrical vehicles characteristics in order to predict where they were manufactured?
+:::
+
+::: {.justify}
+A Gaussian Naive Bayes model and a decision tree were used to explore the patterns in the characteristics of electric vehicles to predict their manufacturing origin. The analyses showed the usefulness of the analyzed features in determining the class to which the vehicles belonged. The results obtained for the decision tree highlight the effectiveness of the analyzed features in determining the continent of manufacture. 
+
+While both models demonstrated the need for a larger dataset, the advantage of the decision tree lies in its interpretability, providing transparency into the decision-making process. In conclusion, further refinement and expansion of the dataset will contribute to a more comprehensive understanding of electric vehicle manufacturing patterns.
+:::
+
+<br>
+
+::: {.epigrafe}
+8- How has public sentiment and opinion evolved regarding the increasing demand for lithium, and can text analysis reveal whether there is a pattern of sentiment by source of data?
+:::
+
+::: {.justify}
+To assess the evolution of public sentiment regarding the increasing demand for lithium and whether text analysis reveal sentiment patterns by data source, sentiment labels were analyzed across various article publishers. Notably, some sources showed a bias toward negative sentiment, such as ABC News and TechRadar. However, no clear pattern emerged that correlated sentiment with specific categories. Additional data collection and in-depth analysis will be required to draw more comprehensive conclusions about the evolution of sentiment over time. It's important to note a limitation of the News API, which restricts data collection beyond a limited timeframe from the current date.
 :::
 
 ::: {.tableau}
-
 ``` {=html}
 <div class='tableauPlaceholder' id='viz1701868912261'><noscript><a href='#'><img alt='Sentiment Analysis for Publishers by Category over time ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;DS&#47;DSAN5000-LithiumSentimentAnalysis&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='DSAN5000-LithiumSentimentAnalysis&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;DS&#47;DSAN5000-LithiumSentimentAnalysis&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1701868912261');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 ```
-
 :::
+
+<br>
+
+::: {.epigrafe}
+9- Are there specific terminologies that drive the sentiment of publications?
+:::
+
+::: {.justify}
+While the word clouds generated from the sentiment analysis labels reveal common terminology across sentiments and provide insight into overall language consistency, it is important to note that there may not be enough evidence to definitively answer the question of whether specific terminology drives the sentiment of publications. Notably, terms such as "geothermal," "sustainable," and "recycling" appeared in the positive word cloud, reflecting concepts that have gained increased interest in recent years, particularly in the context of studies exploring geothermal energy storage through lithium mining. Conversely, the negative sentiment word cloud included terms such as "company," "president," "federal," and "fire”. While these words may contribute to a more negative sentiment, it is important to recognize that further in-depth analysis is required to establish a concrete correlation between specific terms and sentiment.
+:::
+
+<br>
+
+::: {.epigrafe}
+10- What conclusions can we draw based on the industry analysis and are there specific concerns arising?
+:::
+
+::: {.justify}
+In conclusion, the comprehensive analysis of the lithium industry reveals a significant and rapid growth trajectory, driven by high demand and positive expectations regarding environmental benefits. However, it is critical to acknowledge concerns related to resource exploitation. Despite the limited data available for analysis, this study serves as a fundamental step in understanding environmental impacts and formulating actionable strategies to improve the overall quality of life. As the industry expands, there is a need for responsible practices and sustainable approaches to mitigate potential environmental drawbacks. This analysis lays the groundwork for future research and initiatives aimed at achieving a balance between industry growth and environmental stewardship.
+:::
+
+<br>
 
 ## Future Analysis
 

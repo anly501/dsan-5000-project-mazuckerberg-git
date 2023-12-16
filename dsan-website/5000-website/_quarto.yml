@@ -25,17 +25,17 @@ website:
         text: Data Cleaning
       - href: "4_data_exploration.qmd"
         text: Data Exploration
-      - href: "4_1_NaiveBayes.qmd"
+      - href: "5_NaiveBayes.qmd"
         text: Naïve Bayes
-      - href: "5_clustering.qmd"
-        text: Clustering
       - href: "6_dimensionality_reduction.qmd"
         text: Dimensionality reduction
-      - href: "7_decision_trees.qmd"
+      - href: "7_clustering.qmd"
+        text: Clustering
+      - href: "8_decision_trees.qmd"
         text: Decision Trees
-      - href: "8_ARM.qmd"
+      - href: "9_ARM.qmd"
         text: ARM
-      - href: "9_conclusions.qmd"
+      - href: "10_conclusions.qmd"
         text: Conclusions
 
 format:

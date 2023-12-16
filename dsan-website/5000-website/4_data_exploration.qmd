@@ -147,6 +147,8 @@ def generate_word_cloud(my_text, title="Word Cloud"):
 ::: {.justify}
 
 In the first visualization we can observe a map plot done using Tableau Software. Using the controls to change the years of visualization we can observe the evolution of the global lithium production and how the total production is distributed along the main producing countries. As it was explained earlier, the data includes information since 1995 as this resource is very innovative.
+
+The global lithium production over the past two decades reveals a notable evolution in the distribution among the major producing countries. In 1995, Australia, the United States, and Chile were prominent lithium producers, each with a modest contribution of less than 3,500 tons. Fast forward to 2015, Australia jumped to about 12,000 tons, Chile reached nearly 10,000 tons, and Argentina contributed around 3,600 tons. The most recent data from 2022 shows a significant increase in lithium production, with Australia leasing with 61,000 tons, Chile following closely with about 38,000 tons, and China producing 19000 tons. This analysis underscores the remarkable growth in the lithium industry, indicating a persistent upward trend in production over the years.
 :::
 
 ::: {.tableau}
@@ -160,7 +162,7 @@ In the first visualization we can observe a map plot done using Tableau Software
 
 ::: {.justify}
 
-Add description
+In examining the stock market performance of lithium producing companies over the past two decades, we focus on time series data. Albemarle Corporation (ALB) stands out as a market participant that has shown consistent growth since 2000. ALB's stock price has exceeded $37 per share since 2015, with a significant peak of over $300 in 2022, followed by post-peak fluctuations around $200. In particular, the pandemic-related slowdown in 2020 temporarily impacted ALB's value. In contrast, Lithium Americas Corp (LTHM) and Sigma Lithium Corp (SGML), which were introduced in 2018, show increasing values, approaching $30 per share. The comparison highlights ALB's significant market presence and robust performance, with a marked difference in valuation trends compared to its newer competitors.
 :::
 
 ``` {r, fig.width = 8, fig.height = 5}
@@ -192,6 +194,13 @@ viz_companies_1 <- ggplot(df_companies_1, aes(x = date, y = price, color = stock
 viz_companies_1 %>% ggplotly()
 ```
 
+<br>
+
+::: {.justify}
+
+We look at the stock market performance of the major electric vehicle manufacturers over the past two decades. In the early 2000s, AEHR, ON, and F were the major players. Around 2010, Tesla came on the scene and changed the landscape. It wasn't until around 2019 that other companies emerged. Notably, in 2020, Tesla experienced a significant peak in the stock market, with prices spiking above $200 and reaching a remarkable $400. This spike and subsequent volatility positioned Tesla as a market leader relative to its competitors, demonstrating its dominance in the electric vehicle manufacturing sector.
+:::
+
 ``` {r, fig.width = 8, fig.height = 5}
 #| echo: true
 #| message: false
@@ -217,6 +226,13 @@ viz_companies_2 <- ggplot(df_companies_2, aes(x = date, y = price, color = stock
 # Show plot
 viz_companies_2 %>% ggplotly()
 ```
+
+<br>
+
+::: {.justify}
+
+In analyzing the stock market performance of lithium battery manufacturing companies over the past two decades, we focus on Panasonic Holdings Corporation of Japan and BYD CO., LTD of China. Panasonic has been around since 2000, with initial values near $2000 per share. However, they have experienced considerable volatility, dropping below $1000 per share and currently hovering around $1200 per share, indicating a challenging period for the company. In contrast, BYD CO., LTD entered the market in 2009 and has shown a remarkable upward trend, exceeding $20 per share. Despite this positive trajectory, BYD's market presence remains comparatively smaller than Panasonic's. This comparison highlights the contrasting fortunes of these two companies in the lithium battery manufacturing sector.
+:::
 
 ``` {r, fig.width = 8, fig.height = 5}
 #| echo: true
@@ -244,47 +260,10 @@ viz_companies_3 <- ggplot(df_companies_3, aes(x = date, y = price, color = stock
 viz_companies_3 %>% ggplotly()
 ```
 
-
-``` {r, fig.width = 8, fig.height = 5}
-#| echo: true
-#| message: false
-#| warning: false
-#| code-fold: true
-#| code-summary: "Visualization"
-
-# Read cleaned file
-df_companies_finance <- read.csv('../../data/01-modified-data/clean_companies_finance.csv')
-
-# Pivot the data from long to wide format
-df_companies_finance <- df_companies_finance %>%
-  pivot_wider(
-    id_cols = c(Company, Year, Quarter),
-    names_from = KPI,
-    values_from = Value
-  )
-
-df_companies_finance <- df_companies_finance %>% dplyr::select('Company', 'Year', 'Quarter', 'Inventory')
-
-df_companies_finance$date <- as.Date(paste0(df_companies_finance$Year,"-",(df_companies_finance$Quarter) * 3,"-01"))
-
-# Create ggplot line plot
-viz_companies_4 <- ggplot(df_companies_finance, aes(x = date, y = Inventory, color = Company)) +
-  geom_line() +
-  labs(title = "",
-       x = "Date",
-       y = "Inventories") +
-  scale_color_discrete(name = "Company")
-
-# Show plot
-viz_companies_4 %>% ggplotly()
-```
-
 ## Resources Prices
 
 ::: {.justify}
-
-Add description
-
+In this analysis, we created a correlation plot heatmap using the Pearson correlation coefficient to visually represent the relationships between these resources. The results show that lithium has a high correlation with zinc, nickel and aluminum. However, the correlation with copper and cobalt is less pronounced. This observation provides valuable insight into the interdependencies among these critical resources and provides a basis for understanding their co-variation patterns in the context of lithium battery production.
 :::
 
 ``` {r, fig.width = 6, fig.height = 3}
@@ -305,18 +284,18 @@ correlation_matrix <- cor(df_resources[, -1], use = "complete.obs")
 
 correlation_matrix <- reshape2::melt(correlation_matrix)
 
-ggplot(correlation_matrix, aes(x = Var1, y = Var2, fill = value)) +
-geom_tile(color = "white") +
-scale_fill_gradient2(low = "blue", mid = "yellow", high = "red", midpoint = 0) +
-theme_minimal() +
-labs(title = "Resources Correlation Plot")
+ggplot(correlation_matrix, aes(x = Var1, y = Var2, fill = value, label = sprintf("%.2f", value))) +
+  geom_tile(color = "white") +
+  geom_text(size = 3, color = "white") +
+  scale_fill_gradient2(low = "blue", mid = "yellow", high = "red", midpoint = 0) +
+  theme_minimal() +
+  labs(title = "Resources Correlation Plot")
 ```
 
 ## Electric Vehicles
 
 ::: {.justify}
-
-Add description
+To assess the relationship between the different characteristics of electric vehicles, we calculated the Pearson correlation coefficient. We analyze these values using a heat map. The results show that there are some variables that are positively correlated, inversely correlated and weakly correlated. The most relevant cases are the price which is highly correlated with the top speed and the battery. The battery is also highly correlated with range. Acceleration is inversely highly correlated with top speed, range, fast charge and acceleration.
 :::
 
 ``` {r, fig.width = 6, fig.height = 3}
@@ -336,11 +315,12 @@ correlation_matrix2 <- cor(df_vehicles, use = "complete.obs")
 
 correlation_matrix2 <- reshape2::melt(correlation_matrix2)
 
-ggplot(correlation_matrix2, aes(x = Var1, y = Var2, fill = value)) +
+ggplot(correlation_matrix2, aes(x = Var1, y = Var2, fill = value, label = sprintf("%.2f", value))) +
 geom_tile(color = "white") +
+geom_text(size = 3, color = "white") +
 scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
 theme_minimal() +
-labs(title = "Resources Correlation Plot")
+labs(title = "Electric Vehicles Characteristics Correlation Plot")
 
 ```
 
@@ -348,7 +328,7 @@ labs(title = "Resources Correlation Plot")
 
 ::: {.justify}
 
-Add description
+Using the sentiment analysis labels assigned to lithium-related news articles, word clouds were created for each sentiment category. The most recurring words across sentiments included "new," "electric," "vehicle," "car," and "batteries." Notably, the consistency of the most common words across sentiments suggests a commonality in the language used, regardless of the sentiment assigned to the news article.
 :::
 
 **WordCloud - Positive Sentiment**

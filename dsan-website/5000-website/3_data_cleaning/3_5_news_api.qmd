@@ -58,7 +58,7 @@ df_sources = ', '.join(sources['id'].astype(str))
 
 df_domains = ', '.join(sources['url'].astype(str))
 
-all_articles = newsapi.get_everything(q='lithium',
+all_articles_1 = newsapi.get_everything(q='lithium',
                                       sources=str(df_sources),
                                       domains=str(df_domains),
                                       from_param=date_past,
@@ -66,8 +66,30 @@ all_articles = newsapi.get_everything(q='lithium',
                                       language='en',
                                       sort_by='relevancy')
 
-df_articles = pd.DataFrame(all_articles['articles'])
+all_articles_2 = newsapi.get_everything(q='"lithium batteries"',
+                                      sources=str(df_sources),
+                                      domains=str(df_domains),
+                                      from_param=date_past,
+                                      to=date,
+                                      language='en',
+                                      sort_by='relevancy')
 
+all_articles_3 = newsapi.get_everything(q='"electric vehicles"',
+                                      sources=str(df_sources),
+                                      domains=str(df_domains),
+                                      from_param=date_past,
+                                      to=date,
+                                      language='en',
+                                      sort_by='relevancy')
+
+df_articles_1 = pd.DataFrame(all_articles_1['articles'])
+
+df_articles_2 = pd.DataFrame(all_articles_2['articles'])
+
+df_articles_3 = pd.DataFrame(all_articles_3['articles'])
+
+
+df_articles = pd.concat([df_articles_1, df_articles_2, df_articles_3], ignore_index=True)
 
 df_articles[['id', 'name']] = df_articles['source'].apply(lambda x: pd.Series([x['id'], x['name']]))
 
@@ -83,6 +105,25 @@ df_articles_save = pd.DataFrame(df_articles, columns=[
                                                 'publishedAt'])
 
 df_articles.head(5)
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+
+print("Shape 'Lithium': ")
+print(df_articles_1.shape)
+
+print("Shape 'Lithium Batteries': ")
+print(df_articles_2.shape)
+
+print("Shape 'Electric Vehicles': ")
+print(df_articles_3.shape)
+
+
+print("Shape Total: ")
+print(df_articles.shape)
 ```
 
 ```{python}

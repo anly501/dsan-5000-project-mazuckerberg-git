@@ -46,9 +46,9 @@ x<-1
 
 ## Introduction
 ::: {.justify}
-To continue with the previous analysis, we will build a decision tree model for the electric vehicles information.
+To enhance the analysis done in the Naïve Bayes section we will now apply a new machine learning algorithm to the Electric Vehicles Characteristics dataset. In this section we will also introduce Decision Trees, describe the types, advantages and disadvantages, and later dive into the application and analysis.
 
-Below we can observe the libraries imported and the functions created that will be used in this section.
+For this analysis we will use Python and below we have the list of libraries imported and the functions created:
 :::
 
 ```{python}
@@ -188,12 +188,10 @@ One of the main disadvantages of the decision trees is that they tend to overfit
 
 ### Class distribution
 ::: {.justify}
-The data that will be used for this analysis is the electric vehicle characteristics information. 
-
-
+The first step is to import the data we will be using for the analysis. As we can observe, the dataset contains both numeric and categoric variables which we will later drop based on the analysis. The original dataset contains 10 columns and 360 rows.
 :::
 
-**Original Data**
+#### Original Data
 
 ```{python}
 #| echo: false
@@ -205,16 +203,32 @@ The data that will be used for this analysis is the electric vehicle characteris
 # Read csv
 df_vehicles = pd.read_csv('../../data/01-modified-data/clean_vehicles.csv')
 
-df_vehicles.head(5)
+df_vehicles.head(5).to_csv('../../data/02-visualization-data/df_vehicles_3.csv', index=False)
+```
+
+``` {r}
+#| echo: false
+
+# Read csv file
+df_vehicles_3 <- read.csv('../../data/02-visualization-data/df_vehicles_3.csv')
+
+knitr::kable(head(df_vehicles_3, 5))
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
 
 df_vehicles.shape
 ```
 
-**Data Cleaning**
+#### Data Cleaning
 
 ::: {.justify}
-After cleaning the data, we can see that we have...
-
+As it was mentioned in previous sections, there are some cases where we need to apply additional data cleaning steps to satisfy the models’ requirements. In this case we need to filter out the rows that contain NAs. After cleaning the data, we can see that the number of rows was reduced to 307 data points.
 :::
 
 
@@ -227,16 +241,34 @@ After cleaning the data, we can see that we have...
 
 df_vehicles = df_vehicles.dropna()
 
-df_vehicles.head(5)
+df_vehicles.head(5).to_csv('../../data/02-visualization-data/df_vehicles_4.csv', index=False)
+```
+
+``` {r}
+#| echo: false
+
+# Read csv file
+df_vehicles_4 <- read.csv('../../data/02-visualization-data/df_vehicles_4.csv')
+
+knitr::kable(head(df_vehicles_4, 5))
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
 
 df_vehicles.shape
 ```
 
-**Data Exploration**
+#### Data Exploration
 
 ::: {.justify}
-The next step is to divide the target column from the original data set. The target column is ...
+The next step is to divide the target column from the original data set. In this case, the target column is the continent where the car was manufactured. The numeric columns are the features of the analysis used to construct the decision tree.
 
+We can see that there are more records for Europe compared to North America and Asia. This can be a limitation for the decision tree because the classes are unbalanced. Considering that we don't have many records, we will not downsample the data because we will lose a lot of data points.
 :::
 
 ```{python}
@@ -261,8 +293,9 @@ print('\n', 'Number of points with target = North America: ', length_0, length_0
 
 
 ::: {.justify}
-In the correlation plot below, we can see the Pearson correlation between all the variables. There are some that are highly positively correlated and some that don’t have any correlation at all.
+To explore the data we are going to use, we created a correlation plot between the variables. We can see the Pearson correlation between all the variables. There are some that are highly positively correlated and some that don't have any correlation at all.
 
+For example, Acceleration is inversely correlated with all the variables because the Pearson correlation coefficient is close to -1. We can also see that there is a high correlation between Range and Battery.
 :::
 
 ```{python}
@@ -298,7 +331,7 @@ plt.show()
 ::: {.justify}
 Before building a decision tree model, we decided to test a baseline model to compare results in the next steps. The baseline model that will be used is a random classifier, since there are no criteria for assigning labels. The goal of comparing the random classifier with the decision tree is to see if the performance of our model is better than the performance of assigning a random label.
 
-We can see that we get an accuracy very low.
+We can see that we get an accuracy of about 0.3, which is very low.
 :::
 
 ```{python}
@@ -328,11 +361,11 @@ random_classifier(Y_array)
 
 ## Decision Tree Model
 ::: {.justify}
+Now that we have the random classifier model, we can build the decision tree model. To evaluate the results, we use the confusion matrix function that we created at the beginning of this section.
 
-Now that we have the random classifier model, we can build the decision tree model. To evaluate the results, we use the confusion matrix function that we built at the beginning of this section.
+For the training set, we get very good results because the accuracy is equal to 1, so the other performance metrics, positive and negative recalls and precisions, are also equal to 1. For the test set, we get an accuracy of about 0.83, which is higher compared to the random classifier and we consider it a good performance for this model.
 
-For the training set, we get very good results because the accuracy is equal to 1, so the other performance metrics, positive and negative recalls and precisions, are also equal to 1. For the test set, we get an accuracy of 0.66 approximately, which compared to the random classifier is performing better but it could be improved.
-
+Looking at the decision tree, we can see that there is a high number of branches and a high depth. So, the next step is to apply model tuning techniques in order to get a simpler version without sacrificing the performance.
 :::
 
 ```{python}
@@ -391,8 +424,7 @@ plot_tree(tree.DecisionTreeClassifier(), x_train, y_train, labels)
 
 To get the best decision tree model, we can tune the hyperparameters of the model. There are two types of hyperparameters that can be tuned. First, the min_samples, which is the minimum number of samples needed to split an internal node. The second is the max_depth, which is the maximum depth of the tree. 
 
-Below, we apply the hypertuning process to the max_depth parameter. Considering the low number of data points for the analysis the test and train metric values vary through the number of layers in decision tree. Therefore, for this analysis we choose a maximum depth equal to 4.
-
+Below, we apply the hypertuning process to the max_depth parameter. Considering the low number of data points for the analysis the test and train metric values vary through the number of layers in decision tree. Therefore, for this analysis we choose a maximum depth equal to 5.
 :::
 
 ```{python}
@@ -449,7 +481,7 @@ plt.show()
 ## Final results
 ::: {.justify}
 
-Afer running the final results we can observe that the shape of the decision tree has changed, but the performance metric values are the same as the original model.
+After running the final results, we can see that the shape of the decision tree has changed and the performance metrics have also changed. We can observe an accuracy of 0.86 for the training set and 0.92 for the test set.  The accuracy for the test set has increased and the training set has decreased. Considering that both values are high, we will keep the model and conclude that we have obtained very good performance.
 
 :::
 
@@ -460,7 +492,7 @@ Afer running the final results we can observe that the shape of the decision tre
 #| code-fold: true
 #| code-summary: "{python}"
 
-best_max_depth = 3
+best_max_depth = 5
 
 model = tree.DecisionTreeClassifier(max_depth=best_max_depth)
 model = model.fit(x_train,y_train)
@@ -487,7 +519,7 @@ plot_tree(model,X,Y, labels)
 
 ## Conclusions
 ::: {.justify}
+The conclusions we can draw from this analysis are very similar to those of Naive Bayes. Based on the results obtained, we can see that the values for the analyzed features are useful to determine in which continent each car was manufactured. Considering the small number of data points, it would be useful in the future to include additional data points to make the analysis more balanced.  It would also be useful to add another target label to understand, for example, if we can target the country where the electric vehicles are manufactured.
 
-...
-
+Compared to the Naive Bayes model, we can see that a big advantage of decision trees is that they are easy to interpret and understand the decisions made to arrive at the final value.
 :::
