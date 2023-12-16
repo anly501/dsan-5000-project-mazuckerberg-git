@@ -1,0 +1,1641 @@
+---
+format:
+  html:
+    embed-resources: true
+bibliography: ../Personal/reference.bib
+---
+
+```{css, echo = FALSE}
+.justify {
+text-align: justify !important;
+text-indent: 20px;
+font-size: 20px;
+}
+
+.justify2 {
+text-align: justify !important;
+font-size: 18px;
+} 
+
+.epigrafe {
+text-align: justify !important;
+text-indent: 20px;
+border: 1.5px solid #87c8b5;
+padding: 15px;
+font-size: 14px;
+background-color: #f9f9f9;
+margin: 20px 0px 30px 0px;
+}
+
+.tabs-container-model-selection {
+  display: flex;
+}
+
+.tab-model-selection {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 20px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.tab-model-selection:hover {
+  background-color: #f1f1f1;
+  color: #87c8b5; 
+}
+
+.tab-content-model-selection {
+  padding: 10px;
+  border: 1px solid #ccc;
+  display: none;
+}
+
+.tab-content-model-selection.active {
+  display: block;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
+
+<script>
+function toggleTab(tabId) {
+  var tabs = document.getElementsByClassName("tab-content-model-selection");
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+  var selectedTab = document.getElementById(tabId);
+  if (selectedTab) {
+    selectedTab.classList.add("active");
+  }
+}
+</script>
+
+
+<p align="center">
+  <a href="https://analytics.georgetown.edu/?gclid=Cj0KCQjw06-oBhC6ARIsAGuzdw2b8lno5S_FrqNrX38C02mnTq05xgDy5yRhACR6s6sf4_ynWWezrFEaAhezEALw_wcB">
+    <img src="./images/georgetown_logo.png" alt="" width="300">
+  </a>
+</p>
+
+<h5 style="text-align:center;"> M.S. in Data Science and Analytics </h5>
+
+<br>
+
+<h2 style="text-align:center;"> Probabilistic Modeling and Statistical Computing</h2>
+
+<h4 style="text-align:center;"> FINAL PROJECT </h4>
+
+<br>
+
+
+<h1 style="text-align:center;">New York to California: A Statistical Exploration of Fuel Consumption and Environmental Factors</h1>
+
+<br>
+
+
+<p align="center">By: Shriya Chinthak, Lea Wang, Agustina Zuckerberg and Varun Patel</p>
+
+<br>
+
+***
+
+
+## Motivations and Goals
+
+:::{.justify}
+In an era where environmental sustainability is becoming increasingly important, understanding the dynamics of related factors, particularly fuel, is paramount. This research is driven by the necessity to conduct a thorough analysis and comparison of environmental and fuel-related data from two major U.S. states: California and New York. With their unique geographic, economic, and political backgrounds, these states offer distinctive case studies for examining the interaction of various environmental factors.
+
+The goal of this research is to delve into a multifaceted analysis of four factors: CO2 emissions, air quality, motor gasoline consumption, and gasoline prices. By comparing these two states, the study aims to uncover insights into how the impact of fuel can vary in different local environments. The analysis is not just a comparison between two states, but a microcosm of the larger environmental challenges and responses in the U.S.
+
+This research also aims to evaluate the real-world enforceability of environmental provisions across different sates and regions. For this purpose, we have selected the Paris Agreement as our focal point, with the objective of determining its influence and efficacy in California and New York. Additionally, this analysis will provide insights into the global implications of the Agreement's impact.
+
+To be specific, this research objectives are to:
+
+- Study the correlations between different factors. 
+
+- Analyze the differences among four factors between the two states.
+
+- Examine the effect of the Paris Agreement.
+
+- Build up the regression model.
+
+The outcomes of this research could offer valuable insights into how to balance environmental objectives with economic realities. It could help in shaping future environmental policies and strategies, not only in California and New York but potentially in other regions as well.
+:::
+
+## Data Science Questions:
+
+In order to structure our analysis, we’ll ask the following data science questions:
+
+1. Do California and NY have more CO2 emissions because of their fuel consumption?
+
+2. Do California and NY have higher prices of fuel because of the fuel consumption?
+
+3. Is there a significant relationship between CO2 emissions and air quality in California?
+
+4. Is there a significance relationship between CO2 emissions and air quality for NY?
+
+5. Is there a significant difference between the fuel consumption in New York and California?
+
+6. Is there a significant difference between the CO2 emissions in New York and California?
+
+7. How did the Paris Agreement affect California in terms of fuel consumption?
+
+8. How did the Paris Agreement affect NY in terms of fuel consumption?
+
+9. Can we use a regression model for NY CO2 emissions to predict California CO2 emissions? 
+
+10. Is there a similarity in the regression models of CA and NY?
+
+
+## Background
+
+:::{.justify}
+From the beginning of the industrial revolution, the United States has been one of the world’s largest producers of CO2 emissions. While in recent years, emissions have been declining, just in 2021, the U.S produced “ about 5 billion metric tons of carbon dioxide per year, which was about 13.49 percent of the total global emissions—more than twice that of all 28 countries in the European Union” @noaa. Therefore, it is crucial to understand how much carbon dioxide the U.S has been producing in recent decades, as well as one of the largest contributors to these emissions: fuel. In addition to being one of the largest contributors of CO2 emissions, the U.S is also one of the largest contributors on fuel consumption globally. In 2017 alone, the U.S consumed “more petroleum than any other country, accounting for 20% of world consumption” @fuelEnergyGOV. Thus, understanding the relationship between CO2 emissions and fuel consumption, as well as other pressing factors like fuel prices and overall air quality between the two biggest economic powerhouse states of the nation can help in identifying trends, new points of analysis, as well as ways to address the nation’s statistics regarding global warming. 
+
+In addition to understanding the statistical relationships between our four pillars of analysis, we’ll also be looking at a very crucial piece of environmental news in the past decade: The Paris Agreements. The Paris Agreement, established in December 2015 and enacted in November 2016, marked a historic global commitment to combat climate change. Established during the 2015 UN Climate Change Conference in Paris, France, representatives from 175 nations participated in crafting this landmark accord @unfccc.
+
+The primary objective of the agreement is to limit the global temperature increase to 1.5°C above pre-industrial levels, with a specific target of reducing greenhouse gas emissions by 43% by the year 2030. The significance of this agreement was exemplified during its initial signing, where the U.S garnered international attention by refusing to participate. However, in a pivotal move, President Biden reversed this stance in 2021, underscoring the renewed commitment of the United States to the global effort in addressing climate change @unfccc. 
+
+Given the controversy of the Paris Agreements within the United States, we also were to analyze how, if at all, did the news of the Paris Agreements affect fuel consumption within California and New York. This and other questions will be broken down into further detail below. 
+
+In our research, we collected six datasets revolving around carbon dioxide emissions, air quality, fuel consumption, and fuel prices. The data were sourced from multiple authoritative organizations, including the U.S. Energy Information Administration (EIA), the Environmental Protection Agency (EPA), the Centers for Disease Control and Prevention (CDC), and the U.S. Department of Transportation. After the data-cleaning process, we will ultimately have four datasets, each corresponding to each factor. 
+:::
+
+## Data Cleaning
+:::{.justify}
+In order to perform statistical analysis and answer our ten data science questions, we needed to gather all our data and perform a multitude of data cleaning techniques using the libraries tidyverse, janitor, readxl, and lubridate in R. We focused on collecting data to compare California and New York. Specifically, we'll be looking at CO2 emissions, air quality, motor gasoline consumption by transportation, and gasoline prices per state. 
+
+Firstly, we needed to gather data for each state’s CO2 emissions. To gather this data, we looked to the US Energy Information Administration (EIA) and their extensive public database for environmental data. Here, we were able to find a dataset containing energy-related carbon dioxide emissions, measured in kilotons, by state per capita from 1970 to 2021 @eiaStateCarbon.
+
+At first glance of the CO2 emissions data, we saw that the data was presented in a wide format, with each column representing a year from 1970 - 2021. Therefore, we first used the pivot_longer() function to turn the column names into a one column called year and its corresponding values in the column titled emissions_per_capita. After pivoting the data, we subset by state to only include California and New York, removed any excess columns, and made sure all the column names were in the tidy format. 
+
+Next, to begin our exploration of air quality, let's delve into the comprehensive dataset we acquired. Over the years, the collaboration between the Environmental Protection Agency (EPA) and the Center for Disease Control and Prevention (CDC) has yielded a large compilation of air quality metrics for all 50 states. We accessed this wealth of information via DataWorld @airquality, allowing us to conduct a thorough examination of the air quality landscape. 
+
+To clean the air quality data, we first used the glimpse() function and the unique values of the “MeasureName” column to quickly view our data as well as view the air quality metrics available. From this output, we decided to subset the data to analyze the annual average ambient concentration of PM2.5 in micrograms per cubic meter in California and New York, where PM2.5 is the fine particulate matter in the air at 2.5 microns or less in diameter.  In addition to subsetting by state and metric type, we also selected state, our value/metric, and year as our three columns of data. Thus, our cleaned data shows the average PM2.5 value each year from 1999 to 2013 for California and New York. 
+
+Another critical factor of our analysis is gasoline consumption, specifically through transportation. Thus, we located a dataset from the U.S. State Bureau of Transportation that described the state transportation sector’s energy consumption from 1970 - 2021. Therefore, we downloaded datasets for both California and New York @fuelconsumption.
+
+After gathering the data and using the glimpse() function in R to glance at the variables, columns, and datatypes of the dataset, we noticed a few issues. The first issue was that the dataset contained several energy consumption values such as petroleum, natural gas, propane, and gasoline. Since our goal is to find CO2 emissions produced by the average American through motor vehicles, we decided to subset the data on the value, Motor gasoline consumed by Transportation. Next, since the data was originally separated into two dataframes, we needed to create another column called State to include the name of the state once the dataframes are merged. One of the main aspects to the data that needed cleaning was the value column. In the original datasets, the value was represented through the unit, billion BTUs, short for billions of British thermal units instead of gallons. Thus, in order to manipulate the data to be represented as gallons, we executed the following equation. 
+
+\begin{equation}
+\text { Value in Billion BTUs } * 10^9 * \frac{1 \text { gallon }}{120,214 \text { BTUs }}
+\end{equation}
+
+In the equation above, the value from the original dataframe is first converted from billion BTUs to BTUs and then from BTUs to gallons based on the calculations from the EIA @eiaBritishThermal. Once this conversion was complete, we selected the state, value, and year columns from the dataset, made sure the column names were tidy, and merged both New York and California into one dataset. 
+
+Lastly, and most importantly, we needed to collect gasoline prices per state. Therefore, we went back to the EIA and found the average gasoline prices per year per state from 1970 - 2021 provided through the State Energy Data System (SEDS) @fuelprice.
+
+Using the glimpse() function in R, we saw that this dataset also needed a significant amount of cleaning prior to analysis. A few issues needed to be addressed: the value displayed in the column “MSN” was in acronyms for the each energy consumption category, data in a wide format with each year being a column, the values within the dataframe are are in the units price per MMBTU and need to be converted to price per gallon. Thus, we began cleaning by collecting conversion data by year from the EIA to convert the price per MMBTUs to price per barrel by multiplying the conversion rate per year @mmbtusToBarrels. After we converted to price per barrel, we divided by 42 to get the price per gallon. Once the conversion calculations were complete, we subset the data for New York and California, used EIA to find the acronym needed to subset the data on Motor gasoline prices by Transportation @variableContext, used the pivot_longer() function to move the years to its own column, selected the columns state, year, and price_per_gallon, and confirmed that all column names were tidy. 
+
+Thus, our data cleaning resulted in four dataframes for each subsection of analysis with data by year for both California and New York. Please note that all the data was checked for NAs as well as extraneous values and none were found.  
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| code-fold: true
+#| code-summary: "Libraries"
+
+library(tidyverse)
+library(janitor)
+library(readxl)
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+library(plotly)
+library(corrplot)
+library(reshape)
+library(dplyr)
+
+# Feeding in air quality data
+air_quality <- read.csv("../../data/5100_Final_Project/raw_data/Air_Quality_Measures_on_the_National_Environmental_Health_Tracking_Network.csv")
+
+glimpse(air_quality)
+
+unique(air_quality$MeasureName)
+
+air_quality <- air_quality %>%
+  subset(MeasureName == "Annual average ambient concentrations of PM2.5 in micrograms per cubic meter (based on seasonal averages and daily measurement)") %>%
+  subset(StateName == 'California' | StateName == 'New York') %>%
+  dplyr::select(StateName, Value, ReportYear) %>%
+  arrange(StateName, ReportYear) %>%
+  clean_names() %>%
+  dplyr::rename(state = state_name) %>%
+  dplyr::rename(year = report_year)
+
+write_csv(air_quality, '../../data/5100_Final_Project/cleaned_data_and_code/air_quality_cleaned.csv')
+
+knitr::kable(head(air_quality))
+
+
+co2_emissions <- read_excel("../../data/5100_Final_Project/raw_data/co2_emissions.xlsx")
+
+
+glimpse(co2_emissions)
+
+
+co2_emissions <- co2_emissions %>%
+  subset(State == 'New York' | State == 'California') %>%
+  dplyr::select(-Percent...54, -Absolute...55, -Percent...56, -Absolute...57) %>%
+  pivot_longer(cols = `1970`:`2021`, names_to = 'year', values_to = "emissions_per_capita") %>%
+  mutate(year = as.integer(year)) %>%
+  dplyr::rename(state = State)
+
+write_csv(co2_emissions, '../../data/5100_Final_Project/cleaned_data_and_code/co2_emissions_cleaned.csv')
+
+knitr::kable(head(co2_emissions))
+
+ny_gas_consum <- read_excel("../../data/5100_Final_Project/raw_data/state_data_NY.xlsx")
+ca_gas_consum <- read_excel("../../data/5100_Final_Project/raw_data/state_data_CA.xlsx")
+
+print("New York")
+glimpse(ny_gas_consum)
+print("Series values:")
+unique(ny_gas_consum$Series)
+
+print("California")
+glimpse(ca_gas_consum)
+print("Series values:")
+unique(ca_gas_consum$Series)
+
+
+ny_gas_consum <- ny_gas_consum %>%
+  subset(Series == "Motor gasoline consumed by Transportation") %>%
+  mutate(State = "New York") %>%
+  mutate(Value = ((Value * 10^9)/120214)) %>%
+  dplyr::rename(gallons_consumed = Value) %>%
+  mutate(Year = as.integer(Year)) %>%
+  dplyr::select(State, Year, gallons_consumed) %>%
+  clean_names()
+
+ca_gas_consum <- ca_gas_consum %>%
+  subset(Series == "Motor gasoline consumed by Transportation") %>%
+  mutate(State = "California") %>%
+  mutate(Value = ((Value * 10^9)/120214)) %>%
+  dplyr::rename(gallons_consumed = Value) %>%
+  mutate(Year = as.integer(Year)) %>%
+  dplyr::select(State, Year, gallons_consumed) %>%
+  clean_names()
+
+gas_consum <- bind_rows(ny_gas_consum, ca_gas_consum)
+
+write_csv(gas_consum, '../../data/5100_Final_Project/cleaned_data_and_code/gas_consumption_cleaned.csv')
+
+knitr::kable(head(gas_consum))
+
+
+gas_prices <- read.csv("../../data/5100_Final_Project/raw_data/gas_prices.csv")
+glimpse(gas_prices)
+
+price_conversion_to_barrel <- read_csv('../../data/5100_Final_Project/raw_data/price_conversion.csv')
+
+# Currently, the prices are in price/MMBTU. Thus, we'll first use the price conversions to make the data price per barrel. Then we'll convert again from barrels to gallons, 1 barrel is 42 gallons.
+
+price_conversion_to_barrel <- price_conversion_to_barrel %>%
+  subset(Description == "Motor Gasoline (Finished) Consumption Heat Content") %>%
+  mutate(YYYYMM = as.character(YYYYMM),
+         YYYYMM = substr(YYYYMM, 1, nchar(YYYYMM) - 2),
+         YYYYMM = as.integer(YYYYMM)) %>%
+  dplyr::rename(Year = YYYYMM) %>%
+  dplyr::rename(to_barrel = Value) %>%
+  mutate(to_barrel = as.double(to_barrel)) %>%
+  dplyr::select(Year, to_barrel)
+
+
+gas_prices <- gas_prices %>%
+  subset(State == 'NY' | State == 'CA') %>%
+  subset(MSN == 'MGACD') %>%
+  pivot_longer(cols = X1970:X2021, names_to = "Year", values_to = "Prices_per_gallon") %>%
+  mutate(across(c('Year'), substr, 2, nchar(Year))) %>%
+  mutate(Year = as.integer(Year)) %>%
+  left_join(price_conversion_to_barrel, by= "Year") %>%
+  mutate(Prices_per_gallon = ((Prices_per_gallon * to_barrel)/42) ) %>%
+  clean_names() %>%
+  dplyr::select(state, year, prices_per_gallon)
+
+write_csv(gas_prices, '../../data/5100_Final_Project/cleaned_data_and_code/gas_prices_cleaned.csv')
+
+knitr::kable(head(gas_prices))
+```
+
+## Exploratory Data Analysis
+
+:::{.justify}
+As previously mentioned, our study involved the collection and cleansing of four datasets: CO2 emissions (1970-2021), air quality in California (1999-2013) and New York (2000-2013), motor gasoline consumption in transportation (1970-2021), and gasoline prices (1970-2021). Each dataset encompasses data for both California and New York. Utilizing this data, we initially generated line charts to analyze and compare trends in CO2 emissions, air quality, motor gasoline consumption, and gasoline prices across California and New York. Subsequently, we conducted a comprehensive analysis to preliminarily investigate the interrelations among these factors. In the subsequent sections, we will elucidate the graphs we constructed and present our initial conclusions, setting the stage for a more detailed exploration in the following parts of our report.
+:::
+
+### Trend Analysis of CO2 Emissions
+
+:::{.justify}
+Analyzing the comprehensive graph reveals a clear trend: both California and New York exhibit a general decrease in CO2 emissions from 1970 to 2021, albeit with some fluctuations. Notably, the trend lines for both states often mirror each other, hinting that the factors influencing CO2 emissions may extend beyond local boundaries to national or global scales.
+
+A comparative analysis between the two states uncovers that California began the period with higher emissions than New York. However, by the end of the timeline, the emissions levels of the two states converge significantly. This convergence could be indicative of more effective environmental policies or transformative changes implemented in California, leading to a substantial reduction in emissions.
+
+The graph also reveals specific shifts in the emission trends. There are moments where the trend lines exhibit sharp dips or spikes. For instance, a marked decline in emissions was observed around 2008-2009 for both states, coinciding with the global financial crisis. This synchronicity suggests a potential economic influence on emission levels.
+
+Focusing on the more recent trends, particularly around 2019, we observe a pronounced drop in emissions, followed by a swift recovery. This pattern may be linked to contemporary events, like the COVID-19 pandemic, which initially led to a decrease in transportation and industrial activities, thereby significantly impacting CO2 emissions. This observation underscores the influence of global events on environmental metrics and highlights the dynamic nature of CO2 emission trends.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+# Create Visualization
+viz <- ggplot(co2_emissions, aes(x = year, y = emissions_per_capita, color = state)) +
+  geom_line() +
+  theme_minimal() +
+  labs(title = "CO2 Emission Trends in California and New York",
+       x = "Date", y = "CO2 Emission", color = "State") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plot
+viz %>% ggplotly()
+```
+
+### Trend Analysis of Fuel Consumption
+
+:::{.justify}
+The consumption patterns of fuel in California and New York present distinct differences. In California, there was a noticeable upward trend from 1970 until the early 2000s, reaching a peak before transitioning into a period of relative stability with minor fluctuations. This stability was interrupted by a sharp decline around 2020. In contrast, New York's fuel consumption trend has been relatively stable over time, marked by minor ups and downs, but lacking any significant long-term increase or decrease.
+
+Upon comparing these two states, the data reveals that California's fuel consumption has consistently been higher than New York's. This disparity may be attributed to factors such as California's larger population, a greater number of vehicles, or a more car-dependent culture. Interestingly, both states experienced a drop in fuel consumption around 2020, but the magnitude of this decline was notably more significant in California, indicating that the factors influencing fuel consumption may have had a more pronounced impact there.
+
+Focusing on the early 2000s, this period signifies a turning point for California, as the upward trend in fuel consumption began to level off. This shift could be reflective of the introduction of fuel-efficient technologies, changes in energy policies favoring sustainability, or transformations in economic growth patterns. Another pivotal change occurred around 2020, when a sharp decline in fuel consumption was observed in both states, likely linked to the COVID-19 pandemic, which enforced travel restrictions and led to a temporary reduction in transportation.
+
+The most recent trend observed is the dramatic decrease in consumption in 2020, a pattern that aligns with global observations during the pandemic and stands as a significant outlier in the data. Following 2020, there is an indication of a slight rebound, suggesting a potential return to pre-pandemic consumption levels as restrictions are lifted and economic activities resume. However, to confirm any sustained post-2020 trends, further data collection and analysis will be necessary.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+# Create Visualization
+viz <- ggplot(gas_consum, aes(x = year, y = gallons_consumed, color = state)) +
+  geom_line() +
+  theme_minimal() +
+  labs(title = "Fuel Consumption Trends in California and New York",
+       x = "Date", y = "Consumption", color = "State") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plot
+viz %>% ggplotly()
+```
+
+### Trend Analysis of Gas Price
+
+:::{.justify}
+According to the line chart, gas prices in both California and New York have generally trended upwards over the observed period, marked by sharp increases and decreases, reflecting the volatility of gas prices over the years. A particularly steep increase is noted after the year 2000, followed by significant fluctuations.
+
+In a comparative analysis, it is evident that gas prices in California have been consistently higher than in New York throughout the period. This disparity may be attributed to a range of factors, including differences in state taxes, environmental regulation costs, or variations in the supply chain.
+
+The data also highlights periods marked by abrupt spikes or drops in gas prices. These fluctuations could be linked to global events such as oil crises, shifts in crude oil prices, or economic recessions. For instance, the pronounced increases around the 1970s might be associated with the oil crises of 1973 and 1979.
+
+More recently, leading up to 2020, there has been a notable degree of fluctuation in gas prices, characterized by rapid surges followed by steep declines. Post-2020, a significant rise in prices is observed, which could be a result of economic recovery efforts following the pandemic or alterations in oil production and demand dynamics. This recent trend underscores the dynamic and complex nature of factors influencing gas prices in the contemporary economic landscape.
+
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+# Create Visualization
+viz <- ggplot(gas_prices, aes(x = year, y = prices_per_gallon, color = state)) +
+  geom_line() +
+  theme_minimal() +
+  labs(title = "Gas Price Trends in California and New York",
+       x = "Date", y = "Price", color = "State") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plot
+viz %>% ggplotly()
+```
+
+### Trend Analysis of Air Quality
+
+:::{.justify}
+The graph illustrates the air quality trends in California and New York from the year 2000 to just after 2010. Throughout this period, both states exhibited a general enhancement in air quality. The trend lines reveal a downward trajectory, which implies an improvement in air quality if we assume that lower values represent better conditions.
+
+Initially, California's air quality was inferior compared to New York. However, as time progressed, both states demonstrated notable improvements, with the advancements in California being particularly significant. By the end of the observed period, the air quality indices of both states seem to converge.
+
+A marked recovery in California's air quality is evident in the early 2000s, possibly attributable to specific environmental policies implemented during that era. Year-to-year variability is observed in both states, potentially influenced by factors such as fluctuations in economic activity, shifts in environmental regulations, or varying annual weather patterns.
+
+In more recent years, the graph indicates a slight reversal of the improving trend in New York, where air quality experiences a minor decline. In contrast, California's air quality shows a significant deterioration just before the graph concludes. This recent pattern might suggest a temporary interruption in the overall progression towards better air quality or could be linked to a specific event or policy alteration around that time.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization"
+
+# Group by data
+df_air_yearly <- air_quality %>%
+  group_by(state, year) %>%
+  summarize(average_value = mean(value))
+
+# Create Visualization
+viz <- ggplot(df_air_yearly, aes(x = year, y = average_value, color = state)) +
+  geom_line() +
+  theme_minimal() +
+  labs(title = "Air quality Trends in California and New York",
+       x = "Date", y = "Air quality", color = "State") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plot
+viz %>% ggplotly()
+```
+
+### Heatmap of California
+
+:::{.justify}
+In this section of the report, we present a heatmap representing the Pearson correlation coefficients among three different variables in California: emissions per capita, gallons consumed, and prices per gallon. We excluded air quality from this analysis due to the mismatch in dates with the other variables. However, the relationship between air quality and these variables will be explored in the subsequent section.
+
+Regarding the heatmap, the correlation between "gallons_consumed" and "prices_per_gallon" is highlighted in red, indicating a positive correlation. This suggests that as the price per gallon increases, the gallons consumed also increase. This trend might imply that factors such as economic growth or a lack of alternative transportation options have a greater influence on fuel consumption than price fluctuations.
+
+Similarly, the square correlating "emissions_per_capita" with "gallons_consumed" is also red, suggesting a direct relationship where higher fuel consumption is associated with higher emissions per capita. This correlation aligns with expectations, as increased fuel consumption typically leads to higher emissions.
+
+Conversely, the "emissions_per_capita" and "prices_per_gallon" correlation is shown in blue, indicating a negative correlation. As the price per gallon rises, emissions per capita tend to decrease. This could be interpreted as higher prices leading to reduced fuel consumption and consequently lower emissions. Alternatively, it may reflect the adoption of more fuel-efficient vehicles in response to higher fuel costs.
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Pearson Correlation"
+
+df_co2 <- read.csv('../../data/5100_Final_Project/cleaned_data_and_code/co2_emissions_cleaned.csv')
+df_consumption <- read.csv('../../data/5100_Final_Project/cleaned_data_and_code/gas_consumption_cleaned.csv')
+df_price <- read.csv('../../data/5100_Final_Project/cleaned_data_and_code/gas_prices_cleaned.csv')
+df_air <- read.csv('../../data/5100_Final_Project/cleaned_data_and_code/air_quality_cleaned.csv')
+
+df_consumption <- df_consumption %>% arrange(state, year)
+
+df_price <- df_price %>%
+  mutate(state = case_when(
+    state == "CA" ~ "California",
+    state == "NY" ~ "New York",
+    TRUE ~ NA_character_
+  ))
+
+df <- merge(df_co2, df_consumption)
+df <- merge(df, df_price)
+
+df_CA <- df[df$state== 'California',]
+df_NY <- df[df$state== 'New York',]
+
+df_numeric_CA <- df_CA %>%
+  select_if(is.numeric) %>%
+  select(-year)
+
+df_numeric_NY <- df_NY %>%
+  select_if(is.numeric) %>%
+  select(-year)
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Pearson Correlation"
+
+corr_matrix <- cor(df_numeric_CA)
+long_corr <- melt(corr_matrix)
+names(long_corr) <- c('Var1', 'Var2', 'value')
+long_corr <- long_corr[long_corr$Var1 != long_corr$Var2, ]
+
+ggplot(long_corr, aes(x = Var2, y = Var1, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white",
+                       midpoint = 0, limit = c(-1, 1), space = "Lab",
+                       name="Pearson\nCorrelation") +
+  theme_minimal() +
+  coord_fixed() +
+  labs(title = 'The heatmap of California',x = "", y = "")
+```
+
+### Heatmap of New York
+
+:::{.justify}
+Similarly, this heatmap visualizes the Pearson correlation coefficients for emissions per capita, gallons consumed, and prices per gallon in New York. The intensity of the color on the heatmap corresponds to the strength of the correlation, where red indicates a positive correlation and blue denotes a negative correlation.
+
+Regarding the relationship between Gallons Consumed and Prices Per Gallon, the heatmap displays a red square, indicating a positive correlation between fuel prices and consumption. This finding might initially appear counterintuitive, as higher prices are generally expected to deter consumption. However, this correlation could also imply that other factors, such as economic activity or limited public transportation options, play a significant role in driving fuel consumption.
+
+In the case of Emissions Per Capita and Gallons Consumed, a red square suggests a positive correlation, indicating that an increase in fuel consumption correlates with higher emissions per capita. This result aligns with expectations, as increased fuel combustion typically leads to greater emissions.
+
+Finally, for Emissions Per Capita and Prices Per Gallon, the presence of a blue square indicates a negative correlation. This suggests that higher fuel prices are associated with lower emissions per capita. This correlation might be interpreted as an indication that higher fuel costs are encouraging the adoption of more fuel-efficient vehicles or alternative modes of transportation, ultimately contributing to reduced emissions.
+
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Pearson Correlation"
+
+corr_matrix <- cor(df_numeric_NY)
+long_corr <- melt(corr_matrix)
+names(long_corr) <- c('Var1', 'Var2', 'value')
+long_corr <- long_corr[long_corr$Var1 != long_corr$Var2, ]
+
+ggplot(long_corr, aes(x = Var2, y = Var1, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white",
+                       midpoint = 0, limit = c(-1, 1), space = "Lab",
+                       name="Pearson\nCorrelation") +
+  theme_minimal() +
+  coord_fixed() +
+  labs(title = 'The heatmap of New York',x = "", y = "")
+```
+
+## Analysis
+
+### Correlation Analysis
+
+:::{.justify}
+We employed correlation analysis to study the relationships among CO2 emissions, fuel consumption, and fuel prices. Conducting correlation analysis in R is straightforward, requiring only the use of the `cor.test()` function. This computation provides multiple values, including the p-value and the correlation coefficient.
+
+For the relationship between CO2 emissions and fuel consumption, we first established our null and alternative hypotheses: Null Hypothesis (H0) states that CO2 emissions and fuel consumption are independent, while the Alternative Hypothesis (H1) suggests that CO2 emissions and fuel consumption are related. 
+
+We then processed the data further, splitting the cleaned datasets into four subsets: `df_co2_CA`, `df_co2_NY`, `df_consumption_CA`, and `df_consumption_NY`. Following this, we merged the datasets by state, resulting in two datasets: `df_CA` and `df_NY`, each containing data on CO2 emissions and fuel consumption for California and New York, respectively. 
+
+Finally, we applied `cor.test()` to each dataset and found that the p-values for both datasets were significantly less than 0.05. This implies a 95% confidence level to reject the null hypothesis, indicating a strong correlation between CO2 emissions and fuel consumption in both California and New York. However, the correlation coefficients for the two states are notably different, with California at -0.69 and New York at 0.64. We will discuss the interpretation of these correlation coefficients in detail in the Results section.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Pearon Correlation"
+
+df_co2 <- read.csv('../../data/5100_Final_Project/cleaned_data_and_code/co2_emissions_cleaned.csv')
+df_consumption <- read.csv('../../data/5100_Final_Project/cleaned_data_and_code/gas_consumption_cleaned.csv')
+
+df_co2_CA <- df_co2[df_co2$state == 'California',]
+df_co2_NY <- df_co2[df_co2$state == 'New York',]
+
+df_consumption_CA <- df_consumption %>%
+  filter(state == 'California') %>%
+  arrange(year)
+
+df_consumption_NY <- df_consumption %>%
+  filter(state == 'New York') %>%
+  arrange(year)
+
+df_CA <- merge(df_co2_CA, df_consumption_CA)
+df_NY <- merge(df_co2_NY, df_consumption_NY)
+
+df_CA_2 <- df_CA
+df_NY_2 <- df_NY
+
+q1result_CA <- cor.test(df_CA$emissions_per_capita, df_CA$gallons_consumed)
+
+q1result_NY <- cor.test(df_NY$emissions_per_capita, df_NY$gallons_consumed)
+
+q1result_CA
+
+q1result_NY
+```
+
+:::{.justify}
+Next, we applied the same methodology to analyze the relationship between fuel price and fuel consumption. Similarly, we established our hypotheses: Null Hypothesis (H0) states that fuel price and fuel consumption are independent, while the Alternative Hypothesis (H1) suggests that fuel price and fuel consumption are related. 
+
+Since we had already obtained the state-based comprehensive datasets `df_CA` and `df_NY` while addressing the first question, all we needed to do here was to integrate the fuel price data into these datasets. 
+
+After applying the `cor.test()` function, we found that the p-values were significantly less than 0.05. This indicates a 95% confidence level to reject the null hypothesis, implying a strong connection between fuel price and fuel consumption in both California and New York. Interestingly, this time the coefficient for California was 0.62, while for New York it was -0.45. As with the previous analysis, the interpretation of these coefficients and the speculation on potential reasons will be discussed in detail in the Results section.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Pearson Correlation"
+
+df_price <- read.csv('../../data/5100_Final_Project/cleaned_data_and_code/gas_prices_cleaned.csv')
+
+df_price_CA <- df_price[df_price$state == 'CA',]
+df_price_NY <- df_price[df_price$state == 'NY',]
+
+df_CA <- merge(df_CA, df_price_CA, by = 'year') %>%
+             select(-state.y)
+df_NY <- merge(df_NY, df_price_NY, by = 'year') %>%
+             select(-state.y)
+
+q2result_CA <- cor.test(df_CA$gallons_consumed, df_CA$prices_per_gallon)
+
+q2result_NY <- cor.test(df_NY$gallons_consumed, df_NY$prices_per_gallon)
+
+q2result_CA
+
+q2result_NY
+```
+
+### Hypothesis Testing
+
+:::{.justify}
+To address questions about the differences between California and New York at the various points in the analysis, we used the Welch two-sample t-test.
+
+The Welch two-sample t-test is a statistical method used to determine whether there is a significant difference between the means of two independent groups. The test involves formulating null and alternative hypotheses about the population means, calculating a test statistic, and determining the p-value. If the p-value is less than a predetermined level of significance (often 0.05), the null hypothesis is rejected, indicating that there is evidence of a significant difference between the group means.  
+
+This versatile method can be applied to different scenarios, making it suitable for analyzing variables such as fuel price, fuel consumption, air quality, and CO2 emissions. Based on the population means we observe from the data, we formulate the hypothesis for the analysis. Our general null hypothesis states that there is no significant difference between the mean for California and the mean for New York. The general alternative hypothesis is that the mean for California is higher than the mean for New York. The null hypothesis can be applied individually to each case.
+
+In summary, when evaluating the difference in fuel prices and the difference in CO2 emissions, we obtain a p-value equal to greater than 0.05, indicating that there is no significant difference between the states for both points of analysis. The difference in air quality and the difference in the fuel consumption resulted in p-values close to 0, indicating that California has better air quality and higher fuel consumption than New York.
+
+In conclusion, the Welch two-sample t-test was a valuable tool in our analysis, allowing us to assess the significance of differences between California and New York on various parameters. While we do not find significant differences in fuel prices and CO2 emissions, California has better air quality and higher fuel consumption than New York, as evidenced by p-values close to zero in these cases.
+:::
+
+### Bootstrapping Method
+
+:::{.justify}
+In order to answer the questions on the Paris Agreements' effect on gasoline consumption in New and California, we would normally conduct two hypothesis tests for the years pre and post the Paris Agreements per state to see if any changes were significant. However, since the data points for after the Paris Agreements (2016 - 2021) are minimal in quantity, we decided to use the statistical method of bootstrapping. 
+
+Bootstrapping is defined as a resampling technique used to estimate the sampling distribution of a statistic by repeatedly sampling with replacement from the observed data. 
+The process involves creating multiple bootstrap samples by randomly drawing observations with replacement. The statistic of interest is then calculated and a distribution of the statistic is obtained. 
+
+In conjunction with our project, we first created a hypothesis for California and New York,  took the mean of the pre and post Paris Agreement data, and produced a t-test. For both New York and California, we saw that the p-value was greater than 0.05, meaning that failed to reject the null hypothesis and could not say that fuel consumption post 2016 increased in comparison to pre 2016. However, given that the dataset was too small, especially for data gathered post 2016, we decided to use bootstrapping. 
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{post} - \mu_{prior} = 0$ --> Gasoline consumption was approximately the same pre and post 2016 
+
+$H_{A} =  \mu_{post} - \mu_{prior} > 0$ --> Gasoline consumption increased post-2016 in comparison to prior-2016
+:::
+
+:::{.justify2}
+Using R, we ran a loop ten thousand times. Within the loop, we sampled both the data pre and post 2016 and found the ratio of means for each iteration. After the loop is complete, we calculated the 95% confidence interval of the bootstrapping ratio of means. This process was completed for both New York and California. When the number zero is contained in this interval, that means that at some point, the average difference between pre and post 2016 fuel consumption was zero. Thus, our intervals for both New York and California were greater than zero, meaning that at no point was the average difference zero. 
+:::
+
+:::{.justify2}
+\begin{equation}
+\text { California: The } 95 \% \text { bootstrap percentile interval is: }(0.91,1.13)
+\end{equation}
+
+\begin{equation}
+\text { New York: The } 95 \% \text { bootstrap percentile interval is: }(0.92,1.10)
+\end{equation}
+:::
+
+### Regression Analysis
+
+:::{.justify}
+Regression is a statistical method used to model the relationship between two or more variables by fitting a straight line, or "regression line," to the observed data. The goal is to understand and predict the behavior of one or more variables based on the values of another. In simpler terms, it helps us find an equation that best represents the data points. Regression is useful in statistics as it provides a systematic way to quantify and understand the association between variables, making predictions and drawing inferences about future data points or scenarios. In our case, we will be using multivariate regression analysis to explain the variation in CO2 levels in New York and California. 
+
+Starting with our New York data, we began by creating a regression model with predictors average fuel prices and a variety of fuel consumption categories. In our first run of the model, we observed that the average fuel prices was a non-significant predictor and had no impact on the CO2 levels. Thus, we decided to remove it from the remainder of our analysis [Fig 1](https://mazuckerberg.georgetown.domains/DSAN_5100/final_project.html#can-we-use-a-regression-model-for-ny-co2-emissions-and-california-co2-emissions). 
+
+Next, we created a multivariate regression model on the various fuel consumption levels as well as conducted an outlier analysis. Two observations that were flagged were removed from the model and the model was refitted. In order to carry out this process, we created a  multiple regression model using the STAT function in Minitab and verified the results in R to highlight the accuracy of both softwares. 
+
+After fitting the multiple regression model, we analyzed the diagnostics report. The four fundamental assumptions of any regression model are linearity, independence, normality of the residuals, and equal variance of residuals. The model diagnostics show that those assumptions were tested and accounted for. We then used a normal probability plot to further examine the model [Fig 4](https://mazuckerberg.georgetown.domains/DSAN_5100/final_project.html#can-we-use-a-regression-model-for-ny-co2-emissions-and-california-co2-emissions). Based on the variance in the plot, we decided to use a log transformation of the response variable. However,  this resulted in a model with lower r-squared value. 
+
+Thus, a simple multiple regression was fit in accordance with all regression assumptions, resulting in a r-squared value of 81.61% [Fig 3](https://mazuckerberg.georgetown.domains/DSAN_5100/final_project.html#can-we-use-a-regression-model-for-ny-co2-emissions-and-california-co2-emissions). Through the model, we were able to see that natural gas consumption was the only significant predictor in New York. Likewise, we replicated this modeling approach for the data we gathered for the state of California. The multiple regression model with the same predictors for California generated an r-squared value of 81.75% [Fig 7](https://mazuckerberg.georgetown.domains/DSAN_5100/final_project.html#can-we-use-a-regression-model-for-ny-co2-emissions-and-california-co2-emissions). Interestingly, in both states, the only significant predictor was natural gas consumption. 
+:::
+
+## Results
+
+### 1. Do California and NY have more CO2 emissions because of their fuel consumption?
+
+:::{.justify}
+The outcomes are completely opposite for these two states. In California, higher CO2 emissions are associated with lower fuel consumption, while in New York, the opposite is true: more fuel consumption leads to higher CO2 emissions. 
+
+In California, there exists a negative correlation coefficient of -0.69 between fuel consumption and CO2 emissions. This surprising trend suggests that despite increasing fuel consumption, CO2 emissions are decreasing. This phenomenon might be attributed to California's robust investment in renewable energy, its transition to cleaner fuels, and significant advancements in energy efficiency technologies.
+
+Conversely, in New York, the correlation is positive, at 0.64. This indicates that higher fuel consumption in New York is associated with increased CO2 emissions. This correlation could be explained by New York's reliance on more traditional energy sources, its urbanization dynamics, and a transportation sector still heavily dependent on fossil fuels. This implies that New York's infrastructure and energy policies may not have evolved as effectively as California's in reducing emissions despite higher fuel consumption.
+:::
+
+### 2. Do California and NY have higher prices of fuel because of the fuel consumption?
+
+:::{.justify}
+Again, the outcomes for these two states are entirely opposite. In California, there is an association between higher fuel prices and increased fuel consumption, while in New York, the relationship between these two factors is inversely correlated.
+
+In California, a positive correlation of 0.62 is observed, indicating that as fuel consumption increases, so do the prices. This trend could be attributed to the high demand for gasoline in the California market, stringent state regulations, and the elevated costs involved in the transportation and refinement of gasoline.
+
+In contrast, New York exhibits a negative correlation of -0.45, where an increase in fuel consumption is associated with a decrease in prices. This pattern may be explained by efficient supply chains and the economies of scale in the state. Specifically, as the production or processing volume of fuel increases, the average cost per unit tends to decrease, leading to lower prices despite higher consumption.
+:::
+
+### 3. Is there a significant difference between the fuel prices in New York and California?
+
+:::{.justify}
+Our research was driven by several factors that could influence gas prices in California vs. New York. We found an article from USA Today that explains some of these factors. Distance to refineries and pipelines was identified as a significant factor, with gas stations farther from these facilities incurring higher transportation costs, thereby increasing overall prices. California's limited access to refineries was also noted, consistent with the observation that it tends to have some of the highest gas prices in the nation. In addition, the presence of the highest gas tax in California was a notable factor contributing to the potential price differential between the two states @USAToday.
+
+In this section, we examined the difference in fuel prices between California and New York states. The mean gas price of California is 1.73 while the mean for gas price in NY is 1.60. From this, we can denote the null and alternate hypothesis. Our null hypothesis suggests that there is no significant difference in gas prices, while the alternative hypothesis suggests that California has higher prices compared to New York. 
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{CA} - \mu_{NY} = 0$ --> California does not have higher gas prices in comparison to NY state.  
+
+$H_{A} = \mu_{CA} - \mu_{NY} > 0$ --> California has higher gas prices in comparison to NY state.  
+:::
+
+:::{.justify}
+Using a two-sample Welch t-test, we obtain a p-value of 0.2544. Since this p-value exceeds the 0.05 significance level, we cannot reject the null hypothesis. Therefore, at the 95% confidence level, our analysis suggests that there is insufficient evidence to support the claim that California has higher fuel prices than New York. 
+
+Based on the results obtained, we can conclude that there is insufficient data to draw conclusions about whether California and New York have a significant difference in gas prices. 
+:::
+
+### 4. Is there a significant difference between the air quality in New York and California?
+
+:::{.justify}
+An analysis of air quality in California and New York revealed notable differences. California had an average air quality of 11.77, which exceeded New York's average of 10.63. Our null hypothesis suggests that there is no significant difference in air quality, while the alternative hypothesis suggests that California has better air quality compared to New York.
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{CA} - \mu_{NY} = 0$ --> California does not have better air quality in comparison to NY state.  
+
+$H_{A} = \mu_{CA} - \mu_{NY} > 0$ --> California has better air quality in comparison to NY state.  
+:::
+
+:::{.justify}
+Our statistical analysis using a two-sample Welch t-test yielded a p-value of 0.0000357, indicating a significant difference. Therefore, we reject the null hypothesis and conclude with 95% confidence that California has better air quality than New York. These results underscore the importance of regional differences in air quality, which can be influenced by various environmental factors and policies.
+:::
+
+### 5. Is there a significant difference between the fuel consumption in New York and California?
+
+:::{.justify}
+An evaluation of fuel consumption in California and New York reveals a significant difference in gallons consumed. California's average consumption of 13,152,226,606 gallons exceeds New York's average of 5,643,210,313 gallons. Our null hypothesis suggests that there is no significant difference in fuel consumption, while the alternative hypothesis suggests that California has higher fuel consumption than New York.
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{CA} - \mu_{NY} = 0$ --> California does not have higher fuel consumption in comparison to NY state.  
+
+$H_{A} = \mu_{CA} - \mu_{NY} > 0$ --> California has higher fuel consumption in comparison to NY state.  
+:::
+
+:::{.justify}
+Using a two-sample Welch t-test, the resulting p-value of approximately 0 supports rejection of the null hypothesis. With 95% confidence, we conclude that California has higher fuel consumption than New York. These results highlight regional differences in fuel consumption that may be influenced by factors such as fuel prices, population density, transportation infrastructure, and economic activity.
+:::
+
+### 6. Is there a significant difference between the CO2 emissions in New York and California?
+
+:::{.justify}
+Analyzing the per capita CO2 emissions in California and New York reveals a marginal difference. With a mean of 11.59 emissions for California and 11.06 emissions for New York, we state the null and alternative hypothesis.
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{CA} - \mu_{NY} = 0$ --> California does not have larger CO2 emissions per capita in comparison to NY state.  
+
+$H_{A} = \mu_{CA} - \mu_{NY} > 0$ --> California has larger CO2 emissions per capita in comparison to NY state.
+:::
+
+:::{.justify}
+The Welch two-sample t-test yields a p-value of 0.101. Because this p-value is greater than the 0.05 significance level, we fail to reject the null hypothesis. Therefore, we are 95% confident that California does not have significantly higher per capita CO2 emissions than New York. While there may be regional differences in emissions, factors such as energy sources, industrial activities, and transportation infrastructure likely contribute to the observed similarity in per capita CO2 emissions between the two states.
+:::
+
+### 7. How did the Paris Agreement affect California in terms of fuel consumption?
+
+:::{.justify}
+From our bootstrapping analysis, we found that the ratio of means for our pre-post analysis of the Paris Agreement in California was ( 0.91 , 1.13 ). This means that on average, the average fuel consumption in gallons in California post 2016 is anywhere between 0.91 to 1.13 times higher than consumption pre 2016. Thus, using this conclusion, we can say that the Paris Agreement did not have its desired effect on people’s transportation fuel consumption within the state of California. Instead, the upward trend of fuel consumption continued. This can be due to a number of factors. Arguably, the largest reason is the U.S. withdrawal from the Agreement for a total of 5 years prior to the rejoin. As a result, it has been noted that while the U.S has currently signed the Agreement, the nation is “on track to achieve about a 17% reduction” in CO2 emissions @npr. Thus, we would need to continue to track the U.S., and specifically, California's progress, in the upcoming years for more insight to this question.
+:::
+
+### 8. How did the Paris Agreement affect NY in terms of fuel consumption?
+
+:::{.justify}
+In conjunction with the results from California, the bootstrapping analysis for the state of New York found that the ratio of means pre post the Paris Agreement was  ( 0.92 , 1.10 ). This means that on average, the average fuel consumption in gallons in New York post 2016 is anywhere between 0.92 to 1.10 times higher than fuel consumption pre 2016. Just as we saw in California, transportation fuel consumption continued to increase post Paris Agreement headlines. Similarly to California, the reason as to why this occurred simply may be due to the government’s lack of environment protection and enforcement under the Trump administration. To further understand the scale in which the lack of signing the agreement for five years affected the U.S’ chances of reducing global temperature increasing by more than 1.5°C, we would need to analyze additional states in the U.S as well as other countries who signed the Paris Agreements. 
+:::
+
+### 9. Can we use a regression model for NY CO2 emissions to predict California CO2 emissions?
+
+:::{.justify}
+In conclusion, a regression model appears to be a good fit for CO2 levels in New York and California. Whether or not this is the optimal model depends on several factors, such as the interpretability and complexity of the desired model. Each of the regression assumptions, linearity of the residuals, independence of the residuals, normality of the residuals, and the assumption of equal variance were thoroughly analyzed in order to deem the multiple regression model a good fit. The r-squared value for the model was 81.61% for New York CO2 levels and 81.75% for California CO2 levels.
+:::
+
+### 10. How do both the regression models compare with each other?
+
+:::{.justify}
+Both regression models seemed to have only one significant predictor and that was natural gas consumption. The r-squared for both models was almost similar and above 80%, which tells us that approximately 80% of the variation in CO2 levels was explained by natural gas consumption.
+:::
+
+## Conclusions
+
+:::{.justify}
+
+Through our correlation analysis, we discovered that CO2 emissions, fuel consumption, and the relationship between fuel prices and fuel consumption are correlated in both California and New York. Based on their coefficients, we can roughly define the characteristics of these two states. California has a greater demand for fuel, and the local fuel refining and transportation are relatively more expensive. As a result, California has made significant investments in clean energy and has advanced considerably in energy efficiency technology. New York, on the other hand, presents a contrast to California. The local costs for fuel refining and transportation are quite low, even benefiting from economies of scale. Correspondingly, the state's transportation system and urban expansion heavily rely on traditional energy sources, overlooking the importance of clean energy, thereby resulting in stronger air pollution.
+
+The use of the Welch two-sample t-test proved to be instrumental in our comprehensive analysis. By formulating null and alternative hypotheses and calculating test statistics, we meticulously evaluated fuel prices, fuel consumption, air quality, and CO2 emissions. Our final results indicate that there are no statistically significant differences between the two states in terms of fuel prices and CO2 emissions, while California not only has better air quality but also higher fuel consumption than New York. This methodology serves as a valuable resource for exploring regional differences and provides a reliable means of identifying meaningful distinctions across a spectrum of environmental and economic parameters.
+
+The analysis of fuel consumption in both California and New York post the Paris Agreement reveals a concerning trend. The ratio of means for both states indicates an increase in average fuel consumption. This suggests that the desired impact of the Paris Agreement on reducing transportation fuel consumption has not been realized in these states. As previously stated, the lack of environmental protection and enforcement during the Trump administration and the unwillingness to sign the agreement for five years is highlighted as a potential contributor to this trend. For future analysis, we advise using additional U.S. states and other nations that are signatories to the Paris Agreement to gain a greater understanding of the broader implications and effectiveness of the accord on a global scale. Continued monitoring and assessment of progress in California, New York, and beyond will be crucial for refining strategies and policies aimed at reducing the impacts of global warming. 
+
+A regression model is preferred because of its power and ease of interpretation. We were able to successfully fit a regression model to the CO2 levels in New York and California that met all of the regression assumptions. There are definitely a number of things that could be done to improve the predictive accuracy of the model. The first goal would be to find a dataset where we could merge the predictors by their dates and have a large enough dataset after removing the N/A values. Second, transformations are a good choice to improve the data variation. There are several transformations (power transformations) apart from a simple logarithmic transformation that could be considered on the response variable to improve the normality assumption results and further the prediction results. We could also consider a much larger data set for our multiple regression model and run a variable selection process like stepwise regression or best subsets regression for a decent sized data set and find the optimal model. We could also find influential points and high leverage points and remove them from the analysis to give the model a final polish, assuming the data is large enough.
+:::
+
+
+## Code Appendix
+
+### Data Cleaning
+
+```{r}
+#| echo: true
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| code-fold: true
+#| code-summary: "Libraries"
+
+library(tidyverse)
+library(janitor)
+library(readxl)
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+library(plotly)
+library(corrplot)
+library(reshape)
+library(dplyr)
+```
+
+:::{.justify}
+We've collected data from a multitude of sources to compare California and New York. Specifically, we'll be looking at **CO2 emissions, air quality, motor gasoline consumption by transportation, and gasoline prices** per state.
+
+First, let's clean the data for air quality. This data was originally from the Environmental Protection Agency and sourced from data world.
+:::
+
+#### Air Quality
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Air Quality - Raw Data"
+
+# Feeding in air quality data
+air_quality <- read.csv("../../data/5100_Final_Project/raw_data/Air_Quality_Measures_on_the_National_Environmental_Health_Tracking_Network.csv")
+
+glimpse(air_quality)
+
+unique(air_quality$MeasureName)
+```
+
+:::{.justify}
+Based on the glimpse of data, we will need to subset the data to look at the "Annual average ambient concentrations of PM2.5 in micrograms per cubic meter (based on seasonal averages and daily measurement)" for California and New York.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Air Quality - Cleaned Data"
+
+air_quality <- air_quality %>%
+  subset(MeasureName == "Annual average ambient concentrations of PM2.5 in micrograms per cubic meter (based on seasonal averages and daily measurement)") %>%
+  subset(StateName == 'California' | StateName == 'New York') %>%
+  dplyr::select(StateName, Value, ReportYear) %>%
+  arrange(StateName, ReportYear) %>%
+  clean_names() %>%
+  dplyr::rename(state = state_name) %>%
+  dplyr::rename(year = report_year)
+
+write_csv(air_quality, '../../data/5100_Final_Project/cleaned_data_and_code/air_quality_cleaned.csv')
+
+knitr::kable(head(air_quality))
+```
+
+:::{.justify}
+Next, let's clean the CO2 emissions. This data was found from the US Energy Information Administration.
+:::
+
+#### CO2 Emissions
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "CO2 Emissions - Raw Data"
+
+co2_emissions <- read_excel("../../data/5100_Final_Project/raw_data/co2_emissions.xlsx")
+
+
+glimpse(co2_emissions)
+```
+
+:::{.justify}
+Based on the glimpse of data, we will need to subset the data to only New York and California and pivot the data such that it is in the long format like air_quality.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "CO2 Emissions - Cleaned Data"
+
+co2_emissions <- co2_emissions %>%
+  subset(State == 'New York' | State == 'California') %>%
+  dplyr::select(-Percent...54, -Absolute...55, -Percent...56, -Absolute...57) %>%
+  pivot_longer(cols = `1970`:`2021`, names_to = 'year', values_to = "emissions_per_capita") %>%
+  mutate(year = as.integer(year)) %>%
+  dplyr::rename(state = State)
+
+write_csv(co2_emissions, '../../data/5100_Final_Project/cleaned_data_and_code/co2_emissions_cleaned.csv')
+
+knitr::kable(head(co2_emissions))
+```
+
+:::{.justify}
+Now, let's move onto cleaning gasoline consumption data. This motor gasoline consumption data was found from the Bureau of Transportation Statistics (bts.gov).
+:::
+
+#### Gas Consumption
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Gas Consumption - Raw Data"
+
+ny_gas_consum <- read_excel("../../data/5100_Final_Project/raw_data/state_data_NY.xlsx")
+ca_gas_consum <- read_excel("../../data/5100_Final_Project/raw_data/state_data_CA.xlsx")
+
+print("New York")
+glimpse(ny_gas_consum)
+print("Series values:")
+unique(ny_gas_consum$Series)
+
+print("California")
+glimpse(ca_gas_consum)
+print("Series values:")
+unique(ca_gas_consum$Series)
+```
+
+:::{.justify}
+Based on the glimpse of data, we'll need to subset the data such each file shows only the data for "Motor gasoline consumed by Transportation", convert the values to gallon units, and merge the dataframes into one for gasoline consumption of both states.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Gas Consumption - Cleaned Data"
+
+ny_gas_consum <- ny_gas_consum %>%
+  subset(Series == "Motor gasoline consumed by Transportation") %>%
+  mutate(State = "New York") %>%
+  mutate(Value = ((Value * 10^9)/120214)) %>%
+  dplyr::rename(gallons_consumed = Value) %>%
+  mutate(Year = as.integer(Year)) %>%
+  dplyr::select(State, Year, gallons_consumed) %>%
+  clean_names()
+
+ca_gas_consum <- ca_gas_consum %>%
+  subset(Series == "Motor gasoline consumed by Transportation") %>%
+  mutate(State = "California") %>%
+  mutate(Value = ((Value * 10^9)/120214)) %>%
+  dplyr::rename(gallons_consumed = Value) %>%
+  mutate(Year = as.integer(Year)) %>%
+  dplyr::select(State, Year, gallons_consumed) %>%
+  clean_names()
+
+gas_consum <- bind_rows(ny_gas_consum, ca_gas_consum)
+
+write_csv(gas_consum, '../../data/5100_Final_Project/cleaned_data_and_code/gas_consumption_cleaned.csv')
+
+knitr::kable(head(gas_consum))
+```
+
+:::{.justify}
+Lastly, let's clean the data for gasoline prices per state. This data is sourced from the State Energy Data System (SEDS) and we found it from the U.S. Energy Information Administration (EIA). Additional information about the original data's units can be found in the follwing [link](https://www.eia.gov/tools/faqs/faq.php?id=26&t=10).
+:::
+
+#### Gas Price
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Gas Prices - Raw Data"
+
+gas_prices <- read.csv("../../data/5100_Final_Project/raw_data/gas_prices.csv")
+glimpse(gas_prices)
+```
+
+:::{.justify}
+From this glimpse of the data, we'll need to do a few things. We'll need to subset the data for New York and California, subset the MSN column such that we're only looking at gasoline prices for the transportation sector, pivot the data so that it is in a longer format, convert the prices such that they're price per gallon rather than price per BTU, and adjust/rename columns.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Gas Prices - Cleaned Data"
+
+price_conversion_to_barrel <- read_csv('../../data/5100_Final_Project/raw_data/price_conversion.csv')
+
+# Currently, the prices are in price/MMBTU. Thus, we'll first use the price conversions to make the data price per barrel. Then we'll convert again from barrels to gallons, 1 barrel is 42 gallons.
+
+price_conversion_to_barrel <- price_conversion_to_barrel %>%
+  subset(Description == "Motor Gasoline (Finished) Consumption Heat Content") %>%
+  mutate(YYYYMM = as.character(YYYYMM),
+         YYYYMM = substr(YYYYMM, 1, nchar(YYYYMM) - 2),
+         YYYYMM = as.integer(YYYYMM)) %>%
+  dplyr::rename(Year = YYYYMM) %>%
+  dplyr::rename(to_barrel = Value) %>%
+  mutate(to_barrel = as.double(to_barrel)) %>%
+  dplyr::select(Year, to_barrel)
+
+
+gas_prices <- gas_prices %>%
+  subset(State == 'NY' | State == 'CA') %>%
+  subset(MSN == 'MGACD') %>%
+  pivot_longer(cols = X1970:X2021, names_to = "Year", values_to = "Prices_per_gallon") %>%
+  mutate(across(c('Year'), substr, 2, nchar(Year))) %>%
+  mutate(Year = as.integer(Year)) %>%
+  left_join(price_conversion_to_barrel, by= "Year") %>%
+  mutate(Prices_per_gallon = ((Prices_per_gallon * to_barrel)/42) ) %>%
+  clean_names() %>%
+  dplyr::select(state, year, prices_per_gallon)
+
+write_csv(gas_prices, '../../data/5100_Final_Project/cleaned_data_and_code/gas_prices_cleaned.csv')
+
+knitr::kable(head(gas_prices))
+```
+
+### Results
+#### 1. Do California and NY have more CO2 emissions because of their fuel consumption?
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+df_co2 <- read.csv('../../data/5100_Final_Project/cleaned_data_and_code/co2_emissions_cleaned.csv')
+df_consumption <- read.csv('../../data/5100_Final_Project/cleaned_data_and_code/gas_consumption_cleaned.csv')
+
+df_co2_CA <- df_co2[df_co2$state == 'California',]
+df_co2_NY <- df_co2[df_co2$state == 'New York',]
+
+df_consumption_CA <- df_consumption %>%
+  filter(state == 'California') %>%
+  arrange(year)
+
+df_consumption_NY <- df_consumption %>%
+  filter(state == 'New York') %>%
+  arrange(year)
+
+df_CA <- merge(df_co2_CA, df_consumption_CA)
+df_NY <- merge(df_co2_NY, df_consumption_NY)
+
+df_CA_2 <- df_CA
+df_NY_2 <- df_NY
+
+q1result_CA <- cor.test(df_CA$emissions_per_capita, df_CA$gallons_consumed)
+
+q1result_NY <- cor.test(df_NY$emissions_per_capita, df_NY$gallons_consumed)
+
+q1result_CA
+
+q1result_NY
+```
+
+#### 2. Do California and NY have higher prices of fuel because of the fuel consumption?
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+df_price <- read.csv('../../data/5100_Final_Project/cleaned_data_and_code/gas_prices_cleaned.csv')
+
+df_price_CA <- df_price[df_price$state == 'CA',]
+df_price_NY <- df_price[df_price$state == 'NY',]
+
+df_CA <- merge(df_CA, df_price_CA, by = 'year') %>%
+             select(-state.y)
+df_NY <- merge(df_NY, df_price_NY, by = 'year') %>%
+             select(-state.y)
+
+q2result_CA <- cor.test(df_CA$gallons_consumed, df_CA$prices_per_gallon)
+
+q2result_NY <- cor.test(df_NY$gallons_consumed, df_NY$prices_per_gallon)
+
+q2result_CA
+
+q2result_NY
+```
+
+
+#### 3. Is there a significant difference between the fuel prices in New York and California?
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Getting the means of each state
+df1 <- gas_prices %>% 
+  subset(state == 'CA')
+
+df2 <- gas_prices %>% 
+  subset(state == 'NY')
+
+mu_price_CA <- mean(df1$prices_per_gallon)
+mu_price_NY <- mean(df2$prices_per_gallon)
+
+combined_df <- rbind(df1, df2)
+
+mean_values <- combined_df %>%
+  group_by(state) %>%
+  summarise(mean_price = mean(prices_per_gallon))
+
+# Combine the data frames
+combined_df <- merge(combined_df, mean_values, by = "state")
+
+plot <- ggplot(combined_df, aes(x = state, y = prices_per_gallon, fill = state)) +
+  geom_boxplot(fill = "#f2f2f2", color = "#000000") +
+  geom_jitter(position = position_jitter(width = 0.2), alpha = 0.7) +
+  geom_point(aes(y = mean_price), color = "black", fill = "white", size = 3, shape = 18) + 
+  labs(title = "Oil Price Comparison between California and New York", x = "State", y = "Oil Price ($)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+plot %>% ggplotly()
+```
+
+<br>
+
+:::{.justify}
+
+The mean gas price of California is 1.73 while the mean for gas price in NY is 1.60. From this, we can denote the null and alternate hypothesis. 
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{CA} - \mu_{NY} = 0$ --> California does not have higher gas prices in comparison to NY state.  
+
+$H_{A} = \mu_{CA} - \mu_{NY} > 0$ --> California has higher gas prices in comparison to NY state.  
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Hypothesis testing:
+t.test(df1$prices_per_gallon, df2$prices_per_gallon, alt="greater")
+```
+
+<br>
+
+:::{.justify}
+
+Since our p-value is 0.25 > 0.05, we fail to reject the null hypothesis and say with 95% confidence that California does not hav higher prices in comparison to New York.
+:::
+
+#### 4. Is there a significant difference between the air quality in New York and California?
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Getting the means of each state
+df1 <- air_quality %>% 
+  subset(state == 'California')
+
+df2 <- air_quality %>% 
+  subset(state == 'New York')
+
+mu_air_CA <- mean(df1$value)
+mu_air_NY <- mean(df2$value)
+
+combined_df <- rbind(df1, df2)
+
+mean_values <- combined_df %>%
+  group_by(state) %>%
+  summarise(mean_price = mean(value))
+
+# Combine the data frames
+combined_df <- merge(combined_df, mean_values, by = "state")
+
+plot <- ggplot(combined_df, aes(x = state, y = value, fill = state)) +
+  geom_boxplot(fill = "#f2f2f2", color = "#000000") +
+  geom_jitter(position = position_jitter(width = 0.2), alpha = 0.7) +
+  geom_point(aes(y = mean_price), color = "black", fill = "white", size = 3, shape = 18) + 
+  labs(title = "Air Quality Comparison between California and New York", x = "State", y = "Air Quality Index") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+plot %>% ggplotly()
+```
+
+<br>
+
+:::{.justify}
+
+The mean air quality of California is 11.77 while the mean for the air quality in NY is 10.63. From this, we can denote the null and alternate hypothesis. 
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{CA} - \mu_{NY} = 0$ --> California does not have better air quality in comparison to NY state.  
+
+$H_{A} = \mu_{CA} - \mu_{NY} > 0$ --> California has better air quality in comparison to NY state.  
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Hypothesis testing:
+t.test(df1$value, df2$value, alt="greater")
+```
+
+<br>
+
+:::{.justify}
+
+Since our p-value is 0.0000357 < 0.05, we reject the null hypothesis and say with 95% confidence that California has better air quality in comparison to NY. 
+:::
+
+
+#### 5. Is there a significant difference between the fuel consumption in New York and California?
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Getting the means of each state
+df1 <- gas_consum %>% 
+  subset(state == 'California')
+
+df2 <- gas_consum %>% 
+  subset(state == 'New York')
+
+mu_consumption_CA <- mean(df1$gallons_consumed)
+mu_consumption_NY <- mean(df2$gallons_consumed)
+
+combined_df <- rbind(df1, df2)
+
+mean_values <- combined_df %>%
+  group_by(state) %>%
+  summarise(mean_price = mean(gallons_consumed))
+
+# Combine the data frames
+combined_df <- merge(combined_df, mean_values, by = "state")
+
+plot <- ggplot(combined_df, aes(x = state, y = gallons_consumed, fill = state)) +
+  geom_boxplot(fill = "#f2f2f2", color = "#000000") +
+  geom_jitter(position = position_jitter(width = 0.2), alpha = 0.7) +
+  geom_point(aes(y = mean_price), color = "black", fill = "white", size = 3, shape = 18) + 
+  labs(title = "Fuel Consumption Comparison between California and New York", x = "State", y = "Fuel Consumption (gallons)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+plot %>% ggplotly()
+```
+
+<br>
+
+:::{.justify}
+
+The mean consumption in gallons in California is 13,152,226,606 while the mean consumption in gallons in NY is 5,643,210,313. From this, we can denote the null and alternate hypothesis. 
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{CA} - \mu_{NY} = 0$ --> California does not have higher fuel consumption in comparison to NY state.  
+
+$H_{A} = \mu_{CA} - \mu_{NY} > 0$ --> California has higher fuel consumption in comparison to NY state.  
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Hypothesis testing:
+t.test(df1$gallons_consumed, df2$gallons_consumed, alt="greater")
+```
+
+<br>
+
+:::{.justify}
+
+Since our p-value is approximately 0 < 0.05, we reject the null hypothesis and say with 95% confidence that California has higher fuel consumption in comparison to NY. 
+:::
+
+
+#### 6. Is there a significant difference between the CO2 emissions in New York and California?
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Getting the means of each state
+df1 <- co2_emissions %>% 
+  subset(state == 'California')
+
+df2 <- co2_emissions %>% 
+  subset(state == 'New York')
+
+mu_emissions_CA <- mean(df1$emissions_per_capita)
+mu_emissions_NY <- mean(df2$emissions_per_capita)
+
+combined_df <- rbind(df1, df2)
+
+mean_values <- combined_df %>%
+  group_by(state) %>%
+  summarise(mean_price = mean(emissions_per_capita))
+
+# Combine the data frames
+combined_df <- merge(combined_df, mean_values, by = "state")
+
+plot <- ggplot(combined_df, aes(x = state, y = emissions_per_capita, fill = state)) +
+  geom_boxplot(fill = "#f2f2f2", color = "#000000") +
+  geom_jitter(position = position_jitter(width = 0.2), alpha = 0.7) +
+  geom_point(aes(y = mean_price), color = "black", fill = "white", size = 3, shape = 18) + 
+  labs(title = "CO2 Emissions Comparison between California and New York", x = "State", y = "CO2 Emissions") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+plot %>% ggplotly()
+```
+
+<br>
+
+:::{.justify}
+
+The mean emissions per capita of California is 11.59 while the mean for the emissions per capita in NY is 11.06. From this, we can denote the null and alternate hypothesis. 
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{CA} - \mu_{NY} = 0$ --> California does not have larger CO2 emissions per capita in comparison to NY state.  
+
+$H_{A} = \mu_{CA} - \mu_{NY} > 0$ --> California has larger CO2 emissions per capita in comparison to NY state.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Hypothesis testing:
+t.test(df1$emissions_per_capita, df2$emissions_per_capita, alt="greater")
+```
+
+<br>
+
+:::{.justify}
+
+Since our p-value is 0.101 > 0.05, we fail to reject the null hypothesis and say with 95% confidence that California does not have larger amounts of CO2 emissions per capita in comparison to NY. 
+:::
+
+#### 7. How did the Paris Agreement affect California in terms of fuel consumption?
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Getting the means of pre and post Paris Agreement
+df1 <- gas_consum %>%
+  subset(state == 'California') %>%
+  filter(year > 2016)
+
+df2 <- gas_consum %>%
+  subset(state == 'California') %>%
+  filter(year >= 2016)
+
+mu_consum_prior_CA <- mean(df1$gallons_consumed)
+mu_consum_post_CA <- mean(df2$gallons_consumed)
+```
+
+<br>
+
+:::{.justify}
+
+We can see a slight uptick in average consumption of motor gasoline post 2016 in comparison to pre-2016. Thus, we'll perform a hypothesis test as well as bootstrap prior and post, since we have very few data points for post-2016.
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{post} - \mu_{prior} = 0$ --> Gasoline consumption was approximately the same pre and post 2016 in California.
+
+$H_{A} =  \mu_{post} - \mu_{prior} > 0$ --> Gasoline consumption increased post-2016 in comparison to prior-2016 in California.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Hypothesis testing:
+t.test(df2$gallons_consumed, df1$gallons_consumed, alt="greater")
+```
+
+<br>
+
+:::{.justify}
+
+Since the p-value is 0.421 > 0.05, we fail to reject the null hypothesis and cannot say that motor gasoline consumption increased post-2016 in California.
+
+In order to verify this with enough data, let's perform a bootstrapping pre and post 2016.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+num_samples <- 10000
+bootstrap_ratios <- numeric(num_samples)
+
+set.seed(5100)
+for (i in 1:num_samples) {
+  prior_ca_sample <- sample(df1$gallons_consumed, replace = TRUE)
+  post_ca_sample <- sample(df2$gallons_consumed, replace = TRUE)
+  bootstrap_ratios[i] <- mean(post_ca_sample) / mean(prior_ca_sample)
+}
+
+lower_bound <- quantile(bootstrap_ratios, 0.025)
+upper_bound <- quantile(bootstrap_ratios, 0.975)
+
+#print(paste("The 95% bootstrap percentile interval is: (", lower_bound, ", ", upper_bound, ")."))
+
+cat("The 95% bootstrap percentile interval is: (", lower_bound, ", ", upper_bound, ").")
+```
+
+:::{.justify}
+
+As we can see from the bootstrap, the 95% interval is (0.906892855131233,  1.1327825353633), meaning that the difference between post and pre-2016 is greater than 0. This means that, with 95% confidence, we can say that gasoline consumption in post-2016 was greater than pre-2016 in California. This suggests that the Paris Agreement was not affective in messaging to the average civilian in California and their gasoline consumption for transportation.
+:::
+
+#### 8. How did the Paris Agreement affect NY in terms of fuel consumption?
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+# Getting the means of pre and post Paris Agreement
+df1 <- gas_consum %>%
+  subset(state == 'New York') %>%
+  filter(year > 2016)
+
+df2 <- gas_consum %>%
+  subset(state == 'New York') %>%
+  filter(year >= 2016)
+
+mu_consum_prior_NY <- mean(df1$gallons_consumed)
+mu_consum_post_NY <- mean(df2$gallons_consumed)
+```
+
+:::{.justify}
+
+Similar to California, we can see a slight uptick in average consumption of motor gasoline post 2016 in comparison to pre-2016. Thus, we'll perform a hypothesis test as well as bootstrap prior and post, since we have very few data points for post-2016.
+:::
+
+:::{.justify2}
+$H_{0} = \mu_{post} - \mu_{prior} = 0$ --> Gasoline consumption was approximately the same pre and post 2016 in New York
+
+$H_{A} =  \mu_{post} - \mu_{prior} > 0$ --> Gasoline consumption increased post-2016 in comparison to prior-2016 in New York
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+#Hypothesis testing:
+t.test(df2$gallons_consumed, df1$gallons_consumed, alt="greater")
+```
+
+:::{.justify}
+
+Since the p-value is 0.4433 > 0.05, we fail to reject the null hypothesis and cannot say that motor gasoline consumption increased post-2016 in New York.
+
+In order to verify this with enough data, let's perform a bootstrapping pre and post 2016.
+:::
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{r}"
+
+num_samples <- 10000
+bootstrap_ratios <- numeric(num_samples)
+
+set.seed(5100)
+for (i in 1:num_samples) {
+  prior_ny_sample <- sample(df1$gallons_consumed, replace = TRUE)
+  post_ny_sample <- sample(df2$gallons_consumed, replace = TRUE)
+  bootstrap_ratios[i] <- mean(post_ny_sample) / mean(prior_ny_sample)
+}
+
+lower_bound <- quantile(bootstrap_ratios, 0.025)
+upper_bound <- quantile(bootstrap_ratios, 0.975)
+
+cat("The 95% bootstrap percentile interval is: (", lower_bound, ", ", upper_bound, ").")
+```
+
+:::{.justify}
+
+As we can see from the bootstrap, the 95% interval is (0.921279460802507 ,  1.10481915693995), meaning that the difference between post and pre-2016 is greater than 0. This means that, with 95% confidence, we can say that gasoline consumption in post-2016 was greater than pre-2016 in New York. This suggests that the Paris Agreement was also not effective in messaging to the average civilian in New York and their gasoline consumption for transportation.
+
+There are a multitude of reasons why there was a significant uptick post-2016 in both California and New York, however, what we can say is that Paris Agreements were not effective in actionable consumption change.
+:::
+
+#### 9. Can we use a regression model for NY CO2 emissions and California CO2 emissions?
+
+::: {.panel-tabset}
+
+## Fig1
+
+![](./images/Fig1.png){width=100% fig-align='center'}
+
+## Fig4
+
+![](./images/Fig4.png){width=100% fig-align='center'}
+
+## Fig5
+
+![](./images/Fig5.png){width=100% fig-align='center'}
+
+## Fig9
+
+![](./images/Fig9.png){width=100% fig-align='center'}
+
+:::
+
+#### 10. How do both the regression models compare with each other?
+
+::: {.panel-tabset}
+## Fig3
+
+![](./images/Fig3.png){width=100% fig-align='center'}
+
+## Fig7
+
+![](./images/Fig7.png){width=100% fig-align='center'}
+
+:::
+
+:::
+
+
+***
+
+***References:***
+
+::: {#refs}
+:::

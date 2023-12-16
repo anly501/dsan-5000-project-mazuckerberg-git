@@ -2,15 +2,8 @@ project:
   type: website
 
 website:
-  title: "DSAN-5100: Project"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - href: clustering/clustering.qmd
-        text: Clustering
-      - href: eda/eda.ipynb
-        text: Data Exploration
+  title: ""
+
 format:
   html:
     theme: cosmo
