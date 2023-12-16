@@ -1,6 +1,8 @@
 ---
 title: "Healthcare Index"
-format: html
+format:
+  html:
+    embed-resources: true
 ---
 
 ```{css, echo = FALSE}
@@ -215,14 +217,20 @@ We created a new dataset that contains the information for the Healthcare Index,
 #| warning: false
 
 # Read csv
-df_healthcare_index <- read.csv('../data/viz_healthcare_index.csv')
+df_healthcare_companies <- read.csv('../data/viz_healthcare_companies.csv')
+
+# Filter data
+df_healthcare_companies <- df_healthcare_companies %>% dplyr::select('date', 'TMO')
+
+# Rename columns
+names(df_healthcare_companies) <- c('date', 'adjusted')
 
 # Change data type
-df_healthcare_index$date <- as.Date(df_healthcare_index$date)
+df_healthcare_companies$date <- as.Date(df_healthcare_companies$date)
 
 # Create a sequence of dates from start_date to end_date
-start_date <- as.Date(min(df_healthcare_index$date))  
-end_date <- as.Date(max(df_healthcare_index$date))   
+start_date <- as.Date(min(df_healthcare_companies$date))  
+end_date <- as.Date(max(df_healthcare_companies$date))   
 
 # Create date sequence
 date_range <- seq(start_date, end_date, by = "1 day")
@@ -231,63 +239,63 @@ date_range <- seq(start_date, end_date, by = "1 day")
 date_dataset <- data.frame(Date = date_range)
 
 # Merge dataframes
-df_healthcare_index <- merge(df_healthcare_index, date_dataset, by.x = "date", by.y = "Date", all = TRUE)
+df_healthcare_companies <- merge(df_healthcare_companies, date_dataset, by.x = "date", by.y = "Date", all = TRUE)
 
 # Check for missing values
 # is.na(df_oil_price$adjusted)
 
 # Extract rows with missing values
-df_na_rows <- df_healthcare_index[which(rowSums(is.na(df_healthcare_index)) > 0),]
+df_na_rows <- df_healthcare_companies[which(rowSums(is.na(df_healthcare_companies)) > 0),]
 
 # Extract columns with missing values
-df_na_cols <- df_healthcare_index[, which(colSums(is.na(df_healthcare_index)) > 0)]
+df_na_cols <- df_healthcare_companies[, which(colSums(is.na(df_healthcare_companies)) > 0)]
 
 # Modify data
-imputed_time_series <- na_ma(df_healthcare_index, k = 4, weighting = "exponential")
+imputed_time_series <- na_ma(df_healthcare_companies, k = 4, weighting = "exponential")
 
 # Add modified data
-df_healthcare_index <- data.frame(imputed_time_series)
+df_healthcare_companies <- data.frame(imputed_time_series)
 
 # Change data type
-df_healthcare_index$date <- as.Date(df_healthcare_index$date,format = "%m/%d/%y")
+df_healthcare_companies$date <- as.Date(df_healthcare_companies$date,format = "%m/%d/%y")
 
 # Create Date separte terms columns
-df_healthcare_index_monthly <- df_healthcare_index %>%
+df_healthcare_companies_monthly <- df_healthcare_companies %>%
   mutate(Year = lubridate::year(date),
          Month = lubridate::month(date),
          Day = lubridate::day(date))
 
 # Group by Year Month and get the maximum day
-df_healthcare_index_monthly <- df_healthcare_index_monthly %>%
+df_healthcare_companies_monthly <- df_healthcare_companies_monthly %>%
   group_by(Year, Month) %>%
   summarize(Max_Day = max(Day))
 
 # Create Date
-df_healthcare_index_monthly <- df_healthcare_index_monthly %>%
+df_healthcare_companies_monthly <- df_healthcare_companies_monthly %>%
   mutate(date = make_date(Year, Month, Max_Day))
 
 # Merge datasets
-df_healthcare_index_monthly <- merge(df_healthcare_index_monthly, df_healthcare_index, by = "date", all.x = TRUE)
+df_healthcare_companies_monthly <- merge(df_healthcare_companies_monthly, df_healthcare_companies, by = "date", all.x = TRUE)
 
 # Keep relevant columns
-df_healthcare_index_monthly <-  df_healthcare_index_monthly %>% dplyr::select("date", "adjusted")
+df_healthcare_companies_monthly <-  df_healthcare_companies_monthly %>% dplyr::select("date", "adjusted")
 
 # Rename columns
-names(df_healthcare_index_monthly) <- c('Date', 'Index')
+names(df_healthcare_companies_monthly) <- c('Date', 'Index')
 
 # Save ts as a new file
-write.csv(df_healthcare_index_monthly, '../data/df_healthcare_index_monthly.csv', row.names = FALSE)
+write.csv(df_healthcare_companies_monthly, '../data/df_healthcare_companies_monthly.csv', row.names = FALSE)
 
 # ---------------------------------------------------------------------------------------------------------------------------------
 
 # Import dataset
-df_healthcare_index_monthly <- as.data.frame(read_csv('../data/df_healthcare_index_monthly.csv'))
+df_healthcare_companies_monthly <- as.data.frame(read_csv('../data/df_healthcare_companies_monthly.csv'))
 
 # Filter information
-df_healthcare_index_monthly <- df_healthcare_index_monthly %>% filter(year(Date) >= 2000 & year(Date) <= 2022)
+df_healthcare_companies_monthly <- df_healthcare_companies_monthly %>% filter(year(Date) >= 2000 & year(Date) <= 2022)
 
 # Create Date
-df_healthcare_index_monthly <- df_healthcare_index_monthly %>%
+df_healthcare_companies_monthly <- df_healthcare_companies_monthly %>%
   mutate(date2 = make_date(year(Date), month(Date), 01))
 
 # Import dataset
@@ -307,19 +315,19 @@ df_oil_price <- as.data.frame(read_csv('../data/df_oil_price_monthly.csv'))
 df_oil_price <- df_oil_price %>%
   mutate(date2 = make_date(year(date), month(date), 01))
 
-df_healthcare_index_monthly$date2 <- as.Date(df_healthcare_index_monthly$date2)
+df_healthcare_companies_monthly$date2 <- as.Date(df_healthcare_companies_monthly$date2)
 
 df_oil_production$date2 <- as.Date(df_oil_production$date2)
 
 df_oil_price$date2 <- as.Date(df_oil_price$date2)
 
 # List of minimum dates
-dates <- c(min(df_healthcare_index_monthly$date2), min(df_oil_production$date2),min(df_oil_price$date2))
+dates <- c(min(df_healthcare_companies_monthly$date2), min(df_oil_production$date2),min(df_oil_price$date2))
 
 min_date <- max(dates)
 
 # Filter starting date
-df_healthcare_index_monthly <- df_healthcare_index_monthly %>% filter(date2 >= min_date)
+df_healthcare_companies_monthly <- df_healthcare_companies_monthly %>% filter(date2 >= min_date)
 
 # Filter starting date
 df_oil_production <- df_oil_production %>% filter(date2 >= min_date)
@@ -328,10 +336,10 @@ df_oil_production <- df_oil_production %>% filter(date2 >= min_date)
 df_oil_price <- df_oil_price %>% filter(date2 >= min_date)
 
 # Keep relevant columns
-df_healthcare_index_monthly <- df_healthcare_index_monthly %>% dplyr::select('date2', 'Index')
+df_healthcare_companies_monthly <- df_healthcare_companies_monthly %>% dplyr::select('date2', 'Index')
 
 # Convert to Log
-df_healthcare_index_monthly$Index <- log(df_healthcare_index_monthly$Index)
+df_healthcare_companies_monthly$Index <- log(df_healthcare_companies_monthly$Index)
 
 # Keep relevant columns
 df_oil_production <- df_oil_production %>% dplyr::select('date2', 'Production')
@@ -345,7 +353,7 @@ df_oil_price <- df_oil_price %>% dplyr::select('date2', 'adjusted')
 
 
 # List of dataframes
-df_list <- list(df_healthcare_index_monthly, df_oil_production, df_oil_price)
+df_list <- list(df_healthcare_companies_monthly, df_oil_production, df_oil_price)
 
 # Combine datasets
 dd <- merge_dataframes(df_list)
@@ -423,6 +431,8 @@ summary(fit_1)
 
 </div>
 
+
+
 <div id="tab2" class="tab-content-linear">
 
 ``` {r, fig.width = 8, fig.height = 4}
@@ -458,6 +468,8 @@ cat("RMSE:", rmse)
 </div>
 
 
+
+
 ### Stationarity
 
 ::: {.epigrafe}
@@ -487,6 +499,7 @@ lm.residuals %>% ggtsdisplay()
 ```
 
 </div>
+
 <div id="tab4" class="tab-content-volatility">
 
 **Augmented Dickey-Fuller Test**
@@ -528,6 +541,7 @@ In the acf plot, we can observe that the differenced residuals look stationary.
 
 lm.residuals %>% diff() %>% ggtsdisplay()
 ```
+
 
 
 ### Model Selection
@@ -671,6 +685,7 @@ summary(fit_auto_arima)
 
 </div>
 
+
 ### Model Diagnostics
 
 :::{.epigrafe}
@@ -728,6 +743,8 @@ q3 <- 2
 model_output <- capture.output(sarima(xt, p3, d3, q3))
 ```
 
+
+
 ### Residuals
 
 :::{.epigrafe}
@@ -736,7 +753,7 @@ We plot the residuals and the residuals squared of the arima model using the ACF
 
 The values that will be used to assess the model are the following:
 
-$p = 2$
+$p = 1$
 
 $q = 2$
 
@@ -818,6 +835,7 @@ summary(garchFit(~garch(2,1), arima.res, trace = F))
 
 summary(garchFit(~garch(2,0), arima.res, trace = F))
 ```
+
 
 ### Model Equation
 

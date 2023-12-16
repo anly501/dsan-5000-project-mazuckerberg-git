@@ -1,5 +1,8 @@
 ---
 title: "ARMA / ARIMA / SARIMA Models"
+format:
+  html:
+    embed-resources: true
 ---
 ```{css, echo = FALSE}
 .justify {
@@ -19,9 +22,59 @@ title: "ARMA / ARIMA / SARIMA Models"
     background-color: #f9f9f9; 
     margin: 20px 0px 30px 0px;
 }
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
 ```
 
-### Overview
+```{css, echo = FALSE}
+.tabs-container-model-selection {
+  display: flex;
+}
+
+.tab-model-selection {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.tab-model-selection:hover {
+  background-color: #f1f1f1;
+}
+
+.tab-content-model-selection {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+}
+
+.tab-content-model-selection.active {
+  display: block;
+}
+```
+
+<script>
+
+function toggleTabModelSelection(tabName) {
+  var tabs = document.querySelectorAll('.tab-content-model-selection');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+
+  var selectedTab = document.getElementById(tabName);
+  selectedTab.classList.add("active");
+}
+
+</script>
+
 
 ::: {.justify}
 In this section, we examine the applicability of AutoRegressive Moving Average (ARMA), AutoRegressive Integrated Moving Average (ARIMA), and Seasonal AutoRegressive Integrated Moving Average (SARIMA) models.
@@ -62,50 +115,65 @@ library(readxl)
 library(imputeTS)
 ```
 
-### U.S. Oil Production by Year
+
+<div class="tabs-container-model-selection">
+  <div class="tab-model-selection" onclick="toggleTabModelSelection('tab1')">Oil Analysis</div>
+  <div class="tab-model-selection" onclick="toggleTabModelSelection('tab2')">Transportation Analysis</div>
+</div>
+
+<div id="tab1" class="tab-content-model-selection active">
+
+<img src="./images/oil_image.png" width=100%>
+
+## Oil Price by Month
+
+::: {.justify}
+In the dedicated section [ARIMA Model | Oil Price](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_oil_price_month.html), an ARIMA(1,1,1) model was meticulously constructed to predict monthly oil prices. The visualization below shows that the forecasts produced a stable result, suggesting a stable trajectory for oil prices. This prediction is of considerable importance, especially in contrast to the significant fluctuations observed in recent years. Maintaining a stable oil price can alleviate concerns about rising production costs for various manufacturing industries, which often respond to an upward trend in oil prices.
+:::
+
+<p align="center">
+  <img src="./images/6_oil_price_month.png" width=80% height=80%>
+</p>
+
+## U.S. Oil Production by Month
+
+::: {.justify}
+Detailed in the [ARIMA Model | Oil Production](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_oil_production_month.html) section, our construction of an ARIMA(2,1,2) model aimed to predict monthly oil production. The visualization below shows forecasts with minimal variability, signifying a steady path for oil production. This prediction gains importance, especially in light of the post-COVID recovery trend observed in recent years. The stability of oil production levels is critical, as it affects the supply chain on which various industries, including manufacturing and transportation, rely heavily, and potentially impacts national gas prices.
+:::
+
+<p align="center">
+  <img src="./images/6_oil_production_month.png" width=80% height=80%>
+</p>
+
+</div>
+<div id="tab2" class="tab-content-model-selection">
+
+
+<!-- QUESTION 3 -->
+
+<img src="./images/bicycles_image.png" width=100%>
+
+## Bus Transport
 
 ::: {.justify}
 
-By following the previously mentioned steps in the analysis of the U.S. Oil Production time series dataset, we present the plot below. This plot provides a forecast for the next 10 periods, which correspond to the next 10 years.
+We did a first [SARIMA Model | Bus Passengers Pre COVID](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_bus_passengers_PC.html) analysis where we obtained a forecast that represents the predicted values if COVID wouldn't exist.
 
-To ensure the suitability of the data for analysis, we applied the first difference method, which results in a stationary time series. The forecast shown in the graph is obtained using an ARIMA(2,1,1) model. 
+Second we did a [SARIMA Model | Bus Passengers Complete](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_bus_passengers.html) analysis where we obtained a real prediction of the values.
 
-A detailed understanding of the analysis process and the conclusions drawn to produce this forecast can be found below.
+The first plot shown is the Forecast for the Pre COVID analysis done with a SARIMA(2,1,0)(1,1,1)[12] model.
+The second plot shown is the Forecast for the complete analysis done with a SARIMA(0,1,0)(0,1,1)[12] model.
+
+We can clearly see the difference between the forecasts. Both contain the seasonal effect by the first one tends to have and upward trend while the second one shows a downward trend.
 :::
 
-> [ARIMA Model](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_oil_production_year.html)
 
-<img src="./images/6_oil_production_year.png" width=80% height=80%>
+<p align="center">
+  <img src="./images/6_bus_passengers_PC_SARIMA.png" width=80% height=80%>
+</p>
 
-### U.S. Oil Production by Month
+<p align="center">
+  <img src="./images/6_bus_passengers_SARIMA.png" width=80% height=80%>
+</p>
 
-::: {.justify}
-
-Description.
-:::
-
-> [ARIMA Model](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_oil_production_month.html)
-
-<img src="./images/6_oil_production_month.png" width=80% height=80%>
-
-### Crude Oil Price by Month
-
-::: {.justify}
-
-Add description
-:::
-
-> [ARIMA Model](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_oil_price_month.html)
-
-<img src="./images/6_oil_price_month.png" width=80% height=80%>
-
-### Bus Passengers - Pre Covid Analysis
-
-::: {.justify}
-
-Add description
-:::
-
-> [SARIMA Model](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_bus_passengers.html)
-
-<img src="./images/6_bus_passengers.png" width=80% height=80%>
+</div>

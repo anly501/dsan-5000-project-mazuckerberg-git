@@ -138,12 +138,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../2_about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About Data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../3_data_sources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Sources</span></a>
   </div>
@@ -170,12 +164,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../7_ARIMAX_SARIMAX_VAR.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ARIMAX/SARIMAX/VAR</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../8_Spectral_Analysis_Filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spectral Analysis and Filtering (Optional)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -208,7 +196,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#plot" id="toc-plot" class="nav-link active" data-scroll-target="#plot">Plot</a></li>
+  <li><a href="#moving-average-smoothing" id="toc-moving-average-smoothing" class="nav-link" data-scroll-target="#moving-average-smoothing">Moving Average Smoothing</a></li>
+  <li><a href="#lag-plots" id="toc-lag-plots" class="nav-link" data-scroll-target="#lag-plots">Lag Plots</a></li>
+  <li><a href="#autocorrelation-plots" id="toc-autocorrelation-plots" class="nav-link" data-scroll-target="#autocorrelation-plots">Autocorrelation Plots</a></li>
+  <li><a href="#augmented-dickey-fuller-test" id="toc-augmented-dickey-fuller-test" class="nav-link" data-scroll-target="#augmented-dickey-fuller-test">Augmented Dickey-Fuller Test</a></li>
+  <li><a href="#detrending-and-differencing" id="toc-detrending-and-differencing" class="nav-link" data-scroll-target="#detrending-and-differencing">Detrending and Differencing</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -252,11 +251,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 </div>
 <div class="epigrafe">
-<p>Introduction…</p>
+<p>In this section, I will explore some key steps in the time series exploratory data analysis of the global oil production dataset. As it was mentioned earlier, the focus will be on U.S. data. For each step, I will provide the code that has been used to create the visualizations and analysis, as well as insightful explanations and thorough analysis, to facilitate a deeper understanding of the dataset.</p>
+<p>The plot below shows a table trend between the years 2000 and 2010. Since 2010 we can see a clear upward trend. There is no evidence of seasonality or cyclical patterns for this time series data set. We hypothesize that analysis of this information in the future may lead to a multiplicative pattern.</p>
 </div>
-<div class="epigrafe">
-<p>Plot Description…</p>
-</div>
+<section id="plot" class="level3">
+<h3 class="anchored" data-anchor-id="plot">Plot</h3>
 <div class="cell">
 <details>
 <summary>Time Series Plot Code</summary>
@@ -285,8 +284,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="5_oil_production_month_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+</section>
+<section id="moving-average-smoothing" class="level3">
+<h3 class="anchored" data-anchor-id="moving-average-smoothing">Moving Average Smoothing</h3>
 <div class="epigrafe">
-<p>Moving Average Plots…</p>
+<p>Moving average smoothing is useful for identifying trends and patterns in time series data. By applying it over different smoothing periods, we can gain insight into how these affect the data.</p>
+<p>In this case, we have applied 3 smoothing periods. The 12-period moving average is a short-term perspective that shows the impact of fluctuations from the previous period. The 24-period moving average is useful for reducing short-term noise and identifying seasonal factors. The 60-period moving average is a long-term perspective used to identify long-term trends and the presence of economic cycles. In this specific case, the smoothing techniques clearly expose an upward trend in us oil production.</p>
 </div>
 <div class="cell">
 <details>
@@ -325,14 +328,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>              <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Oil Price and Moving Average Smoothing"</span>, <span class="at">x =</span> <span class="st">"Years"</span>, <span class="at">y =</span> <span class="st">"Price"</span>) </span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(mas_1_plot, mas_2_plot, mas_3_plot, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#grid.arrange(mas_1_plot, mas_2_plot, mas_3_plot, nrow=3)</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to save plot</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">"../images/5_oil_production_month.png"</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot as a PNG image</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="fu">grid.arrange</span>(mas_1_plot, mas_2_plot, mas_3_plot, <span class="at">nrow=</span><span class="dv">3</span>), <span class="at">filename =</span> file_path, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="5_oil_production_month_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+</section>
+<section id="lag-plots" class="level3">
+<h3 class="anchored" data-anchor-id="lag-plots">Lag Plots</h3>
 <div class="epigrafe">
-<p>Lag plots were then used to plot the time series data…</p>
+<p>Lag plots were then used to plot the time series data. We see high correlation for most of the lags plotted. From lag 11 we can still see correlation but the points are spread from the line.</p>
 </div>
 <div class="cell">
 <details>
@@ -347,8 +359,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="5_oil_production_month_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
+</section>
+<section id="autocorrelation-plots" class="level3">
+<h3 class="anchored" data-anchor-id="autocorrelation-plots">Autocorrelation Plots</h3>
 <div class="epigrafe">
-<p>Observing the plot above</p>
+<p>Observing the plot above, we can say that there is no evidence of additive or multiplicative patterns throughout the time series. Therefore, no decomposition methods are applied to this time series.</p>
+<p>We plot the ACF to find the autocorrelation of the series with its lagged values. In this plot we can observe high autocorrelation for all the lags.</p>
+<p>The PACF is a partial autocorrelation function. We plot the PACF to find the correlation of the residuals with the next lag. There is a high partial autocorrelation in lag 1, indicating a meaningful relationship between the time series and the lag. The following lags fall within the confidence bands, indicating that there is no partial autocorrelation at those lags.</p>
 </div>
 <div class="cell">
 <details>
@@ -369,8 +386,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="5_oil_production_month_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="augmented-dickey-fuller-test" class="level3">
+<h3 class="anchored" data-anchor-id="augmented-dickey-fuller-test">Augmented Dickey-Fuller Test</h3>
 <div class="epigrafe">
-<p>Below we can observe the results obtained when the Augmented Dickey-Fuller test…</p>
+<p>Below we can observe the results obtained when the Augmented Dickey-Fuller test was applied to the time series. The p-value is equal to 0.5913, which is higher than the 0.05 significance level. Considering the null hypothesis that the time series is not stationary, we fail to reject it, so we need to apply time series detrending and differencing methods to try to make it stationary.</p>
 </div>
 <div class="cell">
 <details>
@@ -390,8 +410,11 @@ Dickey-Fuller = -1.9638, Lag order = 6, p-value = 0.5913
 alternative hypothesis: stationary</code></pre>
 </div>
 </div>
+</section>
+<section id="detrending-and-differencing" class="level3">
+<h3 class="anchored" data-anchor-id="detrending-and-differencing">Detrending and Differencing</h3>
 <div class="epigrafe">
-<p>To obtain a stationary time series,</p>
+<p>To obtain a stationary time series, we applied the detrending method to the fitted model of the time series and plotted the result in the ACF plot. Next, we also applied the differencing method to the original time series and plotted the result in the ACF plot. The ACF plot of the original time series is shown first to compare the different models.</p>
 </div>
 <div class="cell">
 <details>
@@ -415,10 +438,12 @@ alternative hypothesis: stationary</code></pre>
 </div>
 </div>
 <div class="epigrafe">
-
+<p>The ACF plot for the detrended fitted model clearly shows high autocorrelation, as the values are higher than the confidence band.</p>
+<p>On the other hand, the ACF plot for the differenced model clearly shows that there is no autocorrelation left, as most lags are within the confidence band. Therefore, we conclude that when the first differencing method is applied to the time series, it turns out to be stationary.</p>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

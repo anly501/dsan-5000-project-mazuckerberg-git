@@ -1,5 +1,5 @@
 ---
-title: "Crude Oil Price"
+title: "U.S. Oil Production by Year"
 format: html
 ---
 ```{css, echo = FALSE}
@@ -52,15 +52,8 @@ library(imputeTS)
 
 ::: {.epigrafe}
 
-In this section...
-
-:::
-
-::: {.epigrafe}
-
-Import the dataset from the EDA
-
-The plot below shows the ACF plot. 
+The first step to begin the analysis was to import the dataset containing the time series data for the daily U.S. Oil Production by Year. 
+To evaluate the stationarity of the time series, we started with an Autocorrelation Function (ACF) plot. Within this plot, we observe a high positive autocorrelation for the early lags, which gradually decreases as the lags increase. This behavior indicates a tendency towards stationarity within the time series. To further this analysis, we apply the Augmented Dickey-Fuller test.
 
 :::
 
@@ -72,23 +65,23 @@ The plot below shows the ACF plot.
 #| warning: false
 
 # Import dataset
-ts_oil_price <- read_csv('../data/ts_oil_price.csv')
+ts_oil_production <- read_csv('../data/ts_oil_production.csv')
 
 # Create time series
-ts_oil_price<-ts(ts_oil_price$x,star=decimal_date(as.Date("2000-08-23",format = "%Y-%m-%d")),frequency = 365.25)
+ts_oil_production<-ts(ts_oil_production$x,star=decimal_date(as.Date("2000-01-01",format = "%Y-%m-%d")),frequency = 1)
 
 # Resize plots
 options(repr.plot.width = 5, repr.plot.height = 2) 
 
 # ACF Plot
-acf_oil_price <- ggAcf(ts_oil_price, 100, main="ACF Plot for Oil Production")
+acf_oil_production <- ggAcf(ts_oil_production, main="ACF Plot for Oil Production")
 
-acf_oil_price
+acf_oil_production
 ```
 
 ::: {.epigrafe}
 
-Augmented Dickey Fuller Test 
+The results of the Augmented Dickey-Fuller test are shown below. The p-value obtained exceeds the specified significance level of 0.05. This result emphasizes that the time series for oil production has non-stationary characteristics.
 
 :::
 
@@ -100,10 +93,10 @@ Augmented Dickey Fuller Test
 #| warning: false
 
 # Augmented Dickey-Fuller Test calculation
-test_oil_price <- adf.test(ts_oil_price)
+test_oil_production <- adf.test(ts_oil_production)
 
 # Print results
-print(test_oil_price)
+print(test_oil_production)
 ```
 
 ::: {.epigrafe}
@@ -122,10 +115,10 @@ Define if its stationary. Compare ACF to Augmented Dickey Fuller Test
 options(repr.plot.width = 6, repr.plot.height = 6) 
 
 # ACF Differenced Plot
-acf_diff_oil_price <- ggAcf(diff(ts_oil_price), 100, main="ACF Plot for Oil Production First Differenced")
+acf_diff_oil_production <- ggAcf(diff(ts_oil_production), main="ACF Plot for Oil Production First Differenced")
 
 # Show plot
-acf_diff_oil_price
+acf_diff_oil_production
 ```
 
 ::: {.epigrafe}
@@ -144,13 +137,13 @@ Compare to the Augmented Dickey-Fuller Test below.
 #| warning: false
 
 # Save differenced time series
-diff_oil_price <- diff(ts_oil_price)
+diff_oil_production <- diff(ts_oil_production)
 
 # Augmented Dickey-Fuller Test calculation
-test_diff_oil_price <- adf.test(diff_oil_price)
+test_diff_oil_production <- adf.test(diff_oil_production)
 
 # Print results
-print(test_diff_oil_price)
+print(test_diff_oil_production)
 ```
 
 ::: {.epigrafe}
@@ -159,27 +152,24 @@ Keep the differenced ts because its stationary.
 
 :::
 
-``` {r}
+``` {r, fig.width = 8, fig.height = 6}
 #| echo: true
 #| message: false
 #| code-fold: true
 #| code-summary: "ACF and PACF Plot Code"
 #| warning: false
 
-# Keep differenced Time Series
-ts_oil_price <- diff_oil_price
-
 # Resize plots
 options(repr.plot.width = 5, repr.plot.height = 2) 
 
 # ACF Plot
-acf_oil_price <- ggAcf(ts_oil_price, 100, main="ACF Plot for Oil Price")
+acf_oil_production <- ggAcf(diff_oil_production, main="ACF Plot for Oil Production")
 
 # PACF Plot
-pacf_oil_price <- ggPacf(ts_oil_price, 100, main="PACF Plot for Oil Price")
+pacf_oil_production <- ggPacf(diff_oil_production, main="PACF Plot for Oil Production")
 
 # Arrange Plots
-grid.arrange(acf_oil_price, pacf_oil_price, nrow=2)
+grid.arrange(acf_oil_production, pacf_oil_production, nrow=2)
 ```
 
 ::: {.epigrafe}
@@ -196,16 +186,16 @@ Based on the values obtained before, we assess the best p,d,q below
 #| warning: false
 
 # Assigned time series to variable used in the algorithm
-xt <- ts_oil_price
+xt <- ts_oil_production
 
 # PACF plot parameter selection
-p_value <- 5
+p_value <- 3
 
 # Number of differences
 d_value <- 1
 
 # ACF plot parameter selection
-q_value <- 6
+q_value <- 4
 
 # Initialize variable
 i <- 1
@@ -227,15 +217,15 @@ for (p in 1:p_value+1)
     for(d in 1:d_value)
     {
       
-      #if(p-1+d+q-1<=8) #usual threshold
-      #{
+      if(p-1+d+q-1<=8) #usual threshold
+      {
         
         model<- Arima(xt,order=c(p-1,d,q-1),include.drift=TRUE) 
         ls[i,]= c(p-1,d,q-1,model$aic,model$bic,model$aicc)
         i=i+1
         #print(i)
         
-      #}
+      }
       
     }
   }
@@ -278,7 +268,7 @@ Model Diagnostics
 
 :::
 
-``` {r}
+``` {r, fig.width = 8, fig.height = 6}
 #| echo: true
 #| message: false
 #| code-fold: true
@@ -295,28 +285,7 @@ q1 <- AIC$q
 model_output <- capture.output(sarima(xt, p1, d1, q1))
 ```
 
-::: {.epigrafe}
-
-Describe model diagnostics
-
-:::
-
-``` {r}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "Model Diagnostics - parameters with best BIC"
-#| warning: false
-
-BIC <- temp[which.min(temp$BIC),]
-
-p2 <- BIC$p
-d2 <- BIC$d
-q2 <- BIC$q
-
-# Model diagnostics for best BIC
-model_output <- capture.output(sarima(xt, p2, d2, q2))
-```
+> add p=1, d=1 and q=1.
 
 ::: {.epigrafe}
 
@@ -338,11 +307,89 @@ Fit ARIMA model using Arima()
 #| warning: false
 
 AIC <- Arima(xt,order=c(p1, d1, q1),include.drift = TRUE)
-BIC <- Arima(xt,order=c(p2, d2, q2),include.drift = TRUE)
 
 plot(xt, col="black")
-lines(fitted(BIC),col="blue")
 lines(fitted(AIC), col="green")
-legend(x = "topleft", legend = c("xt", "AIC", "BIC"), col = c("black", "green", "blue"), lty = 1)
-
+legend(x = "topleft", legend = c("xt", "AIC"), col = c("black", "green"), lty = 1)
 ```
+
+::: {.epigrafe}
+
+Compare fitted vs Actual plots
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Fitted Model Summary"
+#| warning: false
+
+fit <- Arima(xt, order=c(p1, d1, q1))
+summary(fit)
+```
+
+::: {.epigrafe}
+
+Model Equation with Latex
+
+\begin{align}
+x_t &= \Phi x_{t-1} + w_t + \Theta w_{t-1} \\
+x_t &= 0.1832 x_{t-1} - 0.6324 x_{t-2} + w_t - 0.4982 w_{t-1}
+\end{align}
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "auto.arima()"
+#| warning: false
+
+auto.arima(xt)
+```
+
+::: {.epigrafe}
+
+Compare selected model to auto.arima()
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Forecast"
+#| warning: false
+
+forecast_fit <- forecast(fit,10)
+
+forecast_fit
+```
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Forecast Plot"
+#| warning: false
+
+# Path to save plot
+file_path <- "../images/6_oil_production_year.png"
+
+# Plot
+plot <- autoplot(forecast_fit)
+
+# Use ggsave to save the plot as a PNG image
+ggsave(plot, filename = file_path, width = 10, height = 5)
+
+# Show plot
+plot
+```
+
+::: {.epigrafe}
+
+Conclusion
+
+:::

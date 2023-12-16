@@ -184,5 +184,62 @@
   },
   "9_GARCH/9_food.qmd": {
     "9_food.html": "28f1931d"
+  },
+  "5_EDA/5_inflation_rate.qmd": {
+    "5_inflation_rate.html": "6ee749d7"
+  },
+  "5_EDA/5_interest_rate.qmd": {
+    "5_interest_rate.html": "7b97eb28"
+  },
+  "5_EDA/5_food.qmd": {
+    "5_food.html": "54f2d59f"
+  },
+  "5_EDA/5_health.qmd": {
+    "5_health.html": "42fe15fa"
+  },
+  "11_other_files/1_introduction_v1.qmd": {
+    "1_introduction_v1.html": "0a0ac5a5"
+  },
+  "11_other_files/5_oil_price_month.qmd": {
+    "5_oil_price_month.html": "6f2193f5"
+  },
+  "5_EDA/5_oil_price.qmd": {
+    "5_oil_price.html": "10af6be9"
+  },
+  "11_other_files/5_oil_production_month.qmd": {
+    "5_oil_production_month.html": "d6a2a18d"
+  },
+  "11_other_files/5_oil_price_month_v1.qmd": {
+    "5_oil_price_month_v1.html": "9e2bceb2"
+  },
+  "11_other_files/5_oil_production_year.qmd": {
+    "5_oil_production_year.html": "156bacd1"
+  },
+  "11_other_files/6_oil_production_year.qmd": {
+    "6_oil_production_year.html": "6aca0186"
+  },
+  "6_ARMA/6_bus_passengers_PC.qmd": {
+    "6_bus_passengers_PC.html": "3e5f244e"
+  },
+  "6_ARMA/R_6_bus_passengers_PC.Rmd": {
+    "R_6_bus_passengers_PC.html": "46fd85ce"
+  },
+  "5_EDA/R_5_bus_passengers.Rmd": {
+    "R_5_bus_passengers.html": "52ec81b7"
+  },
+  "7_ARIMAX/7_bus_passengers_PC.qmd": {
+    "7_bus_passengers_PC.html": "997d95c4"
+  },
+  "7_ARIMAX/7_bus_passengers.qmd": {
+    "7_bus_passengers.html": "1cca19e4"
+  },
+  "7_ARIMAX/7_bicycles.qmd": {
+    "7_bicycles.html": "b053d70e"
+  },
+  "7_ARIMAX/7_air_transport.qmd": {
+    "7_air_transport.html": "3cd70587"
+  },
+  "7_ARIMAX/7_inflation_rate.qmd": {
+    "7_inflation_rate.html": "a9ea4426"
   }
 }

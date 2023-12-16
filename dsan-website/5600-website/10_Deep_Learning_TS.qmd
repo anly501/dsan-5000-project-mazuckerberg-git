@@ -1,3 +1,680 @@
 ---
 title: "Deep Learning for TS"
+format:
+  html:
+    embed-resources: true
 ---
+
+```{css, echo = FALSE}
+.justify {
+text-align: justify !important;
+text-indent: 20px;
+}
+
+
+.epigrafe {
+text-align: justify !important;
+text-indent: 20px;
+border: 1.5px solid #87c8b5;
+padding: 15px;
+font-size: 14px;
+background-color: #f9f9f9;
+margin: 20px 0px 30px 0px;
+}
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| results: 'hide'
+#| warning: false
+
+x<-1
+
+```
+
+### Overview
+
+::: {.justify}
+
+The goal of this section is to apply deep learning algorithms to the oil price monthly data in order to make predictions of what the price of oil will be in the future.
+
+The libraries that will be used in this section are in the following list:
+:::
+
+``` {python}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+# Import Data
+import pandas as pd
+
+# Plotting
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns 
+
+# Keras
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras import initializers
+from tensorflow.keras import regularizers
+from keras.layers import Dense, SimpleRNN, LSTM ,GRU
+```
+
+### Data
+
+::: {.epigrafe}
+
+For this analysis we will use the monthly adjusted oil price for the last 22 years which we can observe in the next table. The will be later transformed to be saved as a np.array() with a similar format to the time series object used in past sections.
+:::
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+# Read csv
+df = pd.read_csv('./data/df_oil_price_monthly.csv')
+
+df
+
+df = df.rename(columns={"date": "t", "adjusted": "y"})
+
+df = df[["t","y"]]
+
+print("CHECK NA:\n",df.isna().sum())
+
+t=np.array([*range(0,df.shape[0])])
+
+x=np.array(df['y']).reshape(t.shape[0],1)
+
+feature_columns=[0] # columns to use as features
+
+target_columns=[0]  # columns to use as targets
+```
+
+### Visualize Data
+
+::: {.epigrafe}
+
+When we plot the raw data, as we evaluated in previous sections, we can observe there is no clear trend over all the years and there is a lot of fluctuation.
+:::
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+fig, ax = plt.subplots()
+for i in range(0,x.shape[1]):
+    ax.plot(t, x[:,i],'o',alpha = 0.5)
+    ax.plot(t, x[:,i],"-")
+ax.plot(t, 0*x[:,0],"-") # add baseline for reference 
+plt.show()
+```
+
+### Normalize Data
+
+::: {.epigrafe}
+
+In order to apply the data points to the deep learning algorithms we transformed the data to be normalized. For this procedure we used the mean and standard deviation of the points. After normalizing the data, the output values are between -3 and 3.
+
+We plotted the transformed data and we can observe that the shape of the time series is very similar.
+:::
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+print(np.mean(x,axis=0).shape,np.std(x,axis=0).shape)
+x=(x-np.mean(x,axis=0))/np.std(x,axis=0)
+print(x.shape)
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+# visualize normalized data 
+fig, ax = plt.subplots()
+for i in range(0,x.shape[1]):
+    ax.plot(t, x[:,i],'o')
+    ax.plot(t, x[:,i],"-")
+ax.plot(t, 0*x[:,0],"-") # add baseline for reference 
+plt.show()
+```
+
+### Split Data
+
+::: {.epigrafe}
+
+The next step is to split the data into train and validation sets. To perform this split we use an 80% of the data points for the train set and a 20% of the data points for the validation set.
+
+In the following plot we can observe the train set colored in orange and the validation set in blue.
+:::
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+split_fraction=0.8
+cut=int(split_fraction*x.shape[0]) 
+tt=t[0:cut]; 
+xt=x[0:cut]
+tv=t[cut:]; 
+xv=x[cut:]
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+# visualize normalized data 
+fig, ax = plt.subplots()
+for i in range(0,x.shape[1]):
+    ax.plot(tt, xt[:,i],'ro',alpha=0.25)
+    ax.plot(tt, xt[:,i],"g-")
+for i in range(0,x.shape[1]):
+    ax.plot(tv, xv[:,i],'bo',alpha=0.25)
+    ax.plot(tv, xv[:,i],"g-")
+plt.show()
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+def form_arrays(x,lookback=3,delay=1,step=1,feature_columns=[0],target_columns=[0],unique=False,verbose=False):
+    # verbose=True --> report and plot for debugging
+    # unique=True --> don't re-sample: 
+    # x1,x2,x3 --> x4 then x4,x5,x6 --> x7 instead of x2,x3,x4 --> x5
+
+    # initialize 
+    i_start=0; count=0; 
+    
+    # initialize output arrays with samples 
+    x_out=[]
+    y_out=[]
+    
+    # sequentially build mini-batch samples
+    while i_start+lookback+delay< x.shape[0]:
+        
+        # define index bounds
+        i_stop=i_start+lookback
+        i_pred=i_stop+delay
+        
+        # report if desired 
+        if verbose and count<2: print("indice range:",i_start,i_stop,"-->",i_pred)
+
+        # define arrays: 
+        # method-1: buggy due to indexing from left 
+        # numpy's slicing --> start:stop:step
+        # xtmp=x[i_start:i_stop+1:steps]
+        
+        # method-2: non-vectorized but cleaner
+        indices_to_keep=[]; j=i_stop
+        while  j>=i_start:
+            indices_to_keep.append(j)
+            j=j-step
+
+        # create mini-batch sample
+        xtmp=x[indices_to_keep,:]    # isolate relevant indices
+        xtmp=xtmp[:,feature_columns] # isolate desire features
+        ytmp=x[i_pred,target_columns]
+        x_out.append(xtmp); y_out.append(ytmp); 
+        
+        # report if desired 
+        if verbose and count<2: print(xtmp, "-->",ytmp)
+        if verbose and count<2: print("shape:",xtmp.shape, "-->",ytmp.shape)
+
+        # PLOT FIRST SAMPLE IF DESIRED FOR DEBUGGING    
+        if verbose and count<2:
+            fig, ax = plt.subplots()
+            ax.plot(x,'b-')
+            ax.plot(x,'bx')
+            ax.plot(indices_to_keep,xtmp,'go')
+            ax.plot(i_pred*np.ones(len(target_columns)),ytmp,'ro')
+            plt.show()
+            
+        # UPDATE START POINT 
+        if unique: i_start+=lookback 
+        i_start+=1; count+=1
+        
+    return np.array(x_out),np.array(y_out)
+```
+
+### Form Mini Batches
+
+::: {.epigrafe}
+
+For this approach we will use mini batches. This allows to look at an especific number of data points at the same time for every iteration. In this case, considering the large amount of data points, we selected a lookback value of 25.
+:::
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+# training
+L=25; S=1; D=1
+Xt,Yt=form_arrays(xt,lookback=L,delay=D,step=S,feature_columns=feature_columns,target_columns=target_columns,unique=False,verbose=False)
+
+# validation
+Xv,Yv=form_arrays(xv,lookback=L,delay=D,step=S,feature_columns=feature_columns,target_columns=target_columns,unique=False,verbose=False)
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+print("training:",Xt.shape,Yt.shape)
+print("validation:",Xv.shape,Yv.shape)
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+from sklearn.metrics import mean_squared_error,mean_absolute_percentage_error,mean_absolute_error
+
+# UTILITY FUNCTION
+def regression_report(yt,ytp,yv,yvp):
+    print("---------- Regression report ----------")
+    
+    print("TRAINING:")
+    print(" RMSE:",mean_squared_error(yt,ytp)**(1/2))
+    print(" MSE:",mean_squared_error(yt,ytp))
+    print(" MAE:",mean_absolute_error(yt,ytp))
+    # print(" MAPE:",mean_absolute_percentage_error(Yt,Ytp))
+    
+    # PARITY PLOT
+    fig, ax = plt.subplots()
+    ax.plot(yt,ytp,'ro')
+    ax.plot(yt,yt,'b-')
+    ax.set(xlabel='y_data', ylabel='y_predicted',
+        title='Training data parity plot (line y=x represents a perfect fit)')
+    plt.show()
+    
+    # PLOT PART OF THE PREDICTED TIME-SERIES
+    frac_plot=1.0
+    upper=int(frac_plot*yt.shape[0]); 
+    # print(int(0.5*yt.shape[0]))
+    fig, ax = plt.subplots()
+    ax.plot(yt[0:upper],'b-')
+    ax.plot(ytp[0:upper],'r-',alpha=0.5)
+    ax.plot(ytp[0:upper],'ro',alpha=0.25)
+    ax.set(xlabel='index', ylabel='y(t (blue=actual & red=prediction)', title='Training: Time-series prediction')
+    plt.show()
+
+      
+    print("VALIDATION:")
+    print(" RMSE:",mean_squared_error(yv,yvp)**(1/2))
+    print(" MSE:",mean_squared_error(yv,yvp))
+    print(" MAE:",mean_absolute_error(yv,yvp))
+    # print(" MAPE:",mean_absolute_percentage_error(Yt,Ytp))
+    
+    # PARITY PLOT 
+    fig, ax = plt.subplots()
+    ax.plot(yv,yvp,'ro')
+    ax.plot(yv,yv,'b-')
+    ax.set(xlabel='y_data', ylabel='y_predicted',
+        title='Validation data parity plot (line y=x represents a perfect fit)')
+    plt.show()
+    
+    # PLOT PART OF THE PREDICTED TIME-SERIES
+    upper=int(frac_plot*yv.shape[0])
+    fig, ax = plt.subplots()
+    ax.plot(yv[0:upper],'b-')
+    ax.plot(yvp[0:upper],'r-',alpha=0.5)
+    ax.plot(yvp[0:upper],'ro',alpha=0.25)
+    ax.set(xlabel='index', ylabel='y(t) (blue=actual & red=prediction)', title='Validation: Time-series prediction')
+    plt.show()
+
+```
+
+<!-- ### Utility Function -->
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+def history_plot(history):
+    FS=18   #FONT SIZE
+    # PLOTTING THE TRAINING AND VALIDATION LOSS 
+    history_dict = history.history
+    loss_values = history_dict["loss"]
+    val_loss_values = history_dict["val_loss"]
+    epochs = range(1, len(loss_values) + 1)
+    plt.plot(epochs, loss_values, "bo", label="Training loss", color="green")
+    plt.plot(epochs, val_loss_values, "b", label="Validation loss", color="orange")
+    plt.title("Training and validation loss")
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.legend()
+    plt.show()
+```
+
+### Keras - RNN
+
+::: {.epigrafe}
+
+The first model we fitted is RNN using the functions from Keras in the tensorflow package. 
+
+In the **Training and validation loss** plot we can observe that the training errors / loss reduces when the number of Epochs increases. In the case of the validation errors, they fluctuate a lot. This suggests that the model is not performing correctly and is probably overfitting.
+
+When we compare the RMSE for the Training and Validation sets, these are not very different but it does not mean that the model is predicting correctly.
+
+We can compare the Validation data plot and the traning data plot and clearly see that the training values correlate better with the line, while the validation values do not.
+:::
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+
+print(Xt.shape,"-->",Yt.shape)
+print(Xv.shape,"-->",Yv.shape)
+
+# HYPERPARAMETERS 
+optimizer="rmsprop"
+loss_function="MeanSquaredError" 
+learning_rate=0.001
+numbers_epochs=200 #100
+L2=0 #1e-4
+input_shape=(Xt.shape[1],Xt.shape[2])
+
+
+# ------ Choose the batch size ------
+batch_size=1                       # stocastic training
+#batch_size=int(len(x_train)/2.)    # mini-batch training
+# batch_size=len(Xt1)              # batch training
+
+# BUILD MODEL
+recurrent_hidden_units=32
+
+# CREATE MODEL
+model = keras.Sequential()
+
+# ADD RECURRENT LAYER
+
+# #COMMENT/UNCOMMENT TO USE RNN, LSTM,GRU
+#model.add(LSTM(
+#model.add(GRU(
+model.add(SimpleRNN(
+units=recurrent_hidden_units,
+return_sequences=False,
+input_shape=input_shape, 
+# recurrent_dropout=0.8,
+recurrent_regularizer=regularizers.L2(L2),
+activation='relu')
+          ) 
+     
+# NEED TO TAKE THE OUTPUT RNN AND CONVERT TO SCALAR 
+model.add(Dense(units=1, activation='linear'))
+
+# MODEL SUMMARY
+print(model.summary()); #print(x_train.shape,y_train.shape)
+# # print("initial parameters:", model.get_weights())
+
+# # COMPILING THE MODEL 
+opt = keras.optimizers.RMSprop(learning_rate=learning_rate)
+model.compile(optimizer=opt, loss=loss_function)
+
+# TRAINING YOUR MODEL
+history = model.fit(Xt,
+                    Yt,
+                    epochs=numbers_epochs,
+                    batch_size=batch_size, verbose=False,
+                    validation_data=(Xv, Yv))
+
+# History plot
+history_plot(history)
+
+# Predictions 
+Ytp=model.predict(Xt)
+Yvp=model.predict(Xv) 
+
+# REPORT
+regression_report(Yt,Ytp,Yv,Yvp)
+```
+
+
+### Keras - GRU
+
+::: {.epigrafe}
+
+In the case of the GRU model created from the Keras function from the Tensorflow package, we obtained very different results for each analysis.
+
+The training and validation loss plot shows that both the training loss and validation loss decreases to very similar values as the number of Epochs increases.
+
+Considering that the trend of the validation loss values is very similar to the training trend, we can conclude that the RMSE of both sets is very low. This suggests that the model has an optimal fit.
+
+The validation data plot and predictions, compared to the training plots, these look very similar compared to the real data values.
+:::
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+
+print(Xt.shape,"-->",Yt.shape)
+print(Xv.shape,"-->",Yv.shape)
+
+# HYPERPARAMETERS 
+optimizer="rmsprop"
+loss_function="MeanSquaredError" 
+learning_rate=0.001
+numbers_epochs=200 #100
+L2=0 #1e-4
+input_shape=(Xt.shape[1],Xt.shape[2])
+
+
+# ------ Choose the batch size ------
+batch_size=1                       # stocastic training
+# # batch_size=int(len(x_train)/2.)    # mini-batch training
+# batch_size=len(Xt1)              # batch training
+
+# BUILD MODEL
+recurrent_hidden_units=32
+
+# CREATE MODEL
+model = keras.Sequential()
+
+# ADD RECURRENT LAYER
+
+# #COMMENT/UNCOMMENT TO USE RNN, LSTM,GRU
+#model.add(LSTM(
+model.add(GRU(
+#model.add(SimpleRNN(
+units=recurrent_hidden_units,
+return_sequences=False,
+input_shape=input_shape, 
+# recurrent_dropout=0.8,
+recurrent_regularizer=regularizers.L2(L2),
+activation='relu')
+          ) 
+     
+# NEED TO TAKE THE OUTPUT RNN AND CONVERT TO SCALAR 
+model.add(Dense(units=1, activation='linear'))
+
+# MODEL SUMMARY
+print(model.summary()); #print(x_train.shape,y_train.shape)
+# # print("initial parameters:", model.get_weights())
+
+# # COMPILING THE MODEL 
+opt = keras.optimizers.RMSprop(learning_rate=learning_rate)
+model.compile(optimizer=opt, loss=loss_function)
+
+# TRAINING YOUR MODEL
+history = model.fit(Xt,
+                    Yt,
+                    epochs=numbers_epochs,
+                    batch_size=batch_size, verbose=False,
+                    validation_data=(Xv, Yv))
+
+# History plot
+history_plot(history)
+
+# Predictions 
+Ytp=model.predict(Xt)
+Yvp=model.predict(Xv) 
+
+# REPORT
+regression_report(Yt,Ytp,Yv,Yvp)
+```
+
+### Keras - LSTM
+
+::: {.epigrafe}
+
+The last model created was LSTM, also obtained from the Keras package within Tensorflow.
+
+By assessing the traning and validation loss plot, we can observe that this model is a midpoint between the two previously assessed. There is a los of fluctuation of the loss values but the value is still low. If we see more in detail we can clearly see that the trend is increasing. This suggests that with an increasing number of Epochs, for the higher values, the loss value in high.
+
+When we compare the RMSE for the training set and the test set, we can see there is a high difference and the trend suggests it will increase.
+
+The predictions observed in the Validation plots are kind of good, but these can change in the future forests. This model may tend to overfitting if we increase the number of points being forecasted.
+:::
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "{python}"
+
+
+print(Xt.shape,"-->",Yt.shape)
+print(Xv.shape,"-->",Yv.shape)
+
+# HYPERPARAMETERS 
+optimizer="rmsprop"
+loss_function="MeanSquaredError" 
+learning_rate=0.001
+numbers_epochs=200 #100
+L2=0 #1e-4
+input_shape=(Xt.shape[1],Xt.shape[2])
+
+
+# ------ Choose the batch size ------
+batch_size=1                       # stocastic training
+# # batch_size=int(len(x_train)/2.)    # mini-batch training
+# batch_size=len(Xt1)              # batch training
+
+# BUILD MODEL
+recurrent_hidden_units=32
+
+# CREATE MODEL
+model = keras.Sequential()
+
+# ADD RECURRENT LAYER
+
+# #COMMENT/UNCOMMENT TO USE RNN, LSTM,GRU
+model.add(LSTM(
+# model.add(GRU(
+#model.add(SimpleRNN(
+units=recurrent_hidden_units,
+return_sequences=False,
+input_shape=input_shape, 
+# recurrent_dropout=0.8,
+recurrent_regularizer=regularizers.L2(L2),
+activation='relu')
+          ) 
+     
+# NEED TO TAKE THE OUTPUT RNN AND CONVERT TO SCALAR 
+model.add(Dense(units=1, activation='linear'))
+
+# MODEL SUMMARY
+print(model.summary()); #print(x_train.shape,y_train.shape)
+# # print("initial parameters:", model.get_weights())
+
+# # COMPILING THE MODEL 
+opt = keras.optimizers.RMSprop(learning_rate=learning_rate)
+model.compile(optimizer=opt, loss=loss_function)
+
+# TRAINING YOUR MODEL
+history = model.fit(Xt,
+                    Yt,
+                    epochs=numbers_epochs,
+                    batch_size=batch_size, verbose=False,
+                    validation_data=(Xv, Yv))
+
+# History plot
+history_plot(history)
+
+# Predictions 
+Ytp=model.predict(Xt)
+Yvp=model.predict(Xv) 
+
+# REPORT
+regression_report(Yt,Ytp,Yv,Yvp)
+```
+
+
+### Conclusions
+
+::: {.epigrafe}
+
+As a conclusion, we need to evaluate the three models from different perspectives to undestand which model is performing better.
+
+When we compare the 3 models we can see that 2 of them are overfitting, RNN and LSTM, while the GRU is not. Therefore, from this point of view we conclude that the **train-test sets** are good for the model fitting.
+
+In order to assess which model is better in terms of **predictive power,** we use the RMSE metric. The model that has the lower RMSE value is the GRU.
+
+We modified the **regularization** parameter when training the models. This value was set by default in 0, which means there is no regularization at all. When we increase this value, the RMSE values are being higher compared to the default value. For that main reason, we decided to keep the regularization parameter as 0.
+
+To assess how far into the future can the deep learning model accurately predict the future depends on the model that is being used. In terms of computationally intensive, with a lot of data points this predictions can take very long which that would not be very efficient. Also, as we have evaluated previously, for the LSTM model, the loss function, RMSE metric, was increasing over time, this suggests that the model was not accurately predicting the future values.
+
+In the previous section "ARIMA Model - Crude Oil Price by Month", we obtained a fitted ARIMA model. The RMSE value of the final model obtained was approximately 0.1911. Considering the best deep learning model obtained was the GRU, we compare the approximate RMSE value of 0.4094. We can see the values are very different but these are very low. Therefore, we can conclude that the models are very similar and both have good predicion power.
+
+The deep learning models are very different to the ARIMA models. Tuning the deep learning models can be harder and more computationally intensive. On the other hand, the ARIMA model may take more steps to obtain the final model, but the analysis that has to be done is very similar to other models.
+:::

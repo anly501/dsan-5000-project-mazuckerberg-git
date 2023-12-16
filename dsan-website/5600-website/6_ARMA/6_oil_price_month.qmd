@@ -1,0 +1,377 @@
+---
+title: "ARIMA Model | Oil Price by Month"
+format:
+  html:
+    embed-resources: true
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+```
+
+::: {.epigrafe}
+
+To predict future oil prices, we begin by applying systematic ARIMA modeling steps. In the [Exploratory Data Analisis | Oil Price](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_price_month.html) section transformed the raw data into a stationary time series using first difference. Subsequently, the resulting ACF and PACF plots provide a visual representation of the autocorrelation structure within the resulting time series.
+:::
+
+### Autocorrelation Plots
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Plot"
+#| warning: false
+
+# Import dataset
+ts_oil_price <- read_csv('../data/ts_oil_price_monthly.csv')
+
+# Create time series
+ts_oil_price<-ts(ts_oil_price$x,star=decimal_date(as.Date("2000-08-31",format = "%Y-%m-%d")),frequency = 12)
+
+# ACF Plot
+acf_plot <- ggAcf(diff(ts_oil_price), main="ACF Plot for Oil Price")
+
+# PACF Plot
+pacf_plot <- ggPacf(diff(ts_oil_price), main="PACF Plot for Oil Price")
+
+# Arrange Plots
+grid.arrange(acf_plot, pacf_plot, nrow=2)
+```
+
+### Parameters Selection
+
+::: {.epigrafe}
+
+To identify the optimal parameters for our model, we performed an analysis of the ACF and PACF plots. The ACF plot showed  autocorrelation at lag 5, while the PACF plot showed autocorrelation at lag 1. Therefore, we selected the following parameters for the ARIMA model: 
+
+$p=1$
+
+$d=1$
+
+$q=5$
+
+To validate our choices, we used the auto.arima() function, which resulted in a model with parameters (0,1,1). This comprehensive approach ensures that our ARIMA model is fine-tuned to capture the underlying patterns in the time series data, thereby improving its predictive accuracy.
+
+:::
+
+::: {.panel-tabset}
+
+## Parameters
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Parameter Assesing"
+#| warning: false
+
+# Assigned time series to variable used in the algorithm
+xt <- ts_oil_price
+
+# PACF plot parameter selection
+p_value <- 2
+
+# Number of differences
+d_value <- 2
+
+# ACF plot parameter selection
+q_value <- 6
+
+# Initialize variable
+i <- 1
+
+# Initialize variable
+temp <- data.frame()
+
+# Calculate number of rows
+rows <- p_value*d_value*q_value
+
+# 
+ls <- matrix(rep(NA,6*rows),nrow=rows) 
+
+# Parameter testing loop
+for (p in 1:p_value+1)
+{
+  for(q in 1:q_value+1)
+  {
+    for(d in 1:d_value)
+    {
+      
+      #if(p-1+d+q-1<=8) #usual threshold
+      #{
+        
+        model<- Arima(xt,order=c(p-1,d-1,q-1),include.drift=TRUE) 
+        ls[i,]= c(p-1,d-1,q-1,model$aic,model$bic,model$aicc)
+        i=i+1
+        #print(i)
+        
+      #}
+      
+    }
+  }
+}
+
+temp <- as.data.frame(ls)
+
+names(temp) <- c("p","d","q","AIC","BIC","AICc")
+
+#temp
+#knitr::kable(temp)
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Selection"
+#| warning: false
+
+cat('Minimum AIC:')
+# Check best model with AIC
+temp[which.min(temp$AIC),]
+
+cat('Minimum BIC:')
+# Check best model with BIC
+temp[which.min(temp$BIC),]
+
+cat('Minimum AICc:')
+# Check best model with AICc
+temp[which.min(temp$AICc),]
+```
+
+## auto.arima()
+
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "auto.arima()"
+
+auto.arima(xt)
+```
+
+:::
+
+### Diagnostics
+
+::: {.epigrafe}
+Evaluating the model selection criteria, it is clear that both the AIC and AICc converge on the model (2, 1, 3) as the optimal choice, while the BIC favors the model (1, 1, 1). To fully evaluate their performance, we carefully examined the diagnostic plots for each model along with the auto.arima() results. When compared, model (1, 1, 1) emerges as the better choice. The standardized residuals show an apparently random pattern, the Q-Q plot suggests a tendency toward normality, and all Ljung box statistics exceed the significance level, indicating no autocorrelation.
+:::
+
+::: {.panel-tabset}
+
+## auto.arima()
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Diagnostics - parameters auto.arima()"
+#| warning: false
+
+p_autoarima <- 0
+d_autoarima <- 1
+q_autoarima <- 1
+
+# Model diagnostics for best AIC
+model_output <- capture.output(sarima(xt, p_autoarima, d_autoarima, q_autoarima))
+```
+
+## AIC
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Diagnostics - parameters with best AIC"
+#| warning: false
+
+AIC <- temp[which.min(temp$AIC),]
+
+p1 <- AIC$p
+d1 <- AIC$d
+q1 <- AIC$q
+
+# Model diagnostics for best AIC
+model_output <- capture.output(sarima(xt, p1, d1, q1))
+```
+
+## BIC
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Diagnostics - parameters with best BIC"
+#| warning: false
+
+BIC <- temp[which.min(temp$BIC),]
+
+p2 <- BIC$p
+d2 <- BIC$d
+q2 <- BIC$q
+
+# Model diagnostics for best BIC
+model_output <- capture.output(sarima(xt, p2, d2, q2))
+```
+
+:::
+
+### Fit Model
+
+::: {.epigrafe}
+Analysis of the fit line plotted against the original time series for the ARIMA model shows a similarity, indicating a robust fit between the model and the actual data. This close fit provides confidence in the model's ability to generate accurate predictions.
+:::
+
+::: {.panel-tabset}
+
+## Model Fit Plot
+
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Model Fitting"
+
+
+best_model <- temp[which.min(temp$BIC),]
+
+p <- best_model$p
+d <- best_model$d
+q <- best_model$q
+
+
+model <- Arima(xt,order=c(p, d, q),include.drift = TRUE)
+
+plot(xt, col="black")
+lines(fitted(model), col="green")
+legend(x = "topleft", legend = c("xt", "BIC"), col = c("black", "green"), lty = 1)
+```
+
+## Model Summary
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Fitted Model Summary"
+#| warning: false
+
+fit <- Arima(xt, order=c(p, d, q))
+summary(fit)
+```
+
+:::
+
+### Equation
+
+::: {.epigrafe}
+\begin{equation}
+(1 - 0.1761B)(1 - B)(y_t - \mu) = (1 + 0.0455a_t)
+\end{equation}
+:::
+
+### Forecast
+
+::: {.epigrafe}
+The chart below illustrates the forecasts and shows a consistent trajectory for oil prices. Comparison of the forecast plot with benchmark models shows alignment with the naive model, while deviations are evident when compared with the mean and seasonal naive models. 
+
+Improvements in model accuracy can be pursued through parameter adjustments or by exploring more sophisticated models, such as VAR or ARIMAX, which incorporate exogenous variables for a comprehensive analysis.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Forecast plot"
+
+forecast_fit <- forecast(fit,24)
+
+plot1 <- autoplot(forecast_fit)
+
+plot1
+```
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Forecast Plot"
+#| warning: false
+
+# Path to save plot
+file_path <- "../images/6_oil_price_month.png"
+
+# Use ggsave to save the plot as a PNG image
+ggsave(plot1, filename = file_path, width = 10, height = 5)
+```
+
+### Benchmark Models
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Benchmark Models Plot"
+#| warning: false
+
+autoplot(xt) +
+  autolayer(meanf(xt, h=11),
+            series="Mean", PI=FALSE) +
+  autolayer(naive(xt, h=11),
+            series="Naïve", PI=FALSE) +
+  autolayer(snaive(xt, h=11),
+            series="Seasonal naïve", PI=FALSE) +
+  autolayer(forecast(forecast_fit, h=11),
+            series="Fit", PI=FALSE) +
+  ggtitle("Forecasts for Oil Price") +
+  xlab("Year") + ylab("Price") +
+  guides(colour=guide_legend(title="Forecast"))
+```

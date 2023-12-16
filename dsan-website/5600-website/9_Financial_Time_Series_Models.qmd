@@ -19,9 +19,15 @@ title: "Financial Time Series Models (ARCH/GARCH)"
     background-color: #f9f9f9; 
     margin: 20px 0px 30px 0px;
 }
-```
 
-### Overview
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+```
 
 ::: {.justify}
 
@@ -67,28 +73,26 @@ library(car)
 library(fGarch)
 ```
 
-<!-- 
-### Food Index ~ Oil Price + Oil Production
+
+## Food Index ~ Oil Price + Oil Production
 
 ::: {.justify}
-
-Buses depend on fuel to operate and that fluctuations in oil prices affect the cost of primary fuel. One of the variables that will be analyzed within the transportation industry is bus passenger trips using a seasonal autoregressive integrated moving average model with oil price as the exogenous variable.
-
-The analysis process and the forecast model elaborated can be found below.
+Our examination of the food industry data revealed that the oil price variable is not significant in the context of the linear model. The full details of this analysis, including the steps taken, can be found in the section [ARIMA + GARCH Model | Food Industry](https://mazuckerberg.georgetown.domains/DSAN_5600/9_GARCH/9_food.html). Looking at the forecast plot, it is clear that the forecasts suggest a scenario without significant fluctuations. While this may seem contradictory given the inherent variability of the stock market, it underscores the importance of viewing this analysis as an estimate, with predicted values likely to fall within the confidence intervals.
 :::
 
-> [SARIMAX Model](https://mazuckerberg.georgetown.domains/DSAN_5600/7_ARIMAX/7_SARIMAX_bus.html)
+<p align="center">
+  <img src="./images/9_GARCH_food.png" width=80% height=80%>
+</p>
 
-<img src="./images/7_SARIMAX_bus.png" width=80% height=80%> -->
 
-
-### Healthcare Index ~ Oil Price + Oil Production
+## Healthcare Index ~ Oil Price + Oil Production
 
 ::: {.justify}
-
-Below, we can observe the prediction of 100 points with confidence intervals for the Healthcare Index using the ARIMA + GARCH model. The steps applied and the detailed time series analysis can be found in the found in the following link:
+In our second approach, we shift our focus to the healthcare industry and specifically select one of the most important companies within the healthcare index. The visualized predictions below offer a glimpse into the potential future, suggesting a landscape characterized by notable fluctuations, as reflected by the widening confidence intervals. Despite the fluctuations, the estimated values remain constant and show no trend. For a full understanding of the steps taken to arrive at this model, please refer to the detailed analysis in the  section [ARIMA + GARCH Model](https://mazuckerberg.georgetown.domains/DSAN_5600/9_GARCH/9_health.html).
 :::
 
-> [ARIMA + GARCH Model](https://mazuckerberg.georgetown.domains/DSAN_5600/9_GARCH/9_health.html)
+<p align="center">
+  <img src="./images/9_GARCH_health.png" width=80% height=80%>
+</p>
 
-<img src="./images/9_GARCH_health.png" width=80% height=80%>
+

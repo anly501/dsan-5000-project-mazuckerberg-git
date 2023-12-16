@@ -1,0 +1,379 @@
+---
+title: "SARIMA | Bus Passengers Pre-COVID"
+format:
+  html:
+    embed-resources: true
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+```
+
+::: {.epigrafe}
+In the exploratory data analysis section for the bus passenger dataset, we established the stationarity of the time series. In order to forecast future bus passenger, we apply the SARIMA modeling steps. The resulting ACF and PACF plots, derived from the time series obtained in the previous mentioned section, are presented below, providing a visual representation of the autocorrelation structure.
+:::
+
+### Autocorrelation Plots
+
+``` {r, fig.width = 8, fig.height = 6}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Plot ACF"
+#| warning: false
+
+# Import dataset
+ts_bus_passengers <- read_csv('../data/ts_bus_passengers_PC.csv')
+
+# Create time series
+ts_bus_passengers <- ts(ts_bus_passengers$x,star=decimal_date(as.Date("2002-01-01",format = "%Y-%m-%d")),frequency = 12)
+
+options(repr.plot.width = 6, repr.plot.height = 6) 
+
+# ACF Plot
+acf_plot <- ggAcf(ts_bus_passengers %>% diff(lag=12) %>% diff(), main="ACF Plot for Bus Passengers")
+
+# PACF Plot
+pacf_plot <- ggPacf(ts_bus_passengers %>% diff(lag=12) %>% diff(), main="PACF Plot for Bus Passengers")
+
+# Arrange Plots
+grid.arrange(acf_plot, pacf_plot, nrow=2)
+```
+
+### Parameters Selection
+
+::: {.epigrafe}
+In the search for optimal model parameters, a detailed analysis of the ACF and PACF plots was performed. The ACF plot showed autocorrelation at lag 3 and seasonal autocorrelation at lag 2, while the PACF plot showed autocorrelation at lag 3 and seasonal autocorrelation at lag 2. Consequently, we chose the following parameters for the SARIMA model: 
+
+$p=2$ $p=2$
+
+$d=1$ $d=1$
+
+$q=3$ $q=2$
+
+To validate our selections, the auto.arima() function was used, resulting in a model with parameters (2,1,0)(0,1,1)[12]. This overall approach ensures that the SARIMA model is fine-tuned to recognize the underlying patterns in the time series data, thereby increasing predictive accuracy.
+:::
+
+::: {.panel-tabset}
+
+## Parameters
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Parameter Assesing"
+#| warning: false
+
+xt <- ts_bus_passengers
+s <- 12
+
+#write a funtion
+SARIMA.c = function(p1,p2,q1,q2,P1,P2,Q1,Q2,data){
+
+    temp <- c()
+    d <- 1
+    D <- 1
+    s <- 12
+    n <- 40
+    
+    i <- 1
+    temp <- data.frame()
+    ls <- matrix(rep(NA,9*n),nrow=n)
+
+    for (p in p1:p2)
+    {
+        for(q in q1:q2)
+        {
+            for(P in P1:P2)
+            {
+                for(Q in Q1:Q2)
+                {
+                    if(p+d+q+P+D+Q<=12)
+                    {
+                        
+                        model<- Arima(data,order=c(p-1,d,q-1),seasonal = c(P-1,D,Q-1))
+                        ls[i,] <- c(p-1,d,q-1,P-1,D,Q-1,model$aic,model$bic, model$aicc)
+                        i <- i+1
+                        #print(i)
+                    }
+                }
+            }
+        }   
+    }
+    
+    temp <- as.data.frame(ls)
+    names(temp) <- c("p","d","q","P","D","Q","AIC","BIC","AICc")
+    temp <- na.omit(temp)
+
+    temp
+    #knitr::kable(temp)
+}
+
+temp <- SARIMA.c(p1=1,p2=3,q1=1,q2=3,P1=1,P2=2,Q1=1,Q2=2,data = xt)
+
+#knitr::kable(temp)
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Selection"
+#| warning: false
+
+cat('Minimum AIC:')
+# Check best model with AIC
+temp[which.min(temp$AIC),]
+
+cat('Minimum BIC:')
+# Check best model with BIC
+temp[which.min(temp$BIC),]
+
+cat('Minimum AICc:')
+# Check best model with AICc
+temp[which.min(temp$AICc),]
+```
+
+## auto.arima()
+
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "auto.arima()"
+
+auto.arima(xt)
+```
+
+:::
+
+### Diagnostics
+
+::: {.epigrafe}
+The evaluation of the model selection criteria shows a consistent preference for the model (2,1,0)(1,1,1)[12] by all the metrics, AIC, BIC and AICc. A comprehensive evaluation of their performance involved a meticulous analysis of diagnostic plots and auto.arima() results. Upon comparison, the (2,1,0)(1,1,1)[12] model emerges as a superior choice. The standardized residuals show an apparently random pattern, the Q-Q plot shows a trend toward normality, and all Ljung box statistics fall slightly below the significance level, indicating minimal autocorrelation.
+:::
+
+::: {.panel-tabset}
+
+## auto.arima()
+
+``` {r, fig.width = 8, fig.height = 6}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Diagnostics - parameters with best AIC"
+#| warning: false
+
+p_autoarima <- 0
+d_autoarima <- 0
+q_autoarima <- 0
+P_autoarima <- 0
+D_autoarima <- 0
+Q_autoarima <- 2
+
+# Model diagnostics for best AIC
+model_output <- capture.output(sarima(xt, p_autoarima, d_autoarima, q_autoarima, P_autoarima, D_autoarima, Q_autoarima, s))
+```
+
+## AIC
+
+``` {r, fig.width = 8, fig.height = 6}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Diagnostics - parameters with best AIC"
+#| warning: false
+
+AIC <- temp[which.min(temp$AIC),]
+
+p1 <- AIC$p
+d1 <- AIC$d
+q1 <- AIC$q
+P1 <- AIC$P
+D1 <- AIC$D
+Q1 <- AIC$Q
+
+# Model diagnostics for best AIC
+model_output <- capture.output(sarima(xt, p1, d1, q1, P1, D1, Q1, s))
+```
+
+## BIC
+
+``` {r, fig.width = 8, fig.height = 6}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Diagnostics - parameters with best BIC"
+#| warning: false
+
+BIC <- temp[which.min(temp$BIC),]
+
+p2 <- BIC$p
+d2 <- BIC$d
+q2 <- BIC$q
+P2 <- BIC$P
+D2 <- BIC$D
+Q2 <- BIC$Q
+
+# Model diagnostics for best BIC
+model_output <- capture.output(sarima(xt, p2, d2, q2, P2, D2, Q2, s))
+```
+
+:::
+
+### Fit Model
+
+::: {.epigrafe}
+The comparison between the fitted line and the original time series for the SARIMA model shows a similarity. This close match provides confidence in the model's ability to generate accurate predictions.
+:::
+
+::: {.panel-tabset}
+
+## Model Fit Plot
+
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Fitting"
+#| warning: false
+
+best_model <- temp[which.min(temp$BIC),]
+
+p <- best_model$p
+d <- best_model$d
+q <- best_model$q
+P <- best_model$P
+D <- best_model$D
+Q <- best_model$Q
+
+model <- Arima(xt, order=c(p, d, q), seasonal=c(P,D,Q))
+
+plot(xt, col="black")
+lines(fitted(model), col="green")
+legend(x = "topleft", legend = c("xt", "BIC"), col = c("black", "green"), lty = 1)
+```
+
+## Model Summary
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Fitted Model Summary"
+#| warning: false
+
+fit <- Arima(xt, order=c(p, d, q), seasonal=c(P,D,Q))
+summary(fit)
+```
+
+:::
+
+### Equation
+
+::: {.epigrafe}
+\begin{align}
+(1 - \phi_1 B - \phi_2 B^2)(1 - \Phi_1 B^{12}) (1 - \theta_1 B^{12})y_t &= (1 + \theta_1 B^{12})\varepsilon_t \\
+y_t &= -0.8359 y_{t-1} - 0.5033 y_{t-2} + 0.2854 y_{t-12} - 0.9323 \varepsilon_{t-12} + \varepsilon_t
+\end{align}
+:::
+
+### Forecast
+
+::: {.epigrafe}
+The forecast visualization below shows a seasonal increasing trend in bus passengers. However, comparing the forecast plot with benchmark models shows a misalignment with the naive and mean forecasts, while showing a closer fit to the seasonal naive model. 
+
+Improvements in model accuracy can be achieved by making parameter adjustments or by using advanced models such as SARIMAX, which incorporates exogenous variables for a more comprehensive analysis.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Forecast Plot"
+#| warning: false
+
+forecast_fit <- forecast(fit,36)
+
+# Path to save plot
+file_path <- "../images/6_bus_passengers_PC_SARIMA.png"
+
+# Plot
+plot <- autoplot(forecast_fit)
+
+# Use ggsave to save the plot as a PNG image
+ggsave(plot, filename = file_path, width = 10, height = 5)
+
+# Show plot
+plot
+```
+
+### Benchmark Models
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Benchmark Models Plot"
+#| warning: false
+
+autoplot(xt) +
+  autolayer(meanf(xt, h=11),
+            series="Mean", PI=FALSE) +
+  autolayer(naive(xt, h=11),
+            series="Naïve", PI=FALSE) +
+  autolayer(snaive(xt, h=11),
+            series="Seasonal naïve", PI=FALSE) +
+  autolayer(forecast(forecast_fit, h=11),
+            series="Fit", PI=FALSE) +
+  ggtitle("Forecasts for Oil Price") +
+  xlab("Year") + ylab("Price") +
+  guides(colour=guide_legend(title="Forecast"))
+```

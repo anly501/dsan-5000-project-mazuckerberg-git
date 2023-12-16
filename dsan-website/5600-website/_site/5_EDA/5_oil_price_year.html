@@ -138,12 +138,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../2_about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About Data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../3_data_sources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Sources</span></a>
   </div>
@@ -170,12 +164,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../7_ARIMAX_SARIMAX_VAR.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ARIMAX/SARIMAX/VAR</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../8_Spectral_Analysis_Filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spectral Analysis and Filtering (Optional)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -357,8 +345,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>              <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Oil Price"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"365-Period"</span> <span class="ot">=</span> <span class="st">"#E74C3C"</span>)) <span class="sc">+</span></span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>              <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Oil Price and Moving Average Smoothing"</span>, <span class="at">x =</span> <span class="st">"Years"</span>, <span class="at">y =</span> <span class="st">"Price"</span>) </span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(mas_1_plot, mas_2_plot, mas_3_plot, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to save plot</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">"../images/5_oil_price.png"</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot as a PNG image</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="fu">grid.arrange</span>(mas_1_plot, mas_2_plot, mas_3_plot, <span class="at">nrow=</span><span class="dv">3</span>), <span class="at">filename =</span> file_path, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="5_oil_price_year_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="768"></p>

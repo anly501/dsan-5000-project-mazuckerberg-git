@@ -1,5 +1,8 @@
 ---
 title: "Exploratory Data Analysis"
+format:
+  html:
+    embed-resources: true
 ---
 ```{css, echo = FALSE}
 .justify {
@@ -19,13 +22,18 @@ title: "Exploratory Data Analysis"
     background-color: #f9f9f9; 
     margin: 20px 0px 30px 0px;
 }
-```
 
-### Overview
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+```
 
 ::: {.justify}
 In this exploratory data analysis (EDA), we examine the time series data sets discussed in the [Data Visualization](https://mazuckerberg.georgetown.domains/DSAN_5600/4_data_visualization.html) section. The goal is to gain insight into the underlying components of the multiple time series. These analyses include trends, seasonality, variations, and periodic fluctuations. In addition, we will evaluate the time series for decomposition to see if it can be identified as multiplicative or additive. We will analyze the data sets using the following time series plots and tools:  Lag plots, autocorrelation function (ACF) and partial autocorrelation function (PACF) analysis, stationarity checks using the Augmented Dickey-Fuller test, and Moving Average Smoothing for several periods of time. 
-
 :::
 
 Below are the libraries used in this section:
@@ -57,7 +65,7 @@ library(readxl)
 library(imputeTS)
 ```
 
-### Global Oil Production
+## Global Oil Production
 
 ::: {.justify}
 The following plot, shows the data for the top 15 oil-producing countries in 2022. The goal is to use a line plot to show the evolution of the global oil market over the last 22 years and identify the dynamic leaders. Throughout this project, our central focus will be on the United States, which has been the leading country in oil production since 2018.
@@ -69,95 +77,151 @@ The following plot, shows the data for the top 15 oil-producing countries in 202
 
 <br>
 
-> [Exploratory Data Analisis - U.S Oil Production by Year](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_production_year.html)
-
 
 ::: {.justify}
 
-A first analysis was done by year. It's important to analyze the monthly data to understand changes in trends and to assess the presence of seasonality or cycles.
+In the [Exploratory Data Analisis | U.S Oil Production](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_production_month.html) section, we conducted an examination of the time series dataset. Focusing on the data from 01-01-2000, our initial assessment included testing for stationarity using the ACF plot and the Augmented Dickey-Fuller test, which revealed significant autocorrelation in the lags. To address this, a first difference was applied to the time series, resulting in a visually stationary plot. With this result, we are ready to use the time series data for analysis.
 :::
 
-> [Exploratory Data Analisis - U.S Oil Production by Month](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_production_month.html)
+<p align="center">
+  <img src="./images/5_oil_production_year_stationary.png" width=70%>
+</p>
 
-### Crude Oil Price
+## Oil Price by Month
+
+::: {.justify}
+Price is a key characteristic to analyze in order to understand the behavior of a product in the market. One relevant dataset that has been included is the price of crude oil. In the [Exploratory Data Analisis | Oil Price](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_price_month.html) section, we focused on gaining valuable insights into market dynamics and trends through a time series lens. The first steps involved data cleaning, where NA values were addressed through exponential imputation. We then applied Moving Average Smoothing with three different time periods to create insightful charts. Although significant fluctuations were observed, no clear trend emerged for the entire time frame. 
+:::
+
+<p align="center">
+  <img src="./images/5_oil_price.png" width=80% height=90%>
+</p>
+
+::: {.justify}
+To assess stationarity, we used the ACF plot and the Augmented Dickey-Fuller test, which revealed high autocorrelation in the lags. Implementing a first difference, as shown in the plot below, made the time series stationary, improving its suitability for further analysis and modeling.
+:::
+
+<p align="center">
+  <img src="./images/5_oil_price_stationary.png" width=70%>
+</p>
+
+<!-- 
+
+## Inflation Rate
 
 ::: {.justify}
 
-Price is a key characteristic to analyze in order to understand the behavior of a product in the market. One relevant dataset that has been included is the price of crude oil. An extensive exploratory data analysis of the daily price of crude oil was developed to gain insight into market fluctuations and trends from a time series perspective.
+[Exploratory Data Analisis | Inflation Rate](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_inflation_rate.html)
+
+... completar ...
+
 :::
 
-> [Exploratory Data Analisis - Crude Oil Price by Year](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_price_year.html)
-
-> [Exploratory Data Analisis - Crude Oil Price by Month](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_oil_price_month.html)
-
-
-<!-- ### Inflation Rate -->
-
-<!-- ::: {.justify}
-
-Description.
-:::
-
-> [Exploratory Data Analisis - Inflation Rate](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_3_inflation.html) -->
+<p align="center">
+  <img src="./images/5_inflation_rate.png" width=80% height=90%>
+</p>
 
 
-<!-- ### Interest Rate -->
-
-<!-- ::: {.justify}
-
-Description.
-:::
-
-> [Exploratory Data Analisis - Interest Rate](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_4_interest.html) -->
-
-
-<!-- ### Food Production -->
-
-<!-- ::: {.justify}
-
-Description.
-:::
-
-> [Exploratory Data Analisis - Food Production](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_5_food_production.html) -->
-
-
-<!-- ### Healthcare Index -->
-
-<!-- ::: {.justify}
-
-Description.
-:::
-
-> [Exploratory Data Analisis - Healthcare Index](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_6_healthcare_index.html) -->
-
-
-### Bus Passenger Trips
+## Interest Rate
 
 ::: {.justify}
 
-Description.
+[Exploratory Data Analisis | Interest Rate](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_interest_rate.html)
+
+... completar ...
+
 :::
 
-> [Exploratory Data Analisis - Bus Passenger Trips](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_bus_passengers.html)
+<p align="center">
+  <img src="./images/5_interest_rate.png" width=80% height=90%>
+</p>
 
 
-<!-- ### Air Personal Expenditure -->
 
-<!-- ::: {.justify}
+## Food Industry
 
-Description.
+::: {.justify}
+
+...
+
 :::
 
-> [Exploratory Data Analisis - Air Personal Expenditure](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_8_air_transport.html) -->
+<p align="center">
+  <img src="./images/5_food.png" width=80% height=90%>
+</p>
+
+> [Exploratory Data Analisis | Food Production](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_food.html)
 
 
-<!-- ### Bicycles Personal Expenditure -->
+## Healthcare Industry
 
-<!-- ::: {.justify}
+::: {.justify}
 
-Description.
+...
 :::
 
-> [Exploratory Data Analisis - Bicycles Personal Expenditure](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_9_bikes.html) -->
+> [Exploratory Data Analisis | Healthcare Index](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_health.html)
+-->
+
+## Bus Transport
+
+::: {.justify}
+
+:::
+
+::: {.justify}
+Bus transport is a key component of our analysis as it represents a great proportion of the transportation industry. In the [Exploratory Data Analisis | Bus Passenger Trips](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_bus_passengers.html) section, we focused on gaining valuable insights into market dynamics and trends through a time series lens. We applied Moving Average Smoothing with three different time periods to create insightful charts. By observing the plot for the Pre-COVID, we conclude that there is no clear trend for al the periods selected. By observing the plot for the complete analysis we can see the first two plots show that there is no clear trend for the behaviour of bus passengers for the years before 2020. Due to the covid pandemic, we can clearly see the trend affected, tending to a negative value. 
+:::
+
+::: {.panel-tabset}
+
+## Pre-COVID Analysis
+
+<p align="center">
+  <img src="./images/5_bus_passengers_PC.png" width=80% height=90%>
+</p>
 
 
+## Complete Analysis
+
+<p align="center">
+  <img src="./images/5_bus_passengers.png" width=80% height=90%>
+</p>
+
+:::
+
+
+::: {.justify}
+For both cases to assess stationarity, we used the ACF plot and the Augmented Dickey-Fuller test, which revealed high autocorrelation in the lags. To achieve stationarity we applied a seasonal difference equal to 10.
+:::
+
+::: {.panel-tabset}
+
+## Pre-COVID Analysis
+
+
+<p align="center">
+  <img src="./images/5_bus_passengers_PC_stationary.png" width=70%>
+</p>
+
+## Complete Analysis
+
+<p align="center">
+  <img src="./images/5_bus_passengers_stationary.png" width=80% height=90%>
+</p>
+
+:::
+
+
+<!-- 
+## Bicycles Consumption
+
+::: {.justify}
+
+...
+
+:::
+
+> [Exploratory Data Analisis | Bicycles Personal Expenditure](https://mazuckerberg.georgetown.domains/DSAN_5600/5_EDA/5_9_bikes.html) 
+
+ -->

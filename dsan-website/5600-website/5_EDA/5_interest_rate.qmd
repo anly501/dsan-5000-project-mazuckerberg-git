@@ -1,0 +1,240 @@
+---
+title: "Interest Rate"
+format: html
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+```
+
+::: {.epigrafe}
+Introduction
+:::
+
+::: {.epigrafe}
+The plot below shows …
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Time Series Plot Code"
+#| warning: false
+
+# Import dataset
+df_interest <- read_csv('../data/viz_interest.csv')
+
+# Check for missing values
+# is.na(df_interest) # There are no NAs
+
+# Create time series
+ts_interest<-ts(df_interest$Value,star=decimal_date(as.Date("2000-01-01",format = "%Y-%m-%d")),frequency = 1)
+
+# Create time series plot
+ggplot(df_interest, aes(x = Year, y = Value)) +
+  geom_line() + # Use geom_line() for a time series plot
+  labs(
+    title = "Time Series Plot for Interest Rate",
+    x = "Years",
+    y = "Interest Rate"
+  )
+```
+
+::: {.epigrafe}
+Moving average...
+:::
+
+``` {r, fig.width = 8, fig.height = 8}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Moving Average smoothing"
+
+
+# List of years
+date_seq <- seq(as.Date("2000-01-01"), length.out = length(ts_interest), by = "year")
+
+# Moving Average Smoothing - small number
+mas_1_interest <- ma(ts_interest, order = 2)
+
+# Moving Average Smoothing - medium number
+mas_2_interest <- ma(ts_interest, order = 10)
+
+# Moving Average Smoothing - high number
+mas_3_interest <- ma(ts_interest, order = 20)
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_1_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_interest, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_1_interest, color = "2-Period"), size = 1) +
+              scale_color_manual(values = c("Interest Rate" = "black", "2-Period" = "#2ECC71")) +
+              labs(title = "Interest Rate and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_2_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_interest, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_2_interest, color = "10-Period"), size = 1) +
+              scale_color_manual(values = c("Interest Rate" = "black", "10-Period" = "#3498DB")) +
+              labs(title = "Interest Rate and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_3_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_interest, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_3_interest, color = "20-Period"), size = 1) +
+              scale_color_manual(values = c("Interest Rate" = "black", "20-Period" = "#E74C3C")) +
+              labs(title = "Interest Rate and Moving Average Smoothing", x = "Years", y = "Price") 
+
+# Path to save plot
+file_path <- "../images/5_interest_rate.png"
+
+
+
+# Use ggsave to save the plot as a PNG image
+ggsave(grid.arrange(mas_1_plot, mas_2_plot, mas_3_plot, nrow=3), filename = file_path, width = 10, height = 8)
+```
+
+::: {.epigrafe}
+Lag plots ...
+:::
+
+``` {r, fig.width = 9, fig.height = 7}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Lag Plot Code"
+#| warning: false
+
+# Resize Plots
+#options(repr.plot.width = 25, repr.plot.height = 6) 
+
+# Lag Plot
+gglagplot(ts_interest, do.lines=FALSE)+ggtitle("Lag Plot for Interest Rate")
+```
+
+::: {.epigrafe}
+
+Observing the plot above...
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "ACF and PACF Plot Code"
+#| warning: false
+
+# Resize plots
+options(repr.plot.width = 5, repr.plot.height = 2) 
+
+# ACF Plot
+acf_interest <- ggAcf(ts_interest, main="ACF Plot for Interest Rate")
+
+# PACF Plot
+pacf_interest <- ggPacf(ts_interest, main="PACF Plot for Interest Rate")
+
+# Arrange Plots
+grid.arrange(acf_interest, pacf_interest, nrow=2)
+```
+
+::: {.epigrafe}
+Below we can observe the results obtained when the Augmented Dickey-Fuller test ...
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Augmented Dickey-Fuller Test Code"
+#| warning: false
+
+# Augmented Dickey-Fuller Test calculation
+test_interest <- adf.test(ts_interest)
+
+# Print results
+print(test_interest)
+```
+
+::: {.epigrafe}
+To obtain a stationary time series...
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Detrending and Differencing Code"
+#| warning: false
+
+options(repr.plot.width = 6, repr.plot.height = 6) 
+
+# Create fit data
+fit_interest <- lm(ts_interest~time(ts_interest), na.action=NULL) 
+
+# ACF Detrended Plot
+acf_2_interest <- ggAcf(resid(fit_interest), main="ACF Plot for Interest Rate Detrended")
+
+# ACF Differenced Plot
+acf_3_interest <- ggAcf(diff(ts_interest), main="ACF Plot for Interest Rate First Differenced")
+
+# Arrange Plots
+grid.arrange(acf_interest, acf_2_interest, acf_3_interest, nrow=3)
+```
+
+::: {.epigrafe}
+The ACF plot ...
+:::
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Save ts as a new file
+write.csv(ts_interest, '../data/ts_interest.csv', row.names = FALSE)
+```

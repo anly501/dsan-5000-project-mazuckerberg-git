@@ -1,6 +1,27 @@
 ---
 title: "Data Sources"
+format:
+  html:
+    embed-resources: true
 ---
+```{css, echo = FALSE}
+.justify{
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.next_section{
+  text-align: right;
+  font-size: 16px; 
+}
+```
+
+```{r, echo = FALSE}
+#| echo: false
+# We add this chunk of code so that the css code works.
+x <- 1
+```
+
 <br>
 <p align="center">
     <img src="./images/our_world_in_data.png" alt="" height="110">
@@ -63,13 +84,18 @@ title: "Data Sources"
 ***
 
 <p align="center">
-    <img src="./images/fred.png" alt="" height="80">
+    <img src="./images/yahoo_finance.png" alt="" height="80">
 </p>
 
-### [Food Industry](https://fred.stlouisfed.org/series/GOAI#0) 
-* U.S. Food Production by Quarter and by Year.
-* Information from 2005 to 2022.
-* The unit of analysis is billions of U.S. Dollars.
+### [Food Industry](https://finance.yahoo.com/) 
+* Food and Beverages Companies:
+  * Archer Daniels Midland Company (ADM) 
+  * Tyson Foods, Inc (TSN)
+  * Mondelez (MDLZ)
+  * The Kraft Heinz Company (KHC)
+  * General Mills (GIS)
+* Information from January 2000 to December 2022.
+* The unit of analsysis is U.S. Dollars.
 
 ***
 
@@ -77,9 +103,15 @@ title: "Data Sources"
     <img src="./images/yahoo_finance.png" alt="" height="80">
 </p>
 
-### [Pharmaceuticals Industry (Healthcare Index - IYH)](https://finance.yahoo.com/quote/IYH?p=IYH&.tsrc=fin-srch) 
-* U.S. Healthcare investment results of an index composed of U.S. equities in the sector by Day, by Month and by Year.
-* Information from July 2000 to December 2022.
+### [Healthcare Industry](https://finance.yahoo.com/) 
+* Healthcare Companies:
+  * Johnson & Johnson (JNJ)
+  * Eli Lilly And Co (LLY)
+  * Novartis AG (NVS)
+  * Pfizer Inc. (PFE)
+  * Thermo Fisher Scientific Inc (TMO)
+  * UnitedHealth Group Inc (UNH)
+* Information from January 2000 to December 2022.
 * The unit of analsysis is U.S. Dollars.
 
 ***
@@ -114,3 +146,11 @@ title: "Data Sources"
 * Personal Consumption Expenditures on Bicycles and Accesories by Month and by Year.
 * Information from 1959 to 2022.
 * The unit of analysis is millions of U.S. Dollars.
+
+<br>
+
+::: {.next_section}
+
+[Go to next section: Data Visualization](https://mazuckerberg.georgetown.domains/DSAN_5600/4_data_visualization.html)
+
+::: 

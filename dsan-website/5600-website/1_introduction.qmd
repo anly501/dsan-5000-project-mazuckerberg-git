@@ -1,19 +1,36 @@
 ---
 title: "Introduction"
+format:
+  html:
+    embed-resources: true
 ---
 ```{css, echo = FALSE}
 .justify{
     text-align: justify !important;
     text-indent: 20px; 
 }
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+
+.next_section{
+  text-align: right;
+  font-size: 16px; 
+}
 ```
 
 ```{r, echo = FALSE}
 #| echo: false
 # We add this chunk of code so that the css code works.
+x <- 1
 ```
 
-## Overview
+
 ::: {.justify}
 Changes in oil prices have significant macroeconomic effects on countries and the global economy as a whole. The impact of oil price changes on macroeconomic variables depends on whether oil prices are rising or falling, and on the magnitude and persistence of the price change. Why does it have a significant impact? 
 
@@ -30,18 +47,26 @@ Economic models and analysis are often used to assess and predict the potential 
 It is important to develop a time series model based on historical data and events in order to predict possible future scenarios and thus anticipate the necessary measures to be implemented. This will lead to greater economic and social stability. 
 :::
 
-### Questions
-
+## Questions
 1. How has the distribution of total global oil production among the main oil-producing countries evolved over the past two decades?
-2. How do voluntary decisions made by organizations like OPEC (Organization of the Petroleum Exporting Countries), such as production cuts or increases, influence fluctuations in global oil prices?
-3. How does the global oil price influence U.S. oil production? Is there an opposite relationship between them?
-4. How have the US macroeconomic indicators, such as inflation rate and interest rates variation responded to oil price shocks over the past years?
-5. How have fluctuations in U.S. macroeconomic indicators influenced the global oil price over the past years?
-6. How do fluctuations in oil prices and U.S oil production impact the Food Industry?
-7. How do fluctuations in oil prices and U.S oil production impact the Pharmaceutical Industry?
-8. How do changes in oil prices affect consumers' attitudes and behaviors regarding personal transportation, including spending and saving decisions?
-9. How do exogenous factors and events influence the volatility and trends in global oil prices?
-10. How can time series analysis of historical oil price data be used to develop short-term and long-term forecasts of oil price fluctuations?
+
+2. Can we use time series models to predict future monthly oil prices and U.S. oil production based on past data?
+
+3. What are the seasonal trends and patterns in monthly transportation services, and can time series models predict these variations?
+
+4. How do changes in oil prices affect consumers' attitudes and behaviors regarding personal transportation, including spending and saving decisions? How did the COVID Pandemic affected them?
+
+5. How does the global oil price influence U.S. oil production? Is there an opposite relationship between them?
+
+6. How have the US macroeconomic indicators, such as inflation rate and interest rates variation responded to oil price shocks and fluctuations in U.S. oil production over the past years?
+
+7. How do fluctuations in oil prices and U.S oil production impact the Food Industry?
+
+8. How do fluctuations in oil prices and U.S oil production impact the Healthcare Industry?
+
+9.  How can time series analysis of historical oil price data be used to develop short-term and long-term forecasts of oil price fluctuations?
+
+10. How can time series analysis of historical U.S. oil production data be used to develop short-term and long-term forecasts of U.S. oil production fluctuations?
 
 ## Big Picture
 ::: {.justify}
@@ -58,7 +83,10 @@ Rising oil prices may encourage investment in the energy sector, including explo
 :::
 
 ### Big Picture Chart:
-![](./images/Time Series Big Picture.png)
+
+<p align="center">
+  <img src="./images/Time Series Big Picture.png" width=100% height=80%>
+</p>
 
 
 ## Literature Review
@@ -69,3 +97,11 @@ A geopolitical event, such as Russia's invasion of Ukraine, where a unilateral d
 
 The current situation continues to put inflationary pressure on the US economy, forcing the government to monitor the inflation rate, continue the process of raising the interest rates, in order to strengthen its currency and make oil imports cheaper. In this context, the U.S. and the European Union are obliged to accelerate the process of replacing the use of fossil fuels with renewable, environmentally friendly energy, thus generating less dependence on oil.
 :::
+
+<br>
+
+::: {.next_section}
+
+[Go to next section: Data Sources](https://mazuckerberg.georgetown.domains/DSAN_5600/3_data_sources.html)
+
+::: 

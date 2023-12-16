@@ -1,0 +1,328 @@
+---
+title: "VAR - Oil Price ~ Oil Production"
+format:
+  html:
+    embed-resources: true
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+library(vars)
+library(dplyr)
+
+```
+
+### Plot
+
+::: {.epigrafe}
+
+Throghout this analysis we will create a VAR model to see the interrelation between the oil price and the oil production. The first step is to visualize the time series objects for both variables.
+:::
+
+``` {r, fig.width = 8, fig.height = 6}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Import dataset
+df_oil_production <- read_csv('../data/viz_us_oil_production.csv')
+
+# Filter information
+df_oil_production <- df_oil_production %>% filter(year(Date) >= 2000 & year(Date) <= 2022)
+
+# Create Date
+df_oil_production <- df_oil_production %>%
+  mutate(date2 = make_date(year(Date), month(Date), 01))
+
+# Import dataset
+df_oil_price <- read_csv('../data/df_oil_price_monthly.csv')
+
+# Create Date
+df_oil_price <- df_oil_price %>%
+  mutate(date2 = make_date(year(date), month(date), 01))
+
+# Rename columns
+names(df_oil_production) <- c('DATE', 'oil_production', 'date2')
+
+# Rename columns
+names(df_oil_price) <- c('DATE', 'oil_price', 'date2')
+
+# Check maximum starting date between datasets
+if(min(df_oil_production$date2) >= min(df_oil_price$date2))
+{
+    min_date <- min(df_oil_production$date2)
+}else 
+    {
+        min_date <-min(df_oil_price$date2)
+    }
+
+# Filter starting date
+df_oil_production <- df_oil_production %>% filter(date2 >= min_date)
+
+# Filter starting date
+df_oil_price <- df_oil_price %>% filter(date2 >= min_date)
+
+# Create the time series object
+ts_oil_production <- ts(df_oil_production$oil_production,star=decimal_date(min_date),frequency = 12)
+
+# Create the time series object
+ts_oil_price <- ts(df_oil_price$oil_price,star=decimal_date(min_date),frequency = 12)
+
+# Join time series objects
+x = cbind(ts_oil_production, ts_oil_price)
+
+# Plot time series objects
+plot.ts(x , main = "", xlab = "")
+```
+
+### Correlation Plot
+
+::: {.epigrafe}
+
+Below we can observe the correlation plot between the two variables. We can observe there is is high concentration of values for low oil production levels, and some correalation for the higher oil production values.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Correlation plot
+pairs(cbind(df_oil_production=ts_oil_production, oil_price=ts_oil_price))
+```
+
+### VARSelect()
+
+::: {.epigrafe}
+
+We use the function VARselect() to find the suggested models to fit to the time series data. In this case, the models we will test are:
+
+$p = 2$
+
+$p = 3$
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Select parameters
+VARselect(x, lag.max=10, type="both")
+```
+
+### Fitting Model 1
+
+::: {.epigrafe}
+
+After fitting the VAR model for $p = 2$, we can observe that the estimation results for the equation for the oil production time series, the lag 1 value for oil production time series is the only significant component. On the other hand, the estimation results for the oil price equation, the lag 1 value for oil price, the lag 2 value for oil price, the constant and the trend are significant.
+
+By observing the ACF plots for the residuals we can see that no autocorrelation is left and they all look stationary.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Fit model
+fitvar1 <- vars::VAR(x, p=2, type="both")
+
+# Summary
+summary(fitvar1)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# ACF plot
+acf(residuals(fitvar1))
+```
+
+### Fitting Model 2
+
+::: {.epigrafe}
+
+We also fitted the VAR model for $p = 3$, and assess the results. Considering the estimation resultst for the oil production equation, we observe that the lag 1 value for oil production and the lag 3 value for the oil price are significant. While for the estimation results for the oil price equation, the lag 1 value for oil price, the lag 2 value for oil price, the lag 3 value for oil production, the constant and the trend are significant.
+
+After plotting the residuals in the ACF plot, we can observe that the lag values are lower than the previous model. Therefore we can assume that this results are more statitonary.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Fit model
+fitvar2 = vars::VAR(x, p=3, type="both")
+
+# Summary
+summary(fitvar2)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# ACF Plot
+acf(residuals(fitvar2))
+```
+
+### Cross Validation
+
+::: {.epigrafe}
+
+We used cross validation to obtian the best VAR model considering the mean squared errors from the train and test set. The best model obtained is the $p = 3$
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+
+n <- 5
+len <- nrow(x)[1]/5
+
+best_model <- ""
+best_mse <- Inf
+
+for (i in 1:n){
+  st <- (i-1)*len+1
+  end <- i*len
+  
+  xtrain <- x[-(st:end),]
+  xtest <- x[st:end,]
+  
+  var_select <- VARselect(xtrain, lag.max = 10, type = "both")
+  var_select_lag <- var_select$selection[1]
+  
+  model <- VAR(xtrain, p = var_select_lag, type = "both")
+  
+  test_row <- nrow(xtest)
+  pred <- predict(model, n.ahead = test_row)
+  
+  pred_var <- pred$fcst$ts_oil_price[,1]
+  pred_mse <- mean((pred_var - xtest[,"ts_oil_price"])^2)
+  
+  if (pred_mse < best_mse){
+    best_model <- model 
+    best_mse <- pred_mse
+  }
+
+}
+
+print(best_model)
+```
+
+### Serial Test
+
+::: {.epigrafe}
+
+In order to check the residuals ACF and PACF plots, we used the serial test for the best model selected, which in this case is the VAR model with $p = 3$. We can observe that the residuals for both variables being analyzed do not present autocorrelation between the lag values for the confidence bands defined.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+selected_model <- 3
+
+var_selected_model <- VAR(x, p = selected_model, type = "both")
+
+gu.serial <- serial.test(var_selected_model, lags.pt = 12, type = "PT.asymptotic") 
+gu.serial
+
+plot(gu.serial, names = "ts_oil_production")
+plot(gu.serial, names = "ts_oil_price")
+```
+
+### Forecast Plot
+
+``` {r, fig.width = 8, fig.height = 6}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+var_model <- VAR(x, p = selected_model, type = "both")
+
+fit.pr <- predict(var_model, n.ahead = 24, ci = 0.95)
+
+# Path to save plot
+# file_path <- "../images/7_VAR_oil.png"
+
+# Use ggsave to save the plot as a PNG image
+# ggsave(fanchart(fit.pr), filename = file_path, width = 10, height = 5)
+
+# Show plot
+fanchart(fit.pr)
+```

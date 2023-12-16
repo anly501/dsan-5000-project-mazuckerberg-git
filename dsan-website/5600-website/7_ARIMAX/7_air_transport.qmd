@@ -1,0 +1,501 @@
+---
+title: "ARIMAX - Air Transport ~ Oil Price"
+format:
+  html:
+    embed-resources: true
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+```
+
+### Dataset
+
+::: {.epigrafe}
+For this analysis we will be using 2 datasets. The consumption expenditure on air transport is one of the transportation analysis and is complemented by the external factor oil price. To facilitate a holistic analysis, we have merged these datasets into one.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Import dataset
+df_air <- read_csv('../data/viz_air_transport.csv')
+
+# Import dataset
+df_oil_price_month <- read_csv('../data/df_oil_price_month.csv')
+
+# Create Date
+df_oil_price_month <- df_oil_price_month %>%
+  mutate(date2 = make_date(year(date), month(date), 01))
+
+# Check maximum starting date between datasets
+if(min(df_air$DATE) >= min(df_oil_price_month$date))
+{
+    min_date <- min(df_air$DATE)
+}else 
+    {
+        min_date <-min(df_oil_price_month$date)
+    }
+
+
+# Keep relevant columns
+df_oil_price_month <- df_oil_price_month %>% select('date2', 'adjusted')
+
+# Rename columns
+names(df_air) <- c('DATE', 'air_transport')
+
+# Rename columns
+names(df_oil_price_month) <- c('DATE', 'oil_price')
+
+# Filter starting date
+df_air <- df_air %>% filter(DATE >= min_date)
+
+# Filter starting date
+df_oil_price_month <- df_oil_price_month %>% filter(DATE >= min_date)
+
+# Combine datasets
+dd <- merge(df_air, df_oil_price_month, by.x = "DATE", by.y = "DATE", all = TRUE)
+
+# Order by Date sort ascending
+dd <- dd %>% arrange(DATE)
+
+# Create the time series object
+dd.ts <- ts(dd,start=min_date,frequency = 12)
+
+# Show table
+knitr::kable(head(dd))
+```
+
+### Plot
+
+::: {.epigrafe}
+
+The next step is to plot the original data. The graph below provides a separate axis for each variable considered. The first insight we obtain is the difference in units. For this reason we need to transform the *air transport* variable.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Plot time series for both variables.
+autoplot(dd.ts[,c(2:3)], facets=TRUE) +
+  xlab("Date") + ylab("") +
+  ggtitle("Oil Price influencing Air Transport")
+```
+
+### Log Plot
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+lg.dd <- dd #making a copy
+lg.dd$air_transport<-log(dd$air_transport)
+
+
+lg.dd.ts<-ts(lg.dd,start=min_date,frequency = 12)
+
+
+autoplot(lg.dd.ts[,c(2:3)], facets=TRUE) +
+  xlab("Year") + ylab("") +
+  ggtitle("Oil Price influencing Log Air Transport")
+```
+
+### Linear Model
+
+::: {.epigrafe}
+
+As mentioned before, we apply the log to the air transport variable and we can observe that the values are smaller. This is beneficial for the linear model.
+
+To assess the performance of this model, we examine the autocorrelation function (ACF) and partial autocorrelation function (PACF) plots for the residuals time series. These plots prove to be informative, revealing pronounced autocorrelation over numerous lags.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Create ts for Bus Passengers
+dd$air_transport <- ts(dd$air_transport, start=min_date,frequency = 12)
+
+# Create ts for Oil Price
+dd$oil_price <- ts(dd$oil_price, start=min_date,frequency = 12)
+
+# Fit the linear model
+fit.reg <- lm(air_transport ~ oil_price, data=dd)
+
+summary(fit.reg)
+```
+
+### Autocorrelation Plots
+
+``` {r, fig.width = 8, fig.height = 6}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+res.fit <- ts(residuals(fit.reg),star=decimal_date(min_date),frequency = 12)
+
+# ACF Plot
+acf_plot <- ggAcf(res.fit, main="ACF Plot for Residuals")
+
+# PACF Plot
+pacf_plot <- ggPacf(res.fit, main="PACF Plot for Residuals")
+
+# Arrange Plots
+grid.arrange(acf_plot, pacf_plot, nrow=2)
+```
+
+### Differencing
+
+::: {.epigrafe}
+The ACF plot provides a clear visual indication of high autocorrelation over most of the lags plotted. Recognizing the need for stationarity, the next critical step in our analysis is to perform differencing on the data. This process is performed to mitigate the observed autocorrelation patterns.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "First Ordinary Difference"
+#| warning: false
+
+# Ordinary Differencing
+res.fit %>% diff() %>% ggtsdisplay()
+```
+
+### Model Parameters
+
+::: {.epigrafe}
+
+Based on the ACF and PACF plot for the first seasonal difference on residuals, we define:
+
+$p = 2$
+
+$d = 1$
+
+$q = 2$
+
+:::
+
+::: {.panel-tabset}
+
+## Parameters
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+xt <- res.fit
+
+# PACF plot parameter selection
+p_value <- 3
+
+# Number of differences
+d_value <- 2
+
+# ACF plot parameter selection
+q_value <- 3
+
+# Initialize variable
+i <- 1
+
+# Initialize variable
+temp <- data.frame()
+
+# Calculate number of rows
+rows <- p_value*d_value*q_value
+
+# 
+ls <- matrix(rep(NA,6*rows),nrow=rows) 
+
+# Parameter testing loop
+for (p in 1:p_value+1)
+{
+  for(q in 1:q_value+1)
+  {
+    for(d in 1:d_value)
+    {
+      
+      #if(p-1+d+q-1<=8) #usual threshold
+      #{
+        
+        model<- Arima(xt,order=c(p-1,d-1,q-1),include.drift=TRUE) 
+        ls[i,]= c(p-1,d-1,q-1,model$aic,model$bic,model$aicc)
+        i=i+1
+        #print(i)
+        
+      #}
+      
+    }
+  }
+}
+
+temp <- as.data.frame(ls)
+
+names(temp) <- c("p","d","q","AIC","BIC","AICc")
+
+#temp
+#knitr::kable(temp)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Check best model with AIC
+temp[which.min(temp$AIC),]
+
+# Check best model with BIC
+temp[which.min(temp$BIC),]
+
+# Check best model with AICc
+temp[which.min(temp$AICc),]
+```
+
+## auto.arima()
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Assign the exogenous variable
+xreg <- dd.ts[, "oil_price"]
+
+fit_auto_arima <- auto.arima(dd.ts[, "air_transport"], xreg = xreg)
+
+summary(fit_auto_arima)
+```
+
+:::
+
+### Model Diagnostics
+
+::: {.epigrafe}
+
+The evaluation of the model selection criteria shows a consistent preference for the (2,1,2) model by AIC and AICc, while BIC was found to minimize the (1,1,1) model. 
+
+A comprehensive evaluation of their performance included a careful analysis of diagnostic plots and auto.arima() results. Upon comparison, the (2,1,2) model emerges as a superior choice. The standardized residuals show an apparently random pattern, the Q-Q plot shows a trend toward normality, and some Ljung box statistics fall slightly below the significance level, indicating minimal autocorrelation.
+
+:::
+
+::: {.panel-tabset}
+
+## AIC
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Diagnostics - parameters with best AIC"
+#| warning: false
+
+AIC <- temp[which.min(temp$AIC),]
+
+p1 <- AIC$p
+d1 <- AIC$d
+q1 <- AIC$q
+
+# Model diagnostics for best AIC
+model_output <- capture.output(sarima(xt, p1, d1, q1))
+```
+
+## BIC
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Model Diagnostics - parameters with best BIC"
+#| warning: false
+
+BIC <- temp[which.min(temp$BIC),]
+
+p2 <- BIC$p
+d2 <- BIC$d
+q2 <- BIC$q
+
+# Model diagnostics for best BIC
+model_output <- capture.output(sarima(xt, p2, d2, q2))
+```
+
+:::
+
+
+### Fit Model
+
+::: {.epigrafe}
+We can observe that there should be an accurate predictive model by observing the fit model.
+:::
+
+::: {.panel-tabset}
+
+## Model Fit Plot
+
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Model Fitting"
+
+
+best_model <- temp[which.min(temp$AIC),]
+
+p <- best_model$p
+d <- best_model$d
+q <- best_model$q
+
+
+model <- Arima(xt,order=c(p, d, q),include.drift = TRUE)
+
+plot(xt, col="black")
+lines(fitted(model), col="green")
+legend(x = "topleft", legend = c("xt", "AIC"), col = c("black", "green"), lty = 1)
+```
+
+## Model Summary
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Fitted Model Summary"
+#| warning: false
+
+fit <- Arima(xt, order=c(p, d, q))
+summary(fit)
+```
+
+:::
+
+### Equation
+
+::: {.epigrafe}
+
+\begin{align}
+    x_t &= -0.6519 x_{t-1} - 0.4901 x_{t-2} + w_t + 0.9654 w_{t-1} + 0.6243 w_{t-2}
+\end{align}
+
+:::
+
+### Forecast Plot
+
+::: {.epigrafe}
+The final version of the model is an ARIMA (2,1,2) model, which indicates that there is a constant value output for this case. Further analysis must be done in order to draw conclusions for decision making.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+forecast_fit <- forecast(fit,36)
+
+# Path to save plot
+file_path <- "../images/7_air_transport.png"
+
+# Plot
+plot <- autoplot(forecast_fit)
+
+# Use ggsave to save the plot as a PNG image
+ggsave(plot, filename = file_path, width = 10, height = 5)
+
+# Show plot
+plot
+```
+
+### Benchmark Models
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Benchmark Models Plot"
+#| warning: false
+
+autoplot(xt) +
+  autolayer(meanf(xt, h=11),
+            series="Mean", PI=FALSE) +
+  autolayer(naive(xt, h=11),
+            series="Naïve", PI=FALSE) +
+  autolayer(snaive(xt, h=11),
+            series="Seasonal naïve", PI=FALSE) +
+  autolayer(forecast(forecast_fit, h=11),
+            series="Fit", PI=FALSE) +
+  ggtitle("Forecasts for Oil Price") +
+  xlab("Year") + ylab("Price") +
+  guides(colour=guide_legend(title="Forecast"))
+```
+
+
+

@@ -138,12 +138,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About Data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./3_data_sources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Sources</span></a>
   </div>
@@ -170,12 +164,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./7_ARIMAX_SARIMAX_VAR.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ARIMAX/SARIMAX/VAR</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./8_Spectral_Analysis_Filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spectral Analysis and Filtering (Optional)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -212,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#food-index-oil-price-oil-production" id="toc-food-index-oil-price-oil-production" class="nav-link active" data-scroll-target="#food-index-oil-price-oil-production">Food Index ~ Oil Price + Oil Production</a></li>
   <li><a href="#healthcare-index-oil-price-oil-production" id="toc-healthcare-index-oil-price-oil-production" class="nav-link" data-scroll-target="#healthcare-index-oil-price-oil-production">Healthcare Index ~ Oil Price + Oil Production</a></li>
   </ul>
 </nav>
@@ -256,10 +244,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     background-color: #f9f9f9; 
     margin: 20px 0px 30px 0px;
 }
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
 </style>
 </div>
-<section id="overview" class="level3">
-<h3 class="anchored" data-anchor-id="overview">Overview</h3>
 <div class="justify">
 <p>In this section, we evaluate the application of Autoregressive Conditional Heteroskedasticity (ARCH) and Generalized Autoregressive Conditional Heteroskedasticity (GARCH) models. These models are commonly used in finance to capture changing volatility over time in a time series.</p>
 <p>For each analysis, we will model and predict the volatility of future returns. Volatility is a measure of the dispersion of returns on a given market index. We will evaluate the application of the models by analyzing stationarity and volatility by using ACF plots and the Augmented Dickey-Fuller Test. We apply decomposition and differencing methods to make the data stationary when necessary. Where appropriate, we evaluate the model parameters and auto.arima() results using model diagnostics to obtain the best ARIMA model. The model residuals are plotted using ACF and PACF to determine the possible parameters for ARCH and GARCH models. Once the best model is obtained, the forecast is plotted.</p>
@@ -295,29 +289,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fGarch)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<!-- 
-### Food Index ~ Oil Price + Oil Production
-
-::: {.justify}
-
-Buses depend on fuel to operate and that fluctuations in oil prices affect the cost of primary fuel. One of the variables that will be analyzed within the transportation industry is bus passenger trips using a seasonal autoregressive integrated moving average model with oil price as the exogenous variable.
-
-The analysis process and the forecast model elaborated can be found below.
-:::
-
-> [SARIMAX Model](https://mazuckerberg.georgetown.domains/DSAN_5600/7_ARIMAX/7_SARIMAX_bus.html)
-
-<img src="./images/7_SARIMAX_bus.png" width=80% height=80%> -->
-</section>
-<section id="healthcare-index-oil-price-oil-production" class="level3">
-<h3 class="anchored" data-anchor-id="healthcare-index-oil-price-oil-production">Healthcare Index ~ Oil Price + Oil Production</h3>
+<section id="food-index-oil-price-oil-production" class="level2">
+<h2 class="anchored" data-anchor-id="food-index-oil-price-oil-production">Food Index ~ Oil Price + Oil Production</h2>
 <div class="justify">
-<p>Below, we can observe the prediction of 100 points with confidence intervals for the Healthcare Index using the ARIMA + GARCH model. The steps applied and the detailed time series analysis can be found in the found in the following link:</p>
+<p>Our examination of the food industry data revealed that the oil price variable is not significant in the context of the linear model. The full details of this analysis, including the steps taken, can be found in the section <a href="https://mazuckerberg.georgetown.domains/DSAN_5600/9_GARCH/9_food.html">ARIMA + GARCH Model | Food Industry</a>. Looking at the forecast plot, it is clear that the forecasts suggest a scenario without significant fluctuations. While this may seem contradictory given the inherent variability of the stock market, it underscores the importance of viewing this analysis as an estimate, with predicted values likely to fall within the confidence intervals.</p>
 </div>
-<blockquote class="blockquote">
-<p><a href="https://mazuckerberg.georgetown.domains/DSAN_5600/9_GARCH/9_health.html">ARIMA + GARCH Model</a></p>
-</blockquote>
-<p><img src="./images/9_GARCH_health.png" width="80%" height="80%"></p>
+<p align="center">
+<img src="./images/9_GARCH_food.png" width="80%" height="80%">
+</p>
+</section>
+<section id="healthcare-index-oil-price-oil-production" class="level2">
+<h2 class="anchored" data-anchor-id="healthcare-index-oil-price-oil-production">Healthcare Index ~ Oil Price + Oil Production</h2>
+<div class="justify">
+<p>In our second approach, we shift our focus to the healthcare industry and specifically select one of the most important companies within the healthcare index. The visualized predictions below offer a glimpse into the potential future, suggesting a landscape characterized by notable fluctuations, as reflected by the widening confidence intervals. Despite the fluctuations, the estimated values remain constant and show no trend. For a full understanding of the steps taken to arrive at this model, please refer to the detailed analysis in the section <a href="https://mazuckerberg.georgetown.domains/DSAN_5600/9_GARCH/9_health.html">ARIMA + GARCH Model</a>.</p>
+</div>
+<p align="center">
+<img src="./images/9_GARCH_health.png" width="80%" height="80%">
+</p>
 
 
 </section>

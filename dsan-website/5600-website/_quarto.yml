@@ -15,8 +15,6 @@ website:
     contents:
       - href: "1_introduction.qmd"
         text: Introduction
-      - href: "2_about.qmd"
-        text: About Data
       - href: "3_data_sources.qmd"
         text: Data Sources
       - href: "4_data_visualization.qmd"
@@ -27,8 +25,6 @@ website:
         text: ARMA/ARIMA/SARIMA Models
       - href: "7_ARIMAX_SARIMAX_VAR.qmd"
         text: ARIMAX/SARIMAX/VAR
-      - href: "8_Spectral_Analysis_Filtering.qmd"
-        text: Spectral Analysis and Filtering (Optional)
       - href: "9_Financial_Time_Series_Models.qmd"
         text: Financial Time Series Models (ARCH/GARCH)
       - href: "10_Deep_Learning_TS.qmd"

@@ -1,0 +1,283 @@
+---
+title: "Healthcare Industry"
+format: html
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+```
+
+::: {.epigrafe}
+
+Introduction.
+:::
+
+::: {.epigrafe}
+
+The plot below shows ...
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Time Series Plot Code"
+#| warning: false
+
+# Import dataset
+df_health <- read_csv('../data/viz_healthcare_companies.csv')
+
+# Select relevant columns
+df_health <- df_health %>% dplyr::select('date', 'TMO')
+
+# Create a sequence of dates from start_date to end_date
+start_date <- as.Date(min(df_health$date))  
+end_date <- as.Date(max(df_health$date))    
+
+# Create data range
+date_range <- seq(start_date, end_date, by = "1 day")
+
+# Create a dataset with the date range
+date_dataset <- data.frame(Date = date_range)
+
+# Merge dataframes
+df_health <- merge(df_health, date_dataset, by.x = "date", by.y = "Date", all = TRUE)
+
+# Check for missing values
+# is.na(df_health$TSN)
+
+# Extract rows with missing values
+df_na_rows <- df_health[which(rowSums(is.na(df_health)) > 0),]
+
+# Extract columns with missing values
+df_na_cols <- df_health[, which(colSums(is.na(df_health)) > 0)]
+
+# Modify data
+imputed_time_series <- na_ma(df_health, k = 4, weighting = "exponential")
+
+# Add modified data
+df_health <- data.frame(imputed_time_series)
+
+# Change data type
+df_health$date <- as.Date(df_health$date,format = "%m/%d/%y")
+
+# Create time series
+ts_health<-ts(df_health$TMO,star=decimal_date(as.Date("2000-01-03",format = "%Y-%m-%d")),frequency = 365.25)
+
+# Create time series plot
+#ts_plot_health <- plot(as.ts(ts_health), main = "Oil Price Time Series", xlab = "Years", ylab = "Price")
+
+# Show the customized plot
+#ggplotly(ts_plot_health)
+
+ggplot(df_health, aes(x = date, y = TMO)) +
+  geom_line() + # Use geom_line() for a time series plot
+  labs(
+    title = "Time Series Plot for Healthcare Industry",
+    x = "Years",
+    y = "Price"
+  )
+```
+
+::: {.epigrafe}
+Applying moving average smoothing ...
+:::
+
+``` {r, fig.width = 8, fig.height = 8}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Moving Average smoothing"
+#| warning: false
+
+# List of dates
+date_seq <- seq(as.Date("2000-01-03"), length.out = length(ts_health), by = "days")
+
+# Moving Average Smoothing - small number
+mas_1_health <- ma(ts_health, order = 90)
+
+# Moving Average Smoothing - medium number
+mas_2_health <- ma(ts_health, order = 180)
+
+# Moving Average Smoothing - high number
+mas_3_health <- ma(ts_health, order = 365)
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_1_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_health, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_1_health, color = "90-Period"), size = 1) +
+              scale_color_manual(values = c("Stock" = "black", "90-Period" = "#2ECC71")) +
+              labs(title = "Healthcare Industry and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_2_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_health, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_2_health, color = "180-Period"), size = 1) +
+              scale_color_manual(values = c("Stock" = "black", "180-Period" = "#3498DB")) +
+              labs(title = "Healthcare Industry and Moving Average Smoothing", x = "Years", y = "Price", ) 
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_3_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_health, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_3_health, color = "365-Period"), size = 1) +
+              scale_color_manual(values = c("Stock" = "black", "365-Period" = "#E74C3C")) +
+              labs(title = "Healthcare Industry and Moving Average Smoothing", x = "Years", y = "Price") 
+
+# Arrange Plots
+# grid.arrange(mas_1_plot, mas_2_plot, mas_3_plot, nrow=3)
+
+# Path to save plot
+file_path <- "../images/5_health.png"
+
+# Use ggsave to save the plot as a PNG image
+ggsave(grid.arrange(mas_1_plot, mas_2_plot, mas_3_plot, nrow=3), filename = file_path, width = 10, height = 8)
+```
+
+
+::: {.epigrafe}
+
+To understand the autocorrelation pattern ...
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Lag Plot Code"
+#| warning: false
+
+# Lag Plot
+gglagplot(ts_health, do.lines=FALSE)+ggtitle("Lag Plot for Healthcare Industry")
+```
+
+::: {.epigrafe}
+
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "ACF and PACF Plot Code"
+#| warning: false
+
+# ACF Plot
+acf_health <- ggAcf(ts_health, 50, main="ACF Plot for Healthcare Industry")
+
+# PACF Plot
+pacf_health <-ggPacf(ts_health, 50, main="PACF Plot for Healthcare Industry")
+
+# Arrange Plots
+grid.arrange(acf_health, pacf_health, nrow=2)
+```
+
+::: {.epigrafe}
+
+The results obtained when the Augmented Dickey-Fuller test ....
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Augmented Dickey-Fuller Test Code"
+#| warning: false
+
+# Augmented Dickey-Fuller Test calculation
+test_health <- adf.test(ts_health)
+
+# Print results
+print(test_health)
+```
+
+::: {.epigrafe}
+
+To make the time series more stationary...
+:::
+
+
+``` {r, fig.width = 8, fig.height = 8}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Detrending and Differencing Code"
+#| warning: false
+
+ts_health <- log(ts_health) 
+
+# Create fit data
+# fit_health <- lm(ts_health~time(ts_health), na.action=NULL) 
+
+# ACF Detrended Plot
+# acf_2_health <- ggAcf(resid(fit_health), 50, main="ACF Plot for Healthcare Industry Detrended")
+
+# ACF Differenced Plot
+acf_3_health <- ggAcf(diff(ts_health), 50, main="ACF Plot for Healthcare Industry First Differenced")
+
+# ACF Differenced Plot
+acf_4_health <- ggAcf(diff(ts_health, differences = 2), 50, main="ACF Plot for Healthcare Industry Second Differenced")
+
+# Arrange Plots
+# grid.arrange(acf_health, acf_2_health, acf_3_health, acf_4_health, nrow=4)
+
+acf_3_health
+```
+
+::: {.epigrafe}
+
+The ACF plot for the detrended ...
+:::
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Save ts as a new file
+write.csv(ts_health, '../data/ts_health.csv', row.names = FALSE)
+```

@@ -1,0 +1,602 @@
+---
+title: "Bus Transport"
+format:
+  html:
+    embed-resources: true
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+```{css, echo = FALSE}
+.tabs-container-model-selection {
+  display: flex;
+}
+
+.tab-model-selection {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.tab-model-selection:hover {
+  background-color: #f1f1f1;
+}
+
+.tab-content-model-selection {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+}
+
+.tab-content-model-selection.active {
+  display: block;
+}
+```
+
+<script>
+
+function toggleTabModelSelection(tabName) {
+  var tabs = document.querySelectorAll('.tab-content-model-selection');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+
+  var selectedTab = document.getElementById(tabName);
+  selectedTab.classList.add("active");
+}
+
+</script>
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+```
+
+::: {.epigrafe}
+Within this section, I delve into the exploratory data analysis of the bus passengers dataset through a time series lens. Each step is accompanied by code snippets for visualization and analysis, as well as insightful explanations; this exploration aims to provide a thorough understanding of the dataset.
+
+Looking at the time series plot, it is clear that the data shows a distinct seasonality, while there is no identifiable trend. In particular, the year 2020 stands out due to the significant drop caused by the COVID pandemic, which affects the subsequent trends and seasonality. For future analyses, a split approach will be adopted: the first analysis will focus on the pre-COVID period, filtering the data up to 2019, and the second will include the entire dataset.
+:::
+
+### Plot
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Time Series Plot Code"
+#| warning: false
+
+# Import dataset
+df_bus_passengers <- read_csv('../data/viz_bus_passengers.csv')
+
+names(df_bus_passengers) <- c('DATE', 'Value')
+
+# Select relevant columns
+df_bus_passengers <- df_bus_passengers %>% select(DATE, Value)
+
+# Filter information
+df_bus_passengers <- df_bus_passengers %>% filter(year(DATE) >= 2000 & year(DATE) <= 2022)
+
+# Create a sequence of dates from start_date to end_date
+start_date <- as.Date(min(df_bus_passengers$DATE))  
+end_date <- as.Date(max(df_bus_passengers$DATE))  
+
+# Create data range
+date_range <- seq(start_date, end_date, by = "month")
+
+# Create a dataset with the date range
+date_dataset <- data.frame(DATE = date_range)
+
+# Merge dataframes
+df_bus_passengers <- merge(df_bus_passengers, date_dataset, by.x = "DATE", by.y = "DATE", all = TRUE)
+
+# Extract rows with missing values
+df_na_rows <- df_bus_passengers[which(rowSums(is.na(df_bus_passengers)) > 0),]
+
+# Extract columns with missing values
+df_na_cols <- df_bus_passengers[, which(colSums(is.na(df_bus_passengers)) > 0)]
+
+# Check for missing values
+# is.na(df_bus_passengers)
+
+# Create the timeseries object
+ts_bus_passengers_2 <- ts(df_bus_passengers$Value,start=c(2002, 01, 01),frequency = 12)
+
+# Create time series plot
+ggplot(df_bus_passengers, aes(x = DATE, y = Value)) +
+  geom_line() + # Use geom_line() for a time series plot
+  labs(
+    title = "Time Series Plot for Bus Passengers",
+    x = "Date",
+    y = "Passengers"
+  )
+```
+
+<div class="tabs-container-model-selection">
+  <div class="tab-model-selection" onclick="toggleTabModelSelection('tab1')">Pre-COVID Analysis</div>
+  <div class="tab-model-selection" onclick="toggleTabModelSelection('tab2')">Complete Analysis</div>
+</div>
+
+<div id="tab1" class="tab-content-model-selection active">
+
+### Pre-COVID Plot
+
+::: {.epigrafe}
+A closer look at the pre-COVID time series plot reveals a distinct seasonal pattern. Excluding the COVID anomaly ensures that there is no observable trend in the data set.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Time Series Plot Code"
+#| warning: false
+
+# Filter information
+df_bus_passengers_PC <- df_bus_passengers %>% filter(year(DATE) >= 2000 & year(DATE) < 2020)
+
+# Create the timeseries object
+ts_bus_passengers_PC <- ts(df_bus_passengers_PC$Value,start=c(2002, 01, 01),frequency = 12)
+
+ts_bus_passengers <- ts_bus_passengers_PC
+
+# Create time series plot
+autoplot(ts_bus_passengers)
+```
+
+### Moving Average Smoothing
+
+::: {.epigrafe}
+The application of moving average smoothing to monthly bus passenger pre-covid data is critical to uncovering patterns in the transportation industry. Using 12-month, 24-month, and 60-month moving averages, we gain insight into the short to long term. The 12-month moving average, shown in the first chart, provides a view of clear seasonality. The second chart, with a 24-month moving average, helps to identify economic shifts. Finally, the third chart, with a 60-month moving average, provides a long-term perspective. Notably, there are no trends over the years, and the external factors considered in the previous section are filtered out of the data.
+:::
+
+``` {r, fig.width = 8, fig.height = 8}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Moving Average smoothing"
+#| warning: false
+
+# List of months
+date_seq <- seq(as.Date("2002-01-01"), length.out = length(ts_bus_passengers), by = "month")
+
+# Moving Average Smoothing - small number
+mas_1_bus_passengers <- ma(ts_bus_passengers, order = 12)
+
+# Moving Average Smoothing - medium number
+mas_2_bus_passengers <- ma(ts_bus_passengers, order = 24)
+
+# Moving Average Smoothing - high number
+mas_3_bus_passengers <- ma(ts_bus_passengers, order = 60)
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_1_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_bus_passengers, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_1_bus_passengers, color = "12-Period"), size = 1) +
+              scale_color_manual(values = c("Passengers" = "black", "12-Period" = "#2ECC71")) +
+              labs(title = "Bus Passengers and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_2_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_bus_passengers, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_2_bus_passengers, color = "24-Period"), size = 1) +
+              scale_color_manual(values = c("Passengers" = "black", "24-Period" = "#3498DB")) +
+              labs(title = "Bus Passengers and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_3_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_bus_passengers, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_3_bus_passengers, color = "60-Period"), size = 1) +
+              scale_color_manual(values = c("Passengers" = "black", "60-Period" = "#E74C3C")) +
+              labs(title = "Bus Passengers and Moving Average Smoothing", x = "Years", y = "Price") 
+
+# Arrange Plots
+# grid.arrange(mas_1_plot, mas_2_plot, mas_3_plot, nrow=3)
+
+# Use ggsave to save the plot as a PNG image
+ggsave(grid.arrange(mas_1_plot, mas_2_plot, mas_3_plot, nrow=3), filename = "../images/5_bus_passengers_PC.png", width = 10, height = 8)
+```
+
+### Lag Plots
+
+::: {.epigrafe}
+Looking at the yearly lags plot, we find a limited correlation between the data points. The similarity in the distribution of the points indicates a need for greater dispersion. This leads us to suspect that annual seasonality is involved.
+:::
+
+``` {r, fig.width = 9, fig.height = 7}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Lag Plot Code"
+#| warning: false
+
+# Resize Plots
+#options(repr.plot.width = 25, repr.plot.height = 6) 
+
+# Lag Plot
+gglagplot(ts_bus_passengers, set.lags = c(12, 24, 36, 48), do.lines=FALSE)+ggtitle("Lag Plot for Bus Passengers - Pre Covid Analysis")
+```
+
+### ACF and PACF Plot
+
+::: {.epigrafe}
+Exploring the autocorrelation structure of the series through the ACF plot reveals a notable lack of stationarity, characterized by a high positive autocorrelation. At the same time, there is evidence of annual seasonality. 
+
+Turning to the PACF plot, which is specifically designed to reveal correlations of residuals with subsequent lags, we observe significant partial autocorrelation at lag 1. Subsequent lags are comfortably within the confidence bands, indicating an absence of partial autocorrelation at these points.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "ACF and PACF Plot Code"
+#| warning: false
+
+# Resize plots
+options(repr.plot.width = 5, repr.plot.height = 2) 
+
+# ACF Plot
+acf_bus_passengers <- ggAcf(ts_bus_passengers, main="ACF Plot for Bus Passengers - Pre Covid Analysis")
+
+# PACF Plot
+pacf_bus_passengers <- ggPacf(ts_bus_passengers, main="PACF Plot for Bus Passengers - Pre Covid Analysis")
+
+# Arrange Plots
+grid.arrange(acf_bus_passengers, pacf_bus_passengers, nrow=2)
+```
+
+### Augmented Dickey-Fuller Test
+
+::: {.epigrafe}
+Below we present the results of applying the Augmented Dickey-Fuller test to the time series of bus passengers. The obtained p-value, 0.01, is lower than the 0.05 significance level, leading to the rejection of the null hypothesis of non-stationarity. However, given the apparent autocorrelation in the previous ACF plot, the reliability of this method is questionable. Therefore, the use of time series detrending and differencing methods is essential to pursue stationarity.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Augmented Dickey-Fuller Test Code"
+#| warning: false
+
+# Augmented Dickey-Fuller Test calculation
+test_bus_passengers <- adf.test(ts_bus_passengers)
+
+# Print results
+print(test_bus_passengers)
+```
+
+### Detrending and Differencing 
+
+::: {.epigrafe}
+Decomposing the time series data reveals the persistence of seasonality in the random component. To address this issue, we use several methods to achieve stationarity. Starting with differencing, we identify significant autocorrelation at lag 12, which leads to the introduction of a seasonal difference with a lag of 12. Despite these adjustments, the data remain non-stationary with persistent autocorrelation and seasonality. In a final step, a combination of both methods is used to obtain a time series that approximates stationarity.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Decomposition Code"
+
+decomp <- decompose(ts_bus_passengers)
+
+plot(decomp)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Differencing Code"
+#| warning: false
+
+options(repr.plot.width = 6, repr.plot.height = 6) 
+
+# Differenced Plot
+ts_bus_passengers %>% diff() %>% ggtsdisplay()
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Seasonal Differencing Code"
+#| warning: false
+
+options(repr.plot.width = 6, repr.plot.height = 6) 
+
+# Seasonal Differenced Plot
+ts_bus_passengers %>% diff(lag=12) %>% ggtsdisplay()
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Ordinary and Seasonal Differencing Code"
+#| warning: false
+
+options(repr.plot.width = 6, repr.plot.height = 6) 
+
+# Ordinary and Seasonal Differenced Plot
+ts_bus_passengers %>% diff(lag=12) %>% diff() %>% ggtsdisplay() # do both
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+acf_bus_passengers_PC <- ggAcf(ts_bus_passengers %>% diff(lag=12), main="ACF Plot for Bus Passengers")
+
+# Path to save plot
+file_path <- "../images/5_bus_passengers_PC_stationary.png"
+
+# Use ggsave to save the plot as a PNG image
+ggsave(acf_bus_passengers_PC, filename = file_path, width = 10, height = 5)
+
+# Save df as a new file
+write.csv(df_bus_passengers_PC, '../data/df_bus_passengers_PC.csv', row.names = FALSE)
+
+# Save ts as a new file
+write.csv(ts_bus_passengers_PC, '../data/ts_bus_passengers_PC.csv', row.names = FALSE)
+```
+
+</div>
+<div id="tab2" class="tab-content-model-selection">
+
+### Complete Plot
+
+::: {.epigrafe}
+Looking at the entire time series object, there is a decrease in data values attributed to the effect of COVID-19. The goal now is to assess the magnitude of this effect.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Time Series Plot Code"
+#| warning: false
+
+# Import dataset
+df_bus_passengers <- read_csv('../data/viz_bus_passengers.csv')
+
+names(df_bus_passengers) <- c('DATE', 'Value')
+
+# Select relevant columns
+df_bus_passengers <- df_bus_passengers %>% select(DATE, Value)
+
+# Create the timeseries object
+ts_bus_passengers_2 <- ts(df_bus_passengers$Value,start=c(2002, 01, 01),frequency = 12)
+
+# Create time series plot
+autoplot(ts_bus_passengers_2)
+```
+
+### Moving Average Smoothing
+
+::: {.epigrafe}
+Applying moving average smoothing to the entire monthly bus passengers dataset is critical to uncovering patterns in the transportation sector. By using 12-month, 24-month, and 60-month moving averages, we gain insight into short- to long-term trends. The 12-month moving average in the first chart shows clear seasonality, while the subsequent charts using 24-month and 60-month moving averages show no trends over the years. Notably, this method automatically mitigates the effects of COVID-19.
+:::
+
+``` {r, fig.width = 8, fig.height = 8}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Moving Average smoothing"
+#| warning: false
+
+# List of months
+date_seq <- seq(as.Date("2002-01-01"), length.out = length(ts_bus_passengers_2), by = "month")
+
+# Moving Average Smoothing - small number
+mas_1_bus_passengers_2 <- ma(ts_bus_passengers_2, order = 12)
+
+# Moving Average Smoothing - medium number
+mas_2_bus_passengers_2 <- ma(ts_bus_passengers_2, order = 24)
+
+# Moving Average Smoothing - high number
+mas_3_bus_passengers_2 <- ma(ts_bus_passengers_2, order = 60)
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_1_plot_2 <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_bus_passengers_2, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_1_bus_passengers_2, color = "12-Period"), size = 1) +
+              scale_color_manual(values = c("Passengers" = "black", "12-Period" = "#2ECC71")) +
+              labs(title = "Bus Passengers and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_2_plot_2 <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_bus_passengers_2, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_2_bus_passengers_2, color = "24-Period"), size = 1) +
+              scale_color_manual(values = c("Passengers" = "black", "24-Period" = "#3498DB")) +
+              labs(title = "Bus Passengers and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_3_plot_2 <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_bus_passengers_2, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_3_bus_passengers_2, color = "60-Period"), size = 1) +
+              scale_color_manual(values = c("Passengers" = "black", "60-Period" = "#E74C3C")) +
+              labs(title = "Bus Passengers and Moving Average Smoothing", x = "Years", y = "Price") 
+
+# Arrange Plots
+# grid.arrange(mas_1_plot, mas_2_plot, mas_3_plot, nrow=3)
+
+# Use ggsave to save the plot as a PNG image
+ggsave(grid.arrange(mas_1_plot_2, mas_2_plot_2, mas_3_plot_2, nrow=3), filename = "../images/5_bus_passengers.png", width = 10, height = 8)
+```
+
+### Lag Plots
+
+::: {.epigrafe}
+Examining the lag plots, it is clear that there is no correlation, indicating the absence of a linear pattern in the data. In particular, the consistent pattern observed in the annual lags suggests the presence of seasonality.
+:::
+
+``` {r, fig.width = 9, fig.height = 7}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Lag Plot Code"
+#| warning: false
+
+# Resize Plots
+#options(repr.plot.width = 25, repr.plot.height = 6) 
+
+# Lag Plot
+gglagplot(ts_bus_passengers_2, set.lags = c(12, 24, 36, 48), do.lines=FALSE)+ggtitle("Lag Plot for Bus Passengers")
+```
+
+### ACF and PACF Plot
+
+::: {.epigrafe}
+Looking at the autocorrelation structure using the ACF plot, there is significant autocorrelation around lags 12 and 24. This indicates a significant lack of stationarity and provides clear evidence of annual seasonality. Meanwhile, the PACF plot shows significant partial autocorrelation at lag 1, with subsequent lags comfortably within the confidence bands, indicating an absence of partial autocorrelation at these points.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "ACF and PACF Plot Code"
+#| warning: false
+
+# Resize plots
+options(repr.plot.width = 5, repr.plot.height = 2) 
+
+# ACF Plot
+acf_bus_passengers <- ggAcf(ts_bus_passengers_2, main="ACF Plot for Bus Passengers")
+
+# PACF Plot
+pacf_bus_passengers <- ggPacf(ts_bus_passengers_2, main="PACF Plot for Bus Passengers")
+
+# Arrange Plots
+grid.arrange(acf_bus_passengers, pacf_bus_passengers, nrow=2)
+```
+
+### Augmented Dickey-Fuller Test
+
+::: {.epigrafe}
+Below we can observe the results obtained when the Augmented Dickey-Fuller test which is indicating the same result as in the previous case analized.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Augmented Dickey-Fuller Test Code"
+#| warning: false
+
+# Augmented Dickey-Fuller Test calculation
+test_bus_passengers <- adf.test(ts_bus_passengers_2)
+
+# Print results
+print(test_bus_passengers)
+```
+
+### Detrending and Differencing 
+
+::: {.epigrafe}
+Analysis of the decomposed time series data reveals the persistence of seasonality within the random component. To address this issue, we use several methods to achieve stationarity. Starting with differencing, we observe significant autocorrelation at lag 12, which prompts the introduction of a seasonal difference with a lag of 12. Despite these interventions, the data remain non-stationary with persistent autocorrelation and seasonality. In a final step, we combine both methods to derive a time series that closely approximates stationarity.
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Decomposition Code"
+
+decomp <- decompose(ts_bus_passengers_2)
+
+plot(decomp)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Differencing Code"
+#| warning: false
+
+options(repr.plot.width = 6, repr.plot.height = 6) 
+
+# Differenced Plot
+ts_bus_passengers_2 %>% diff() %>% ggtsdisplay()
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Seasonal Differencing Code"
+#| warning: false
+
+options(repr.plot.width = 6, repr.plot.height = 6) 
+
+# Seasonal Differenced Plot
+ts_bus_passengers_2 %>% diff(lag=12) %>% ggtsdisplay()
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+acf_bus_passengers <- ggAcf(ts_bus_passengers_2 %>% diff(lag=12), main="ACF Plot for Bus Passengers")
+
+# Path to save plot
+file_path <- "../images/5_bus_passengers_stationary.png"
+
+# Use ggsave to save the plot as a PNG image
+ggsave(acf_bus_passengers, filename = file_path, width = 10, height = 5)
+
+# Save ts as a new file
+write.csv(ts_bus_passengers_2, '../data/ts_bus_passengers_2.csv', row.names = FALSE)
+```
+
+</div>

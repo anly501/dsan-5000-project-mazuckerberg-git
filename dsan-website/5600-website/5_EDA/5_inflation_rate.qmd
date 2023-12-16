@@ -1,0 +1,245 @@
+---
+title: "Inflation Rate"
+format: html
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+```
+
+::: {.epigrafe}
+
+Introduction.
+:::
+
+::: {.epigrafe}
+
+The plot below shows ...
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Time Series Plot Code"
+#| warning: false
+
+# Import dataset
+df_inflation <- read_csv('../data/viz_inflation.csv')
+
+# Filter information
+df_inflation <- df_inflation %>% filter(year(TIME) >= 2000 & year(TIME) <= 2022)
+
+# Check for missing values
+# is.na(df_inflation) # There are no NAs
+
+# Create the timeseries object
+ts_inflation <- ts(df_inflation$Value,star=decimal_date(as.Date("2000-01-01",format = "%Y-%m-%d")),frequency = 12)
+
+# Create time series plot
+ggplot(df_inflation, aes(x = TIME, y = Value)) +
+  geom_line() + # Use geom_line() for a time series plot
+  labs(
+    title = "Time Series Plot for Inflation Rate",
+    x = "Date",
+    y = "Inflation Rate"
+  )
+```
+
+::: {.epigrafe}
+Moving Average...
+:::
+
+``` {r, fig.width = 8, fig.height = 8}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Moving Average smoothing"
+#| warning: false
+
+# List of months
+date_seq <- seq(as.Date("2000-01-01"), length.out = length(ts_inflation), by = "month")
+
+# Moving Average Smoothing - small number
+mas_1_inflation <- ma(ts_inflation, order = 12)
+
+# Moving Average Smoothing - medium number
+mas_2_inflation <- ma(ts_inflation, order = 24)
+
+# Moving Average Smoothing - high number
+mas_3_inflation <- ma(ts_inflation, order = 60)
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_1_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_inflation, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_1_inflation, color = "12-Period"), size = 1) +
+              scale_color_manual(values = c("Inflation Rate" = "black", "12-Period" = "#2ECC71")) +
+              labs(title = "Inflation Rate and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_2_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_inflation, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_2_inflation, color = "24-Period"), size = 1) +
+              scale_color_manual(values = c("Inflation Rate" = "black", "24-Period" = "#3498DB")) +
+              labs(title = "Inflation Rate and Moving Average Smoothing", x = "Years", y = "Price")
+
+# Plot the Time Series and the Moving Average Smoothing curves
+mas_3_plot <- ggplot() +
+              geom_line(aes(x = date_seq, y = ts_inflation, color = "Original"), size = 1) +
+              geom_line(aes(x = date_seq, y = mas_3_inflation, color = "60-Period"), size = 1) +
+              scale_color_manual(values = c("Inflation Rate" = "black", "60-Period" = "#E74C3C")) +
+              labs(title = "Inflation Rate and Moving Average Smoothing", x = "Years", y = "Price") 
+
+# Path to save plot
+file_path <- "../images/5_inflation_rate.png"
+
+# Plot
+plot <- grid.arrange(mas_1_plot, mas_2_plot, mas_3_plot, nrow=3)
+
+# Use ggsave to save the plot as a PNG image
+ggsave(plot, filename = file_path, width = 10, height = 8)
+
+# Show plot
+plot
+```
+
+::: {.epigrafe}
+Lag plots were then used to plot the time series data...
+:::
+
+``` {r, fig.width = 9, fig.height = 7}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Lag Plot Code"
+#| warning: false
+
+# Resize Plots
+#options(repr.plot.width = 25, repr.plot.height = 6) 
+
+# Lag Plot
+gglagplot(ts_inflation, do.lines=FALSE)+ggtitle("Lag Plot for Inflation Rate")
+```
+
+::: {.epigrafe}
+
+Observing the plot above
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "ACF and PACF Plot Code"
+#| warning: false
+
+# Resize plots
+options(repr.plot.width = 5, repr.plot.height = 2) 
+
+# ACF Plot
+acf_inflation <- ggAcf(ts_inflation, main="ACF Plot for Inflation Rate")
+
+# PACF Plot
+pacf_inflation <- ggPacf(ts_inflation, main="PACF Plot for Inflation Rate")
+
+# Arrange Plots
+grid.arrange(acf_inflation, pacf_inflation, nrow=2)
+```
+
+::: {.epigrafe}
+Below we can observe the results obtained when the Augmented Dickey-Fuller test...
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Augmented Dickey-Fuller Test Code"
+#| warning: false
+
+# Augmented Dickey-Fuller Test calculation
+test_inflation <- adf.test(ts_inflation)
+
+# Print results
+print(test_inflation)
+```
+
+::: {.epigrafe}
+To obtain a stationary time series,
+:::
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Detrending and Differencing Code"
+#| warning: false
+
+options(repr.plot.width = 6, repr.plot.height = 6) 
+
+# Create fit data
+fit_inflation <- lm(ts_inflation~time(ts_inflation), na.action=NULL) 
+
+# ACF Detrended Plot
+acf_2_inflation <- ggAcf(resid(fit_inflation), main="ACF Plot for Inflation Rate Detrended")
+
+# ACF Differenced Plot
+acf_3_inflation <- ggAcf(diff(ts_inflation), main="ACF Plot for Inflation Rate First Differenced")
+
+# Arrange Plots
+grid.arrange(acf_inflation, acf_2_inflation, acf_3_inflation, nrow=3)
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Save ts as a new file
+write.csv(ts_inflation, '../data/ts_inflation.csv', row.names = FALSE)
+```

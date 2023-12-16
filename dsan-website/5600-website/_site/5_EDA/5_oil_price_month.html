@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series - Crude Oil Price by Month</title>
+<title>Time Series - Oil Price by Month</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Crude Oil Price by Month</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Oil Price by Month</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -134,12 +134,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../1_introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../2_about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -174,12 +168,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../8_Spectral_Analysis_Filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spectral Analysis and Filtering (Optional)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../9_Financial_Time_Series_Models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Financial Time Series Models (ARCH/GARCH)</span></a>
   </div>
@@ -208,14 +196,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#plot" id="toc-plot" class="nav-link active" data-scroll-target="#plot">Plot</a></li>
+  <li><a href="#moving-average-smoothing" id="toc-moving-average-smoothing" class="nav-link" data-scroll-target="#moving-average-smoothing">Moving Average Smoothing</a></li>
+  <li><a href="#lag-plots" id="toc-lag-plots" class="nav-link" data-scroll-target="#lag-plots">Lag Plots</a></li>
+  <li><a href="#acf-and-pacf-plot" id="toc-acf-and-pacf-plot" class="nav-link" data-scroll-target="#acf-and-pacf-plot">ACF and PACF Plot</a></li>
+  <li><a href="#augmented-dickey-fuller-test" id="toc-augmented-dickey-fuller-test" class="nav-link" data-scroll-target="#augmented-dickey-fuller-test">Augmented Dickey-Fuller Test</a></li>
+  <li><a href="#detrending-and-differencing" id="toc-detrending-and-differencing" class="nav-link" data-scroll-target="#detrending-and-differencing">Detrending and Differencing</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Crude Oil Price by Month</h1>
+<h1 class="title">Oil Price by Month</h1>
 </div>
 
 
@@ -252,11 +251,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 </div>
 <div class="epigrafe">
-<p>In this section…</p>
+<p>In this section, I will explore some key steps in the time series exploratory data analysis of the oil price dataset. For each step, I will provide the code that has been used to create the visualizations and analysis, as well as insightful explanations and thorough analysis, to facilitate a deeper understanding of the dataset.</p>
+<p>Below is the time series plot for the price of crude oil. From 2000 to 2008 there is an upward trend. Between the years 2008 and 2009 there was a strong downward trend that led to a trough. The trend began to recover until the end of 2015, when there was another sharp drop. For the next five years, we observe fluctuations in the price, but there is no clear trend. As it was mentioned in the <a href="https://mazuckerberg.georgetown.domains/DSAN_5600/4_data_visualization.html">Data Visualization</a> section, there was a big drop at the beginning of the year 2020. This might seem like an outlier, since prices can’t be negative, but given the context, there is news that supports this event. After that, the price recovered and there is a clear upward trend. The price of oil is very volatile and there is no evidence of seasonality or cyclical patterns in this time series data set.</p>
 </div>
-<div class="epigrafe">
-<p>Below is the time series plot…</p>
-</div>
+<section id="plot" class="level3">
+<h3 class="anchored" data-anchor-id="plot">Plot</h3>
 <div class="cell">
 <details>
 <summary>Time Series Plot Code</summary>
@@ -316,25 +315,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>df_oil_price_monthly <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_oil_price_monthly, df_oil_price, <span class="at">by =</span> <span class="st">"date"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep relevant columns</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>df_oil_price_monthly <span class="ot">&lt;-</span>  df_oil_price_monthly <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="st">"date"</span>, <span class="st">"adjusted"</span>)</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>df_oil_price <span class="ot">&lt;-</span>  df_oil_price_monthly <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="st">"date"</span>, <span class="st">"adjusted"</span>)</span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>ts_oil_price <span class="ot">&lt;-</span> <span class="fu">ts</span>(df_oil_price_monthly<span class="sc">$</span>adjusted,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2000-08-31"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Save ts as a new file</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df_oil_price, <span class="st">'../data/df_oil_price.csv'</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_oil_price_monthly, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> adjusted)) <span class="sc">+</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="co"># Use geom_line() for a time series plot</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Time Series Plot for Oil Price Monthly"</span>,</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Years"</span>,</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Price"</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time series</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>ts_oil_price <span class="ot">&lt;-</span> <span class="fu">ts</span>(df_oil_price_monthly<span class="sc">$</span>adjusted,<span class="at">star=</span><span class="fu">decimal_date</span>(<span class="fu">as.Date</span>(<span class="st">"2000-08-31"</span>,<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)),<span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_oil_price, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> adjusted)) <span class="sc">+</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="co"># Use geom_line() for a time series plot</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Time Series Plot for Oil Price"</span>,</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Years"</span>,</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Price"</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="5_oil_price_month_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+</section>
+<section id="moving-average-smoothing" class="level3">
+<h3 class="anchored" data-anchor-id="moving-average-smoothing">Moving Average Smoothing</h3>
 <div class="epigrafe">
-<p>Applying moving average smoothing …</p>
+<p>Applying moving average smoothing to daily oil price data is key to understanding patterns in the oil market. In this case, since the information is in daily records, we have applied 12-month (1 year), 24-month (2 years), and 60-month (5 years) moving averages. A 12-month moving average smoothing provides a short to medium term perspective, reduces data volatility and noise, and represents the quarterly timeframe. As seen in the first chart, there is clearly no seasonality. The second plot shows a smoothing of the moving averages over a period of 24-month which helps to analyze the presence of economic shifts. The last graph, provides a long-term perspective by smoothing the moving averages over 60-month. We can see that there is no trend along the years and most of the analysis done in the previous section regarding economic crises, and external factors are still present in the fluctuations.</p>
 </div>
 <div class="cell">
 <details>
@@ -372,28 +377,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>              <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Oil Price"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"365-Period"</span> <span class="ot">=</span> <span class="st">"#E74C3C"</span>)) <span class="sc">+</span></span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>              <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Oil Price and Moving Average Smoothing"</span>, <span class="at">x =</span> <span class="st">"Years"</span>, <span class="at">y =</span> <span class="st">"Price"</span>) </span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange Plots</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(mas_1_plot, mas_2_plot, mas_3_plot, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to save plot</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">"../images/5_oil_price.png"</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot as a PNG image</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="fu">grid.arrange</span>(mas_1_plot, mas_2_plot, mas_3_plot, <span class="at">nrow=</span><span class="dv">3</span>), <span class="at">filename =</span> file_path, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="5_oil_price_month_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="768"></p>
+<p><img src="5_oil_price_month_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+</section>
+<section id="lag-plots" class="level3">
+<h3 class="anchored" data-anchor-id="lag-plots">Lag Plots</h3>
 <div class="epigrafe">
-<p>…</p>
+<p>To understand the autocorrelation pattern between the points and the different lags, the oil price time series data were plotted using a lag plot. There is high autocorrelation in all the lag plots. The data points and their lags show a clear linear relationship, where for the higher lags the data points are more spread out from the line of trend, but there is still high autocorrelation.</p>
 </div>
 <div class="cell">
 <details>
 <summary>Lag Plot Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lag Plot</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gglagplot</span>(ts_oil_price, <span class="at">do.lines=</span><span class="cn">FALSE</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Lag Plot for Oil Price Monthly"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gglagplot</span>(ts_oil_price, <span class="at">do.lines=</span><span class="cn">FALSE</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Lag Plot for Oil Price"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="5_oil_price_month_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="5_oil_price_month_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="acf-and-pacf-plot" class="level3">
+<h3 class="anchored" data-anchor-id="acf-and-pacf-plot">ACF and PACF Plot</h3>
 <div class="epigrafe">
-<p>…</p>
+<p>It is a challenge to define a decomposition method for this time series because there are many of fluctuations in the oil price. We can consider a multiplicative pattern for the data between the years 2003 and 2006, or an additive pattern for the data between the years 2010 and 2015. Either way, no decomposition method is applied at this stage.</p>
+<p>To find the autocorrelation of the series with its lagged values, we plot the ACF. Clearly, this time series is not stationary as there is a high positive autocorrelation for the first 24 lags.</p>
+<p>We plot the PACF, the partial autocorrelation function, to find the correlation of the residuals with the next lag. There is high partial autocorrelation for lags 1 and 2. The following lags fall within the confidence bands, indicating that there is no partial autocorrelation at these lags.</p>
 </div>
 <div class="cell">
 <details>
@@ -408,11 +424,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_oil_price, pacf_oil_price, <span class="at">nrow=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="5_oil_price_month_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="5_oil_price_month_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="augmented-dickey-fuller-test" class="level3">
+<h3 class="anchored" data-anchor-id="augmented-dickey-fuller-test">Augmented Dickey-Fuller Test</h3>
 <div class="epigrafe">
-<p>…</p>
+<p>The results obtained when the Augmented Dickey-Fuller test is applied to the oil price time series can be found below. The p-value obtained is equal to 0.4084, which is higher than the 0.05 significance level. Considering the null hypothesis that the time series is not stationary, we cannot reject it, so we need to apply time series detrending and differencing methods to try to make it stationary.</p>
 </div>
 <div class="cell">
 <details>
@@ -432,8 +451,11 @@ Dickey-Fuller = -2.3977, Lag order = 6, p-value = 0.4084
 alternative hypothesis: stationary</code></pre>
 </div>
 </div>
+</section>
+<section id="detrending-and-differencing" class="level3">
+<h3 class="anchored" data-anchor-id="detrending-and-differencing">Detrending and Differencing</h3>
 <div class="epigrafe">
-<p>…</p>
+<p>To make the time series more stationary, we applied the detrending method to the fitted model of the oil price time series and viewed the results in the ACF plot. We also applied the first differencee to the original time series and plotted the results in two separate ACF plots. The ACF plot of the original time series is shown first to compare the different models.</p>
 </div>
 <div class="cell">
 <details>
@@ -451,14 +473,16 @@ alternative hypothesis: stationary</code></pre>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(acf_oil_price, acf_2_oil_price, acf_3_oil_price, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="5_oil_price_month_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="768"></p>
+<p><img src="5_oil_price_month_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <div class="epigrafe">
-<p>…</p>
+<p>The ACF plot for the detrended fitted model clearly shows that the detrending method was not effective because the model is still highly autocorrelated and it’s not stationary.</p>
+<p>The first differencing show high autocorrelation in the first lag. The other lag values are very close to zero, therefore we can consider it stationary.</p>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

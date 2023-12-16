@@ -1,3 +1,103 @@
 ---
 title: "Conclusions"
 ---
+```{css, echo = FALSE}
+.justify{
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.signature{
+    text-align: center;
+    text-indent: 14px; 
+}
+
+h2 {
+  font-size: 28px; 
+  color: #FFFFFF; 
+  background-color: #87c8b5;
+  padding: 10px; 
+  border-radius: 8px;
+}
+```
+
+```{r, echo = FALSE}
+#| echo: false
+# We add this chunk of code so that the css code works.
+x <- 1
+```
+
+## Oil Price and Production Analysis
+
+::: {.justify}
+This Data Science project proposed to perform a deep time series analysis of the oil price fluctuations. The first analysis conducted was on the global oil production, where the evolution of the productivity for the main producing countries was studied. Since the year 2000, Russia and Saudi Arabia led the total global production, until the year 2017, when the US started to lead the total global production. 
+:::
+
+``` {=html}
+<div class='tableauPlaceholder' id='viz1696390858276' style='position: relative'><noscript><a href='#'><img alt='Oil Production (TWh) by Year ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Oi&#47;OilProductionTWhbyYear&#47;OilProductionLineAnimation&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='OilProductionTWhbyYear&#47;OilProductionLineAnimation' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Oi&#47;OilProductionTWhbyYear&#47;OilProductionLineAnimation&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1696390858276');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='95%';vizElement.style.height=(divElement.offsetWidth*0.45)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+```
+
+<br>
+
+::: {.justify}
+
+Although the global demand for different types of resources and energy sources has increased in recent years, oil production has not been affected. In this research, we used different time series models to forecast oil production for the next years. The use of a Vector AutoRegressive model revealed a meaningful relationship between oil price and U.S. oil production. Forecasts for this model are more accurate compared to the AutoRegressive Integrated Moving Average models for both oil production and oil price. Analyzing the best model, we can conclude that the forecast of U.S. oil production shows an increase in production in the next years. On the other hand, the oil price forecast using the same model suggests that the price is likely to decrease. We can relate this behavior to the basic economic principle of supply and demand. The increase in oil production by the major oil producing country leads to an increase in supply. Higher supply tends to lower prices. There is a strong relationship between these variables when it comes to the energy market and these considerations must be taken into account when making decisions.
+
+:::
+
+<p align="center">
+  <img src="./images/oil_image_2.png" width=100% height=80%>
+</p>
+
+
+## Impacts on the Economy
+
+::: {.justify}
+
+The two macroeconomic indicators considered in this analysis are inflation and interest rates. Throughout this investigation, we were able to make a forecast for each of these variables. In the case of inflation rates, the predicted values increase over time. We assume that this increase is due to the decline of the U.S. economy after the COVID pandemic. Interest rates are on an upward trend with a very low interest rate, which means that interest rates are likely to rise slowly. The AutoRegressive Integrated Moving Average models with  oil price as an eXogenous variable show that oil price is not significant. For future considerations is important to evaluate the models using oil production as an exogenous variable.
+
+:::
+
+<p align="center">
+  <img src="./images/economy_image.png" width=100% height=80%>
+</p>
+
+## Impacts on Manufacturing Sectors
+
+::: {.justify}
+
+Financial Time Series Analysis was carried out to evaluate the impact of oil price and U.S. oil production on the manufacturing sector. For the food industry, we used stock data for Tyson Foods, Inc. This company's performance has improved in recent years and its price per share has increased compared to other companies in the analysis.  The main findings of this analysis are that the price of oil is not a significant variable in predicting the company's price per share, while U.S. oil production is. A similar analysis was conducted for the healthcare company Thermo Fisher Scientific Inc. U.S. oil production is a significant variable for the analysis, while oil price is not. From these analyses, we can conclude that manufacturing companies need oil production for their manufacturing activities and depend on its supply to perform better. As for the price, given the high demand for the resource, it is not a factor that influences the price.
+
+:::
+
+<p align="center">
+  <img src="./images/food_image.png" width=100% height=80%>
+</p>
+
+
+## Impacts on Transportation
+
+::: {.justify}
+
+Time series analysis is very helpful in identifying trends and seasonality in the data. Throughout this research, we were able to evaluate the presence of seasonality in the number of bus passengers over time. In the case of personal consumption expenditure on bicycles and air transport there is no clear pattern. We used different time series models to create predictions for each one of the variables. For number of bus passengers over time, oil price is an significant exogenous variable to make forecasts. This can be assessed by comparing the root-mean-square deviation for the Seasonal AutoRegressive Integrated Moving Average models with and without eXogenous variables. We observe the second model performs better. 
+
+:::
+
+
+<p align="center">
+  <img src="./images/transportation_image.png" width=100% height=80%>
+</p>
+
+<br>
+
+***
+
+
+::: {.signature}
+
+***Thank you for your attention. If you have any questions, please feel free to reach out to me.***
+
+
+*Maria Agustina Zuckerberg*
+
+:::

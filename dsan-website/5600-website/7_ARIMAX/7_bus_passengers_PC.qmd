@@ -1,0 +1,605 @@
+---
+title: "SARIMAX - Bus Passengers ~ Oil Price - Pre Covid Analysis"
+format:
+  html:
+    embed-resources: true
+---
+```{css, echo = FALSE}
+.justify {
+    text-align: justify !important;
+    text-indent: 20px; 
+}
+
+.epigrafe {
+    text-align: justify !important;
+    text-indent: 20px; 
+    border: 1.5px solid #87c8b5; 
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9; 
+    margin: 20px 0px 30px 0px;
+}
+```
+
+``` {r}
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Libraries"
+#| results: 'hide'
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa)
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(gridExtra)
+library(readxl)
+library(imputeTS)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+```
+
+### Dataset
+
+::: {.epigrafe}
+
+As it was analyzed in the previous section, we obtained the [Pre COVID Bus Passenger SARIMA model](https://mazuckerberg.georgetown.domains/DSAN_5600/6_ARMA/6_bus_passengers.html). Below are the steps followed to obtain a SARIMAX model for the bus passenger variable with oil price as an exogeonous variable.
+
+The individual datasets have a different timestamp, therefore the starting year is 2002 until 2019 included, to obtain a pre COVID analysis.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Import dataset
+df_bus_passengers_PC <- read_csv('../data/df_bus_passengers_PC.csv')
+
+# Import dataset
+df_oil_price_monthly_PC <- read_csv('../data/df_oil_price_monthly_PC.csv')
+
+# Create Date
+df_oil_price_monthly_PC <- df_oil_price_monthly_PC %>%
+  mutate(date2 = make_date(year(date), month(date), 01))
+
+# Check maximum starting date between datasets
+if(min(df_bus_passengers_PC$DATE) >= min(df_oil_price_monthly_PC$date))
+{
+    min_date <- min(df_bus_passengers_PC$DATE)
+}else 
+    {
+        min_date <-min(df_oil_price_monthly_PC$date)
+    }
+
+# Keep relevant columns
+df_oil_price_monthly_PC <- df_oil_price_monthly_PC %>% select('date2', 'adjusted')
+
+# Rename columns
+names(df_bus_passengers_PC) <- c('DATE', 'bus_passengers')
+
+# Rename columns
+names(df_oil_price_monthly_PC) <- c('DATE', 'oil_price')
+
+# Filter starting date
+df_bus_passengers_PC <- df_bus_passengers_PC %>% filter(DATE >= min_date)
+
+# Filter starting date
+df_oil_price_monthly_PC <- df_oil_price_monthly_PC %>% filter(DATE >= min_date)
+
+# Combine datasets
+dd <- merge(df_bus_passengers_PC, df_oil_price_monthly_PC, by.x = "DATE", by.y = "DATE", all = TRUE)
+
+# Order by Date sort ascending
+dd <- dd %>% arrange(DATE)
+
+# Create the time series object
+dd.ts <- ts(dd,star=decimal_date(min_date),frequency = 12)
+
+# Show table
+knitr::kable(head(dd))
+```
+
+### Plot
+
+::: {.epigrafe}
+
+The first step is to plot the time series fot both variables. In the second visualization, the bus passenger variable has been transformed with a log transformation. We can observe that the data is not being clearer so we decided to keep the original data.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Plot time series for both variables.
+autoplot(dd.ts[,c(2:3)], facets=TRUE) +
+  xlab("Date") + ylab("") +
+  ggtitle("Oil Price influencing Bus Passengers")
+```
+
+### Log Plot
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+lg.dd <- dd #making a copy
+lg.dd$bus_passengers<-log(dd$bus_passengers)
+
+
+lg.dd.ts<-ts(lg.dd,star=decimal_date(min_date),frequency = 12)
+
+
+autoplot(lg.dd.ts[,c(2:3)], facets=TRUE) +
+  xlab("Year") + ylab("") +
+  ggtitle("Oil Price influencing Log Bus Passengers")
+```
+
+### Linear Model
+
+::: {.epigrafe}
+
+The next step is to fit the linear model where we consider both variables that are being analized. The ACF and PACF plot for the residuals time series for the linear model is useful to observe high autocorrelation for most of the lags. 
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Create ts for Bus Passengers
+dd$bus_passengers <- ts(dd$bus_passengers, star=decimal_date(min_date),frequency = 12)
+
+# Create ts for Oil Price
+dd$oil_price <- ts(dd$oil_price, star=decimal_date(min_date),frequency = 12)
+
+# Fit the linear model
+fit.reg <- lm(bus_passengers ~ oil_price, data=dd)
+
+summary(fit.reg)
+```
+
+### Autocorrelation Plots
+
+``` {r, fig.width = 8, fig.height = 6}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+
+res.fit <- ts(residuals(fit.reg),star=decimal_date(min_date),frequency = 12)
+
+# ACF Plot
+acf_plot <- ggAcf(res.fit, main="ACF Plot for Residuals")
+
+# PACF Plot
+pacf_plot <- ggPacf(res.fit, main="PACF Plot for Residuals")
+
+# Arrange Plots
+grid.arrange(acf_plot, pacf_plot, nrow=2)
+```
+
+### Differencing
+
+::: {.epigrafe}
+
+In the first plot display we observe the first ordinary difference over the residuals of the fit. The ACF plot shows that there is high autocorrelation for 12 and 24 lags. Therefore, we decide to apply the first seasonal difference to the residuals of the fit. The ACF plot shows that there is high autocorrelation at the first lags, but it quickly tends  to be stationary as the lag values are contained within the confidence bands. Finally, we applied both the ordinary and seasonal first differences, but by looking at the ACF plot, we can see that there is high autocorrelation at several lags. Therefore, don't use both differencing approaches.
+:::
+
+::: {.panel-tabset}
+
+## diff()
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "First Ordinary Difference"
+#| warning: false
+
+# Ordinary Differencing
+res.fit %>% diff() %>% ggtsdisplay()
+```
+
+## diff(12)
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "First Seasonal Difference"
+#| warning: false
+
+# Seasonal Differencing
+res.fit %>% diff(12) %>% ggtsdisplay()
+```
+
+## diff() + diff(12)
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "First Ordinary + Seasonal Difference"
+#| warning: false
+
+# Ordinary and Seasonal Differencing
+res.fit %>% diff() %>% diff(12) %>% ggtsdisplay()
+```
+
+:::
+
+### Model Parameters
+
+::: {.epigrafe}
+
+Based on the ACF and PACF plot for the first seasonal difference on residuals, we define:
+
+$p = 3$ $P = 2$
+
+$d = 0$ $D = 1$
+
+$q = 0$ $Q = 2$
+
+:::
+
+::: {.panel-tabset}
+
+## Parameters
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+xt <- res.fit
+s <- 12
+
+#write a funtion
+SARIMA.c = function(p1,p2,q1,q2,P1,P2,Q1,Q2,data){
+
+    temp <- c()
+    d <- 0
+    D <- 1
+    s <- 12
+    n <- 40
+    
+    i <- 1
+    temp <- data.frame()
+    ls <- matrix(rep(NA,9*n),nrow=n)
+
+    for (p in p1:p2)
+    {
+        for(q in q1:q2)
+        {
+            for(P in P1:P2)
+            {
+                for(Q in Q1:Q2)
+                {
+                    if(p+d+q+P+D+Q<=12)
+                    {
+                        
+                        model<- Arima(data,order=c(p-1,d,q-1),seasonal = c(P-1,D,Q-1))
+                        ls[i,] <- c(p-1,d,q-1,P-1,D,Q-1,model$aic,model$bic, model$aicc)
+                        i <- i+1
+                        #print(i)
+                    }
+                }
+            }
+        }   
+    }
+    
+    temp <- as.data.frame(ls)
+    names(temp) <- c("p","d","q","P","D","Q","AIC","BIC","AICc")
+    temp <- na.omit(temp)
+
+    temp
+    #knitr::kable(temp)
+}
+
+temp <- SARIMA.c(p1=1,p2=3,q1=1,q2=3,P1=1,P2=2,Q1=1,Q2=2,data = xt)
+
+# knitr::kable(temp)
+```
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Check best model with AIC
+temp[which.min(temp$AIC),]
+
+# Check best model with BIC
+temp[which.min(temp$BIC),]
+
+# Check best model with AICc
+temp[which.min(temp$AICc),]
+```
+
+## auto.arima()
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+# Assign the exogenous variable
+xreg <- dd.ts[, "oil_price"]
+
+fit_auto_arima <- auto.arima(dd.ts[, "bus_passengers"], xreg = xreg)
+
+summary(fit_auto_arima)
+```
+
+:::
+
+### Model Summary
+
+::: {.epigrafe}
+
+Based on all the combinations, we observe that model 24 has the lowest AIC, BIC and AICc, with: 
+
+$p = 1$  -  $P = 1$
+
+$d = 0$  -  $D = 1$
+
+$q = 2$  -  $Q = 1$
+
+:::
+
+::: {.panel-tabset}
+
+## auto.arima()
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+p1 <- 1
+d1 <- 0
+q1 <- 0
+P1 <- 0
+D1 <- 1
+Q1 <- 2
+
+fit <- Arima(xt, order=c(p1, d1, q1), seasonal=c(P1, D1, Q1))
+summary(fit)
+```
+
+## AIC
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+AIC <- temp[which.min(temp$AIC),]
+
+p1 <- AIC$p
+d1 <- AIC$d
+q1 <- AIC$q
+P1 <- AIC$P
+D1 <- AIC$D
+Q1 <- AIC$Q
+
+fit <- Arima(xt, order=c(p1, d1, q1), seasonal=c(P1, D1, Q1))
+summary(fit)
+```
+
+:::
+
+### Cross Validation
+
+::: {.epigrafe}
+
+Considering that the auto.arima() model predicted a seasonal model when there is no seasnoal decomposition for this dataset, we decide to exlude it from the analysis.
+:::
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+x <- xt
+
+k <- 12
+n <- length(x)
+rmse1 <- matrix(NA,n-k,12)
+rmse2 <- matrix(NA,n-k,12)
+
+st <- tsp(x)[1]+(k-2)/12
+
+# for(i in 1:(n-k))
+# {
+
+#   xtrain <- window(x, end = st + i/12)
+#   xtest <- window(x, start = st + (i+1)/12, end = st + (i+12)/12)
+
+#   # Model 1: ARIMA(1,0,2)(1,1,1)[12]
+#   # Model 2: ARIMA(1,0,0)(0,1,2)[12]
+  
+#   fit <- Arima(xtrain, order=c(p1,d1,q1), seasonal=list(order=c(P1,D1,Q1), period=12),
+#                 include.drift=FALSE, method="ML")
+#   fcast <- forecast(fit, h=12)
+  
+#   fit2 <- Arima(xtrain, order=c(p2,d2,q2), seasonal=list(order=c(P2,D2,Q2), period=12),
+#                 include.drift=FALSE, method="ML")
+#   fcast2 <- forecast(fit2, h=12)
+  
+#   rmse1[i,1:length(xtest)]  <- sqrt((fcast$mean-xtest)^2)
+#   rmse2[i,1:length(xtest)] <- sqrt((fcast2$mean-xtest)^2)
+  
+# }
+
+# plot(1:4, colMeans(rmse1,na.rm=TRUE), type="l", col=2, xlab="horizon", ylab="RMSE")
+# lines(1:4, colMeans(rmse2,na.rm=TRUE), type="l",col=3)
+
+# legend("topleft",legend=c("fit1: Best Model","fit2: auto.arima model"),col=2:3,lty=1)
+
+# p <- best_model$p
+# d <- best_model$d
+# q <- best_model$q
+# P <- best_model$P
+# D <- best_model$D
+# Q <- best_model$Q
+
+# model <- Arima(xt, order=c(p, d, q), seasonal=c(P,D,Q))
+```
+
+### Model Diagnostics
+
+::: {.epigrafe}
+
+After using cross validation, we can confirm that the best model is the first one: ARIMA(1,0,2)(1,1,1)[12]. In addition, the performance metric values, AIC, BIC and AICc, have lower values compared to the auto.arima(). Therefore, we procede to plot the model diagnostics.
+
+Here we can observe that the residuals plot looks like white noise. The standard residuals are approximately normal as they lie on the normal curve in the Q-Q plot. The ACF plot for residuals shows almost no autocorrelation left and the p values for Ljung-Box are close to the significance band.
+:::
+
+::: {.panel-tabset}
+
+## auto.arima()
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+AIC <- temp[which.min(temp$AIC),]
+
+p1 <- AIC$p
+d1 <- AIC$d
+q1 <- AIC$q
+P1 <- AIC$P
+D1 <- AIC$D
+Q1 <- AIC$Q
+
+fit <- Arima(xt, order=c(p1, d1, q1), seasonal=c(P1, D1, Q1))
+
+model_output <- capture.output(sarima(xt, p1, d1, q1, P1, D1, Q1, s))
+```
+
+## AIC
+
+
+``` {r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+best_model <- temp[which.min(temp$AIC),]
+
+p <- best_model$p
+d <- best_model$d
+q <- best_model$q
+P <- best_model$P
+D <- best_model$D
+Q <- best_model$Q
+
+model_output <- capture.output(sarima(xt, p1, d1, q1, P1, D1, Q1, s))
+
+model <- Arima(dd.ts[, "bus_passengers"], order=c(p, d, q), seasonal=c(P,D,Q) , xreg = xreg)
+```
+
+:::
+
+### Model Equation with Latex
+
+::: {.epigrafe}
+
+\begin{align}
+x_t &= 0.9790 x_{t-1} - 0.8660 w_{t-1} + 0.2807 w_{t-2} + 0.2446 x_{t-12} - 0.9400 w_{t-12} + w_t
+\end{align}
+
+:::
+
+### Forecast Plot
+
+``` {r, fig.width = 8, fig.height = 4}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "{r}"
+#| warning: false
+
+forecast_fit <- forecast(fit,36)
+
+# Path to save plot
+file_path <- "../images/7_bus_passengers_PC.png"
+
+# Plot
+plot <- autoplot(forecast_fit)
+
+# Use ggsave to save the plot as a PNG image
+ggsave(plot, filename = file_path, width = 10, height = 5)
+
+# Show plot
+plot
+```
+
+### Benchmark Models
+
+``` {r, fig.width = 8, fig.height = 3}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Benchmark Models Plot"
+#| warning: false
+
+autoplot(xt) +
+  autolayer(meanf(xt, h=11),
+            series="Mean", PI=FALSE) +
+  autolayer(naive(xt, h=11),
+            series="Naïve", PI=FALSE) +
+  autolayer(snaive(xt, h=11),
+            series="Seasonal naïve", PI=FALSE) +
+  autolayer(forecast(forecast_fit, h=11),
+            series="Fit", PI=FALSE) +
+  ggtitle("Forecasts for Oil Price") +
+  xlab("Year") + ylab("Price") +
+  guides(colour=guide_legend(title="Forecast"))
+```
